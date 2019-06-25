@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{AFBE674F-3F2A-4B26-8C34-E9D0B0A63E62}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <LangVersion>8.0</LangVersion>
+    <AssemblyName>UnityScript.Lang</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Boo.Lang, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Extensions, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.PatternMatching, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.PatternMatching.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Useful, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.Useful.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>C:\src\headless\lib\System.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompilerGenerated\-adaptor-__ExpandoServices-callable0-60_29__-Predicate-0.cs" />
+    <Compile Include="CompilerGenerated\__ExpandoServices-callable0-60_29__.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnityScript.Lang\Array.cs" />
+    <Compile Include="UnityScript.Lang\Expando.cs" />
+    <Compile Include="UnityScript.Lang\ExpandoServices.cs" />
+    <Compile Include="UnityScript.Lang\Extensions.cs" />
+    <Compile Include="UnityScript.Lang\ListUpdateableEnumerator.cs" />
+    <Compile Include="UnityScript.Lang\UnityBuiltins.cs" />
+    <Compile Include="UnityScript.Lang\UnityRuntimeServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,42 @@
+namespace KCV
+{
+	public enum ParticleFileInfos
+	{
+		PARTICLE_FILE_INFOS_ID_ST = 0,
+		PARTICLE_FILE_INFOS_ID_BEF = -1,
+		BattlePSTorpedowake = 0,
+		BattlePSTorpedowakeD = 1,
+		BattlePSExprosionS = 2,
+		BattleAdventFleetCloud = 3,
+		BattlePSSplashTorpedo = 4,
+		BattlePSSplashTorpedoD = 5,
+		BattlePSSplashSmoke = 6,
+		BattlePSSinkSpray = 7,
+		BattlePSDetectionRipple = 8,
+		BattlePSTorpedoAircraft = 9,
+		BattleExplosionAircraft = 10,
+		BattleExplosion2Aircraft = 11,
+		BattlePSAircraftLost2D = 12,
+		BattlePSAircraftLost3D = 13,
+		BattlePSAircraftSmoke = 14,
+		BattlePSAircraftStrafe = 0xF,
+		BattlePSExprosionB1 = 0x10,
+		BattlePSExprosionB2 = 17,
+		BattlePSExprosionB3 = 18,
+		BattlePSExprosionB4 = 19,
+		BattlePSExprosionEx1 = 20,
+		BattlePSExprosionEx2 = 21,
+		BattlePSAntiAircraft = 22,
+		BattlePSDepthChargeShot = 23,
+		BattlePSDepthCharge = 24,
+		BattlePSBullet = 25,
+		BattlePSBulletDis = 26,
+		BattleFlareLight = 27,
+		BattleFlareLight2 = 28,
+		BattleFlareStart = 29,
+		BattleSplashMissColumn = 30,
+		PARTICLE_FILE_INFOS_ID_AFT = 0x1F,
+		PARTICLE_FILE_INFOS_ID_NUM = 0x1F,
+		PARTICLE_FILE_INFOS_ID_ED = 30
+	}
+}
