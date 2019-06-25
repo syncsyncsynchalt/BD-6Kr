@@ -162,12 +162,15 @@ namespace UnityEngine
 		[TypeInferenceRule(TypeInferenceRules.TypeReferencedByFirstArgument)]
 		public static Object FindObjectOfType(Type type)
 		{
-			Object[] array = FindObjectsOfType(type);
-			if (array.Length > 0)
-			{
-				return array[0];
-			}
-			return null;
+            var klass = Activator.CreateInstance(type);
+            return (UnityEngine.Object) klass;
+
+            // Object[] array = FindObjectsOfType(type);
+			// if (array.Length > 0)
+			// {
+			//  return array[0];
+			// }
+			// return null;
 		}
 
 		public static T FindObjectOfType<T>() where T : Object
