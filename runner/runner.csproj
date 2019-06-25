@@ -57,6 +57,10 @@
       <Project>{513702c6-54e5-429c-95b4-f51e28c0b0c2}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{0193954d-af31-4645-ba24-0ee72bd7f5ee}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
