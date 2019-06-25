@@ -1,5 +1,6 @@
 using System;
 
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
@@ -21,7 +22,20 @@ namespace UnityEngine
 			}
 		}
 
-		public static int GetInt(string key, [DefaultValue("0")] int defaultValue) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static int GetInt(string key, [DefaultValue("0")] int defaultValue) {
+
+            // TODO: ‚¿‚á‚ñ‚Æ‚·‚é
+            var playerPrefs = new Dictionary<string, int>() {
+                { "VolumeBGM", 50 },
+                { "VolumeSE", 50 },
+                { "VolumeVoice", 50 },
+                { "GuideDisplay", 0 },
+            };
+
+            if (!playerPrefs.ContainsKey(key)) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+
+            return playerPrefs[key];
+        }
 
 		[ExcludeFromDocs]
 		public static int GetInt(string key)
