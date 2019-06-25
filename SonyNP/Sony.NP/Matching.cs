@@ -4,638 +4,360 @@ using System.Runtime.InteropServices;
 
 namespace Sony.NP
 {
-	public class Matching
-	{
-		public enum EnumSessionType
-		{
-			SESSION_TYPE_DEFAULT = 0,
-			SESSION_TYPE_PUBLIC = 4,
-			SESSION_TYPE_PRIVATE = 8
-		}
-
-		[Flags]
-		public enum FlagSessionCreate
-		{
-			CREATE_DEFAULT = 0x0,
-			CREATE_SIGNALING_MESH_SESSION = 0x4,
-			CREATE_PASSWORD_SESSION = 0x10,
-			CREATE_ALLOW_BLOCK_LIST_SESSION = 0x20,
-			CREATE_HOST_MIGRATION_SESSION = 0x40,
-			CREATE_NAT_RESTRICTED_SESSION = 0x80
-		}
-
-		[Flags]
-		public enum FlagSessionSearch
-		{
-			SEARCH_FRIENDS_SESSIONS = 0x400,
-			SEARCH_REGIONAL_SESSIONS = 0x1000,
-			SEARCH_RECENTLY_MET_SESSIONS = 0x4000,
-			SEARCH_RANDOM_SESSIONS = 0x40000,
-			SEARCH_NAT_RESTRICTED_SESSIONS = 0x100000
-		}
-
-		public enum EnumAttributeType
-		{
-			SESSION_SEARCH_ATTRIBUTE = 2,
-			SESSION_EXTERNAL_ATTRIBUTE = 4,
-			SESSION_INTERNAL_ATTRIBUTE = 8,
-			SESSION_MEMBER_ATTRIBUTE = 0x10
-		}
-
-		public enum EnumAttributeValueType
-		{
-			SESSION_ATTRIBUTE_VALUE_INT = 2,
-			SESSION_ATTRIBUTE_VALUE_BINARY = 4
-		}
-
-		public enum EnumAttributeMaxSize
-		{
-			SESSION_ATTRIBUTE_MAX_SIZE_12 = 2,
-			SESSION_ATTRIBUTE_MAX_SIZE_28 = 4,
-			SESSION_ATTRIBUTE_MAX_SIZE_60 = 8,
-			SESSION_ATTRIBUTE_MAX_SIZE_124 = 0x10,
-			SESSION_ATTRIBUTE_MAX_SIZE_252 = 0x20
-		}
-
-		public enum EnumSearchOperators
-		{
-			MATCHING_OPERATOR_INVALID,
-			MATCHING_OPERATOR_EQ,
-			MATCHING_OPERATOR_NE,
-			MATCHING_OPERATOR_LT,
-			MATCHING_OPERATOR_LE,
-			MATCHING_OPERATOR_GT,
-			MATCHING_OPERATOR_GE
-		}
-
-		[Flags]
-		public enum FlagMemberType
-		{
-			MEMBER_OWNER = 0x2,
-			MEMBER_MYSELF = 0x4
-		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		public class SessionAttribute
-		{
-			private IntPtr _name;
-
-			private IntPtr _binValue;
-
-			public int intValue;
-
-			public EnumSearchOperators searchOperator;
-
-			public string name
-			{
-				set
-				{
-					_name = Marshal.StringToCoTaskMemAnsi(value);
-				}
-			}
-
-			public string binValue
-			{
-				set
-				{
-					_binValue = Marshal.StringToCoTaskMemAnsi(value);
-				}
-			}
-
-			~SessionAttribute()
-			{
-				Marshal.FreeCoTaskMem(_binValue);
-			}
-		}
+    public class Matching
+    {
+        public enum EnumSessionType
+        {
+            SESSION_TYPE_DEFAULT = 0,
+            SESSION_TYPE_PUBLIC = 4,
+            SESSION_TYPE_PRIVATE = 8
+        }
+
+        [Flags]
+        public enum FlagSessionCreate
+        {
+            CREATE_DEFAULT = 0x0,
+            CREATE_SIGNALING_MESH_SESSION = 0x4,
+            CREATE_PASSWORD_SESSION = 0x10,
+            CREATE_ALLOW_BLOCK_LIST_SESSION = 0x20,
+            CREATE_HOST_MIGRATION_SESSION = 0x40,
+            CREATE_NAT_RESTRICTED_SESSION = 0x80
+        }
+
+        [Flags]
+        public enum FlagSessionSearch
+        {
+            SEARCH_FRIENDS_SESSIONS = 0x400,
+            SEARCH_REGIONAL_SESSIONS = 0x1000,
+            SEARCH_RECENTLY_MET_SESSIONS = 0x4000,
+            SEARCH_RANDOM_SESSIONS = 0x40000,
+            SEARCH_NAT_RESTRICTED_SESSIONS = 0x100000
+        }
+
+        public enum EnumAttributeType
+        {
+            SESSION_SEARCH_ATTRIBUTE = 2,
+            SESSION_EXTERNAL_ATTRIBUTE = 4,
+            SESSION_INTERNAL_ATTRIBUTE = 8,
+            SESSION_MEMBER_ATTRIBUTE = 0x10
+        }
+
+        public enum EnumAttributeValueType
+        {
+            SESSION_ATTRIBUTE_VALUE_INT = 2,
+            SESSION_ATTRIBUTE_VALUE_BINARY = 4
+        }
+
+        public enum EnumAttributeMaxSize
+        {
+            SESSION_ATTRIBUTE_MAX_SIZE_12 = 2,
+            SESSION_ATTRIBUTE_MAX_SIZE_28 = 4,
+            SESSION_ATTRIBUTE_MAX_SIZE_60 = 8,
+            SESSION_ATTRIBUTE_MAX_SIZE_124 = 0x10,
+            SESSION_ATTRIBUTE_MAX_SIZE_252 = 0x20
+        }
+
+        public enum EnumSearchOperators
+        {
+            MATCHING_OPERATOR_INVALID,
+            MATCHING_OPERATOR_EQ,
+            MATCHING_OPERATOR_NE,
+            MATCHING_OPERATOR_LT,
+            MATCHING_OPERATOR_LE,
+            MATCHING_OPERATOR_GT,
+            MATCHING_OPERATOR_GE
+        }
+
+        [Flags]
+        public enum FlagMemberType
+        {
+            MEMBER_OWNER = 0x2,
+            MEMBER_MYSELF = 0x4
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public class SessionAttribute
+        {
+            public int intValue;
+
+            public EnumSearchOperators searchOperator;
+
+            public string name
+            {
+                set
+                {
+                }
+            }
+
+            public string binValue
+            {
+                set
+                {
+                }
+            }
+
+            ~SessionAttribute()
+            {
+            }
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public class ModifySessionAttribute
+        {
+            public int intValue;
 
-		[StructLayout(LayoutKind.Sequential)]
-		public class ModifySessionAttribute
-		{
-			private IntPtr _name;
+            public string name
+            {
+                set
+                {
+                }
+            }
 
-			private IntPtr _binValue;
+            public string binValue
+            {
+                set
+                {
+                }
+            }
 
-			public int intValue;
+            ~ModifySessionAttribute()
+            {
+            }
+        }
 
-			public string name
-			{
-				set
-				{
-					_name = Marshal.StringToCoTaskMemAnsi(value);
-				}
-			}
+        public struct Session
+        {
+            public SessionInfo sessionInfo;
 
-			public string binValue
-			{
-				set
-				{
-					_binValue = Marshal.StringToCoTaskMemAnsi(value);
-				}
-			}
+            public SessionAttributeInfo[] sessionAttributes;
 
-			~ModifySessionAttribute()
-			{
-				Marshal.FreeCoTaskMem(_binValue);
-			}
-		}
+            public SessionMemberInfo[] members;
 
-		public struct Session
-		{
-			public SessionInfo sessionInfo;
+            public List<SessionAttributeInfo[]> memberAttributes;
+        }
 
-			public SessionAttributeInfo[] sessionAttributes;
+        public struct SessionInfo
+        {
+            public int sessionID;
 
-			public SessionMemberInfo[] members;
+            public int maxMembers;
 
-			public List<SessionAttributeInfo[]> memberAttributes;
-		}
+            public int numMembers;
 
-		public struct SessionInfo
-		{
-			private IntPtr _sessionName;
+            public int numSessionAttributes;
 
-			public int sessionID;
+            public int reservedSlots;
 
-			public int maxMembers;
+            public int openSlots;
 
-			public int numMembers;
+            public int worldId;
 
-			public int numSessionAttributes;
+            public int serverId;
 
-			public int reservedSlots;
+            public int matchingContext;
 
-			public int openSlots;
+            public ulong roomId;
+            public string sessionName => "";
+        }
 
-			public int worldId;
+        public struct SessionAttributeInfo
+        {
+            public EnumAttributeType attributeType;
 
-			public int serverId;
+            public EnumSearchOperators searchOperator;
 
-			public int matchingContext;
+            public EnumAttributeMaxSize maxSize;
 
-			public ulong roomId;
+            public EnumAttributeValueType attributeValueType;
 
-			public string sessionName => Marshal.PtrToStringAnsi(_sessionName);
-		}
+            public int attributeIntValue;
 
-		public struct SessionAttributeInfo
-		{
-			private IntPtr _attribute;
+            public string attributeName => "";
 
-			public EnumAttributeType attributeType;
+            public string attributeBinValue => "";
+        }
 
-			public EnumSearchOperators searchOperator;
+        public struct SessionMemberInfo
+        {
+            public int memberId;
 
-			public EnumAttributeMaxSize maxSize;
+            public int natType;
 
-			public EnumAttributeValueType attributeValueType;
+            public FlagMemberType memberFlag;
 
-			public int attributeIntValue;
+            public ulong joinDate;
 
-			private IntPtr _attributeBinValue;
+            public int addr;
 
-			public string attributeName => Marshal.PtrToStringAnsi(_attribute);
+            public int port;
 
-			public string attributeBinValue => Marshal.PtrToStringAnsi(_attributeBinValue);
-		}
+            public byte[] npID
+            {
+                get
+                {
+                    return new byte[] { };
+                }
+            }
 
-		public struct SessionMemberInfo
-		{
-			private IntPtr _npID;
+            public string npOnlineID => "";
+        }
 
-			private int npIDSize;
+        private static bool hosting = false;
 
-			private IntPtr _npOnlineID;
+        public static bool InSession => false;
 
-			public int memberId;
+        public static bool IsHost => false;
 
-			public int natType;
+        public static bool SessionIsBusy => false;
 
-			public FlagMemberType memberFlag;
+        public static event Messages.EventHandler OnCreatedSession;
 
-			public ulong joinDate;
+        public static event Messages.EventHandler OnFoundSessions;
 
-			public int addr;
+        public static event Messages.EventHandler OnJoinedSession;
 
-			public int port;
+        public static event Messages.EventHandler OnJoinInvalidSession;
 
-			public byte[] npID
-			{
-				get
-				{
-					byte[] array = new byte[npIDSize];
-					Marshal.Copy(_npID, array, 0, npIDSize);
-					return array;
-				}
-			}
+        public static event Messages.EventHandler OnUpdatedSession;
 
-			public string npOnlineID => Marshal.PtrToStringAnsi(_npOnlineID);
-		}
+        public static event Messages.EventHandler OnLeftSession;
 
-		private static bool hosting = false;
+        public static event Messages.EventHandler OnSessionDestroyed;
 
-		public static bool InSession => PrxSessionInSession();
+        public static event Messages.EventHandler OnKickedOut;
 
-		public static bool IsHost => hosting;
+        public static event Messages.EventHandler OnSessionError;
 
-		public static bool SessionIsBusy => PrxSessionIsBusy();
+        public static bool GetLastError(out ResultCode result)
+        {
+            result = new ResultCode();
+            return false;
+        }
 
-		public static event Messages.EventHandler OnCreatedSession;
+        public static ErrorCode ClearAttributeDefinitions()
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnFoundSessions;
+        public static ErrorCode AddAttributeDefinitionInt(string name, EnumAttributeType type)
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnJoinedSession;
+        public static ErrorCode AddAttributeDefinitionBin(string name, EnumAttributeType type, EnumAttributeMaxSize maxSize)
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnJoinInvalidSession;
+        public static ErrorCode RegisterAttributeDefinitions()
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnUpdatedSession;
+        public static ErrorCode ClearSessionAttributes()
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnLeftSession;
+        public static ErrorCode AddSessionAttribute(SessionAttribute sessionAttribute)
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnSessionDestroyed;
+        public static ErrorCode CreateSession(string name, int serverID, int worldID, int numSlots, string password, FlagSessionCreate creationFlags, EnumSessionType sessionType, string ps4SessionStatus)
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnKickedOut;
+        public static ErrorCode CreateFriendsSession(string name, int serverID, int worldID, int numSlots, int friendSlots, string password, FlagSessionCreate creationFlags, string ps4SessionStatus)
+        {
+            return new ErrorCode();
+        }
 
-		public static event Messages.EventHandler OnSessionError;
+        public static ErrorCode JoinSession(int sessionID, string password)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		[return: MarshalAs(UnmanagedType.I1)]
-		private static extern bool PrxSessionIsBusy();
+        public static ErrorCode JoinInvitedSession(string password)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		[return: MarshalAs(UnmanagedType.I1)]
-		private static extern bool PrxSessionGetLastError(out ResultCode result);
+        public static ErrorCode JoinInvitedSession()
+        {
+            return new ErrorCode();
+        }
 
-		public static bool GetLastError(out ResultCode result)
-		{
-			PrxSessionGetLastError(out result);
-			return result.lastError == ErrorCode.NP_OK;
-		}
+        public static ErrorCode ClearModifySessionAttributes()
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		[return: MarshalAs(UnmanagedType.I1)]
-		private static extern bool PrxSessionInSession();
+        public static ErrorCode AddModifySessionAttribute(ModifySessionAttribute sessionAttribute)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionClearAttributeDefinitions();
+        public static ErrorCode ModifySession(EnumAttributeType attributeType)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxSessionAddAttributeDefinition(string name, EnumAttributeType type, EnumAttributeValueType valueType, EnumAttributeMaxSize maxSize);
+        public static Session GetSession()
+        {
+            return new Session();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionRegisterAttributeDefinitions();
+        public static IntPtr GetSessionInformationPtr()
+        {
+            return new IntPtr();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionClearAttributes();
+        public static ErrorCode LeaveSession()
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionAddAttribute(SessionAttribute sessionAttribute);
+        public static ErrorCode FindSession(int serverID, int worldID)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxSessionCreateSession(string name, int serverID, int worldID, int numSlots, string password, FlagSessionCreate creationFlags, EnumSessionType sessionType, string ps4SessionStatus);
+        public static ErrorCode FindSession(int serverID, int worldID, FlagSessionSearch flags)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxSessionCreateFriendsSession(string name, int serverID, int worldID, int numSlots, int numFriendSlots, string password, FlagSessionCreate creationFlags, string ps4SessionStatus);
+        public static ErrorCode FindSessionFriends(int serverID, int worldID)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxSessionJoinSession(int sessionID, string password);
+        public static ErrorCode FindSessionRegional(int serverID, int worldID)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionJoinInvitedSession(string password);
+        public static Session[] GetFoundSessionList()
+        {
+            return new Session[] { };
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionModifyClearAttributes();
+        public static ErrorCode InviteToSession(string text, int npIDCount)
+        {
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionModifyAddAttribute(ModifySessionAttribute attribute);
+        public static ErrorCode GetSessionInviteSessionAttribute(string attributeName, out SessionAttributeInfo info)
+        {
+            info = new SessionAttributeInfo();
+            return new ErrorCode();
+        }
 
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionModifySession(EnumAttributeType attributeType);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetSessionInfo(out SessionInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockSessionAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockSessionAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetSessionAttributeListCount();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetSessionAttributeInfo(int index, out SessionAttributeInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockSessionMemberList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockSessionMemberList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetSessionMemberListCount();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetSessionMemberInfo(int index, out SessionMemberInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockSessionMemberAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockSessionMemberAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetSessionMemberAttributeListCount(int memberIndex);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetSessionMemberAttributeInfo(int memberIndex, int index, out SessionAttributeInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionLeaveSession();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionFind(int serverID, int worldID);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionFindCustom(int serverID, int worldID, FlagSessionSearch flags);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionFindFriends(int serverID, int worldID);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxSessionFindRegional(int serverID, int worldID);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockFoundSessionList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockFoundSessionList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetFoundSessionListCount();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetFoundSessionInfo(int sessionIndex, out SessionInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockFoundSessionAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockFoundSessionAttributeList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetFoundSessionAttributeListCount(int sessionIndex);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetFoundSessionAttributeInfo(int sessionIndex, int attributeIndex, out SessionAttributeInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockFoundSessionMemberList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockFoundSessionMemberList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetFoundSessionMemberListCount(int sessionIndex);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetFoundSessionMemberInfo(int sessionIndex, int memberIndex, out SessionMemberInfo info);
-
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxInviteToSession(string text, int ps4NpIDCount);
-
-		[DllImport("UnityNpToolkit", CharSet = CharSet.Ansi)]
-		private static extern ErrorCode PrxGetSessionInviteSessionAttribute(string attributeName, out SessionAttributeInfo info);
-
-		[DllImport("UnityNpToolkit")]
-		private static extern IntPtr PrxGetSessionInformationPtr();
-
-		public static ErrorCode ClearAttributeDefinitions()
-		{
-			return PrxSessionClearAttributeDefinitions();
-		}
-
-		public static ErrorCode AddAttributeDefinitionInt(string name, EnumAttributeType type)
-		{
-			return PrxSessionAddAttributeDefinition(name, type, EnumAttributeValueType.SESSION_ATTRIBUTE_VALUE_INT, (EnumAttributeMaxSize)0);
-		}
-
-		public static ErrorCode AddAttributeDefinitionBin(string name, EnumAttributeType type, EnumAttributeMaxSize maxSize)
-		{
-			return PrxSessionAddAttributeDefinition(name, type, EnumAttributeValueType.SESSION_ATTRIBUTE_VALUE_BINARY, maxSize);
-		}
-
-		public static ErrorCode RegisterAttributeDefinitions()
-		{
-			return PrxSessionRegisterAttributeDefinitions();
-		}
-
-		public static ErrorCode ClearSessionAttributes()
-		{
-			return PrxSessionClearAttributes();
-		}
-
-		public static ErrorCode AddSessionAttribute(SessionAttribute sessionAttribute)
-		{
-			return PrxSessionAddAttribute(sessionAttribute);
-		}
-
-		public static ErrorCode CreateSession(string name, int serverID, int worldID, int numSlots, string password, FlagSessionCreate creationFlags, EnumSessionType sessionType, string ps4SessionStatus)
-		{
-			return PrxSessionCreateSession(name, serverID, worldID, numSlots, password, creationFlags, sessionType, ps4SessionStatus);
-		}
-
-		public static ErrorCode CreateFriendsSession(string name, int serverID, int worldID, int numSlots, int friendSlots, string password, FlagSessionCreate creationFlags, string ps4SessionStatus)
-		{
-			return PrxSessionCreateFriendsSession(name, serverID, worldID, numSlots, friendSlots, password, creationFlags, ps4SessionStatus);
-		}
-
-		public static ErrorCode JoinSession(int sessionID, string password)
-		{
-			return PrxSessionJoinSession(sessionID, password);
-		}
-
-		public static ErrorCode JoinInvitedSession(string password)
-		{
-			return PrxSessionJoinInvitedSession(password);
-		}
-
-		public static ErrorCode JoinInvitedSession()
-		{
-			return PrxSessionJoinInvitedSession("");
-		}
-
-		public static ErrorCode ClearModifySessionAttributes()
-		{
-			return PrxSessionModifyClearAttributes();
-		}
-
-		public static ErrorCode AddModifySessionAttribute(ModifySessionAttribute sessionAttribute)
-		{
-			return PrxSessionModifyAddAttribute(sessionAttribute);
-		}
-
-		public static ErrorCode ModifySession(EnumAttributeType attributeType)
-		{
-			return PrxSessionModifySession(attributeType);
-		}
-
-		public static Session GetSession()
-		{
-			Session result = default(Session);
-			result.sessionInfo = default(SessionInfo);
-			PrxGetSessionInfo(out result.sessionInfo);
-			PrxLockSessionAttributeList();
-			int num = PrxGetSessionAttributeListCount();
-			result.sessionAttributes = new SessionAttributeInfo[num];
-			for (int i = 0; i < num; i++)
-			{
-				PrxGetSessionAttributeInfo(i, out result.sessionAttributes[i]);
-			}
-			int num2 = PrxGetSessionMemberListCount();
-			result.members = new SessionMemberInfo[num2];
-			result.memberAttributes = new List<SessionAttributeInfo[]>();
-			for (int j = 0; j < num2; j++)
-			{
-				PrxGetSessionMemberInfo(j, out result.members[j]);
-				int num3 = PrxGetSessionMemberAttributeListCount(j);
-				SessionAttributeInfo[] array = new SessionAttributeInfo[num3];
-				for (int k = 0; k < num3; k++)
-				{
-					PrxGetSessionMemberAttributeInfo(j, k, out array[k]);
-				}
-				result.memberAttributes.Add(array);
-			}
-			PrxUnlockSessionAttributeList();
-			return result;
-		}
-
-		public static IntPtr GetSessionInformationPtr()
-		{
-			return PrxGetSessionInformationPtr();
-		}
-
-		public static ErrorCode LeaveSession()
-		{
-			return PrxSessionLeaveSession();
-		}
-
-		public static ErrorCode FindSession(int serverID, int worldID)
-		{
-			return PrxSessionFind(serverID, worldID);
-		}
-
-		public static ErrorCode FindSession(int serverID, int worldID, FlagSessionSearch flags)
-		{
-			return PrxSessionFindCustom(serverID, worldID, flags);
-		}
-
-		public static ErrorCode FindSessionFriends(int serverID, int worldID)
-		{
-			return PrxSessionFindFriends(serverID, worldID);
-		}
-
-		public static ErrorCode FindSessionRegional(int serverID, int worldID)
-		{
-			return PrxSessionFindRegional(serverID, worldID);
-		}
-
-		public static Session[] GetFoundSessionList()
-		{
-			PrxLockFoundSessionList();
-			int num = PrxGetFoundSessionListCount();
-			Session[] array = new Session[num];
-			for (int i = 0; i < num; i++)
-			{
-				array[i].sessionInfo = default(SessionInfo);
-				PrxGetFoundSessionInfo(i, out array[i].sessionInfo);
-				int num2 = PrxGetFoundSessionAttributeListCount(i);
-				array[i].sessionAttributes = new SessionAttributeInfo[num2];
-				for (int j = 0; j < num2; j++)
-				{
-					PrxGetFoundSessionAttributeInfo(i, j, out array[i].sessionAttributes[j]);
-				}
-			}
-			PrxUnlockFoundSessionList();
-			return array;
-		}
-
-		public static ErrorCode InviteToSession(string text, int npIDCount)
-		{
-			return PrxInviteToSession(text, npIDCount);
-		}
-
-		public static ErrorCode GetSessionInviteSessionAttribute(string attributeName, out SessionAttributeInfo info)
-		{
-			return PrxGetSessionInviteSessionAttribute(attributeName, out info);
-		}
-
-		public static bool ProcessMessage(Messages.PluginMessage msg)
-		{
-			switch (msg.type)
-			{
-			case Messages.MessageType.kNPToolKit_MatchingCreatedSession:
-				hosting = true;
-				if (Matching.OnCreatedSession != null)
-				{
-					Matching.OnCreatedSession(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingFoundSessions:
-				if (Matching.OnFoundSessions != null)
-				{
-					Matching.OnFoundSessions(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingJoinInvalidSession:
-				if (Matching.OnJoinInvalidSession != null)
-				{
-					Matching.OnJoinInvalidSession(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingJoinedSession:
-				hosting = false;
-				if (Matching.OnJoinedSession != null)
-				{
-					Matching.OnJoinedSession(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingUpdatedSession:
-				if (Matching.OnUpdatedSession != null)
-				{
-					Matching.OnUpdatedSession(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingLeftSession:
-				hosting = false;
-				if (Matching.OnLeftSession != null)
-				{
-					Matching.OnLeftSession(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingRoomDestroyed:
-				hosting = false;
-				if (Matching.OnSessionDestroyed != null)
-				{
-					Matching.OnSessionDestroyed(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingKickedOut:
-				hosting = false;
-				if (Matching.OnKickedOut != null)
-				{
-					Matching.OnKickedOut(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_MatchingError:
-				if (Matching.OnSessionError != null)
-				{
-					Matching.OnSessionError(msg);
-				}
-				return true;
-			default:
-				return false;
-			}
-		}
-	}
+        public static bool ProcessMessage(Messages.PluginMessage msg)
+        {
+            return false;
+        }
+    }
 }

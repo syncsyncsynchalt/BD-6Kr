@@ -40,7 +40,10 @@ namespace Runner
             }
             debug_Mod.Add_Ship(list);
 
-            // var ud = Comm_UserDatas.Instance;
+            var userData = Comm_UserDatas.Instance;
+
+
+
             // var ui = (new LocalManager()).UserInfo;
             // LocalManager localManager = new LocalManager();
 

@@ -3,176 +3,94 @@ using System.Runtime.InteropServices;
 
 namespace Sony.NP
 {
-	public class Friends
-	{
-		public enum EnumNpOnlineStatus
-		{
-			ONLINE_STATUS_UNKNOWN,
-			ONLINE_STATUS_OFFLINE,
-			ONLINE_STATUS_AFK,
-			ONLINE_STATUS_ONLINE
-		}
+    public class Friends
+    {
+        public enum EnumNpOnlineStatus
+        {
+            ONLINE_STATUS_UNKNOWN,
+            ONLINE_STATUS_OFFLINE,
+            ONLINE_STATUS_AFK,
+            ONLINE_STATUS_ONLINE
+        }
 
-		public enum EnumNpPresenceType
-		{
-			IN_GAME_PRESENCE_TYPE_UNKNOWN = -1,
-			IN_GAME_PRESENCE_TYPE_NONE,
-			IN_GAME_PRESENCE_TYPE_DEFAULT,
-			IN_GAME_PRESENCE_TYPE_GAME_JOINING,
-			IN_GAME_PRESENCE_TYPE_GAME_JOINING_ONLY_FOR_PARTY,
-			IN_GAME_PRESENCE_TYPE_JOIN_GAME_ACK,
-			IN_GAME_PRESENCE_TYPE_MAX
-		}
+        public enum EnumNpPresenceType
+        {
+            IN_GAME_PRESENCE_TYPE_UNKNOWN = -1,
+            IN_GAME_PRESENCE_TYPE_NONE,
+            IN_GAME_PRESENCE_TYPE_DEFAULT,
+            IN_GAME_PRESENCE_TYPE_GAME_JOINING,
+            IN_GAME_PRESENCE_TYPE_GAME_JOINING_ONLY_FOR_PARTY,
+            IN_GAME_PRESENCE_TYPE_JOIN_GAME_ACK,
+            IN_GAME_PRESENCE_TYPE_MAX
+        }
 
-		public struct Friend
-		{
-			private IntPtr _npID;
+        public struct Friend
+        {
+            public EnumNpOnlineStatus npOnlineStatus;
 
-			private int npIDSize;
+            public int npPresenceSdkVersion;
 
-			private IntPtr _npOnlineID;
+            public EnumNpPresenceType npPresenceType;
 
-			public EnumNpOnlineStatus npOnlineStatus;
+            public int npPresenceDataSize;
 
-			private IntPtr _npPresenceTitle;
+            public byte[] npID
+            {
+                get
+                {
+                    return new byte[] { };
+                }
+            }
 
-			public int npPresenceSdkVersion;
+            public string npOnlineID => "";
 
-			public EnumNpPresenceType npPresenceType;
+            public string npPresenceTitle => "";
 
-			private IntPtr _npPresenceStatus;
+            public string npPresenceStatus => "";
 
-			private IntPtr _npComment;
+            public string npComment => "";
 
-			private IntPtr _npPresenceData;
+            public byte[] npPresenceData
+            {
+                get
+                {
+                    return new byte[] { };
+                }
+            }
+        }
 
-			public int npPresenceDataSize;
+        public static event Messages.EventHandler OnFriendsListUpdated;
 
-			public byte[] npID
-			{
-				get
-				{
-					byte[] array = new byte[npIDSize];
-					Marshal.Copy(_npID, array, 0, npIDSize);
-					return array;
-				}
-			}
+        public static event Messages.EventHandler OnFriendsPresenceUpdated;
 
-			public string npOnlineID => Marshal.PtrToStringAnsi(_npOnlineID);
+        public static event Messages.EventHandler OnGotFriendsList;
 
-			public string npPresenceTitle => Marshal.PtrToStringAnsi(_npPresenceTitle);
+        public static event Messages.EventHandler OnFriendsListError;
 
-			public string npPresenceStatus => Marshal.PtrToStringAnsi(_npPresenceStatus);
+        public static bool GetLastError(out ResultCode result)
+        {
+            result = new ResultCode();
+            return false;
+        }
 
-			public string npComment => Marshal.PtrToStringAnsi(_npComment);
+        public static ErrorCode RequestFriendsList()
+        {
+            return new ErrorCode();
+        }
 
-			public byte[] npPresenceData
-			{
-				get
-				{
-					byte[] array = new byte[128];
-					Marshal.Copy(_npPresenceData, array, 0, 128);
-					return array;
-				}
-			}
-		}
+        public static bool FriendsListIsBusy()
+        {
+            return false;
+        }
 
-		private const int NP_ONLINEID_MAX_LENGTH = 16;
+        public static Friend[] GetCachedFriendsList()
+        {
+            return new Friend[] { };
+        }
 
-		private const int IN_GAME_PRESENCE_STATUS_SIZE_MAX = 192;
-
-		private const int IN_GAME_PRESENCE_DATA_SIZE_MAX = 128;
-
-		public static event Messages.EventHandler OnFriendsListUpdated;
-
-		public static event Messages.EventHandler OnFriendsPresenceUpdated;
-
-		public static event Messages.EventHandler OnGotFriendsList;
-
-		public static event Messages.EventHandler OnFriendsListError;
-
-		[DllImport("UnityNpToolkit")]
-		[return: MarshalAs(UnmanagedType.I1)]
-		private static extern bool PrxFriendsListIsBusy();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxRefreshFriendsList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxLockFriendsList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern void PrxUnlockFriendsList();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern int PrxGetFriendCount();
-
-		[DllImport("UnityNpToolkit")]
-		private static extern ErrorCode PrxGetFriend(int index, out Friend frnd);
-
-		[DllImport("UnityNpToolkit")]
-		[return: MarshalAs(UnmanagedType.I1)]
-		private static extern bool PrxFriendsGetLastError(out ResultCode result);
-
-		public static bool GetLastError(out ResultCode result)
-		{
-			PrxFriendsGetLastError(out result);
-			return result.lastError == ErrorCode.NP_OK;
-		}
-
-		public static ErrorCode RequestFriendsList()
-		{
-			return PrxRefreshFriendsList();
-		}
-
-		public static bool FriendsListIsBusy()
-		{
-			return PrxFriendsListIsBusy();
-		}
-
-		public static Friend[] GetCachedFriendsList()
-		{
-			PrxLockFriendsList();
-			Friend[] array = new Friend[PrxGetFriendCount()];
-			for (int i = 0; i < PrxGetFriendCount(); i++)
-			{
-				PrxGetFriend(i, out array[i]);
-			}
-			PrxUnlockFriendsList();
-			return array;
-		}
-
-		public static bool ProcessMessage(Messages.PluginMessage msg)
-		{
-			switch (msg.type)
-			{
-			case Messages.MessageType.kNPToolKit_FriendsListUpdated:
-				if (Friends.OnFriendsListUpdated != null)
-				{
-					Friends.OnFriendsListUpdated(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolkit_FriendsPresenceUpdated:
-				if (Friends.OnFriendsPresenceUpdated != null)
-				{
-					Friends.OnFriendsPresenceUpdated(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_GotFriendsList:
-				if (Friends.OnGotFriendsList != null)
-				{
-					Friends.OnGotFriendsList(msg);
-				}
-				return true;
-			case Messages.MessageType.kNPToolKit_FriendsListError:
-				if (Friends.OnFriendsListError != null)
-				{
-					Friends.OnFriendsListError(msg);
-				}
-				return true;
-			default:
-				return false;
-			}
-		}
-	}
+        public static bool ProcessMessage(Messages.PluginMessage msg)
+        {
+            return false;
+        }
+    }
 }
