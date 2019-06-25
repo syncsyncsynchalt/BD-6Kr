@@ -29,6 +29,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
@@ -1888,10 +1890,6 @@
     <ProjectReference Include="..\Assembly-UnityScript\Assembly-UnityScript.csproj">
       <Project>{9b27ed4a-7ef7-409f-8c56-58b0b00809a7}</Project>
       <Name>Assembly-UnityScript</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DOTween\DOTween.csproj">
-      <Project>{31fdb9e7-96d4-4f3f-a5d4-d4f5945ccaa5}</Project>
-      <Name>DOTween</Name>
     </ProjectReference>
     <ProjectReference Include="..\Live2DUnity\Live2DUnity.csproj">
       <Project>{f7fd98b8-ea19-4a02-b0ca-53935532ee06}</Project>

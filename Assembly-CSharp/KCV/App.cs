@@ -281,10 +281,11 @@ namespace KCV
 					Mst_DataManager.Instance.SetStartMasterData();
 					isMasterInit = true;
 				});
-				SingletonMonoBehaviour<TrophyManager>.Instance.Initialize(delegate(bool x)
-				{
-					_isTrophyInit = x;
-				});
+
+                //SingletonMonoBehaviour<TrophyManager>.Instance.Initialize(delegate(bool x)
+				// {
+				//	_isTrophyInit = x;
+				//});
 			}
 		}
 

@@ -6,7 +6,7 @@ namespace KCV
 	{
 		public static bool IsInitialize;
 
-		private void Awake()
+		public static void Awake()
 		{
 			Debug.Log("AppInitializeManager Start");
 			if (!IsInitialize)
