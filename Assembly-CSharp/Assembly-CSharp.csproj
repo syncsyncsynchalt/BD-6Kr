@@ -1891,6 +1891,10 @@
       <Project>{9b27ed4a-7ef7-409f-8c56-58b0b00809a7}</Project>
       <Name>Assembly-UnityScript</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dotween\_DOTween.Assembly\DOTween\DOTween.csproj">
+      <Project>{de17c145-3e8d-45d6-bbb6-d06bd7d80a55}</Project>
+      <Name>DOTween</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Live2DUnity\Live2DUnity.csproj">
       <Project>{f7fd98b8-ea19-4a02-b0ca-53935532ee06}</Project>
       <Name>Live2DUnity</Name>
