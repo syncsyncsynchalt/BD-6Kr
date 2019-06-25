@@ -127,7 +127,7 @@ namespace UnityEngine
 
 		public static string streamingAssetsPath
 		{
-			get;
+            get { return "localhost"; }
 		}
 
 		public static string persistentDataPath
