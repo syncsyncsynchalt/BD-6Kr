@@ -14,7 +14,7 @@ namespace UnityEngine
 			set;
 		}
 
-		public MonoBehaviour() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		// public MonoBehaviour() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
 		private void Internal_CancelInvokeAll() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
