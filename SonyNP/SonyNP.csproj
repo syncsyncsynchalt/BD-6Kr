@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{26C3A8E7-2366-4647-87C9-B73778C5A800}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <LangVersion>8.0</LangVersion>
+    <AssemblyName>SonyNP</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sony.NP\Commerce.cs" />
+    <Compile Include="Sony.NP\Dialogs.cs" />
+    <Compile Include="Sony.NP\ErrorCode.cs" />
+    <Compile Include="Sony.NP\Facebook.cs" />
+    <Compile Include="Sony.NP\Friends.cs" />
+    <Compile Include="Sony.NP\Main.cs" />
+    <Compile Include="Sony.NP\Matching.cs" />
+    <Compile Include="Sony.NP\Messages.cs" />
+    <Compile Include="Sony.NP\Messaging.cs" />
+    <Compile Include="Sony.NP\Ranking.cs" />
+    <Compile Include="Sony.NP\Requests.cs" />
+    <Compile Include="Sony.NP\ResultCode.cs" />
+    <Compile Include="Sony.NP\System.cs" />
+    <Compile Include="Sony.NP\Ticketing.cs" />
+    <Compile Include="Sony.NP\Trophies.cs" />
+    <Compile Include="Sony.NP\TusTss.cs" />
+    <Compile Include="Sony.NP\Twitter.cs" />
+    <Compile Include="Sony.NP\User.cs" />
+    <Compile Include="Sony.NP\WordFilter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{0193954d-af31-4645-ba24-0ee72bd7f5ee}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

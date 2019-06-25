@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F7FD98B8-EA19-4A02-B0CA-53935532EE06}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <LangVersion>8.0</LangVersion>
+    <AssemblyName>Live2DUnity</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>C:\src\lib_original\System.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="live2d\ALive2DModel.cs" />
+    <Compile Include="live2d\AMotion.cs" />
+    <Compile Include="live2d\AvatarPartsItem.cs" />
+    <Compile Include="live2d\BaseDataID.cs" />
+    <Compile Include="live2d\BReader.cs" />
+    <Compile Include="live2d\ColorConvertData.cs" />
+    <Compile Include="live2d\ColorConverter.cs" />
+    <Compile Include="live2d\ColorConverterUnity.cs" />
+    <Compile Include="live2d\ColorConvertMethod.cs" />
+    <Compile Include="live2d\Def.cs" />
+    <Compile Include="live2d\DrawDataID.cs" />
+    <Compile Include="live2d\DrawParam.cs" />
+    <Compile Include="live2d\EyeBlinkMotion.cs" />
+    <Compile Include="live2d\IBaseContext.cs" />
+    <Compile Include="live2d\IBaseData.cs" />
+    <Compile Include="live2d\IContextData.cs" />
+    <Compile Include="live2d\ID.cs" />
+    <Compile Include="live2d\IDrawContext.cs" />
+    <Compile Include="live2d\IDrawData.cs" />
+    <Compile Include="live2d\ISerializableV2.cs" />
+    <Compile Include="live2d\Json.cs" />
+    <Compile Include="live2d\LDColor.cs" />
+    <Compile Include="live2d\LDPoint.cs" />
+    <Compile Include="live2d\LDPointF.cs" />
+    <Compile Include="live2d\LDRect.cs" />
+    <Compile Include="live2d\LDRectF.cs" />
+    <Compile Include="live2d\Live2D.cs" />
+    <Compile Include="live2d\Live2DModelUnity.cs" />
+    <Compile Include="live2d\Live2DModelUnityCustom.cs" />
+    <Compile Include="live2d\Live2DModelUnityCustomExt.cs" />
+    <Compile Include="live2d\Live2DMotion.cs" />
+    <Compile Include="live2d\ModelContext.cs" />
+    <Compile Include="live2d\ModelImpl.cs" />
+    <Compile Include="live2d\MotionQueueEnt.cs" />
+    <Compile Include="live2d\MotionQueueManager.cs" />
+    <Compile Include="live2d\ParamDefFloat.cs" />
+    <Compile Include="live2d\ParamDefSet.cs" />
+    <Compile Include="live2d\ParamID.cs" />
+    <Compile Include="live2d\ParamPivots.cs" />
+    <Compile Include="live2d\PartsData.cs" />
+    <Compile Include="live2d\PartsDataID.cs" />
+    <Compile Include="live2d\PhysicsHair.cs" />
+    <Compile Include="live2d\PivotManager.cs" />
+    <Compile Include="live2d\UtDebug.cs" />
+    <Compile Include="live2d\UtFile.cs" />
+    <Compile Include="live2d\UtMath.cs" />
+    <Compile Include="live2d\UtSystem.cs" />
+    <Compile Include="live2d\Value.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
+      <Project>{0193954d-af31-4645-ba24-0ee72bd7f5ee}</Project>
+      <Name>UnityEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
