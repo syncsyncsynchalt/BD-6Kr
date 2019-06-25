@@ -82,7 +82,10 @@ namespace UnityEngine
 
 		public static void DebugBreak() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
-		private static void Internal_Log(int level, string msg, [Writable] Object obj) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static void Internal_Log(int level, string msg, [Writable] Object obj) {
+            Console.WriteLine(msg);
+            System.Diagnostics.Debug.WriteLine(msg);
+        }
 
 		private static void Internal_LogException(Exception exception, [Writable] Object obj) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
