@@ -148,7 +148,9 @@ namespace local.managers
 		{
 			if (_cache_result_fmt == null)
 			{
-				Api_Result<BattleResultFmt> api_Result = _reqBattle.BattleResult();
+                var a = _reqBattle.DayBattle();
+
+                Api_Result <BattleResultFmt> api_Result = _reqBattle.BattleResult();
 				if (api_Result.state == Api_Result_State.Success)
 				{
 					_cache_result_fmt = api_Result.data;
