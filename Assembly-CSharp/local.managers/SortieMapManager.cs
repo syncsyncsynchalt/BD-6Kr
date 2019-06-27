@@ -20,7 +20,7 @@ namespace local.managers
 			bool isBoss = base.NextCategory == enumMapEventType.War_Boss;
 			string nextCellEnemyFleetName = GetNextCellEnemyFleetName();
 			SortieBattleManager sortieBattleManager = new SortieBattleManager(nextCellEnemyFleetName);
-			sortieBattleManager.__Init__(reqBattle, base.NextEventType, formationId, _map, _maps, IsNextFinal(), isBoss);
+            sortieBattleManager.__Init__(reqBattle, base.NextEventType, formationId, _map, _maps, IsNextFinal(), isBoss);
 			return sortieBattleManager;
 		}
 
