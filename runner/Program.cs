@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 using KCV;
+using KCV.Strategy;
+
 using Server_Common;
 using Server_Models;
 using Server_Controllers;
-using local.models;
-using local.managers;
 using Common.Enum;
 
 using local.models;
@@ -127,21 +127,22 @@ namespace Runner
             debug_Mod.Add_SlotItem(list2);
             DebugUtils.SLog("DEBUG_MOD OK");
 
+
+            // StrategyTopTaskManager top = new StrategyTopTaskManager();
+            // top.Awake2();
+
             StrategyMapManager strategyMapManager = new StrategyMapManager();
 
-            SortieManager sortieManager = strategyMapManager.SelectArea(1);
 
+            //SortieManager sortieManager = strategyMapManager.SelectArea(1);
             //SortieMapManager _clsSortieMapManager = sortieManager.GoSortie(1, 11);
-            SortieMapManager _clsSortieMapManager = sortieManager.GoSortie(1, 14);
-
-            SortieBattleManager _clsSortieBattleManager = _clsSortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
-
+            //SortieMapManager _clsSortieMapManager = sortieManager.GoSortie(1, 14);
+            //SortieBattleManager _clsSortieBattleManager = _clsSortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
+            // var a = KCV.BattleCut.BattleCutPhase.Command;
+            // CommandPhaseModel _clscommandPhaseModel = _clsSortieBattleManager.GetCommandPhaseModel();
             // var a = Server_Controllers.BattleLogic.ExecBattleKinds.DayToNight;
-
             // _clsSortieBattleManager.StartDayToNightBattle();
-
-
-            BattleResultModel res = _clsSortieBattleManager.GetBattleResult();
+            //BattleResultModel res = _clsSortieBattleManager.GetBattleResult();
 
             // var bgm = Mst_DataManager.Instance.GetMstBgm();
             // var cabinet = Mst_DataManager.Instance.GetMstCabinet();
