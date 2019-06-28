@@ -28,6 +28,12 @@ namespace Runner
             AppInitializeManager.Awake();
             App.InitSystems(); // 26 fuso
 
+            // var bgm = Mst_DataManager.Instance.GetMstBgm();
+            // var cabinet = Mst_DataManager.Instance.GetMstCabinet();
+            // var payitem = Mst_DataManager.Instance.GetPayitem();
+            // var furnitureText = Mst_DataManager.Instance.GetFurnitureText();
+
+
             Debug_Mod debug_Mod = new Debug_Mod();
             List<int> list = new List<int>();
             Debug.Log("ADD SHIP");
@@ -128,13 +134,17 @@ namespace Runner
             DebugUtils.SLog("DEBUG_MOD OK");
 
 
-            // StrategyTopTaskManager top = new StrategyTopTaskManager();
+            StrategyTopTaskManager top = new StrategyTopTaskManager();
             // top.Awake2();
 
             StrategyMapManager strategyMapManager = new StrategyMapManager();
+            SortieManager sortieManager = strategyMapManager.SelectArea(1);
+            SortieMapManager sortieMapManager = sortieManager.GoSortie(1, 11);
+
+            SortieBattleManager sortieBattleManager = sortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
+            BattleResultModel battleResultModel = sortieBattleManager.GetBattleResult();
 
 
-            //SortieManager sortieManager = strategyMapManager.SelectArea(1);
             //SortieMapManager _clsSortieMapManager = sortieManager.GoSortie(1, 11);
             //SortieMapManager _clsSortieMapManager = sortieManager.GoSortie(1, 14);
             //SortieBattleManager _clsSortieBattleManager = _clsSortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
@@ -144,10 +154,7 @@ namespace Runner
             // _clsSortieBattleManager.StartDayToNightBattle();
             //BattleResultModel res = _clsSortieBattleManager.GetBattleResult();
 
-            // var bgm = Mst_DataManager.Instance.GetMstBgm();
-            // var cabinet = Mst_DataManager.Instance.GetMstCabinet();
-            // var payitem = Mst_DataManager.Instance.GetPayitem();
-            // var furnitureText = Mst_DataManager.Instance.GetFurnitureText();
+
 
             Console.WriteLine("hajimarimasu");
         }
