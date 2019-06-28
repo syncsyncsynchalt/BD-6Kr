@@ -489,10 +489,11 @@ namespace Server_Controllers
 			}
 		}
 
-		protected void initFormation(BattleFormationKinds1 userFormation)
+        protected void initFormation(BattleFormationKinds1 userFormation)
 		{
-			userData.Formation = userFormation;
-			formationParams = new FormationDatas(userData, enemyData, practiceFlag);
+            userData.Formation = userFormation;
+            // ここでサイコロ振ってT字有利とか決まる
+            formationParams = new FormationDatas(userData, enemyData, practiceFlag);
 			userData.BattleFormation = formationParams.BattleFormation;
 			enemyData.Formation = formationParams.E_Formation;
 			enemyData.BattleFormation = formationParams.BattleFormation;
