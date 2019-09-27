@@ -1,5 +1,3 @@
-using Boo.Lang;
-using Boo.Lang.Runtime;
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
@@ -7,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace UnityScript.Lang
 {
 	[Serializable]
-	public class Array : CollectionBase, ICoercible
+	public class Array : CollectionBase
 	{
 		[Serializable]
 		[CompilerGenerated]
@@ -88,11 +86,7 @@ namespace UnityScript.Lang
 			if (items.Length == 1 && items[0] is IEnumerable)
 			{
 				object obj = items[0];
-				if (!(obj is IEnumerable))
-				{
-					obj = RuntimeServices.Coerce(obj, typeof(IEnumerable));
-				}
-				AddRange((IEnumerable)obj);
+				AddRange((IEnumerable) obj);
 			}
 			else
 			{
@@ -100,10 +94,10 @@ namespace UnityScript.Lang
 			}
 		}
 
-		//public static implicit operator Array(IEnumerable e)
-		//{
-		//	return (e != null) ? new Array(e) : null;
-		//}
+        //public static implicit operator Array(IEnumerable e)
+        //{
+        //	return (e != null) ? new Array(e) : null;
+        //}
 
         public static implicit operator Array(System.Array a)
 		{
@@ -280,12 +274,12 @@ namespace UnityScript.Lang
 
 		public string Join(string seperator)
 		{
-			return Builtins.join(InnerList, seperator);
-		}
+            return InnerList.Add(seperator).ToString();
+        }
 
 		public string join(string seperator)
 		{
-			return Builtins.join(InnerList, seperator);
+            return InnerList.Add(seperator).ToString();
 		}
 
 		public void Remove(object obj)
@@ -368,11 +362,7 @@ namespace UnityScript.Lang
 			while (enumerator.MoveNext())
 			{
 				object obj = enumerator.Current;
-				if (!(obj is ICollection))
-				{
-					obj = RuntimeServices.Coerce(obj, typeof(ICollection));
-				}
-				ICollection c = (ICollection)obj;
+				ICollection c = (ICollection) obj;
 				array.InnerList.AddRange(c);
 			}
 			return array;

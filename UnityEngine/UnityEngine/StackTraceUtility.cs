@@ -25,7 +25,7 @@ namespace UnityEngine
 		private static bool IsSystemStacktraceType(object name)
 		{
 			string text = (string)name;
-			return text.StartsWith("UnityEditor.") || text.StartsWith("UnityEngine.") || text.StartsWith("System.") || text.StartsWith("UnityScript.Lang.") || text.StartsWith("Boo.Lang.") || text.StartsWith("UnityEngine.SetupCoroutine");
+			return text.StartsWith("UnityEditor.") || text.StartsWith("UnityEngine.") || text.StartsWith("System.") || text.StartsWith("UnityScript.Lang.") || text.StartsWith("UnityEngine.SetupCoroutine");
 		}
 
 		public static string ExtractStringFromException(object exception)

@@ -154,8 +154,6 @@ namespace Runner
             // _clsSortieBattleManager.StartDayToNightBattle();
             //BattleResultModel res = _clsSortieBattleManager.GetBattleResult();
 
-
-
             Console.WriteLine("hajimarimasu");
         }
     }

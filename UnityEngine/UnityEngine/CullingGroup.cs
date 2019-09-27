@@ -96,18 +96,17 @@ namespace UnityEngine
 		private static void INTERNAL_CALL_SetDistanceReferencePoint(CullingGroup self, ref Vector3 point) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
 		public void SetDistanceReferencePoint(Transform transform) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[SecuritySafeCritical]
-		private unsafe static void SendEvents(CullingGroup cullingGroup, IntPtr eventsPtr, int count)
+		private static void SendEvents(CullingGroup cullingGroup, IntPtr eventsPtr, int count)
 		{
-			CullingGroupEvent* ptr = (CullingGroupEvent*)eventsPtr.ToPointer();
-			if (cullingGroup.m_OnStateChanged != null)
-			{
-				for (int i = 0; i < count; i++)
-				{
-					cullingGroup.m_OnStateChanged(*(CullingGroupEvent*)((byte*)ptr + i * sizeof(CullingGroupEvent)));
-				}
-			}
+            throw new NotImplementedException();
+			//CullingGroupEvent* ptr = (CullingGroupEvent*)eventsPtr.ToPointer();
+			//if (cullingGroup.m_OnStateChanged != null)
+			//{
+			//	for (int i = 0; i < count; i++)
+			//	{
+			//		cullingGroup.m_OnStateChanged(*(CullingGroupEvent*)((byte*)ptr + i * sizeof(CullingGroupEvent)));
+			//	}
+			//}
 		}
 
 		private void Init() { throw new NotImplementedException("‚È‚É‚±‚ê"); }

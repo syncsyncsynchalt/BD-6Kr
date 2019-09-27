@@ -1,5 +1,3 @@
-using Boo.Lang;
-using Boo.Lang.Runtime;
 using System;
 using System.Collections;
 
@@ -49,7 +47,8 @@ namespace UnityScript.Lang
 				{
 					try
 					{
-						RuntimeServices.SetProperty(Target, Member, Value);
+                        throw new NotImplementedException();
+                        //RuntimeServices.SetProperty(Target, Member, Value);
 					}
 					catch (MissingFieldException)
 					{
@@ -70,12 +69,11 @@ namespace UnityScript.Lang
 		[Serializable]
 		public class SliceValueTypeChange : ValueTypeChange
 		{
-			public object Index;
+			public int Index;
 
-			public SliceValueTypeChange(object target, object index, object value)
-				: base(target, value)
+			public SliceValueTypeChange(object target, object index, object value) : base(target, value)
 			{
-				Index = index;
+				Index = (int) index;
 			}
 
 			public override bool Propagate()
@@ -91,18 +89,19 @@ namespace UnityScript.Lang
 					IList list = Target as IList;
 					if (list != null)
 					{
-						list[RuntimeServices.UnboxInt32(Index)] = Value;
+						list[Index] = Value;
 						result = 1;
 					}
 					else
 					{
 						try
 						{
-							RuntimeServices.SetSlice(Target, string.Empty, new object[2]
-							{
-								Index,
-								Value
-							});
+                            throw new NotImplementedException();
+							//RuntimeServices.SetSlice(Target, string.Empty, new object[2]
+							//{
+							//	Index,
+							//	Value
+							//});
 						}
 						catch (MissingFieldException)
 						{
@@ -141,24 +140,26 @@ namespace UnityScript.Lang
 		{
 			if (!Initialized)
 			{
-				throw new AssertionFailedException("Initialized");
+				throw new NotImplementedException("Initialized");
 			}
-			object obj = RuntimeServices.Invoke(target, name, args);
-			return (obj == null) ? null : ((!IsGenerator(obj)) ? obj : ((!target.GetType().IsSubclassOf(scriptBaseType)) ? obj : ((!IsStaticMethod(target.GetType(), name, args)) ? RuntimeServices.Invoke(target, "StartCoroutine_Auto", new object[1]
-			{
-				obj
-			}) : obj)));
+            throw new NotImplementedException();
+            //object obj = RuntimeServices.Invoke(target, name, args);
+			//return (obj == null) ? null : ((!IsGenerator(obj)) ? obj : ((!target.GetType().IsSubclassOf(scriptBaseType)) ? obj : ((!IsStaticMethod(target.GetType(), name, args)) ? RuntimeServices.Invoke(target, "StartCoroutine_Auto", new object[1]
+			//{
+			//	obj
+			//}) : obj)));
 		}
 
 		public static object GetProperty(object target, string name)
 		{
 			if (!Initialized)
 			{
-				throw new AssertionFailedException("Initialized");
+				throw new NotImplementedException("Initialized");
 			}
 			try
 			{
-				return RuntimeServices.GetProperty(target, name);
+                throw new NotImplementedException();
+                //return RuntimeServices.GetProperty(target, name);
 			}
 			catch (MissingMemberException)
 			{
@@ -174,11 +175,12 @@ namespace UnityScript.Lang
 		{
 			if (!Initialized)
 			{
-				throw new AssertionFailedException("Initialized");
+                throw new NotImplementedException();
 			}
 			try
 			{
-				return RuntimeServices.SetProperty(target, name, value);
+                throw new NotImplementedException();
+                //return RuntimeServices.SetProperty(target, name, value);
 			}
 			catch (MissingMemberException)
 			{
@@ -197,8 +199,9 @@ namespace UnityScript.Lang
 
 		public static bool IsGenerator(object obj)
 		{
-			Type type = obj.GetType();
-			return type == EnumeratorType || EnumeratorType.IsAssignableFrom(type) || typeof(AbstractGenerator).IsAssignableFrom(type);
+            throw new NotImplementedException();
+            //Type type = obj.GetType();
+			//return type == EnumeratorType || EnumeratorType.IsAssignableFrom(type) || typeof(AbstractGenerator).IsAssignableFrom(type);
 		}
 
 		public static bool IsStaticMethod(Type type, string name, object[] args)
@@ -222,12 +225,13 @@ namespace UnityScript.Lang
 			}
 			else if (IsValueTypeArray(obj) || obj is Array)
 			{
-				object obj2 = obj;
-				if (!(obj2 is IList))
-				{
-					obj2 = RuntimeServices.Coerce(obj2, typeof(IList));
-				}
-				result = new ListUpdateableEnumerator((IList)obj2);
+                throw new NotImplementedException();
+                //object obj2 = obj;
+				//if (!(obj2 is IList))
+				//{
+				//	obj2 = RuntimeServices.Coerce(obj2, typeof(IList));
+				//}
+				//result = new ListUpdateableEnumerator((IList)obj2);
 			}
 			else
 			{
@@ -238,8 +242,9 @@ namespace UnityScript.Lang
 				}
 				else
 				{
-					IEnumerator enumerator = obj as IEnumerator;
-					result = ((enumerator == null) ? RuntimeServices.GetEnumerable(obj).GetEnumerator() : enumerator);
+                    throw new NotImplementedException();
+                    //IEnumerator enumerator = obj as IEnumerator;
+					//result = ((enumerator == null) ? RuntimeServices.GetEnumerable(obj).GetEnumerator() : enumerator);
 				}
 			}
 			return (IEnumerator)result;

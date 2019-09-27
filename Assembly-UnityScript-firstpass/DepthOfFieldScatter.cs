@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Boo.Lang.Runtime;
 
 [Serializable]
 [RequireComponent(typeof(Camera))]
@@ -140,22 +139,23 @@ public class DepthOfFieldScatter : PostEffectsBase
 
 	public void CreateComputeResources()
 	{
-		if (RuntimeServices.EqualityOperator(cbDrawArgs, null))
-		{
-			cbDrawArgs = new ComputeBuffer(1, 16, ComputeBufferType.DrawIndirect);
-			int[] data = new int[4]
-			{
-				0,
-				1,
-				0,
-				0
-			};
-			cbDrawArgs.SetData(data);
-		}
-		if (RuntimeServices.EqualityOperator(cbPoints, null))
-		{
-			cbPoints = new ComputeBuffer(90000, 28, ComputeBufferType.Append);
-		}
+        if (cbDrawArgs == null)
+        {
+            cbDrawArgs = new ComputeBuffer(1, 16, ComputeBufferType.DrawIndirect);
+            int[] data = new int[4]
+            {
+                0,
+                1,
+                0,
+                0
+            };
+            cbDrawArgs.SetData(data);
+        }
+
+        if (cbPoints == null)
+        {
+            cbPoints = new ComputeBuffer(90000, 28, ComputeBufferType.Append);
+        }
 	}
 
 	public float FocalDistance01(float worldDist)
