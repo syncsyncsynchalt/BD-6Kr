@@ -29,7 +29,8 @@ namespace UnityEngine.Events
 
 		public override bool Find(object targetObj, MethodInfo method)
 		{
-            return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+            throw new NotImplementedException();
+            //return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
 		}
 	}
 	internal class InvokableCall<T1> : BaseInvokableCall
@@ -62,7 +63,8 @@ namespace UnityEngine.Events
 
 		public override bool Find(object targetObj, MethodInfo method)
 		{
-			return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+            throw new NotImplementedException();
+            //return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
 		}
 	}
 	internal class InvokableCall<T1, T2> : BaseInvokableCall
@@ -96,7 +98,8 @@ namespace UnityEngine.Events
 
 		public override bool Find(object targetObj, MethodInfo method)
 		{
-			return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+            throw new NotImplementedException();
+            //return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
 		}
 	}
 	internal class InvokableCall<T1, T2, T3> : BaseInvokableCall
@@ -131,7 +134,8 @@ namespace UnityEngine.Events
 
 		public override bool Find(object targetObj, MethodInfo method)
 		{
-			return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+            throw new NotImplementedException();
+            //return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
 		}
 	}
 	internal class InvokableCall<T1, T2, T3, T4> : BaseInvokableCall
@@ -167,7 +171,8 @@ namespace UnityEngine.Events
 
 		public override bool Find(object targetObj, MethodInfo method)
 		{
-			return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+            throw new NotImplementedException();
+            //return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
 		}
 	}
 }

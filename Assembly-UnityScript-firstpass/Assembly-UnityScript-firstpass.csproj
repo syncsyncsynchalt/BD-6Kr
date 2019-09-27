@@ -1,106 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <ProjectGuid>{A18174CC-7B6D-4927-8D9A-B9766ED6209F}</ProjectGuid>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <LangVersion>8.0</LangVersion>
-    <AssemblyName>Assembly-UnityScript-firstpass</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <TargetFrameworkProfile />
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Assembly_UnityScript_firstpass</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Include="AAMode.cs" />
-    <Compile Include="AmbientObscurance.cs" />
-    <Compile Include="AntialiasingAsPostEffect.cs" />
-    <Compile Include="Bloom.cs" />
-    <Compile Include="BloomAndLensFlares.cs" />
-    <Compile Include="BloomScreenBlendMode.cs" />
-    <Compile Include="Blur.cs" />
-    <Compile Include="BokehDestination.cs" />
-    <Compile Include="CameraMotionBlur.cs" />
-    <Compile Include="ColorCorrectionCurves.cs" />
-    <Compile Include="ColorCorrectionLut.cs" />
-    <Compile Include="ColorCorrectionMode.cs" />
-    <Compile Include="ContrastEnhance.cs" />
-    <Compile Include="Crease.cs" />
-    <Compile Include="DepthOfField34.cs" />
-    <Compile Include="DepthOfFieldScatter.cs" />
-    <Compile Include="Dof34QualitySetting.cs" />
-    <Compile Include="DofBlurriness.cs" />
-    <Compile Include="DofResolution.cs" />
-    <Compile Include="EdgeDetectEffectNormals.cs" />
-    <Compile Include="EdgeDetectMode.cs" />
-    <Compile Include="FastBloom.cs" />
-    <Compile Include="Fisheye.cs" />
-    <Compile Include="GlobalFog.cs" />
-    <Compile Include="HDRBloomMode.cs" />
-    <Compile Include="LensflareStyle34.cs" />
-    <Compile Include="NoiseAndGrain.cs" />
-    <Compile Include="PostEffectsBase.cs" />
-    <Compile Include="PostEffectsHelper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quads.cs" />
-    <Compile Include="ScreenOverlay.cs" />
-    <Compile Include="ShaftsScreenBlendMode.cs" />
-    <Compile Include="SunShafts.cs" />
-    <Compile Include="SunShaftsResolution.cs" />
-    <Compile Include="TiltShiftHdr.cs" />
-    <Compile Include="Tonemapping.cs" />
-    <Compile Include="Triangles.cs" />
-    <Compile Include="TweakMode34.cs" />
-    <Compile Include="Vignetting.cs" />
+    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Boo.Lang, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.Extensions, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.PatternMatching, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.PatternMatching.dll</HintPath>
-    </Reference>
-    <Reference Include="Boo.Lang.Useful, Version=2.9.6.1, Culture=neutral, PublicKeyToken=e25da6af3567ee0d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Boo.Lang.0.9.6.2\lib\Boo.Lang.Useful.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj">
-      <Project>{0193954d-af31-4645-ba24-0ee72bd7f5ee}</Project>
-      <Name>UnityEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.csproj">
-      <Project>{afbe674f-3f2a-4b26-8c34-e9d0b0a63e62}</Project>
-      <Name>UnityScript.Lang</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

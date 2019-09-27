@@ -82,12 +82,12 @@ namespace UnityEngine
 
 		internal void GetComponentFastPath(Type type, IntPtr oneFurtherThanResultValue) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 
-		[SecuritySafeCritical]
-		public unsafe T GetComponent<T>()
+		public T GetComponent<T>()
 		{
-			CastHelper<T> castHelper = default(CastHelper<T>);
-			GetComponentFastPath(typeof(T), new IntPtr(&castHelper.onePointerFurtherThanT));
-			return castHelper.t;
+            throw new NotImplementedException();
+            //CastHelper<T> castHelper = default(CastHelper<T>);
+			//GetComponentFastPath(typeof(T), new IntPtr(&castHelper.onePointerFurtherThanT));
+			//return castHelper.t;
 		}
 
 		internal Component GetComponentByName(string type) { throw new NotImplementedException("‚È‚É‚±‚ê"); }

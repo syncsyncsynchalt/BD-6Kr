@@ -504,8 +504,12 @@ namespace Server_Models
 			for (int i = 0; i < num; i++)
 			{
 				string value = list[i].Value;
-				masterAsyncDelegate.BeginInvoke(value, loadCompleteAsynch, masterAsyncDelegate);
-			}
+
+                var a = masterAsyncDelegate.Invoke(value);
+                // masterAsyncDelegate.BeginInvoke(value, loadCompleteAsynch, masterAsyncDelegate);
+                // loadCompleteAsynch();
+                loadCompleteAsynch2(a);
+            }
 		}
 
 		private KeyValuePair<string, IEnumerable<XElement>> LoadElements(string name)
@@ -513,7 +517,23 @@ namespace Server_Models
 			return new KeyValuePair<string, IEnumerable<XElement>>(name, Utils.Xml_Result(name, name, null));
 		}
 
-		private void loadCompleteAsynch(IAsyncResult ar)
+        private void loadCompleteAsynch2(KeyValuePair<string, IEnumerable<XElement>> ret)
+        {
+            KeyValuePair<string, IEnumerable<XElement>> keyValuePair = ret;
+            lock (lockObj)
+            {
+                startMasterElement.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+            Interlocked.Decrement(ref callCount);
+            if (callCount <= 0)
+            {
+                isMasterInit = 2;
+                initMasterCallback();
+                initMasterCallback = null;
+            }
+        }
+
+        private void loadCompleteAsynch(IAsyncResult ar)
 		{
 			masterAsyncDelegate masterAsyncDelegate = (masterAsyncDelegate)ar.AsyncState;
 			KeyValuePair<string, IEnumerable<XElement>> keyValuePair = masterAsyncDelegate.EndInvoke(ar);

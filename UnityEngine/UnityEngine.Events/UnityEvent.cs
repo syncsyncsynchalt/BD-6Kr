@@ -16,7 +16,8 @@ namespace UnityEngine.Events
 
 		public void RemoveListener(UnityAction call)
 		{
-			RemoveListener(call.Target, call.GetMethodInfo());
+            throw new NotImplementedException();
+            //RemoveListener(call.Target, call.GetMethodInfo());
 		}
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -51,7 +52,8 @@ namespace UnityEngine.Events
 
 		public void RemoveListener(UnityAction<T0> call)
 		{
-			RemoveListener(call.Target, call.GetMethodInfo());
+            throw new NotImplementedException();
+            //RemoveListener(call.Target, call.GetMethodInfo());
 		}
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -90,7 +92,8 @@ namespace UnityEngine.Events
 
 		public void RemoveListener(UnityAction<T0, T1> call)
 		{
-			RemoveListener(call.Target, call.GetMethodInfo());
+            throw new NotImplementedException();
+            //RemoveListener(call.Target, call.GetMethodInfo());
 		}
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -131,7 +134,8 @@ namespace UnityEngine.Events
 
 		public void RemoveListener(UnityAction<T0, T1, T2> call)
 		{
-			RemoveListener(call.Target, call.GetMethodInfo());
+            throw new NotImplementedException();
+            //RemoveListener(call.Target, call.GetMethodInfo());
 		}
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -174,7 +178,8 @@ namespace UnityEngine.Events
 
 		public void RemoveListener(UnityAction<T0, T1, T2, T3> call)
 		{
-			RemoveListener(call.Target, call.GetMethodInfo());
+            throw new NotImplementedException();
+            //RemoveListener(call.Target, call.GetMethodInfo());
 		}
 
 		protected override MethodInfo FindMethod_Impl(string name, object targetObj)
