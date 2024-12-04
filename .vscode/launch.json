@@ -1,0 +1,23 @@
+{
+          "version": "0.2.0",
+          "configurations": [
+              {
+                  "name": "Debug Runner",
+                  "type": "coreclr",
+                  "request": "launch",
+                  "preLaunchTask": "build Runner",
+                  "program": "${workspaceFolder}/Runner/bin/Debug/net9.0/Runner.exe",
+                  "args": [],
+                  "cwd": "${workspaceFolder}/Runner",
+                  "stopAtEntry": false,
+                  "console": "internalConsole",
+                  "internalConsoleOptions": "openOnSessionStart",
+                  "env": {
+                      "ASPNETCORE_ENVIRONMENT": "Development"
+                  },
+                  "sourceFileMap": {
+                      "/Views": "${workspaceFolder}/Runner/Views"
+                  }
+              }
+          ]
+}
