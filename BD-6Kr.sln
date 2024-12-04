@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityScript.Lang", "UnityScript.Lang\UnityScript.Lang.csproj", "{8BF44B41-F403-45B5-BA56-B69BB685D381}"
 EndProject
@@ -27,9 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{E8627D30-0171-4152-8F16-CE5B178BBA80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOTween", "DOTween\DOTween.csproj", "{4AC89979-90A4-4062-9C30-3675CA49705B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOTween", "DOTween\DOTween.csproj", "{B437F265-12BA-4613-B890-611B8A77B11C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,14 +135,6 @@ Global
 		{E8627D30-0171-4152-8F16-CE5B178BBA80}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
 		{E8627D30-0171-4152-8F16-CE5B178BBA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8627D30-0171-4152-8F16-CE5B178BBA80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Release_IncludeRigidbody|Any CPU.ActiveCfg = Release|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AC89979-90A4-4062-9C30-3675CA49705B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -151,6 +143,14 @@ Global
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4AB7D5B-2477-4CA4-8B0D-FB0544453BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Release_IncludeRigidbody|Any CPU.ActiveCfg = Release|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B437F265-12BA-4613-B890-611B8A77B11C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

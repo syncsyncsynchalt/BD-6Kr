@@ -250,7 +250,7 @@ public class DebugUtils : SingletonMonoBehaviour<DebugUtils>
 	{
 		if (isDebug)
 		{
-			StackFrame stackFrame = new StackFrame(1, fNeedFileInfo: true);
+			StackFrame stackFrame = new StackFrame(1, true);
 			string fileName = stackFrame.GetFileName();
 			string text = stackFrame.GetMethod().ToString();
 			int fileLineNumber = stackFrame.GetFileLineNumber();

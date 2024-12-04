@@ -1,4 +1,0 @@
-[submodule "dotween"]
-	path = dotween
-	url = https://github.com/syncsyncsynchalt/dotween.git
-	ignore = dirty
