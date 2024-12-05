@@ -18,9 +18,8 @@ namespace Server_Common
 		{
 			if (!(masterCurrentPath != string.Empty))
 			{
-				masterCurrentPath = "//" + Application.streamingAssetsPath + "/Xml/tables";
-				masterCurrentPath += "/master/";
-				if (!Directory.Exists(masterCurrentPath))
+                masterCurrentPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "xml/tables/master/");
+                if (!Directory.Exists(masterCurrentPath))
 				{
 					Directory.CreateDirectory(masterCurrentPath);
 				}

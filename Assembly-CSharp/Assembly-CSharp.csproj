@@ -16,5 +16,11 @@
     <ProjectReference Include="..\UnityEngine.UI\UnityEngine.UI.csproj" />
     <ProjectReference Include="..\UnityEngine\UnityEngine.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="xml\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
