@@ -302,6 +302,9 @@ namespace Runner
             // 戦闘前の艦娘状態を表示
             DisplayShipStatusBeforeBattle(sortieMapManager);
 
+            // 敵艦隊の情報を表示
+            DisplayEnemyFleetInfo(sortieMapManager);
+
             // 戦闘開始と結果取得
             Console.WriteLine("  戦闘を開始中... (陣形: 単縦陣)");
             SortieBattleManager sortieBattleManager = sortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
@@ -357,6 +360,8 @@ namespace Runner
             }
         }
 
+
+
         /// <summary>
         /// 艦娘の装備情報を表示する
         /// </summary>
@@ -405,6 +410,75 @@ namespace Runner
             catch (Exception ex)
             {
                 Console.WriteLine($"      装備情報の取得中にエラーが発生しました: {ex.Message}");
+            }
+        }        /// <summary>
+                 /// 敵艦隊の情報を表示する
+                 /// </summary>
+                 /// <param name="sortieMapManager">出撃マップマネージャー</param>
+        private static void DisplayEnemyFleetInfo(SortieMapManager sortieMapManager)
+        {
+            Console.WriteLine("\n=== 敵艦隊の情報 ===");
+
+            try
+            {
+                // マップの敵編成情報を取得
+                var mapInfo = sortieMapManager.Map;
+
+                Console.WriteLine($"  マップ: {mapInfo.AreaId}-{mapInfo.No}");
+                Console.WriteLine($"  マップ名: {mapInfo.Name}");
+
+                // 次のセルの敵艦隊情報を取得
+                var enemyShips = sortieMapManager.GetNextCellEnemys();
+
+                if (enemyShips == null || enemyShips.Count == 0)
+                {
+                    Console.WriteLine("  敵艦隊の情報が取得できませんでした。");
+                    return;
+                }
+
+                Console.WriteLine($"  敵艦隊: {enemyShips.Count}隻");
+                Console.WriteLine("  ----------------------------------------");
+
+                for (int i = 0; i < enemyShips.Count; i++)
+                {
+                    var enemyShip = enemyShips[i];
+                    if (enemyShip == null) continue;
+
+                    Console.WriteLine($"  {i + 1}番艦: {enemyShip.Name}");
+                    Console.WriteLine($"    艦種: {enemyShip.ShipTypeName}");
+                    Console.WriteLine($"    基本HP: {enemyShip.Taikyu}");
+                    Console.WriteLine($"    火力: {enemyShip.Karyoku} 雷装: {enemyShip.Raisou} 対空: {enemyShip.Taiku}");
+                    Console.WriteLine($"    装甲: {enemyShip.Soukou} 回避: {enemyShip.Kaihi} 対潜: {enemyShip.Taisen}");
+
+                    // 敵艦の装備情報を表示
+                    DisplayEnemyShipEquipment(enemyShip, i + 1);
+
+                    Console.WriteLine("  ----------------------------------------");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"  敵艦隊の情報取得中にエラーが発生しました: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 敵艦の装備情報を表示する
+        /// </summary>
+        /// <param name="enemyShip">敵艦</param>
+        /// <param name="shipNumber">艦番号</param>
+        private static void DisplayEnemyShipEquipment(ShipModelMst enemyShip, int shipNumber)
+        {
+            try
+            {
+                Console.WriteLine($"    装備:");
+                Console.WriteLine($"      敵艦の詳細装備情報は取得できません（基本データのみ表示）");
+                Console.WriteLine($"      基本スロット数: {enemyShip.SlotCount}");
+                Console.WriteLine($"      射程: {enemyShip.Leng}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"      敵艦装備情報の取得中にエラーが発生しました: {ex.Message}");
             }
         }
     }
