@@ -299,6 +299,9 @@ namespace Runner
             Console.WriteLine("  出撃を開始中... (エリア1, マップ11)");
             SortieMapManager sortieMapManager = sortieManager.GoSortie(1, 11);
 
+            // 戦闘前の艦娘状態を表示
+            DisplayShipStatusBeforeBattle(sortieMapManager);
+
             // 戦闘開始と結果取得
             Console.WriteLine("  戦闘を開始中... (陣形: 単縦陣)");
             SortieBattleManager sortieBattleManager = sortieMapManager.BattleStart(BattleFormationKinds1.TanJuu);
@@ -307,6 +310,102 @@ namespace Runner
             BattleResultModel battleResultModel = sortieBattleManager.GetBattleResult();
 
             Console.WriteLine("  戦闘結果を取得完了");
+        }
+
+        /// <summary>
+        /// 戦闘前の艦娘状態を表示する
+        /// </summary>
+        /// <param name="sortieMapManager">出撃マップマネージャー</param>
+        private static void DisplayShipStatusBeforeBattle(SortieMapManager sortieMapManager)
+        {
+            Console.WriteLine("\n=== 戦闘前の艦娘状態 ===");
+
+            try
+            {
+                // 出撃中の艦隊情報を取得
+                var sortieShips = sortieMapManager.Deck.GetShips();
+
+                if (sortieShips == null || sortieShips.Length == 0)
+                {
+                    Console.WriteLine("  出撃艦隊の情報が取得できませんでした。");
+                    return;
+                }
+
+                Console.WriteLine($"  出撃艦隊: {sortieShips.Length}隻");
+                Console.WriteLine("  ----------------------------------------");
+
+                for (int i = 0; i < sortieShips.Length; i++)
+                {
+                    var ship = sortieShips[i];
+                    if (ship == null) continue;
+
+                    Console.WriteLine($"  {i + 1}番艦: {ship.Name} (Lv.{ship.Level})");
+                    Console.WriteLine($"    艦種: {ship.ShipTypeName}");
+                    Console.WriteLine($"    HP: {ship.NowHp}/{ship.MaxHp}");
+                    Console.WriteLine($"    火力: {ship.Karyoku} 雷装: {ship.Raisou} 対空: {ship.Taiku}");
+                    Console.WriteLine($"    装甲: {ship.Soukou} 回避: {ship.Kaihi} 索敵: {ship.Sakuteki}");
+
+                    // 装備情報を表示
+                    DisplayShipEquipment(ship, i + 1);
+
+                    Console.WriteLine("  ----------------------------------------");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"  艦娘状態の表示中にエラーが発生しました: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 艦娘の装備情報を表示する
+        /// </summary>
+        /// <param name="ship">艦娘</param>
+        /// <param name="shipNumber">艦娘番号</param>
+        private static void DisplayShipEquipment(ShipModel ship, int shipNumber)
+        {
+            try
+            {
+                Console.WriteLine($"    装備:");
+
+                var slotItems = ship.SlotitemList;
+                if (slotItems == null || slotItems.Count == 0)
+                {
+                    Console.WriteLine($"      装備なし");
+                    return;
+                }
+
+                for (int i = 0; i < slotItems.Count; i++)
+                {
+                    var equipment = slotItems[i];
+                    if (equipment != null)
+                    {
+                        string equipName = equipment.Name;
+                        int level = equipment.Level;
+                        string levelDisplay = level > 0 ? $" ★{level}" : "";
+                        int aircraftCount = (i < ship.Tousai.Length) ? ship.Tousai[i] : 0;
+                        string aircraftDisplay = aircraftCount > 0 ? $" ({aircraftCount}機)" : "";
+
+                        Console.WriteLine($"      [{i + 1}] {equipName}{levelDisplay}{aircraftDisplay}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"      [{i + 1}] (装備なし)");
+                    }
+                }
+
+                // 補強増設スロット
+                if (ship.HasExSlot() && ship.SlotitemEx != null)
+                {
+                    var exEquip = ship.SlotitemEx;
+                    string levelDisplay = exEquip.Level > 0 ? $" ★{exEquip.Level}" : "";
+                    Console.WriteLine($"      [補強] {exEquip.Name}{levelDisplay}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"      装備情報の取得中にエラーが発生しました: {ex.Message}");
+            }
         }
     }
 }
