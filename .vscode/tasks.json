@@ -1,145 +1,145 @@
 {
-          "version": "2.0.0",
-          "tasks": [
-              {
-                  "label": "build Assembly-CSharp",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Assembly-CSharp/Assembly-CSharp.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build Assembly-CSharp-firstpass",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Assembly-CSharp-firstpass/Assembly-CSharp-firstpass.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build Assembly-UnityScript",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Assembly-UnityScript/Assembly-UnityScript.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build Assembly-UnityScript-firstpass",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Assembly-UnityScript-firstpass/Assembly-UnityScript-firstpass.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build DOTween",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/DOTween/DOTween.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build Live2DUnity",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Live2DUnity/Live2DUnity.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build Runner",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/Runner/Runner.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build SonyNP",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/SonyNP/SonyNP.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build SonyVitaCommonDialog",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/SonyVitaCommonDialog/SonyVitaCommonDialog.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build SonyVitaSavedGames",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/SonyVitaSavedGames/SonyVitaSavedGames.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build UnityEngine",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/UnityEngine/UnityEngine.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build UnityEngine.Networking",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/UnityEngine.Networking/UnityEngine.Networking.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build UnityEngine.UI",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/UnityEngine.UI/UnityEngine.UI.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              },
-              {
-                  "label": "build UnityScript.Lang",
-                  "command": "dotnet",
-                  "type": "process",
-                  "args": [
-                      "build",
-                      "${workspaceFolder}/UnityScript.Lang/UnityScript.Lang.csproj"
-                  ],
-                  "problemMatcher": "$msCompile"
-              }
-          ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build Assembly-CSharp",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Assembly-CSharp/Assembly-CSharp.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build Assembly-CSharp-firstpass",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Assembly-CSharp-firstpass/Assembly-CSharp-firstpass.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build Assembly-UnityScript",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Assembly-UnityScript/Assembly-UnityScript.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build Assembly-UnityScript-firstpass",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Assembly-UnityScript-firstpass/Assembly-UnityScript-firstpass.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build DOTween",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/DOTween/DOTween.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build Live2DUnity",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Live2DUnity/Live2DUnity.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build runner",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/runner/runner.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build SonyNP",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/SonyNP/SonyNP.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build SonyVitaCommonDialog",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/SonyVitaCommonDialog/SonyVitaCommonDialog.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build SonyVitaSavedGames",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/SonyVitaSavedGames/SonyVitaSavedGames.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build UnityEngine",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/UnityEngine/UnityEngine.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build UnityEngine.Networking",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/UnityEngine.Networking/UnityEngine.Networking.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build UnityEngine.UI",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/UnityEngine.UI/UnityEngine.UI.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build UnityScript.Lang",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/UnityScript.Lang/UnityScript.Lang.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
 }
