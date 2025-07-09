@@ -59,7 +59,7 @@ namespace Runner
         }
 
         /// <summary>
-        /// 艦隊状態を表示
+        /// 艦隊状態を表示（簡素化版）
         /// </summary>
         /// <param name="sortieMapManager">出撃マップマネージャー</param>
         public static void DisplayFleetStatus(SortieMapManager sortieMapManager)
@@ -78,18 +78,17 @@ namespace Runner
                 }
 
                 Console.WriteLine($"  艦隊規模: {ships.Length}隻");
-                Console.WriteLine("  ----------------------------------------");
-
+                
                 for (int i = 0; i < ships.Length; i++)
                 {
                     var ship = ships[i];
                     if (ship == null) continue;
 
-                    Console.WriteLine($"  {i + 1}番艦: {ship.Name} (Lv.{ship.Level})");
-                    Console.WriteLine($"    艦種: {ship.ShipTypeName}");
-                    Console.WriteLine($"    HP: {ship.NowHp}/{ship.MaxHp}");
-                    Console.WriteLine($"    火力: {ship.Karyoku} 雷装: {ship.Raisou}");
-                    Console.WriteLine("  ----------------------------------------");
+                    string hpStatus = ship.NowHp >= ship.MaxHp ? "良好" : 
+                                     ship.NowHp > ship.MaxHp * 0.5 ? "小破" : 
+                                     ship.NowHp > ship.MaxHp * 0.25 ? "中破" : "大破";
+                    
+                    Console.WriteLine($"  {i + 1}. {ship.Name} (Lv.{ship.Level}) HP:{ship.NowHp}/{ship.MaxHp} [{hpStatus}]");
                 }
             }
             catch (Exception ex)
@@ -99,7 +98,7 @@ namespace Runner
         }
 
         /// <summary>
-        /// 敵艦隊の情報を表示
+        /// 敵艦隊の情報を表示（簡素化版）
         /// </summary>
         /// <param name="sortieMapManager">出撃マップマネージャー</param>
         public static void DisplayEnemyFleetInfo(SortieMapManager sortieMapManager)
@@ -109,8 +108,7 @@ namespace Runner
             try
             {
                 var mapInfo = sortieMapManager.Map;
-                Console.WriteLine($"  マップ: {mapInfo.AreaId}-{mapInfo.No}");
-                Console.WriteLine($"  マップ名: {mapInfo.Name}");
+                Console.WriteLine($"  マップ: {mapInfo.AreaId}-{mapInfo.No} ({mapInfo.Name})");
 
                 var enemyShips = sortieMapManager.GetNextCellEnemys();
 
@@ -121,18 +119,13 @@ namespace Runner
                 }
 
                 Console.WriteLine($"  敵艦隊規模: {enemyShips.Count}隻");
-                Console.WriteLine("  ----------------------------------------");
-
+                
                 for (int i = 0; i < enemyShips.Count; i++)
                 {
                     var enemy = enemyShips[i];
                     if (enemy == null) continue;
 
-                    Console.WriteLine($"  {i + 1}番艦: {enemy.Name}");
-                    Console.WriteLine($"    艦種: {enemy.ShipTypeName}");
-                    Console.WriteLine($"    HP: {enemy.Taikyu}");
-                    Console.WriteLine($"    火力: {enemy.Karyoku} 雷装: {enemy.Raisou}");
-                    Console.WriteLine("  ----------------------------------------");
+                    Console.WriteLine($"  {i + 1}. {enemy.Name} HP:{enemy.Taikyu} (火力:{enemy.Karyoku}/雷装:{enemy.Raisou})");
                 }
             }
             catch (Exception ex)

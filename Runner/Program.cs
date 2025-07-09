@@ -17,13 +17,12 @@ using System.Collections;
 namespace Runner
 {
     /// <summary>
-    /// 艦隊これくしょんのゲーム実行を管理するメインクラス
+    /// ゲーム実行を管理するメインクラス
     /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== 艦これ改 - ゲーム開始から最初の戦闘まで ===");
             try
             {
                 new GameRunner().RunGame();
@@ -189,19 +188,35 @@ namespace Runner
             Console.WriteLine("\n【ステップ5】艦隊編成の準備");
             _fleetManager?.PrepareFleetOrganization(1, _config.FleetSize);
             Console.WriteLine("\n【ステップ6】出撃準備とマップ選択");
-            SortieHelper.PrepareForSortie(4, 4);
-            Console.WriteLine("\n【ステップ7】最初の戦闘実行");
-            var battleResult = _battleManager.ExecuteBattle(4, 4, _config.Formation);
+
+            SortieHelper.PrepareForSortie(5, 1);
+            Console.WriteLine("\n【ステップ7】最初の戦闘実行(5-1)");
+            var battleResult = _battleManager.ExecuteBattle(5, 1, _config.Formation, true); // 夜戦まで実行
             if (battleResult.Success)
             {
                 BattleResultDisplayer.DisplayBattleResult(battleResult.BattleResultModel);
-                Console.WriteLine("  戦闘完了！");
+                Console.WriteLine("  5-1戦闘完了！");
             }
             else
             {
-                Console.WriteLine($"  戦闘に失敗しました: {battleResult.ErrorMessage}");
+                Console.WriteLine($"  5-1戦闘に失敗しました: {battleResult.ErrorMessage}");
+                return;
             }
-            Console.WriteLine("\n=== ゲーム開始から最初の戦闘まで完了 ===");
+
+            Console.WriteLine("\n【ステップ8】5-2への移動準備");
+            SortieHelper.PrepareForSortie(5, 2);
+
+            Console.WriteLine("\n【ステップ9】5-2戦闘実行");
+            var battleResult2 = _battleManager.ExecuteBattle(5, 2, _config.Formation, true); // 夜戦まで実行
+            if (battleResult2.Success)
+            {
+                BattleResultDisplayer.DisplayBattleResult(battleResult2.BattleResultModel);
+                Console.WriteLine("  5-2戦闘完了！");
+            }
+            else
+            {
+                Console.WriteLine($"  5-2戦闘に失敗しました: {battleResult2.ErrorMessage}");
+            }
         }
 
 

@@ -21,8 +21,9 @@ namespace Runner
         /// <param name="areaId">エリアID</param>
         /// <param name="mapNo">マップ番号</param>
         /// <param name="formation">戦闘陣形</param>
+        /// <param name="executeNightBattle">夜戦を実行するかどうか</param>
         /// <returns>戦闘結果</returns>
-        public BattleResult ExecuteBattle(int areaId = 2, int mapNo = 24, BattleFormationKinds1 formation = BattleFormationKinds1.TanJuu)
+        public BattleResult ExecuteBattle(int areaId = 2, int mapNo = 24, BattleFormationKinds1 formation = BattleFormationKinds1.TanJuu, bool executeNightBattle = false)
         {
             Console.WriteLine("  戦闘を実行中...");
 
@@ -64,7 +65,7 @@ namespace Runner
                 var sortieBattleManager = sortieMapManager.BattleStart_Write(formation);
 
                 // 戦闘コマンドの処理
-                var battleResult = ProcessBattleCommands(sortieBattleManager);
+                var battleResult = ProcessBattleCommands(sortieBattleManager, executeNightBattle);
 
                 return battleResult;
             }
@@ -79,8 +80,9 @@ namespace Runner
         /// 戦闘コマンドを処理
         /// </summary>
         /// <param name="battleManager">戦闘マネージャー</param>
+        /// <param name="executeNightBattle">夜戦を実行するかどうか</param>
         /// <returns>戦闘結果</returns>
-        private BattleResult ProcessBattleCommands(SortieBattleManager battleManager)
+        private BattleResult ProcessBattleCommands(SortieBattleManager battleManager, bool executeNightBattle = false)
         {
             Console.WriteLine("  戦闘コマンドを準備中...");
             var commandPhaseModel = battleManager.GetCommandPhaseModel();
@@ -126,7 +128,7 @@ namespace Runner
             Console.WriteLine("  昼戦完了！");
 
             // 夜戦の実行判定
-            if (battleManager.HasNightBattle())
+            if (executeNightBattle && battleManager.HasNightBattle())
             {
                 Console.WriteLine("  夜戦突入可能です");
                 Console.WriteLine("  夜戦を開始します...");
@@ -148,7 +150,14 @@ namespace Runner
             }
             else
             {
-                Console.WriteLine("  夜戦は発生しません");
+                if (!executeNightBattle)
+                {
+                    Console.WriteLine("  夜戦フラグがfalseのため夜戦をスキップします");
+                }
+                else
+                {
+                    Console.WriteLine("  夜戦は発生しません");
+                }
 
                 var result = new BattleResult
                 {
@@ -432,7 +441,7 @@ namespace Runner
     public static class BattleResultDisplayer
     {
         /// <summary>
-        /// 戦闘結果を表示
+        /// 戦闘結果を表示（簡素化版）
         /// </summary>
         /// <param name="battleResult">戦闘結果</param>
         public static void DisplayBattleResult(BattleResultModel battleResult)
@@ -447,9 +456,7 @@ namespace Runner
                     return;
                 }
 
-                Console.WriteLine($"  勝利判定: {battleResult.WinRank}");
-                Console.WriteLine($"  戦闘フェーズ: 昼戦実行済み");
-                Console.WriteLine($"  MVP艦: {battleResult.MvpShip}番艦");
+                Console.WriteLine($"  勝利判定: {battleResult.WinRank} / MVP: {battleResult.MvpShip}番艦");
 
                 // 敵艦の状態を表示
                 DisplayEnemyStatus(battleResult.Ships_e);
@@ -466,7 +473,7 @@ namespace Runner
         }
 
         /// <summary>
-        /// 敵艦の状態を表示
+        /// 敵艦の状態を表示（簡素化版）
         /// </summary>
         /// <param name="enemyShips">敵艦配列</param>
         private static void DisplayEnemyStatus(ShipModel_BattleResult[] enemyShips)
@@ -474,14 +481,14 @@ namespace Runner
             int destroyedEnemies = 0;
             int totalEnemies = enemyShips.Length;
 
-            Console.WriteLine("  敵艦詳細:");
+            Console.WriteLine("  敵艦:");
             for (int i = 0; i < enemyShips.Length; i++)
             {
                 var enemy = enemyShips[i];
                 if (enemy == null) continue;
 
                 string damageState = GetDamageStateDescription(enemy.DmgStateEnd);
-                Console.WriteLine($"    {i + 1}番艦 {enemy.Name}: HP {enemy.HpStart} → {enemy.HpEnd} ({damageState})");
+                Console.WriteLine($"    {i + 1}. {enemy.Name}: {enemy.HpStart} → {enemy.HpEnd} [{damageState}]");
 
                 // 撃沈判定
                 if (enemy.DmgStateEnd == DamageState_Battle.Gekichin || enemy.HpEnd <= 0)
@@ -490,24 +497,23 @@ namespace Runner
                 }
             }
 
-            Console.WriteLine("  戦闘結果詳細:");
-            Console.WriteLine($"    敵艦撃沈数: {destroyedEnemies}/{totalEnemies}隻");
+            Console.WriteLine($"  撃沈数: {destroyedEnemies}/{totalEnemies}隻");
         }
 
         /// <summary>
-        /// 味方艦の状態を表示
+        /// 味方艦の状態を表示（簡素化版）
         /// </summary>
         /// <param name="friendlyShips">味方艦配列</param>
         private static void DisplayFriendlyStatus(ShipModel_BattleResult[] friendlyShips)
         {
-            Console.WriteLine("  味方艦隊の状態:");
+            Console.WriteLine("  味方艦隊:");
             for (int i = 0; i < friendlyShips.Length; i++)
             {
                 var ship = friendlyShips[i];
                 if (ship == null) continue;
 
                 string damageState = GetDamageStateDescription(ship.DmgStateEnd);
-                Console.WriteLine($"    {i + 1}番艦 {ship.Name}: HP {ship.HpStart} → {ship.HpEnd} ({damageState})");
+                Console.WriteLine($"    {i + 1}. {ship.Name}: {ship.HpStart} → {ship.HpEnd} [{damageState}]");
             }
         }
 
