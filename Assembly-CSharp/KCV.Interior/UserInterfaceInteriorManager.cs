@@ -183,7 +183,7 @@ namespace KCV.Interior
 			case FurnitureKinds.Wall:
 				return "壁紙";
 			case FurnitureKinds.Window:
-				return "窓枠＋カ\u30fcテン";
+				return "窓枠＋カーテン";
 			default:
 				return string.Empty;
 			}

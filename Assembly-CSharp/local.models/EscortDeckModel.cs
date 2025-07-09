@@ -67,7 +67,7 @@ namespace local.models
 			}
 			if (Turn > 0)
 			{
-				empty += $"  移動中:残り{Turn}タ\u30fcン";
+				empty += $"  移動中:残り{Turn}ターン";
 			}
 			return empty + $"]";
 		}

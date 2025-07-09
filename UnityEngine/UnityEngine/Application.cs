@@ -72,17 +72,17 @@ namespace UnityEngine
 			{
 				switch (platform)
 				{
-				case RuntimePlatform.IPhonePlayer:
-				case RuntimePlatform.Android:
-				case RuntimePlatform.MetroPlayerX86:
-				case RuntimePlatform.MetroPlayerX64:
-				case RuntimePlatform.MetroPlayerARM:
-				case RuntimePlatform.WP8Player:
-				case RuntimePlatform.BlackBerryPlayer:
-				case RuntimePlatform.TizenPlayer:
-					return true;
-				default:
-					return false;
+					case RuntimePlatform.IPhonePlayer:
+					case RuntimePlatform.Android:
+					case RuntimePlatform.MetroPlayerX86:
+					case RuntimePlatform.MetroPlayerX64:
+					case RuntimePlatform.MetroPlayerARM:
+					case RuntimePlatform.WP8Player:
+					case RuntimePlatform.BlackBerryPlayer:
+					case RuntimePlatform.TizenPlayer:
+						return true;
+					default:
+						return false;
 				}
 			}
 		}
@@ -127,7 +127,7 @@ namespace UnityEngine
 
 		public static string streamingAssetsPath
 		{
-            get { return "localhost"; }
+			get { return System.IO.Directory.GetCurrentDirectory(); }
 		}
 
 		public static string persistentDataPath
@@ -274,9 +274,9 @@ namespace UnityEngine
 			}
 		}
 
-		public static void Quit() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void Quit() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		public static void CancelQuit() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void CancelQuit() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		public static void LoadLevel(int index)
 		{
@@ -308,7 +308,7 @@ namespace UnityEngine
 			return LoadLevelAsync(levelName, -1, additive: true, mustCompleteNextFrame: false);
 		}
 
-		private static AsyncOperation LoadLevelAsync(string monoLevelName, int index, bool additive, bool mustCompleteNextFrame) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static AsyncOperation LoadLevelAsync(string monoLevelName, int index, bool additive, bool mustCompleteNextFrame) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		public static bool UnloadLevel(int index)
 		{
@@ -320,7 +320,7 @@ namespace UnityEngine
 			return UnloadLevel(scenePath, -1);
 		}
 
-		private static bool UnloadLevel(string monoScenePath, int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static bool UnloadLevel(string monoScenePath, int index) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		public static void LoadLevelAdditive(int index)
 		{
@@ -332,25 +332,25 @@ namespace UnityEngine
 			LoadLevelAsync(name, -1, additive: true, mustCompleteNextFrame: true);
 		}
 
-		private static float GetStreamProgressForLevelByName(string levelName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static float GetStreamProgressForLevelByName(string levelName) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		public static float GetStreamProgressForLevel(int levelIndex) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static float GetStreamProgressForLevel(int levelIndex) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		public static float GetStreamProgressForLevel(string levelName)
 		{
 			return GetStreamProgressForLevelByName(levelName);
 		}
 
-		private static bool CanStreamedLevelBeLoadedByName(string levelName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static bool CanStreamedLevelBeLoadedByName(string levelName) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		public static bool CanStreamedLevelBeLoaded(int levelIndex) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static bool CanStreamedLevelBeLoaded(int levelIndex) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		public static bool CanStreamedLevelBeLoaded(string levelName)
 		{
 			return CanStreamedLevelBeLoadedByName(levelName);
 		}
 
-		public static void CaptureScreenshot(string filename, [DefaultValue("0")] int superSize) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void CaptureScreenshot(string filename, [DefaultValue("0")] int superSize) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		[ExcludeFromDocs]
 		public static void CaptureScreenshot(string filename)
@@ -359,16 +359,16 @@ namespace UnityEngine
 			CaptureScreenshot(filename, superSize);
 		}
 
-		public static bool HasProLicense() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static bool HasProLicense() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static bool HasAdvancedLicense() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static bool HasAdvancedLicense() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static bool HasARGV(string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static bool HasARGV(string name) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static string GetValueForARGV(string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static string GetValueForARGV(string name) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		[Obsolete("Use Object.DontDestroyOnLoad instead")]
-		public static void DontDestroyOnLoad(Object mono) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void DontDestroyOnLoad(Object mono) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		private static string ObjectToJSString(object o)
 		{
@@ -462,11 +462,11 @@ namespace UnityEngine
 			Internal_ExternalCall(script);
 		}
 
-		private static void Internal_ExternalCall(string script) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static void Internal_ExternalCall(string script) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static int GetBuildUnityVersion() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static int GetBuildUnityVersion() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static int GetNumericUnityVersion(string version) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static int GetNumericUnityVersion(string version) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		internal static void InvokeOnAdvertisingIdentifierCallback(string advertisingId, bool trackingEnabled)
 		{
@@ -476,10 +476,10 @@ namespace UnityEngine
 			}
 		}
 
-		public static void OpenURL(string url) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void OpenURL(string url) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		[Obsolete("For internal use only")]
-		public static void CommitSuicide(int mode) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static void CommitSuicide(int mode) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		private static void CallLogCallback(string logString, string stackTrace, LogType type, bool invokedOnMainThread)
 		{
@@ -490,13 +490,13 @@ namespace UnityEngine
 			s_LogCallbackHandlerThreaded?.Invoke(logString, stackTrace, type);
 		}
 
-		private static void SetLogCallbackDefined(bool defined, bool threaded) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static void SetLogCallbackDefined(bool defined, bool threaded) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		public static AsyncOperation RequestUserAuthorization(UserAuthorization mode) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static AsyncOperation RequestUserAuthorization(UserAuthorization mode) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		public static bool HasUserAuthorization(UserAuthorization mode) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		public static bool HasUserAuthorization(UserAuthorization mode) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
-		internal static void ReplyToUserAuthorizationRequest(bool reply, [DefaultValue("false")] bool remember) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		internal static void ReplyToUserAuthorizationRequest(bool reply, [DefaultValue("false")] bool remember) { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		[ExcludeFromDocs]
 		internal static void ReplyToUserAuthorizationRequest(bool reply)
@@ -505,7 +505,7 @@ namespace UnityEngine
 			ReplyToUserAuthorizationRequest(reply, remember);
 		}
 
-		private static int GetUserAuthorizationRequestMode_Internal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		private static int GetUserAuthorizationRequestMode_Internal() { throw new NotImplementedException("ï¿½È‚É‚ï¿½ï¿½ï¿½"); }
 
 		internal static UserAuthorization GetUserAuthorizationRequestMode()
 		{

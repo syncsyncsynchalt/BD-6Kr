@@ -57,7 +57,7 @@ namespace local.managers
 
 		public override string ToString()
 		{
-			string str = "== 改造マネ\u30fcジャ ==\n";
+			string str = "== 改造マネージャ ==\n";
 			str += $"対象艦: {TargetShip.ShortName} Lv{TargetShip.Level}(必要レベル:{TargetShip.AfterLevel}) 所持弾薬:{ManagerBase._materialModel.Ammo}(必要弾薬:{TargetShip.AfterAmmo}) 所持鋼材:{ManagerBase._materialModel.Steel}(必要鋼材:{TargetShip.AfterSteel}) 所持開発資材:{ManagerBase._materialModel.Devkit}(必要開発資材:{TargetShip.AfterDevkit}) \n";
 			str += $"所持改装設計書:{DesignSpecifications}(必要改装設計書:{DesignSpecificationsForGradeup})\n";
 			str += $"改装開始可能:{GradeupBtnEnabled} 改造チェック:{_chkResult}\n";

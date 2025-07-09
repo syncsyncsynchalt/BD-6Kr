@@ -93,7 +93,7 @@ namespace local.managers
 			for (int j = 0; j < jukeboxList.Count; j++)
 			{
 				Mst_bgm_jukebox mst_bgm_jukebox = jukeboxList[j];
-				str += string.Format("JUKE{0} {1} 家具コイン:{2} ル\u30fcプ:{3} BGM設定:{4} {5}\n", mst_bgm_jukebox.Bgm_id, mst_bgm_jukebox.Name, mst_bgm_jukebox.R_coins, mst_bgm_jukebox.Loops, (mst_bgm_jukebox.Bgm_flag != 1) ? "不可" : "可能", mst_bgm_jukebox.Remarks);
+				str += string.Format("JUKE{0} {1} 家具コイン:{2} ループ:{3} BGM設定:{4} {5}\n", mst_bgm_jukebox.Bgm_id, mst_bgm_jukebox.Name, mst_bgm_jukebox.R_coins, mst_bgm_jukebox.Loops, (mst_bgm_jukebox.Bgm_flag != 1) ? "不可" : "可能", mst_bgm_jukebox.Remarks);
 			}
 			return str + $"[--PortManager--]\n";
 		}

@@ -1,15 +1,22 @@
 using Common.Enum;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
+	[Serializable]
+	[XmlRoot("Support_HouRai")]
 	public class Support_HouRai
 	{
 		private readonly int capacity;
 
+		[XmlElement("Clitical")]
 		public BattleHitStatus[] Clitical;
 
+		[XmlElement("Damage")]
 		public int[] Damage;
 
+		[XmlElement("DamageType")]
 		public BattleDamageKinds[] DamageType;
 
 		public Support_HouRai()

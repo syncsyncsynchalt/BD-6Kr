@@ -99,7 +99,7 @@ namespace KCV
 		public void SetIsValid(bool isValid, bool isAnimation)
 		{
 			_isValid = isValid;
-			_uiStatus.text = ((!isValid) ? "決戦！ショ\u30fcトカット不可" : "戦闘ショ\u30fcトカット");
+			_uiStatus.text = ((!isValid) ? "決戦！ショートカット不可" : "戦闘ショートカット");
 			if (isAnimation)
 			{
 				_uiBackground.transform.LTCancel();

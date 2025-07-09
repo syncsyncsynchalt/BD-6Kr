@@ -230,7 +230,7 @@ namespace local.models.battle
 					if (attackTo != null)
 					{
 						RaigekiDamageModel attackDamage = GetAttackDamage(attackTo.TmpId);
-						text += string.Format("{0}({1}) から {2}({3}) へ雷撃 (ダメ\u30fcジ:{4}(c:{7}) {5}{6})\n", shipModel_Battle.Name, shipModel_Battle.Index, attackTo.Name, attackTo.Index, attackDamage.GetDamage(shipModel_Battle.TmpId), attackDamage.GetHitState(shipModel_Battle.TmpId), (!attackDamage.GetProtectEffect(shipModel_Battle.TmpId)) ? string.Empty : "[かばう]", attackDamage.__GetDamage__(shipModel_Battle.TmpId));
+						text += string.Format("{0}({1}) から {2}({3}) へ雷撃 (ダメージ:{4}(c:{7}) {5}{6})\n", shipModel_Battle.Name, shipModel_Battle.Index, attackTo.Name, attackTo.Index, attackDamage.GetDamage(shipModel_Battle.TmpId), attackDamage.GetHitState(shipModel_Battle.TmpId), (!attackDamage.GetProtectEffect(shipModel_Battle.TmpId)) ? string.Empty : "[かばう]", attackDamage.__GetDamage__(shipModel_Battle.TmpId));
 					}
 				}
 			}
@@ -244,7 +244,7 @@ namespace local.models.battle
 					if (attackTo2 != null)
 					{
 						RaigekiDamageModel attackDamage2 = GetAttackDamage(attackTo2.TmpId);
-						text += string.Format("{0}({1}) から {2}({3}) へ雷撃 (ダメ\u30fcジ:{4}(c:{7}) {5}{6})\n", shipModel_Battle2.Name, shipModel_Battle2.Index, attackTo2.Name, attackTo2.Index, attackDamage2.GetDamage(shipModel_Battle2.TmpId), attackDamage2.GetHitState(shipModel_Battle2.TmpId), (!attackDamage2.GetProtectEffect(shipModel_Battle2.TmpId)) ? string.Empty : "[かばう]", attackDamage2.__GetDamage__(shipModel_Battle2.TmpId));
+						text += string.Format("{0}({1}) から {2}({3}) へ雷撃 (ダメージ:{4}(c:{7}) {5}{6})\n", shipModel_Battle2.Name, shipModel_Battle2.Index, attackTo2.Name, attackTo2.Index, attackDamage2.GetDamage(shipModel_Battle2.TmpId), attackDamage2.GetHitState(shipModel_Battle2.TmpId), (!attackDamage2.GetProtectEffect(shipModel_Battle2.TmpId)) ? string.Empty : "[かばう]", attackDamage2.__GetDamage__(shipModel_Battle2.TmpId));
 					}
 				}
 			}

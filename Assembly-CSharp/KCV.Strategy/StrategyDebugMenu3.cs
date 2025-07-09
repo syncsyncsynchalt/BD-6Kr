@@ -66,7 +66,7 @@ namespace KCV.Strategy
 				}
 			}
 			ButtonManager.nowForcusButton.SetActive(isActive: true);
-			Message.text = "デ\u30fcタロ\u30fcド中です";
+			Message.text = "データロード中です";
 		}
 
 		public void OnPushPreset()

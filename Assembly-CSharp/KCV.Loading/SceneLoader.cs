@@ -21,7 +21,7 @@ namespace KCV.Loading
 			if (SingletonMonoBehaviour<AppInformation>.Instance.NextLoadScene == Generics.Scene.Scene_BEF)
 			{
 				SingletonMonoBehaviour<AppInformation>.Instance.NextLoadScene = Generics.Scene.Strategy;
-				Debug.LogError("エラ\u30fc：次のシ\u30fcンが設定されていません");
+				Debug.LogError("エラー：次のシーンが設定されていません");
 			}
 			if (SingletonMonoBehaviour<AppInformation>.Instance.NextLoadType == AppInformation.LoadType.Ship)
 			{

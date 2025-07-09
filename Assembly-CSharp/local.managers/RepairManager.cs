@@ -255,7 +255,7 @@ namespace local.managers
 			{
 				empty += $"Dock{i}:{_docks[i]}\n";
 			}
-			return empty + $"所持している開放キ\u30fc:{NumOfKeyPossessions}\n";
+			return empty + $"所持している開放キー:{NumOfKeyPossessions}\n";
 		}
 	}
 }

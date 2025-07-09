@@ -151,7 +151,7 @@ namespace local.models.battle
 
 		public override string ToString()
 		{
-			string str = "[航空戦デ\u30fcタ]\n";
+			string str = "[航空戦データ]\n";
 			str += $"--味方側航空機\n";
 			str += ToString_Plane(_ships_f);
 			str += $"--相手側航空機\n";

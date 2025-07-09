@@ -86,7 +86,7 @@ namespace KCV.Arsenal
 				component.transform.localPosition = Vector3.left * 110f + Vector3.up * 119f;
 				component2.transform.localPosition = Vector3.right * 40f + Vector3.up * 119f;
 				component2.spacingX = -1;
-				component2.text = "ボ\u30fcキサイト";
+				component2.text = "ボーキサイト";
 			}
 			UpdateFrameSelect();
 			ArsenalTaskManager._clsConstruct.UpdateDialogMaterialCount();

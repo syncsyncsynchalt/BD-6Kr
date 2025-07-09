@@ -16,7 +16,7 @@ namespace local.models.battle
 
 		public override string ToString()
 		{
-			return string.Format("{0}({1})へダメ\u30fcジ:{2}(r:{5}) {3}{4}\n", base.Defender.Name, base.Defender.Index, GetDamage(), GetHitState(), (!GetProtectEffect()) ? string.Empty : "[かばう]", __GetDamage__());
+			return string.Format("{0}({1})へダメージ:{2}(r:{5}) {3}{4}\n", base.Defender.Name, base.Defender.Index, GetDamage(), GetHitState(), (!GetProtectEffect()) ? string.Empty : "[かばう]", __GetDamage__());
 		}
 	}
 }

@@ -1,28 +1,41 @@
 using System.Collections.Generic;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Models
 {
+	[Serializable]
+	[XmlRoot("Ship_GrowValues")]
 	public class Ship_GrowValues
 	{
+		[XmlElement("Maxhp")]
 		public int Maxhp;
 
+		[XmlElement("Houg")]
 		public int Houg;
 
+		[XmlElement("Raig")]
 		public int Raig;
 
+		[XmlElement("Taiku")]
 		public int Taiku;
 
+		[XmlElement("Soukou")]
 		public int Soukou;
 
+		[XmlElement("Kaihi")]
 		public int Kaihi;
 
+		[XmlElement("Taisen")]
 		public int Taisen;
 
+		[XmlElement("Sakuteki")]
 		public int Sakuteki;
 
+		[XmlElement("Luck")]
 		public int Luck;
 
-		private Ship_GrowValues()
+		public Ship_GrowValues()
 		{
 		}
 

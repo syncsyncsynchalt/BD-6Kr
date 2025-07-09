@@ -1,28 +1,42 @@
 using Server_Models;
 using System.Collections.Generic;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
+	[Serializable]
+	[XmlRoot("DayBattleFmt")]
 	public class DayBattleFmt
 	{
+		[XmlElement("Header")]
 		public BattleHeader Header;
 
+		[XmlElement("Search")]
 		public SearchInfo[] Search;
 
+		[XmlElement("OpeningProduction")]
 		public DayBattleProductionFmt OpeningProduction;
 
+		[XmlElement("AirBattle")]
 		public AirBattle AirBattle;
 
+		[XmlElement("AirBattle2")]
 		public AirBattle AirBattle2;
 
+		[XmlElement("SupportAtack")]
 		public SupportAtack SupportAtack;
 
+		[XmlElement("OpeningAtack")]
 		public Raigeki OpeningAtack;
 
+		[XmlElement("FromMiddleDayBattle")]
 		public List<FromMiddleBattleDayData> FromMiddleDayBattle;
 
+		[XmlElement("Raigeki")]
 		public Raigeki Raigeki;
 
+		[XmlElement("ValidMidnight")]
 		public bool ValidMidnight;
 
 		public DayBattleFmt()

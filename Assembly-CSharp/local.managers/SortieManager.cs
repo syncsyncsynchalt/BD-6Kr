@@ -85,7 +85,15 @@ namespace local.managers
 		public SortieMapManager GoSortie(int deck_id, int map_id)
 		{
 			DeckModel deck = base.UserInfo.GetDeck(deck_id);
+			System.Console.WriteLine($"SortieManager.GoSortie: deck_id={deck_id}, map_id={map_id}");
+
 			MapModel map = _maps.Find((MapModel m) => m.MstId == map_id);
+			if (map == null)
+			{
+				System.Console.WriteLine($"Map with MstId={map_id} not found!");
+				throw new System.Exception($"Map with MstId={map_id} not found in _maps list");
+			}
+
 			return new SortieMapManager(deck, map, _maps);
 		}
 

@@ -53,9 +53,9 @@ namespace KCV.SaveData
 				_uiShipNum.text = $"艦娘保有数：{999}";
 				_uiCheatsArea.text = $"攻略海域数：{999}";
 				_uiArea.text = string.Format("現\u3000在\u3000地：{0}", "鎮守府海域");
-				_uiTurn.text = string.Format("現在タ\u30fcン：{0}", "零の年 睦月17日");
+				_uiTurn.text = string.Format("現在ターン：{0}", "零の年 睦月17日");
 				_uiTactics.text = string.Format("遂行中作戦：{0}", "第17海域あ号作戦");
-				_uiDifficlty.text = string.Format("難\u3000易\u3000度：{0}", "ナイトメアモ\u30fcド");
+				_uiDifficlty.text = string.Format("難\u3000易\u3000度：{0}", "ナイトメアモード");
 			}
 
 			public void Release()

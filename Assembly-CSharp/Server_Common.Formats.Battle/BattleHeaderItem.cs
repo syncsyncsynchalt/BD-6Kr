@@ -1,16 +1,18 @@
 using Server_Models;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
-	[DataContract]
+	[Serializable]
+	[XmlRoot("BattleHeaderItem")]
 	public class BattleHeaderItem
 	{
-		[DataMember]
+		[XmlElement("Deck_Id")]
 		public int Deck_Id;
 
-		[DataMember]
+		[XmlElement("Ships")]
 		public BattleShipFmt[] Ships;
 
 		public BattleHeaderItem()

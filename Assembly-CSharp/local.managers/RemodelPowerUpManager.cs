@@ -208,7 +208,7 @@ namespace local.managers
 			if (_powup_target_ship != null)
 			{
 				PowUpInfo powUpInfo = getPowUpInfo(MaterialShips);
-				empty += "対象艦のステ\u30fcタス\n";
+				empty += "対象艦のステータス\n";
 				if (powUpInfo.Taikyu > 0)
 				{
 					empty += $"耐久:{PowupTargetShip.MaxHp}->{PowupTargetShip.MaxHp + powUpInfo.Taikyu}(+{powUpInfo.Taikyu}) ";

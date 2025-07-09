@@ -121,7 +121,7 @@ public class OtherShipListScrollNew : UIScrollList<ShipModel, OtherShipListChild
 		mUIShipSortButton.ReSort();
 		mKeyController = keyController;
 		List<ShipModel> list = new List<ShipModel>();
-		SupplyMainManager.Instance.SupplyManager.Ships.ForEach(delegate(ShipModel e)
+		SupplyMainManager.Instance.SupplyManager.Ships.ForEach(delegate (ShipModel e)
 		{
 			if (e != null)
 			{
@@ -187,7 +187,7 @@ public class OtherShipListScrollNew : UIScrollList<ShipModel, OtherShipListChild
 
 	public void ProcessRecoveryAnimation()
 	{
-		Debug.Log("回復アニメ\u30fcション");
+		Debug.Log("回復アニメーション");
 		for (int i = 0; i < mViews.Length; i++)
 		{
 			if (isSelected(mViews[i].GetModel()))

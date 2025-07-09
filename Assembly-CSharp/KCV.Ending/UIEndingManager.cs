@@ -126,7 +126,7 @@ namespace KCV.Ending
 
 		private IEnumerator PlayMovie(EndingManager manager)
 		{
-			Debug.Log("エンディングム\u30fcビ\u30fc");
+			Debug.Log("エンディングムービー");
 			isMovieEnd = false;
 			string MovieFilePath = (!manager.IsGoTrueEnd()) ? MovieFileInfos.EndingNormal.GetFilePath() : MovieFileInfos.EndingTrue.GetFilePath();
 			movie.SetLooping(0).SetMode(0).SetOnWarningID(delegate

@@ -65,6 +65,12 @@ namespace local.managers
 			_map = map;
 			_maps = maps;
 			_req_map = new Api_req_Map();
+
+			if (_req_map == null)
+			{
+				throw new System.Exception("Failed to create Api_req_Map in MapManager constructor");
+			}
+
 			_cells = new List<CellModel>();
 			_items = new List<MapEventItemModel>();
 			Comm_UserDatas.Instance.User_trophy.Start_map_count++;
@@ -244,21 +250,21 @@ namespace local.managers
 				MapItemGetFmt mapItemGetFmt = _next_cell.MapClearItem[i];
 				switch (mapItemGetFmt.Category)
 				{
-				case MapItemGetFmt.enumCategory.Furniture:
-					reward = new Reward_Furniture(mapItemGetFmt.Id);
-					break;
-				case MapItemGetFmt.enumCategory.Slotitem:
-					reward = new Reward_Slotitem(mapItemGetFmt.Id, mapItemGetFmt.GetCount);
-					break;
-				case MapItemGetFmt.enumCategory.Ship:
-					reward = new Reward_Ship(mapItemGetFmt.Id);
-					break;
-				case MapItemGetFmt.enumCategory.Material:
-					reward = new Reward_Material((enumMaterialCategory)mapItemGetFmt.Id, mapItemGetFmt.GetCount);
-					break;
-				case MapItemGetFmt.enumCategory.UseItem:
-					reward = new Reward_Useitem(mapItemGetFmt.Id, mapItemGetFmt.GetCount);
-					break;
+					case MapItemGetFmt.enumCategory.Furniture:
+						reward = new Reward_Furniture(mapItemGetFmt.Id);
+						break;
+					case MapItemGetFmt.enumCategory.Slotitem:
+						reward = new Reward_Slotitem(mapItemGetFmt.Id, mapItemGetFmt.GetCount);
+						break;
+					case MapItemGetFmt.enumCategory.Ship:
+						reward = new Reward_Ship(mapItemGetFmt.Id);
+						break;
+					case MapItemGetFmt.enumCategory.Material:
+						reward = new Reward_Material((enumMaterialCategory)mapItemGetFmt.Id, mapItemGetFmt.GetCount);
+						break;
+					case MapItemGetFmt.enumCategory.UseItem:
+						reward = new Reward_Useitem(mapItemGetFmt.Id, mapItemGetFmt.GetCount);
+						break;
 				}
 				if (reward != null)
 				{

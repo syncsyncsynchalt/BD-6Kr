@@ -172,7 +172,7 @@ namespace KCV.Interior
 				mTexture_Header.color = new Color(134f / 255f, 39f / 85f, 148f / 255f);
 				break;
 			case FurnitureKinds.Window:
-				mLabel_Genre.text = "窓枠＋カ\u30fcテン";
+				mLabel_Genre.text = "窓枠＋カーテン";
 				mTexture_Header.color = new Color(20f / 51f, 152f / 255f, 0.5882353f);
 				break;
 			case FurnitureKinds.Hangings:

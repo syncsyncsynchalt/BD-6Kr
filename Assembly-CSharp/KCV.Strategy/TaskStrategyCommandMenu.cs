@@ -549,7 +549,7 @@ namespace KCV.Strategy
 
 		private bool pushTurnEnd()
 		{
-			Debug.Log("タ\u30fcンエンド");
+			Debug.Log("ターンエンド");
 			StrategyTopTaskManager.GetTurnEnd().TurnEnd();
 			CommandMenu.MenuExit();
 			StrategyTopTaskManager.ReqMode(StrategyTopTaskManager.StrategyTopTaskManagerMode.TurnEnd);
@@ -577,28 +577,28 @@ namespace KCV.Strategy
 			List<IsGoCondition> list = new List<IsGoCondition>();
 			switch (menuName)
 			{
-			case MENU_NAME.SALLY:
-				list = currentDeck.IsValidSortie();
-				break;
-			case MENU_NAME.MOVE:
-				list = currentDeck.IsValidMove();
-				break;
-			case MENU_NAME.ENSEI:
-				list = currentDeck.IsValidMission();
-				break;
-			case MENU_NAME.ENSYU:
-				list = currentDeck.IsValidPractice();
-				break;
-			case MENU_NAME.DEPLOY:
-			{
-				int num = StrategyTopTaskManager.Instance.TileManager.FocusTile.areaID;
-				if (num == 15 || num == 16 || num == 17)
-				{
-					CommonPopupDialog.Instance.StartPopup("この海域には配備出来ません");
-					return false;
-				}
-				break;
-			}
+				case MENU_NAME.SALLY:
+					list = currentDeck.IsValidSortie();
+					break;
+				case MENU_NAME.MOVE:
+					list = currentDeck.IsValidMove();
+					break;
+				case MENU_NAME.ENSEI:
+					list = currentDeck.IsValidMission();
+					break;
+				case MENU_NAME.ENSYU:
+					list = currentDeck.IsValidPractice();
+					break;
+				case MENU_NAME.DEPLOY:
+					{
+						int num = StrategyTopTaskManager.Instance.TileManager.FocusTile.areaID;
+						if (num == 15 || num == 16 || num == 17)
+						{
+							CommonPopupDialog.Instance.StartPopup("この海域には配備出来ません");
+							return false;
+						}
+						break;
+					}
 			}
 			bool flag = list.Count == 0;
 			if (!flag)

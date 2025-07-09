@@ -8,11 +8,11 @@ namespace KCV.Startup
 	{
 		public const string HEADER_MESSAGE_ADMIRAL_NAME = "提督名入力";
 
-		public const string HEADER_MESSAGE_STARTER_SELECT = "ゲ\u30fcム開始";
+		public const string HEADER_MESSAGE_STARTER_SELECT = "ゲーム開始";
 
 		public const string HEADER_MESSAGE_FIRST_SHIP = "初期艦選択";
 
-		public const string HEADER_MESSAGE_TUTORIAL = "チュ\u30fcトリアル";
+		public const string HEADER_MESSAGE_TUTORIAL = "チュートリアル";
 
 		public const float STARTER_PARTNER_SWIPE_RANGE = 0.15f;
 

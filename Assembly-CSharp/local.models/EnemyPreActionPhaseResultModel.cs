@@ -11,7 +11,7 @@ namespace local.models
 
 		public override string ToString()
 		{
-			return $"[敵事前行動フェ\u30fcズ]: ";
+			return $"[敵事前行動フェーズ]: ";
 		}
 	}
 }

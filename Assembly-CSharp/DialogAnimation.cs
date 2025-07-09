@@ -24,7 +24,7 @@ public class DialogAnimation : MonoBehaviour
 	})]
 	public bool inspecterButton1;
 
-	[Button("FadeIn", "フェ\u30fcドIN", new object[]
+	[Button("FadeIn", "フェードIN", new object[]
 	{
 
 	})]
@@ -36,7 +36,7 @@ public class DialogAnimation : MonoBehaviour
 	})]
 	public bool inspecterButton3;
 
-	[Button("FadeOut", "フェ\u30fcドOUT", new object[]
+	[Button("FadeOut", "フェードOUT", new object[]
 	{
 
 	})]
@@ -108,36 +108,36 @@ public class DialogAnimation : MonoBehaviour
 		iTween.Stop(base.gameObject);
 		switch (animType)
 		{
-		case AnimType.POPUP:
-			if (IsOpen)
-			{
-				PopUpIn();
-			}
-			else
-			{
-				PopUpOut();
-			}
-			break;
-		case AnimType.FEAD:
-			if (IsOpen)
-			{
-				FadeIn();
-			}
-			else
-			{
-				FadeOut();
-			}
-			break;
-		case AnimType.SLIDE:
-			if (IsOpen)
-			{
-				SlideIn(0, 0.5f);
-			}
-			else
-			{
-				SlideOut(0, 0.5f);
-			}
-			break;
+			case AnimType.POPUP:
+				if (IsOpen)
+				{
+					PopUpIn();
+				}
+				else
+				{
+					PopUpOut();
+				}
+				break;
+			case AnimType.FEAD:
+				if (IsOpen)
+				{
+					FadeIn();
+				}
+				else
+				{
+					FadeOut();
+				}
+				break;
+			case AnimType.SLIDE:
+				if (IsOpen)
+				{
+					SlideIn(0, 0.5f);
+				}
+				else
+				{
+					SlideOut(0, 0.5f);
+				}
+				break;
 		}
 		if (Black != null)
 		{

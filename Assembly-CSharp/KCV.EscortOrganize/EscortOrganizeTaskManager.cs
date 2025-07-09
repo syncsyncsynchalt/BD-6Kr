@@ -127,7 +127,7 @@ namespace KCV.EscortOrganize
 			{
 				return;
 			}
-			Debug.Log("リクエストされたフェ\u30fcズ:" + OrganizeTaskManager._iPhaseReq);
+			Debug.Log("リクエストされたフェーズ:" + OrganizeTaskManager._iPhaseReq);
 			switch (OrganizeTaskManager._iPhaseReq)
 			{
 			case OrganizePhase.Phase_ST:

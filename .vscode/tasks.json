@@ -62,12 +62,12 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build runner",
+            "label": "build Runner",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/runner/runner.csproj"
+                "${workspaceFolder}/Runner/Runner.csproj"
             ],
             "problemMatcher": "$msCompile"
         },

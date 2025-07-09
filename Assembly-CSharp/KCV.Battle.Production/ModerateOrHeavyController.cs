@@ -30,13 +30,13 @@ namespace KCV.Battle.Production
 		private Transform _heavyFlat;
 
 		[SerializeField]
-		[Tooltip("アニメ\u30fcションクリップ用スケ\u30fcル")]
+		[Tooltip("アニメーションクリップ用スケール")]
 		private float _scale = 1f;
 
 		[SerializeField]
 		private float _defaultScale = 272f;
 
-		[Tooltip("デバッグ用にル\u30fcプ起動するか")]
+		[Tooltip("デバッグ用にループ起動するか")]
 		[SerializeField]
 		private bool _startLoop;
 

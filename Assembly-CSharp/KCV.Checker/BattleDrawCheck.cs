@@ -18,7 +18,7 @@ namespace KCV.Checker
 
 		public enum Mode
 		{
-			ビュワ\u30fc,
+			ビュワー,
 			編集
 		}
 
@@ -43,8 +43,8 @@ namespace KCV.Checker
 		public Mode mode;
 
 		private int MIN_SHIP_ID => (from order in Mst_DataManager.Instance.Mst_ship
-			orderby order.Value.Id
-			select order).First().Value.Id;
+									orderby order.Value.Id
+									select order).First().Value.Id;
 
 		private int MAX_SHIP_ID => Mst_DataManager.Instance.Mst_ship.Max((KeyValuePair<int, Mst_ship> order) => order.Value.Id);
 
@@ -75,136 +75,136 @@ namespace KCV.Checker
 		{
 			switch (mode)
 			{
-			case Mode.ビュワ\u30fc:
-				if (Input.GetKeyDown(KeyCode.LeftArrow))
-				{
-					setShipID(shipID - 1);
-				}
-				else if (Input.GetKeyDown(KeyCode.RightArrow))
-				{
-					setShipID(shipID + 1);
-				}
-				else if (Input.GetKeyDown(KeyCode.UpArrow))
-				{
-					setShipID(shipID + 10);
-				}
-				else if (Input.GetKeyDown(KeyCode.DownArrow))
-				{
-					setShipID(shipID - 10);
-				}
-				break;
-			case Mode.編集:
-				if (Input.GetKeyDown(KeyCode.R))
-				{
-					UpdateShip();
-					focusCamera();
-				}
-				switch (pog)
-				{
-				case POG.注視点:
+				case Mode.ビュワー:
 					if (Input.GetKeyDown(KeyCode.LeftArrow))
 					{
-						setShipLocalPointOfGaze(Vector3.left);
+						setShipID(shipID - 1);
 					}
 					else if (Input.GetKeyDown(KeyCode.RightArrow))
 					{
-						setShipLocalPointOfGaze(Vector3.right);
+						setShipID(shipID + 1);
 					}
 					else if (Input.GetKeyDown(KeyCode.UpArrow))
 					{
-						setShipLocalPointOfGaze(Vector3.up);
+						setShipID(shipID + 10);
 					}
 					else if (Input.GetKeyDown(KeyCode.DownArrow))
 					{
-						setShipLocalPointOfGaze(Vector3.down);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
-					{
-						setShipLocalPointOfGaze(Vector3.left * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
-					{
-						setShipLocalPointOfGaze(Vector3.right * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
-					{
-						setShipLocalPointOfGaze(Vector3.up * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
-					{
-						setShipLocalPointOfGaze(Vector3.down * 10f);
+						setShipID(shipID - 10);
 					}
 					break;
-				case POG.特殊注視点:
-					if (Input.GetKeyDown(KeyCode.LeftArrow))
+				case Mode.編集:
+					if (Input.GetKeyDown(KeyCode.R))
 					{
-						setShipLocalSPPointOfGaze(Vector3.left);
+						UpdateShip();
+						focusCamera();
 					}
-					else if (Input.GetKeyDown(KeyCode.RightArrow))
+					switch (pog)
 					{
-						setShipLocalSPPointOfGaze(Vector3.right);
-					}
-					else if (Input.GetKeyDown(KeyCode.UpArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.up);
-					}
-					else if (Input.GetKeyDown(KeyCode.DownArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.down);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.left * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.right * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.up * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.down * 10f);
+						case POG.注視点:
+							if (Input.GetKeyDown(KeyCode.LeftArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.left);
+							}
+							else if (Input.GetKeyDown(KeyCode.RightArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.right);
+							}
+							else if (Input.GetKeyDown(KeyCode.UpArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.up);
+							}
+							else if (Input.GetKeyDown(KeyCode.DownArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.down);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.left * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.right * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.up * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
+							{
+								setShipLocalPointOfGaze(Vector3.down * 10f);
+							}
+							break;
+						case POG.特殊注視点:
+							if (Input.GetKeyDown(KeyCode.LeftArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.left);
+							}
+							else if (Input.GetKeyDown(KeyCode.RightArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.right);
+							}
+							else if (Input.GetKeyDown(KeyCode.UpArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.up);
+							}
+							else if (Input.GetKeyDown(KeyCode.DownArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.down);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.left * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.right * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.up * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.down * 10f);
+							}
+							break;
+						case POG.演習注視点:
+							if (Input.GetKeyDown(KeyCode.LeftArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.left);
+							}
+							else if (Input.GetKeyDown(KeyCode.RightArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.right);
+							}
+							else if (Input.GetKeyDown(KeyCode.UpArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.up);
+							}
+							else if (Input.GetKeyDown(KeyCode.DownArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.down);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.left * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.right * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.up * 10f);
+							}
+							if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
+							{
+								setShipLocalSPPointOfGaze(Vector3.down * 10f);
+							}
+							break;
 					}
 					break;
-				case POG.演習注視点:
-					if (Input.GetKeyDown(KeyCode.LeftArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.left);
-					}
-					else if (Input.GetKeyDown(KeyCode.RightArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.right);
-					}
-					else if (Input.GetKeyDown(KeyCode.UpArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.up);
-					}
-					else if (Input.GetKeyDown(KeyCode.DownArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.down);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.left * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.RightArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.right * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.UpArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.up * 10f);
-					}
-					if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.DownArrow))
-					{
-						setShipLocalSPPointOfGaze(Vector3.down * 10f);
-					}
-					break;
-				}
-				break;
 			}
 			if (Input.GetKeyDown(KeyCode.D))
 			{
@@ -353,13 +353,13 @@ namespace KCV.Checker
 
 		private void changeMode()
 		{
-			if (mode == Mode.ビュワ\u30fc)
+			if (mode == Mode.ビュワー)
 			{
 				mode = Mode.編集;
 			}
 			else
 			{
-				mode = Mode.ビュワ\u30fc;
+				mode = Mode.ビュワー;
 			}
 		}
 
@@ -380,18 +380,18 @@ namespace KCV.Checker
 			{
 				switch (pog)
 				{
-				case POG.注視点:
-					fieldCamera.transform.position = calcCamTargetPosToPog();
-					fieldCamera.LookAt(uiBattleShip.pointOfGaze);
-					break;
-				case POG.特殊注視点:
-					fieldCamera.transform.position = calcCamTargetPosToSPPog();
-					fieldCamera.LookAt(uiBattleShip.spPointOfGaze);
-					break;
-				case POG.演習注視点:
-					fieldCamera.transform.position = calcCamTargetPosToSPPog();
-					fieldCamera.LookAt(uiBattleShip.spPointOfGaze);
-					break;
+					case POG.注視点:
+						fieldCamera.transform.position = calcCamTargetPosToPog();
+						fieldCamera.LookAt(uiBattleShip.pointOfGaze);
+						break;
+					case POG.特殊注視点:
+						fieldCamera.transform.position = calcCamTargetPosToSPPog();
+						fieldCamera.LookAt(uiBattleShip.spPointOfGaze);
+						break;
+					case POG.演習注視点:
+						fieldCamera.transform.position = calcCamTargetPosToSPPog();
+						fieldCamera.LookAt(uiBattleShip.spPointOfGaze);
+						break;
 				}
 			}
 		}
@@ -453,21 +453,21 @@ namespace KCV.Checker
 		{
 			switch (pog)
 			{
-			case POG.注視点:
-				Debug.Log(string.Format("注視点[{1}]:{0}", uiBattleShip.localPointOfGaze, (!isDamaged) ? "通常" : "ダメ\u30fcジ"));
-				break;
-			case POG.特殊注視点:
-				Debug.Log(string.Format("特殊注視点注視点[{1}]:{0}", uiBattleShip.localSPPointOfGaze, (!isDamaged) ? "通常" : "ダメ\u30fcジ"));
-				break;
-			case POG.演習注視点:
-				Debug.Log(string.Format("演習特殊注視点[{1}]:{0}", uiBattleShip.localSPPointOfGaze, (!isDamaged) ? "通常" : "ダメ\u30fcジ"));
-				break;
+				case POG.注視点:
+					Debug.Log(string.Format("注視点[{1}]:{0}", uiBattleShip.localPointOfGaze, (!isDamaged) ? "通常" : "ダメージ"));
+					break;
+				case POG.特殊注視点:
+					Debug.Log(string.Format("特殊注視点注視点[{1}]:{0}", uiBattleShip.localSPPointOfGaze, (!isDamaged) ? "通常" : "ダメージ"));
+					break;
+				case POG.演習注視点:
+					Debug.Log(string.Format("演習特殊注視点[{1}]:{0}", uiBattleShip.localSPPointOfGaze, (!isDamaged) ? "通常" : "ダメージ"));
+					break;
 			}
 		}
 
 		private void footPositionCopy()
 		{
-			Debug.Log(string.Format("足元座標[{1}]:{0}", uiBattleShip.object3D.transform.localPosition, (!isDamaged) ? "通常" : "ダメ\u30fcジ"));
+			Debug.Log(string.Format("足元座標[{1}]:{0}", uiBattleShip.object3D.transform.localPosition, (!isDamaged) ? "通常" : "ダメージ"));
 		}
 
 		private Mst_ship getMstShip(int mstId)
@@ -489,8 +489,8 @@ namespace KCV.Checker
 			GUILayout.BeginVertical("box", new GUILayoutOption[0]);
 			GUILayout.Label("[BattleDrawCheck Information]", new GUILayoutOption[0]);
 			GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-			GUILayout.Label($"モ\u30fcド:{mode}", new GUILayoutOption[0]);
-			if (GUILayout.Button("モ\u30fcド変更(E)", new GUILayoutOption[0]))
+			GUILayout.Label($"モード:{mode}", new GUILayoutOption[0]);
+			if (GUILayout.Button("モード変更(E)", new GUILayoutOption[0]))
 			{
 				changeMode();
 			}
@@ -503,8 +503,8 @@ namespace KCV.Checker
 			}
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-			GUILayout.Label(string.Format("ダメ\u30fcジ状態:{0}", (!isDamaged) ? "通常" : "ダメ\u30fcジ"), new GUILayoutOption[0]);
-			if (GUILayout.Button("ダメ\u30fcジ状態変更(D)", new GUILayoutOption[0]))
+			GUILayout.Label(string.Format("ダメージ状態:{0}", (!isDamaged) ? "通常" : "ダメージ"), new GUILayoutOption[0]);
+			if (GUILayout.Button("ダメージ状態変更(D)", new GUILayoutOption[0]))
 			{
 				changeDamage();
 			}
@@ -518,112 +518,112 @@ namespace KCV.Checker
 				GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
 				switch (mode)
 				{
-				case Mode.ビュワ\u30fc:
-					GUILayout.Label($"艦ID", new GUILayoutOption[0]);
-					if (GUILayout.Button("-1(←)", new GUILayoutOption[0]))
-					{
-						setShipID(shipID - 1);
-					}
-					else if (GUILayout.Button("+1(→)", new GUILayoutOption[0]))
-					{
-						setShipID(shipID + 1);
-					}
-					else if (GUILayout.Button("-10(↓)", new GUILayoutOption[0]))
-					{
-						setShipID(shipID - 10);
-					}
-					else if (GUILayout.Button("+10(↑)", new GUILayoutOption[0]))
-					{
-						setShipID(shipID + 10);
-					}
-					break;
-				case Mode.編集:
-					switch (pog)
-					{
-					case POG.注視点:
-						GUILayout.BeginVertical(new GUILayoutOption[0]);
-						GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+					case Mode.ビュワー:
+						GUILayout.Label($"艦ID", new GUILayoutOption[0]);
 						if (GUILayout.Button("-1(←)", new GUILayoutOption[0]))
 						{
-							setShipLocalPointOfGaze(Vector3.left);
+							setShipID(shipID - 1);
 						}
 						else if (GUILayout.Button("+1(→)", new GUILayoutOption[0]))
 						{
-							setShipLocalPointOfGaze(Vector3.right);
+							setShipID(shipID + 1);
 						}
-						else if (GUILayout.Button("-1(↓)", new GUILayoutOption[0]))
+						else if (GUILayout.Button("-10(↓)", new GUILayoutOption[0]))
 						{
-							setShipLocalPointOfGaze(Vector3.up);
+							setShipID(shipID - 10);
 						}
-						else if (GUILayout.Button("+1(↑)", new GUILayoutOption[0]))
+						else if (GUILayout.Button("+10(↑)", new GUILayoutOption[0]))
 						{
-							setShipLocalPointOfGaze(Vector3.down);
+							setShipID(shipID + 10);
 						}
-						GUILayout.EndHorizontal();
-						GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-						if (GUILayout.Button("-10(Sf+←)", new GUILayoutOption[0]))
-						{
-							setShipLocalPointOfGaze(Vector3.left * 10f);
-						}
-						if (GUILayout.Button("+10(Sf+→)", new GUILayoutOption[0]))
-						{
-							setShipLocalPointOfGaze(Vector3.right * 10f);
-						}
-						if (GUILayout.Button("-10(Sf+↓)", new GUILayoutOption[0]))
-						{
-							setShipLocalPointOfGaze(Vector3.down * 10f);
-						}
-						if (GUILayout.Button("+10(Sf+↑)", new GUILayoutOption[0]))
-						{
-							setShipLocalPointOfGaze(Vector3.up * 10f);
-						}
-						GUILayout.EndHorizontal();
-						GUILayout.EndVertical();
 						break;
-					case POG.特殊注視点:
-						GUILayout.BeginVertical(new GUILayoutOption[0]);
-                        GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-						if (GUILayout.Button("-1(←)", new GUILayoutOption[0]))
+					case Mode.編集:
+						switch (pog)
 						{
-							setShipLocalSPPointOfGaze(Vector3.left);
-						}
-						else if (GUILayout.Button("+1(→)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.right);
-						}
-						else if (GUILayout.Button("-1(↓)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.up);
-						}
-						else if (GUILayout.Button("+1(↑)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.down);
-						}
-						GUILayout.EndHorizontal();
+							case POG.注視点:
+								GUILayout.BeginVertical(new GUILayoutOption[0]);
+								GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+								if (GUILayout.Button("-1(←)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.left);
+								}
+								else if (GUILayout.Button("+1(→)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.right);
+								}
+								else if (GUILayout.Button("-1(↓)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.up);
+								}
+								else if (GUILayout.Button("+1(↑)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.down);
+								}
+								GUILayout.EndHorizontal();
+								GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+								if (GUILayout.Button("-10(Sf+←)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.left * 10f);
+								}
+								if (GUILayout.Button("+10(Sf+→)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.right * 10f);
+								}
+								if (GUILayout.Button("-10(Sf+↓)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.down * 10f);
+								}
+								if (GUILayout.Button("+10(Sf+↑)", new GUILayoutOption[0]))
+								{
+									setShipLocalPointOfGaze(Vector3.up * 10f);
+								}
+								GUILayout.EndHorizontal();
+								GUILayout.EndVertical();
+								break;
+							case POG.特殊注視点:
+								GUILayout.BeginVertical(new GUILayoutOption[0]);
+								GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+								if (GUILayout.Button("-1(←)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.left);
+								}
+								else if (GUILayout.Button("+1(→)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.right);
+								}
+								else if (GUILayout.Button("-1(↓)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.up);
+								}
+								else if (GUILayout.Button("+1(↑)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.down);
+								}
+								GUILayout.EndHorizontal();
 
 
-                        GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-						if (GUILayout.Button("-10(Sf+←)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.left * 10f);
+								GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+								if (GUILayout.Button("-10(Sf+←)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.left * 10f);
+								}
+								if (GUILayout.Button("+10(Sf+→)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.right * 10f);
+								}
+								if (GUILayout.Button("-10(Sf+↓)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.down * 10f);
+								}
+								if (GUILayout.Button("+10(Sf+↑)", new GUILayoutOption[0]))
+								{
+									setShipLocalSPPointOfGaze(Vector3.up * 10f);
+								}
+								GUILayout.EndHorizontal();
+								GUILayout.EndVertical();
+								break;
 						}
-						if (GUILayout.Button("+10(Sf+→)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.right * 10f);
-						}
-						if (GUILayout.Button("-10(Sf+↓)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.down * 10f);
-						}
-						if (GUILayout.Button("+10(Sf+↑)", new GUILayoutOption[0]))
-						{
-							setShipLocalSPPointOfGaze(Vector3.up * 10f);
-						}
-						GUILayout.EndHorizontal();
-						GUILayout.EndVertical();
 						break;
-					}
-					break;
 				}
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
@@ -637,7 +637,7 @@ namespace KCV.Checker
 					setShipID(501);
 				}
 				GUILayout.EndHorizontal();
-				if (GUILayout.Button($"フォ\u30fcカス[{pog.ToString()}](F)", new GUILayoutOption[0]))
+				if (GUILayout.Button($"フォーカス[{pog.ToString()}](F)", new GUILayoutOption[0]))
 				{
 					focusCamera();
 				}
@@ -645,7 +645,7 @@ namespace KCV.Checker
 				{
 					latticePatternActive();
 				}
-				if (GUILayout.Button($"座標コピ\u30fc[{pog.ToString()}](C)", new GUILayoutOption[0]))
+				if (GUILayout.Button($"座標コピー[{pog.ToString()}](C)", new GUILayoutOption[0]))
 				{
 					positionCopy();
 				}
@@ -669,7 +669,7 @@ namespace KCV.Checker
 		{
 			try
 			{
-                GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+				GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
 				GUILayout.Label(string.Format("[足元座標({0})]\n{1}", (!isDamaged) ? "通常" : "大破", Util.Poi2Vec(_clsCurrentShipMst.Offsets.GetFoot_InBattle(isDamaged))), new GUILayoutOption[0]);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);

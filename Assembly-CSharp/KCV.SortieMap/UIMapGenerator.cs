@@ -37,7 +37,7 @@ namespace KCV.SortieMap
 		private MapParam _strMapParam = default(MapParam);
 
 		[SerializeField]
-		[Button("CreateFoundationMap", "海域ベ\u30fcス生成", new object[]
+		[Button("CreateFoundationMap", "海域ベース生成", new object[]
 		{
 
 		})]
@@ -50,7 +50,7 @@ namespace KCV.SortieMap
 		})]
 		private int _nLoadMap = 2;
 
-		[Button("AddSortieMapRoot", "海域ル\u30fcトスクリプト追加", new object[]
+		[Button("AddSortieMapRoot", "海域ルートスクリプト追加", new object[]
 		{
 
 		})]

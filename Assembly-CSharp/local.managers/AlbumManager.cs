@@ -110,8 +110,8 @@ namespace local.managers
 		public override string ToString()
 		{
 			string arg = base.ToString();
-			arg = arg + "\n艦のデ\u30fcタ列の最後のNo." + ShipLastNo;
-			arg = arg + "\t装備のデ\u30fcタ列の最後のNo." + SlotLastNo;
+			arg = arg + "\n艦のデータ列の最後のNo." + ShipLastNo;
+			arg = arg + "\t装備のデータ列の最後のNo." + SlotLastNo;
 			return arg + "\n";
 		}
 	}

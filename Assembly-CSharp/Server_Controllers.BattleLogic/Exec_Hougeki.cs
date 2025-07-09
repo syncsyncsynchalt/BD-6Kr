@@ -115,14 +115,14 @@ namespace Server_Controllers.BattleLogic
 			int count2 = count / 2 + count % 2;
 			switch (atkType)
 			{
-			case 1:
-				return srcList.Take(count2).ToList();
-			case 2:
-				return srcList.Skip(count2).ToList();
-			case 3:
-				return srcList.ToList();
-			default:
-				return new List<int>();
+				case 1:
+					return srcList.Take(count2).ToList();
+				case 2:
+					return srcList.Skip(count2).ToList();
+				case 3:
+					return srcList.ToList();
+				default:
+					return new List<int>();
 			}
 		}
 
@@ -214,8 +214,8 @@ namespace Server_Controllers.BattleLogic
 			if (command != BattleCommand.Taisen)
 			{
 				shipData = (from x in shipData
-					where !mst_stypes[x.Stype].IsSubmarine()
-					select x).ToList();
+							where !mst_stypes[x.Stype].IsSubmarine()
+							select x).ToList();
 				if (flag)
 				{
 					if (command != BattleCommand.Kouku)
@@ -233,8 +233,8 @@ namespace Server_Controllers.BattleLogic
 					if (!isValidAirAtack_To_LandFaccillity(attacker, f_Data.SlotData[atk_idx]))
 					{
 						shipData = (from x in shipData
-							where (!mst_stypes[x.Stype].IsLandFacillity(mst_ships[x.Ship_id].Soku)) ? true : false
-							select x).ToList();
+									where (!mst_stypes[x.Stype].IsLandFacillity(mst_ships[x.Ship_id].Soku)) ? true : false
+									select x).ToList();
 					}
 				}
 				else if (!isValidHougeki(attacker))
@@ -258,14 +258,14 @@ namespace Server_Controllers.BattleLogic
 			else
 			{
 				shipData = (from x in shipData
-					where mst_stypes[x.Stype].IsSubmarine()
-					select x).ToList();
+							where mst_stypes[x.Stype].IsSubmarine()
+							select x).ToList();
 				submarine_keisu = getSubMarineAtackKeisu(shipData, attacker, f_Data.SlotData[atk_idx], midnight: false);
 				if (submarine_keisu.Key == 0)
 				{
 					shipData = (from x in e_Data.ShipData
-						where !mst_stypes[x.Stype].IsSubmarine()
-						select x).ToList();
+								where !mst_stypes[x.Stype].IsSubmarine()
+								select x).ToList();
 					submarine_flag = false;
 					num = 1;
 					if (flag)
@@ -281,8 +281,8 @@ namespace Server_Controllers.BattleLogic
 						if (!isValidAirAtack_To_LandFaccillity(attacker, f_Data.SlotData[atk_idx]))
 						{
 							shipData = (from x in shipData
-								where (!mst_stypes[x.Stype].IsLandFacillity(mst_ships[x.Ship_id].Soku)) ? true : false
-								select x).ToList();
+										where (!mst_stypes[x.Stype].IsLandFacillity(mst_ships[x.Ship_id].Soku)) ? true : false
+										select x).ToList();
 						}
 					}
 					else if (!isValidHougeki(attacker))
@@ -374,10 +374,10 @@ namespace Server_Controllers.BattleLogic
 					if (!isValidAirAtack_To_LandFaccillity(attacker, e_Data.SlotData[atk_idx]))
 					{
 						List<Mem_ship> list3 = (from shipobj in list
-							let soku = Mst_DataManager.Instance.Mst_ship[shipobj.Ship_id].Soku
-							let land_flag = Mst_DataManager.Instance.Mst_stype[shipobj.Stype].IsLandFacillity(soku)
-							where !land_flag
-							select shipobj).ToList();
+												let soku = Mst_DataManager.Instance.Mst_ship[shipobj.Ship_id].Soku
+												let land_flag = Mst_DataManager.Instance.Mst_stype[shipobj.Stype].IsLandFacillity(soku)
+												where !land_flag
+												select shipobj).ToList();
 						list = list3;
 					}
 				}
@@ -436,13 +436,13 @@ namespace Server_Controllers.BattleLogic
 				int battleAvo = getBattleAvo(battleState, atackTarget);
 				switch (powerDownType)
 				{
-				case 1:
-					num2 = (int)((double)num2 * 0.55);
-					num3 = (int)((double)num3 * 0.55);
-					break;
-				case 2:
-					num3 = (int)((double)num3 * 0.55);
-					break;
+					case 1:
+						num2 = (int)((double)num2 * 0.55);
+						num3 = (int)((double)num3 * 0.55);
+						break;
+					case 2:
+						num3 = (int)((double)num3 * 0.55);
+						break;
 				}
 				bool airAttack = (attackType == BattleAtackKinds_Day.AirAttack) ? true : false;
 				BattleHitStatus battleHitStatus = getHitStatus(num3, battleAvo, attacker, atackTarget, valance3, airAttack);
@@ -479,8 +479,8 @@ namespace Server_Controllers.BattleLogic
 				dictionary = E_SubInfo;
 			}
 			IOrderedEnumerable<BattleShipSubInfo> orderedEnumerable = from x in dictionary.Values
-				orderby x.AttackNo
-				select x;
+																	  orderby x.AttackNo
+																	  select x;
 			foreach (BattleShipSubInfo item in orderedEnumerable)
 			{
 				list.Add(item.DeckIdx);
@@ -548,12 +548,12 @@ namespace Server_Controllers.BattleLogic
 			double num7 = 1.0;
 			switch (damageState)
 			{
-			case DamageState.Tyuuha:
-				num7 = 0.7;
-				break;
-			case DamageState.Taiha:
-				num7 = 0.4;
-				break;
+				case DamageState.Tyuuha:
+					num7 = 0.7;
+					break;
+				case DamageState.Taiha:
+					num7 = 0.4;
+					break;
 			}
 			num6 *= num7;
 			num6 += getHougItemAtackHosei(atk_ship, atk_slot);
@@ -679,15 +679,15 @@ namespace Server_Controllers.BattleLogic
 			double num6 = 1.0;
 			switch (fatigueState)
 			{
-			case FatigueState.Exaltation:
-				num6 = 1.2;
-				break;
-			case FatigueState.Light:
-				num6 = 0.8;
-				break;
-			case FatigueState.Distress:
-				num6 = 0.5;
-				break;
+				case FatigueState.Exaltation:
+					num6 = 1.2;
+					break;
+				case FatigueState.Light:
+					num6 = 0.8;
+					break;
+				case FatigueState.Distress:
+					num6 = 0.5;
+					break;
 			}
 			num5 *= num6;
 			num5 = getHougHitProbUpValue(num5, atk_ship, atk_slot);
@@ -819,7 +819,7 @@ namespace Server_Controllers.BattleLogic
 			{
 				num3 = num3 - 10.0 * num2 * Math.Sqrt(num4) - 5.0 * num2 * Math.Sqrt(num6) - 7.0 * num2 * Math.Sqrt(num5);
 				num3 -= 2.0 * num2 * Math.Sqrt(num8);
-				if (mst_ship.Yomi.Equals("ビスマルク") || mst_ship.Yomi.Equals("リットリオ・イタリア") || mst_ship.Yomi.Equals("ロ\u30fcマ"))
+				if (mst_ship.Yomi.Equals("ビスマルク") || mst_ship.Yomi.Equals("リットリオ・イタリア") || mst_ship.Yomi.Equals("ローマ"))
 				{
 					num3 += 3.0 * num2 * Math.Sqrt(num8);
 				}
@@ -850,7 +850,7 @@ namespace Server_Controllers.BattleLogic
 			List<int> b_slot = new List<int>();
 			List<Mst_slotitem> list = items.ToList();
 			list.RemoveAll((Mst_slotitem x) => x == null);
-			list.ForEach(delegate(Mst_slotitem x)
+			list.ForEach(delegate (Mst_slotitem x)
 			{
 				if (x.Api_mapbattle_type3 >= 1 && x.Api_mapbattle_type3 <= 3)
 				{
@@ -883,7 +883,7 @@ namespace Server_Controllers.BattleLogic
 			}
 			BattleAtackKinds_Day battleAtackKinds_Day = BattleAtackKinds_Day.Normal;
 			List<int> ret_slotitem = new List<int>();
-			Func<List<Mst_slotitem>, KeyValuePair<BattleAtackKinds_Day, List<int>>> func = delegate(List<Mst_slotitem> x)
+			Func<List<Mst_slotitem>, KeyValuePair<BattleAtackKinds_Day, List<int>>> func = delegate (List<Mst_slotitem> x)
 			{
 				int hougSlotData = getHougSlotData(x);
 				ret_slotitem.Add(hougSlotData);
@@ -930,23 +930,23 @@ namespace Server_Controllers.BattleLogic
 				num2 += (double)item.obj.Saku;
 				switch (api_mapbattle_type)
 				{
-				case 1:
-				case 2:
-				case 3:
-					dictionary3[1].Add(item.obj);
-					continue;
-				case 12:
-				case 13:
-					dictionary3[12].Add(item.obj);
-					continue;
-				case 10:
-				case 11:
-					if (ship.Onslot[item.idx] > 0)
-					{
-						dictionary3[10].Add(item.obj);
+					case 1:
+					case 2:
+					case 3:
+						dictionary3[1].Add(item.obj);
 						continue;
-					}
-					break;
+					case 12:
+					case 13:
+						dictionary3[12].Add(item.obj);
+						continue;
+					case 10:
+					case 11:
+						if (ship.Onslot[item.idx] > 0)
+						{
+							dictionary3[10].Add(item.obj);
+							continue;
+						}
+						break;
 				}
 				if (api_mapbattle_type == 19 || api_mapbattle_type == 4)
 				{
@@ -990,12 +990,12 @@ namespace Server_Controllers.BattleLogic
 			int num7 = (int)(Math.Sqrt(ship.GetBattleBaseParam().Luck) + 10.0);
 			switch (num)
 			{
-			case 3:
-				num7 = (int)((double)num7 + 10.0 + (num6 + num2 * 1.6) * 0.7);
-				break;
-			case 2:
-				num7 = (int)((double)num7 + (num6 + num2 * 1.2) * 0.6);
-				break;
+				case 3:
+					num7 = (int)((double)num7 + 10.0 + (num6 + num2 * 1.6) * 0.7);
+					break;
+				case 2:
+					num7 = (int)((double)num7 + (num6 + num2 * 1.2) * 0.6);
+					break;
 			}
 			if (dictionary[ship.Rid].DeckIdx == 0)
 			{
@@ -1168,7 +1168,7 @@ namespace Server_Controllers.BattleLogic
 			bool haveSub = false;
 			bool haveDentan = false;
 			bool haveTekkou = false;
-			attackerSlot.ForEach(delegate(Mst_slotitem mst)
+			attackerSlot.ForEach(delegate (Mst_slotitem mst)
 			{
 				if (mst.Api_mapbattle_type3 >= 1 && mst.Api_mapbattle_type3 <= 3)
 				{
@@ -1210,15 +1210,15 @@ namespace Server_Controllers.BattleLogic
 		{
 			switch (tekkouKind)
 			{
-			case 1:
-				return 1.08;
-			case 2:
-				return 1.1;
-			case 3:
-			case 4:
-				return 1.15;
-			default:
-				return 1.0;
+				case 1:
+					return 1.08;
+				case 2:
+					return 1.1;
+				case 3:
+				case 4:
+					return 1.15;
+				default:
+					return 1.0;
 			}
 		}
 
@@ -1226,16 +1226,16 @@ namespace Server_Controllers.BattleLogic
 		{
 			switch (tekkouKind)
 			{
-			case 1:
-				return 1.1;
-			case 2:
-				return 1.25;
-			case 3:
-				return 1.2;
-			case 4:
-				return 1.3;
-			default:
-				return 1.0;
+				case 1:
+					return 1.1;
+				case 2:
+					return 1.25;
+				case 3:
+					return 1.2;
+				case 4:
+					return 1.3;
+				default:
+					return 1.0;
 			}
 		}
 	}

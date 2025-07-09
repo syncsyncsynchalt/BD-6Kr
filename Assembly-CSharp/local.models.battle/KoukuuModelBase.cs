@@ -537,7 +537,7 @@ namespace local.models.battle
 				{
 					if (bakuRaiDamageModel != null && (bakuRaiDamageModel.IsRaigeki() || bakuRaiDamageModel.IsBakugeki()))
 					{
-						text += string.Format("{0}({1}) へ雷撃 (ダメ\u30fcジ:{2} {3}{4}) {5}{6}\n", bakuRaiDamageModel.Defender.Name, bakuRaiDamageModel.Defender.Index, bakuRaiDamageModel.GetDamage(), bakuRaiDamageModel.GetHitState(), (!bakuRaiDamageModel.GetProtectEffect()) ? string.Empty : "[かばう]", (!bakuRaiDamageModel.IsBakugeki()) ? string.Empty : "[爆]", (!bakuRaiDamageModel.IsRaigeki()) ? string.Empty : "[雷]");
+						text += string.Format("{0}({1}) へ雷撃 (ダメージ:{2} {3}{4}) {5}{6}\n", bakuRaiDamageModel.Defender.Name, bakuRaiDamageModel.Defender.Index, bakuRaiDamageModel.GetDamage(), bakuRaiDamageModel.GetHitState(), (!bakuRaiDamageModel.GetProtectEffect()) ? string.Empty : "[かばう]", (!bakuRaiDamageModel.IsBakugeki()) ? string.Empty : "[爆]", (!bakuRaiDamageModel.IsRaigeki()) ? string.Empty : "[雷]");
 					}
 				}
 				raigekiData_f = GetRaigekiData_e();
@@ -545,7 +545,7 @@ namespace local.models.battle
 				{
 					if (bakuRaiDamageModel2 != null && (bakuRaiDamageModel2.IsRaigeki() || bakuRaiDamageModel2.IsBakugeki()))
 					{
-						text += string.Format("{0}({1}) へ雷撃 (ダメ\u30fcジ:{2} {3}{4}) {5}{6}\n", bakuRaiDamageModel2.Defender.Name, bakuRaiDamageModel2.Defender.Index, bakuRaiDamageModel2.GetDamage(), bakuRaiDamageModel2.GetHitState(), (!bakuRaiDamageModel2.GetProtectEffect()) ? string.Empty : "[かばう]", (!bakuRaiDamageModel2.IsBakugeki()) ? string.Empty : "[爆]", (!bakuRaiDamageModel2.IsRaigeki()) ? string.Empty : "[雷]");
+						text += string.Format("{0}({1}) へ雷撃 (ダメージ:{2} {3}{4}) {5}{6}\n", bakuRaiDamageModel2.Defender.Name, bakuRaiDamageModel2.Defender.Index, bakuRaiDamageModel2.GetDamage(), bakuRaiDamageModel2.GetHitState(), (!bakuRaiDamageModel2.GetProtectEffect()) ? string.Empty : "[かばう]", (!bakuRaiDamageModel2.IsBakugeki()) ? string.Empty : "[爆]", (!bakuRaiDamageModel2.IsRaigeki()) ? string.Empty : "[雷]");
 					}
 				}
 			}

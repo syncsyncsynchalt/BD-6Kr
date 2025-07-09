@@ -71,7 +71,7 @@ namespace local.models.battle
 
 		public override string ToString()
 		{
-			string text = "[ == 戦闘糧食フェ\u30fcズ == ]\n";
+			string text = "[ == 戦闘糧食フェーズ == ]\n";
 			for (int i = 0; i < EatingShips.Count; i++)
 			{
 				ShipModel_Eater arg = EatingShips[i];

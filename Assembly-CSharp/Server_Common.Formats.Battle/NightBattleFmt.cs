@@ -1,34 +1,36 @@
 using Server_Models;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
-	[DataContract]
+	[Serializable]
+	[XmlRoot("NightBattleFmt")]
 	public class NightBattleFmt
 	{
-		[DataMember]
+		[XmlElement("Header")]
 		public BattleHeader Header;
 
-		[DataMember]
+		[XmlElement("F_TouchPlane")]
 		public int F_TouchPlane;
 
-		[DataMember]
+		[XmlElement("E_TouchPlane")]
 		public int E_TouchPlane;
 
-		[DataMember]
+		[XmlElement("F_FlareId")]
 		public int F_FlareId;
 
-		[DataMember]
+		[XmlElement("E_FlareId")]
 		public int E_FlareId;
 
-		[DataMember]
+		[XmlElement("F_SearchId")]
 		public int F_SearchId;
 
-		[DataMember]
+		[XmlElement("E_SearchId")]
 		public int E_SearchId;
 
-		[DataMember]
+		[XmlElement("Hougeki")]
 		public List<Hougeki<BattleAtackKinds_Night>> Hougeki;
 
 		public NightBattleFmt()

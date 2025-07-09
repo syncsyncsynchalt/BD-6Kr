@@ -8,9 +8,9 @@ namespace local.managers
 {
 	public class SortieMapManager : MapManager
 	{
-		public SortieMapManager(DeckModel deck, MapModel map, List<MapModel> maps)
-			: base(deck, map, maps)
+		public SortieMapManager(DeckModel deck, MapModel map, List<MapModel> maps) : base(deck, map, maps)
 		{
+			System.Console.WriteLine($"SortieMapManager constructor: deck={deck?.Id}, map={map?.No}, _req_map={_req_map}");
 			_Init();
 		}
 
@@ -20,7 +20,7 @@ namespace local.managers
 			bool isBoss = base.NextCategory == enumMapEventType.War_Boss;
 			string nextCellEnemyFleetName = GetNextCellEnemyFleetName();
 			SortieBattleManager sortieBattleManager = new SortieBattleManager(nextCellEnemyFleetName);
-            sortieBattleManager.__Init__(reqBattle, base.NextEventType, formationId, _map, _maps, IsNextFinal(), isBoss);
+			sortieBattleManager.__Init__(reqBattle, base.NextEventType, formationId, _map, _maps, IsNextFinal(), isBoss);
 			return sortieBattleManager;
 		}
 
@@ -55,7 +55,24 @@ namespace local.managers
 
 		protected override void _Init()
 		{
-			Api_Result<Map_ResultFmt> api_Result = _req_map.Start(base.Map.AreaId, base.Map.No, base.Deck.Id);
+			if (_req_map == null)
+			{
+				throw new System.Exception("_req_map is null in SortieMapManager._Init()");
+			}
+
+			if (this.Map == null)
+			{
+				throw new System.Exception("this.Map is null in SortieMapManager._Init()");
+			}
+
+			if (this.Deck == null)
+			{
+				throw new System.Exception("this.Deck is null in SortieMapManager._Init()");
+			}
+
+			System.Console.WriteLine($"SortieMapManager._Init(): Map.AreaId={this.Map.AreaId}, Map.No={this.Map.No}, Deck.Id={this.Deck.Id}");
+
+			Api_Result<Map_ResultFmt> api_Result = _req_map.Start(this.Map.AreaId, this.Map.No, this.Deck.Id);
 			if (api_Result.state == Api_Result_State.Success)
 			{
 				_next_cell = api_Result.data;

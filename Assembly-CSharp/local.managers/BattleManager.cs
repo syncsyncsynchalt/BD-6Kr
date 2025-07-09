@@ -579,15 +579,15 @@ namespace local.managers
 				DeckModel deck = base.UserInfo.GetDeck(deck_Id);
 				switch (supportAtack.SupportType)
 				{
-				case BattleSupportKinds.AirAtack:
-					_cache_shien = new ShienModel_Air(deck, _ships_f, _ships_e, supportAtack);
-					break;
-				case BattleSupportKinds.Hougeki:
-					_cache_shien = new ShienModel_Hou(deck, _ships_f, _ships_e, supportAtack);
-					break;
-				case BattleSupportKinds.Raigeki:
-					_cache_shien = new ShienModel_Rai(deck, _ships_f, _ships_e, supportAtack);
-					break;
+					case BattleSupportKinds.AirAtack:
+						_cache_shien = new ShienModel_Air(deck, _ships_f, _ships_e, supportAtack);
+						break;
+					case BattleSupportKinds.Hougeki:
+						_cache_shien = new ShienModel_Hou(deck, _ships_f, _ships_e, supportAtack);
+						break;
+					case BattleSupportKinds.Raigeki:
+						_cache_shien = new ShienModel_Rai(deck, _ships_f, _ships_e, supportAtack);
+						break;
 				}
 			}
 			_cache_kaimaku = null;
@@ -805,9 +805,9 @@ namespace local.managers
 		{
 			if (_phase == CombatPhase.DAY)
 			{
-				return _battleData.DayBattle.Header.UseRationShips;
+				return _battleData.DayBattle?.Header?.UseRationShips;
 			}
-			return _battleData.NightBattle.Header.UseRationShips;
+			return _battleData.NightBattle?.Header?.UseRationShips;
 		}
 
 		public override string ToString()
@@ -817,7 +817,7 @@ namespace local.managers
 			int bgmId = GetBgmId(is_day: true, BossBattle, out master_loaded);
 			bool master_loaded2;
 			int bgmId2 = GetBgmId(is_day: false, BossBattle, out master_loaded2);
-			str += string.Format("[BGM - 昼] {0}{1}\t[BGM - 夜] {2}{3}\n", bgmId, (!master_loaded) ? "(マスタ未ロ\u30fcド)" : string.Empty, bgmId2, (!master_loaded2) ? "(マスタ未ロ\u30fcド)" : string.Empty);
+			str += string.Format("[BGM - 昼] {0}{1}\t[BGM - 夜] {2}{3}\n", bgmId, (!master_loaded) ? "(マスタ未ロード)" : string.Empty, bgmId2, (!master_loaded2) ? "(マスタ未ロード)" : string.Empty);
 			for (int i = 0; i < Ships_f.Length; i++)
 			{
 				ShipModel_BattleAll shipModel_BattleAll = Ships_f[i];

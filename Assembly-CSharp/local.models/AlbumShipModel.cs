@@ -66,7 +66,7 @@ namespace local.models
 				int[] mstIDs = MstIDs;
 				for (int i = 0; i < mstIDs.Length; i++)
 				{
-					str += string.Format(" - 表示する艦ID:{0}({3}) ダメ\u30fcジ絵:{1} {2}\n", mstIDs[i], (!IsDamaged(mstIDs[i])) ? "ナシ" : "アリ", (!IsMarriage(mstIDs[i])) ? "未婚" : "結婚", Mst_DataManager.Instance.Mst_ship[mstIDs[i]].Name);
+					str += string.Format(" - 表示する艦ID:{0}({3}) ダメージ絵:{1} {2}\n", mstIDs[i], (!IsDamaged(mstIDs[i])) ? "ナシ" : "アリ", (!IsMarriage(mstIDs[i])) ? "未婚" : "結婚", Mst_DataManager.Instance.Mst_ship[mstIDs[i]].Name);
 				}
 				str += $"火力:{Karyoku} 雷装:{Raisou} 対空:{Taiku} 回避:{Kaihi} 耐久:{Taikyu}";
 				str += "\n";

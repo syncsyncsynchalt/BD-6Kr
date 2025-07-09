@@ -10,7 +10,7 @@ namespace KCV.Utils
 		{
 			if (SingletonMonoBehaviour<ResourceManager>.Instance == null)
 			{
-				DebugUtils.Error("リソ\u30fcスマネ\u30fcジャ\u30fcが存在しません。");
+				DebugUtils.Error("リソースマネージャーが存在しません。");
 				return null;
 			}
 			return SingletonMonoBehaviour<ResourceManager>.Instance.ShipTexture.Load(mstID, texNum);

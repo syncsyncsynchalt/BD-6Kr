@@ -7,10 +7,10 @@ public class ObjectTinyShake : MonoBehaviour
 {
 	public float _shakePower = 20f;
 
-	[Tooltip("シェイクのパワ\u30fcパラメ\u30fcタ")]
+	[Tooltip("シェイクのパワーパラメータ")]
 	public AnimationCurve _shakeCurve;
 
-	[Tooltip("デバッグ用にル\u30fcプ起動するか")]
+	[Tooltip("デバッグ用にループ起動するか")]
 	public bool _startLoop;
 
 	private bool _isAnimating;

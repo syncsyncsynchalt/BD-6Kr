@@ -12,7 +12,7 @@ namespace KCV.SortieMap
 			switch (iCategory)
 			{
 			case enumMaterialCategory.Bauxite:
-				return "ボ\u30fcキサイト";
+				return "ボーキサイト";
 			case enumMaterialCategory.Bull:
 				return "弾薬";
 			case enumMaterialCategory.Fuel:

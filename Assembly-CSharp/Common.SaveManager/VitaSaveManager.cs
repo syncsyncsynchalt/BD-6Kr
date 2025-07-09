@@ -209,7 +209,7 @@ namespace Common.SaveManager
 			text = empty;
 			empty = text + "鋼材:" + instance.User_material[enumMaterialCategory.Steel].Value + "\n";
 			text = empty;
-			return text + "ボ\u30fcキサイト:" + instance.User_material[enumMaterialCategory.Bauxite].Value + "\n";
+			return text + "ボーキサイト:" + instance.User_material[enumMaterialCategory.Bauxite].Value + "\n";
 		}
 
 		public bool IsAllEmpty()

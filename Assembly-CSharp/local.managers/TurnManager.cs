@@ -153,7 +153,7 @@ namespace local.managers
 		public override string ToString()
 		{
 			string str = $"{base.UserInfo}\n{base.Material}\n";
-			str += $"総タ\u30fcン数:{base.Turn}\t日時:{base.Datetime}";
+			str += $"総ターン数:{base.Turn}\t日時:{base.Datetime}";
 			string str2 = str;
 			object[] array = new object[4];
 			TurnString datetimeString = base.DatetimeString;
@@ -166,7 +166,7 @@ namespace local.managers
 			array[3] = datetimeString4.DayOfWeek;
 			str = str2 + string.Format("({0}年{1} {2}日 {3})\n", array);
 			Mem_trophy user_trophy = Comm_UserDatas.Instance.User_trophy;
-			str += $"累計デ\u30fcタ:[出撃-{user_trophy.Start_map_count}, S勝利-{user_trophy.Win_S_count}, 応急修理-{user_trophy.Use_recovery_item_count}, 改修工廠-{user_trophy.Revamp_count}\n";
+			str += $"累計データ:[出撃-{user_trophy.Start_map_count}, S勝利-{user_trophy.Win_S_count}, 応急修理-{user_trophy.Use_recovery_item_count}, 改修工廠-{user_trophy.Revamp_count}\n";
 			return str + $"{base.Settings}";
 		}
 	}

@@ -85,7 +85,7 @@ namespace local.models
 
 		public override string ToString()
 		{
-			string str = $"{Name}(ID:{Id}) 状態:{State} 海域:{AreaId} {Turn}タ\u30fcン";
+			string str = $"{Name}(ID:{Id}) 状態:{State} 海域:{AreaId} {Turn}ターン";
 			if (TankerMaxCount - TankerMinCount > 0)
 			{
 				str += $" 必要輸送船数:{TankerMinCount}-{TankerMaxCount}";
@@ -105,7 +105,7 @@ namespace local.models
 				{
 					arg = "遠征中止";
 				}
-				str += $" [[艦隊{Deck.Id} {arg} 終了タ\u30fcン:{Deck.MissionCompleteTurn}]]\n";
+				str += $" [[艦隊{Deck.Id} {arg} 終了ターン:{Deck.MissionCompleteTurn}]]\n";
 			}
 			else
 			{

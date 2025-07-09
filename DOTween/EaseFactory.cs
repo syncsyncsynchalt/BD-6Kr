@@ -1,4 +1,4 @@
-﻿// Author: Andrei Stanescu - https://github.com/reydanro
+// Author: Andrei Stanescu - https://github.com/reydanro
 // Unity Forum Post: http://forum.unity3d.com/threads/dotween-hotween-v2-a-unity-tween-engine.260692/page-24#post-2052957
 // Created: 2015/04/04 14:39
 // Modified by: Daniele Giardini - http://www.demigiant.com

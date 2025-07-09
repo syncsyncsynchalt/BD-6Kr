@@ -49,7 +49,7 @@ namespace local.utils
 			switch (material)
 			{
 			case enumMaterialCategory.Bauxite:
-				return "ボ\u30fcキサイト";
+				return "ボーキサイト";
 			case enumMaterialCategory.Build_Kit:
 				return "高速建造";
 			case enumMaterialCategory.Bull:

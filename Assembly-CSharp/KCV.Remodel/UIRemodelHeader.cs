@@ -61,33 +61,33 @@ namespace KCV.Remodel
 			string text = string.Empty;
 			switch (status)
 			{
-			case ScreenStatus.SELECT_DECK_SHIP:
-				text = ((!(deck.Name == string.Empty)) ? ("艦娘選択 -" + deck.Name + "-") : ("艦娘選択 - 第" + deck.Id + "艦隊 -"));
-				break;
-			case ScreenStatus.SELECT_OTHER_SHIP:
-				text = "艦娘選択 - その他 -";
-				break;
-			case ScreenStatus.SELECT_SETTING_MODE:
-				text = "メニュ\u30fc選択";
-				break;
-			case ScreenStatus.MODE_SOUBI_HENKOU:
-			case ScreenStatus.MODE_SOUBI_HENKOU_TYPE_SELECT:
-			case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
-			case ScreenStatus.MODE_SOUBI_HENKOU_PREVIEW:
-				text = "装備変更";
-				break;
-			case ScreenStatus.MODE_KINDAIKA_KAISHU:
-			case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
-			case ScreenStatus.MODE_KINDAIKA_KAISHU_KAKUNIN:
-			case ScreenStatus.MODE_KINDAIKA_KAISHU_ANIMATION:
-			case ScreenStatus.MODE_KINDAIKA_KAISHU_END_ANIMATION:
-				text = "近代化改修";
-				break;
-			case ScreenStatus.MODE_KAIZO:
-			case ScreenStatus.MODE_KAIZO_ANIMATION:
-			case ScreenStatus.MODE_KAIZO_END_ANIMATION:
-				text = "改造";
-				break;
+				case ScreenStatus.SELECT_DECK_SHIP:
+					text = ((!(deck.Name == string.Empty)) ? ("艦娘選択 -" + deck.Name + "-") : ("艦娘選択 - 第" + deck.Id + "艦隊 -"));
+					break;
+				case ScreenStatus.SELECT_OTHER_SHIP:
+					text = "艦娘選択 - その他 -";
+					break;
+				case ScreenStatus.SELECT_SETTING_MODE:
+					text = "メニュー選択";
+					break;
+				case ScreenStatus.MODE_SOUBI_HENKOU:
+				case ScreenStatus.MODE_SOUBI_HENKOU_TYPE_SELECT:
+				case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
+				case ScreenStatus.MODE_SOUBI_HENKOU_PREVIEW:
+					text = "装備変更";
+					break;
+				case ScreenStatus.MODE_KINDAIKA_KAISHU:
+				case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
+				case ScreenStatus.MODE_KINDAIKA_KAISHU_KAKUNIN:
+				case ScreenStatus.MODE_KINDAIKA_KAISHU_ANIMATION:
+				case ScreenStatus.MODE_KINDAIKA_KAISHU_END_ANIMATION:
+					text = "近代化改修";
+					break;
+				case ScreenStatus.MODE_KAIZO:
+				case ScreenStatus.MODE_KAIZO_ANIMATION:
+				case ScreenStatus.MODE_KAIZO_END_ANIMATION:
+					text = "改造";
+					break;
 			}
 			if (deck != null && deck.IsActionEnd())
 			{

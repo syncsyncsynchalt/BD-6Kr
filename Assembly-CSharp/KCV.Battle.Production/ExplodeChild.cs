@@ -52,7 +52,7 @@ namespace KCV.Battle.Production
 		private float _upPowerPlus = 1.3f;
 
 		[SerializeField]
-		[Tooltip("デバッグ用にル\u30fcプ起動するか")]
+		[Tooltip("デバッグ用にループ起動するか")]
 		private bool _startLoop;
 
 		private List<Fragment> _fragments = new List<Fragment>();

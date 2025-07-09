@@ -67,7 +67,7 @@ public class TEST_Voyage : SingletonMonoBehaviour<TEST_Voyage>
 		}
 		if (CommonPopupDialog.Instance != null)
 		{
-			CommonPopupDialog.Instance.StartPopup("オ\u30fcト戦闘キャンセル");
+			CommonPopupDialog.Instance.StartPopup("オート戦闘キャンセル");
 		}
 		mStartVoyageCoroutine = null;
 	}

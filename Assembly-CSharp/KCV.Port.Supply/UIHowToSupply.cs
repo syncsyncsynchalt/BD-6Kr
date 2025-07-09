@@ -88,7 +88,7 @@ namespace KCV.Port.Supply
 			{
 				SpriteButtonShikaku.transform.localScale = Vector3.one;
 				_uil = ((Component)SpriteButtonShikaku.transform.FindChild("Label")).GetComponent<UILabel>();
-				_uil.text = "ソ\u30fcト";
+				_uil.text = "ソート";
 				_uis = SpriteButtonShikaku.GetComponent<UISprite>();
 				_uis.spriteName = "btn_sankaku";
 				_setButtonX("戻る", 662f);

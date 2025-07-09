@@ -12,7 +12,7 @@ namespace KCV.Battle
 		[Tooltip("カットインチェック状態")]
 		public bool isCutInCheck;
 
-		[Tooltip("戦闘ル\u30fcト種別")]
+		[Tooltip("戦闘ルート種別")]
 		public Generics.BattleRootType rootType;
 
 		[Tooltip("旗艦以外大破にするか否か")]
@@ -21,7 +21,7 @@ namespace KCV.Battle
 		[Tooltip("戦闘スキップを使用するか否か")]
 		public bool isSkipBattle;
 
-		[Tooltip("艦隊出現後のフェ\u30fcズ")]
+		[Tooltip("艦隊出現後のフェーズ")]
 		public BattlePhase fleetAdventLaterSkip;
 
 		[Header("[Sortie Battle Properties]")]

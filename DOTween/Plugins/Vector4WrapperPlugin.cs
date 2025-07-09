@@ -1,4 +1,4 @@
-﻿#if COMPATIBLE
+#if COMPATIBLE
 // Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2015/04/20 18:13
 using System;

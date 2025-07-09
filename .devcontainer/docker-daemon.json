@@ -1,0 +1,9 @@
+{
+    "insecure-registries": [
+        "docker.io",
+        "registry-1.docker.io"
+    ],
+    "registry-mirrors": [],
+    "experimental": false,
+    "buildkit": false
+}

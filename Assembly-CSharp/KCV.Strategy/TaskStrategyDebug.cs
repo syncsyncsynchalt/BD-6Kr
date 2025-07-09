@@ -212,7 +212,7 @@ namespace KCV.Strategy
 			else if (keyController.keyState[5].press && keyController.keyState[2].down)
 			{
 				App.isInvincible = !App.isInvincible;
-				CommonPopupDialog.Instance.StartPopup("無敵モ\u30fcド" + App.isInvincible);
+				CommonPopupDialog.Instance.StartPopup("無敵モード" + App.isInvincible);
 			}
 			else if (keyController.keyState[4].press && keyController.keyState[2].down)
 			{
@@ -232,7 +232,7 @@ namespace KCV.Strategy
 			}
 			else if (keyController.keyState[6].down && keyController.keyState[4].press)
 			{
-				CommonPopupDialog.Instance.StartPopup("ゲ\u30fcムクリア！！");
+				CommonPopupDialog.Instance.StartPopup("ゲームクリア！！");
 				ForceEnding = true;
 			}
 			else if (keyController.keyState[6].down && keyController.keyState[3].press)
@@ -354,35 +354,35 @@ namespace KCV.Strategy
 		{
 			switch (nowMode)
 			{
-			case Mode.CategorySelect:
-				return CategorySelectMode();
-			case Mode.Material:
-				MaterialMode();
-				break;
-			case Mode.Ship:
-				ShipMode();
-				break;
-			case Mode.SlotItem:
-				SlotItemMode();
-				break;
-			case Mode.Deck:
-				DeckMode();
-				break;
-			case Mode.Area:
-				AreaMode();
-				break;
-			case Mode.Slog:
-				SlogMode();
-				break;
-			case Mode.Heal:
-				HealMode();
-				break;
-			case Mode.Large:
-				LargeMode();
-				break;
-			case Mode.Rebellion:
-				RebellionMode();
-				break;
+				case Mode.CategorySelect:
+					return CategorySelectMode();
+				case Mode.Material:
+					MaterialMode();
+					break;
+				case Mode.Ship:
+					ShipMode();
+					break;
+				case Mode.SlotItem:
+					SlotItemMode();
+					break;
+				case Mode.Deck:
+					DeckMode();
+					break;
+				case Mode.Area:
+					AreaMode();
+					break;
+				case Mode.Slog:
+					SlogMode();
+					break;
+				case Mode.Heal:
+					HealMode();
+					break;
+				case Mode.Large:
+					LargeMode();
+					break;
+				case Mode.Rebellion:
+					RebellionMode();
+					break;
 			}
 			return true;
 		}
@@ -393,28 +393,28 @@ namespace KCV.Strategy
 			keyController.Index = 0;
 			switch (nowMode)
 			{
-			case Mode.CategorySelect:
-				keyController.Index = (int)nowMode;
-				keyController.maxIndex = maxIndex;
-				keyController.setChangeValue(-1f, 0f, 1f, 0f);
-				break;
-			case Mode.Material:
-				keyController.maxIndex = 11;
-				break;
-			case Mode.Ship:
-				keyController.maxIndex = 1;
-				break;
-			case Mode.SlotItem:
-				keyController.maxIndex = 999;
-				keyController.Index = 1;
-				keyController.setChangeValue(0f, 1f, 0f, -1f);
-				break;
-			case Mode.Deck:
-				keyController.maxIndex = 0;
-				break;
-			case Mode.Area:
-				keyController.maxIndex = 0;
-				break;
+				case Mode.CategorySelect:
+					keyController.Index = (int)nowMode;
+					keyController.maxIndex = maxIndex;
+					keyController.setChangeValue(-1f, 0f, 1f, 0f);
+					break;
+				case Mode.Material:
+					keyController.maxIndex = 11;
+					break;
+				case Mode.Ship:
+					keyController.maxIndex = 1;
+					break;
+				case Mode.SlotItem:
+					keyController.maxIndex = 999;
+					keyController.Index = 1;
+					keyController.setChangeValue(0f, 1f, 0f, -1f);
+					break;
+				case Mode.Deck:
+					keyController.maxIndex = 0;
+					break;
+				case Mode.Area:
+					keyController.maxIndex = 0;
+					break;
 			}
 		}
 
@@ -437,7 +437,7 @@ namespace KCV.Strategy
 			if (keyController.keyState[3].down)
 			{
 				Live2DModel.__DEBUG_MotionNAME_Draw = !Live2DModel.__DEBUG_MotionNAME_Draw;
-				CommonPopupDialog.Instance.StartPopup("モ\u30fcション名表示:" + Live2DModel.__DEBUG_MotionNAME_Draw);
+				CommonPopupDialog.Instance.StartPopup("モーション名表示:" + Live2DModel.__DEBUG_MotionNAME_Draw);
 			}
 			return true;
 		}

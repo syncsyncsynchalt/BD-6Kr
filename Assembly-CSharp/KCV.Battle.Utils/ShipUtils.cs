@@ -311,13 +311,13 @@ namespace KCV.Battle.Utils
 
 		public static void PlayStartNightCombatVoice(ShipModel_Battle model)
 		{
-			int voiceNum = (!(model.Yomi == "グラ\u30fcフ・ツェッペリン")) ? 18 : 918;
+			int voiceNum = (!(model.Yomi == "グラーフ・ツェッペリン")) ? 18 : 918;
 			PlayShipVoice(model, voiceNum);
 		}
 
 		public static void PlayNightShellingVoice(ShipModel_Battle model)
 		{
-			int voiceNum = (!(model.Yomi == "グラ\u30fcフ・ツェッペリン")) ? 17 : 917;
+			int voiceNum = (!(model.Yomi == "グラーフ・ツェッペリン")) ? 17 : 917;
 			PlayShipVoice(model, voiceNum);
 		}
 

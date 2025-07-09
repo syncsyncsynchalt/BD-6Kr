@@ -91,7 +91,7 @@ namespace KCV.Inherit
 		private IEnumerator DoLoadSelectExit()
 		{
 			bool finished2 = false;
-			Message.text = ((!isInherit) ? "引継ぎをしないでゲ\u30fcムを開始します" : "艦娘と装備を一部引き継いで、ゲ\u30fcムを開始します。");
+			Message.text = ((!isInherit) ? "引継ぎをしないでゲームを開始します" : "艦娘と装備を一部引き継いで、ゲームを開始します。");
 			TweenAlpha.Begin(Message.gameObject, 0.5f, 1f);
 			ShipUtils.PlayPortVoice(503, delegate
 			{

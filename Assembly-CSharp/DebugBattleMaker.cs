@@ -1,4 +1,5 @@
 using Server_Common.Formats.Battle;
+using System;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -18,8 +19,21 @@ public class DebugBattleMaker
 			return false;
 		}
 		string fileName = currentDir + "DayBattleFmt.xml";
-		XmlSerializer serializer = new XmlSerializer(typeof(AllBattleFmt));
-		return writeBattleFmt(fileName, serializer, fmt);
+		try
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(AllBattleFmt));
+			return writeBattleFmt(fileName, serializer, fmt);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"SerializeDayBattle error: {e.Message}");
+			if (e.InnerException != null)
+			{
+				Console.WriteLine($"Inner exception: {e.InnerException.Message}");
+			}
+			Console.WriteLine($"Stack trace: {e.StackTrace}");
+			return false;
+		}
 	}
 
 	public static bool SerializeNightBattle(AllBattleFmt fmt)
@@ -29,8 +43,21 @@ public class DebugBattleMaker
 			return false;
 		}
 		string fileName = currentDir + "NightBattleFmt.xml";
-		XmlSerializer serializer = new XmlSerializer(typeof(AllBattleFmt));
-		return writeBattleFmt(fileName, serializer, fmt);
+		try
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(AllBattleFmt));
+			return writeBattleFmt(fileName, serializer, fmt);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"SerializeNightBattle error: {e.Message}");
+			if (e.InnerException != null)
+			{
+				Console.WriteLine($"Inner exception: {e.InnerException.Message}");
+			}
+			Console.WriteLine($"Stack trace: {e.StackTrace}");
+			return false;
+		}
 	}
 
 	public static bool SerializeBattleResult(BattleResultFmt fmt)
@@ -40,8 +67,21 @@ public class DebugBattleMaker
 			return false;
 		}
 		string fileName = currentDir + "BattleResultFmt.xml";
-		XmlSerializer serializer = new XmlSerializer(typeof(BattleResultFmt));
-		return writeBattleFmt(fileName, serializer, fmt);
+		try
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(BattleResultFmt));
+			return writeBattleFmt(fileName, serializer, fmt);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine($"SerializeBattleResult error: {e.Message}");
+			if (e.InnerException != null)
+			{
+				Console.WriteLine($"Inner exception: {e.InnerException.Message}");
+			}
+			Console.WriteLine($"Stack trace: {e.StackTrace}");
+			return false;
+		}
 	}
 
 	public static void LoadBattleData(out AllBattleFmt day, out AllBattleFmt night, out BattleResultFmt result)
@@ -73,6 +113,26 @@ public class DebugBattleMaker
 
 	private static bool writeBattleFmt(string fileName, XmlSerializer serializer, object data)
 	{
-		return true;
+		try
+		{
+			// ディレクトリが存在しない場合は作成
+			string directory = Path.GetDirectoryName(fileName);
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			using (StreamWriter writer = new StreamWriter(fileName))
+			{
+				serializer.Serialize(writer, data);
+			}
+			return true;
+		}
+		catch (Exception ex)
+		{
+			Debug.LogError($"XMLシリアライズエラー: {ex.Message}");
+			Debug.LogError($"スタックトレース: {ex.StackTrace}");
+			return false;
+		}
 	}
 }

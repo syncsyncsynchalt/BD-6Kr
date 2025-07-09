@@ -343,7 +343,7 @@ namespace local.models
 
 		public override string ToString()
 		{
-			return $"提督名:{Name}  提督レベル:{Level}  保有艦隊数:{DeckCount}  ゲ\u30fcム難易度:{Difficulty}  所有戦略P:{SPoint} Tutorial:({Tutorial})";
+			return $"提督名:{Name}  提督レベル:{Level}  保有艦隊数:{DeckCount}  ゲーム難易度:{Difficulty}  所有戦略P:{SPoint} Tutorial:({Tutorial})";
 		}
 	}
 }

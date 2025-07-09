@@ -73,12 +73,12 @@ namespace KCV.SaveLoad
 			}
 			if (_Execute_Mode == Execute_Mode.Load_Mode)
 			{
-				DebugUtils.SLog("ロ\u30fcドを実行します");
+				DebugUtils.SLog("ロードを実行します");
 				_DO_LOAD();
 			}
 			else if (_Execute_Mode == Execute_Mode.Save_Mode)
 			{
-				Debug.Log("セ\u30fcブを実行します");
+				Debug.Log("セーブを実行します");
 				_DO_SAVE();
 				SingletonMonoBehaviour<PortObjectManager>.Instance.PortTransition.EndTransition(null);
 			}
@@ -122,7 +122,7 @@ namespace KCV.SaveLoad
 			if (_now_status == Now_State.Idle)
 			{
 				_Set_Status(Now_State.Deleting);
-				GameObject.Find("Label_status").GetComponent<UILabel>().text = "デリ\u30fcトdialog";
+				GameObject.Find("Label_status").GetComponent<UILabel>().text = "デリートdialog";
 				_instance.Delete();
 			}
 		}
@@ -156,7 +156,7 @@ namespace KCV.SaveLoad
 					LoadedInheritData();
 					return;
 				}
-				DebugUtils.SLog("通常デ\u30fcタ");
+				DebugUtils.SLog("通常データ");
 				LoadedNormalData();
 			}
 			else
@@ -192,7 +192,7 @@ namespace KCV.SaveLoad
 		{
 			Debug.Log("Save Error.");
 			_Set_Status(Now_State.Idle);
-			StartCoroutine(RightDown_Message("セ\u30fcブ時にエラ\u30fcが発生しました。"));
+			StartCoroutine(RightDown_Message("セーブ時にエラーが発生しました。"));
 			back_to_port(saveloadSuccess: false);
 		}
 
@@ -208,7 +208,7 @@ namespace KCV.SaveLoad
 		{
 			DebugUtils.SLog("Load Error.");
 			_Set_Status(Now_State.Idle);
-			StartCoroutine(RightDown_Message("ロ\u30fcド時に内部エラ\u30fcが発生しました。"));
+			StartCoroutine(RightDown_Message("ロード時に内部エラーが発生しました。"));
 			back_to_port(saveloadSuccess: false);
 		}
 
@@ -224,7 +224,7 @@ namespace KCV.SaveLoad
 		{
 			Debug.Log("Data not found or empty.");
 			_Set_Status(Now_State.Idle);
-			StartCoroutine(RightDown_Message("ロ\u30fcドデ\u30fcタがありません。"));
+			StartCoroutine(RightDown_Message("ロードデータがありません。"));
 			back_to_port(saveloadSuccess: false);
 		}
 
@@ -232,7 +232,7 @@ namespace KCV.SaveLoad
 		{
 			Debug.Log("Delete Complete.");
 			_Set_Status(Now_State.Idle);
-			StartCoroutine(RightDown_Message("デ\u30fcタを削除しました。"));
+			StartCoroutine(RightDown_Message("データを削除しました。"));
 			back_to_port();
 		}
 

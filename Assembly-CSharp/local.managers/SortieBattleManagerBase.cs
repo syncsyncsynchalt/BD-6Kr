@@ -38,21 +38,21 @@ namespace local.managers
 			BattleHeader header = null;
 			switch (warType)
 			{
-			case enumMapWarType.Normal:
-			case enumMapWarType.AirBattle:
-				_battleData = _reqBattle.GetDayPreBattleInfo(formationId).data;
-				_phase = CombatPhase.DAY;
-				header = _battleData.DayBattle.Header;
-				break;
-			case enumMapWarType.Midnight:
-				_battleData = _reqBattle.Night_Sp(formationId).data;
-				_phase = CombatPhase.NIGHT;
-				header = _battleData.NightBattle.Header;
-				break;
-			default:
-				throw new Exception("Logic Error");
-			case enumMapWarType.Night_To_Day:
-				break;
+				case enumMapWarType.Normal:
+				case enumMapWarType.AirBattle:
+					_battleData = _reqBattle.GetDayPreBattleInfo(formationId).data;
+					_phase = CombatPhase.DAY;
+					header = _battleData.DayBattle.Header;
+					break;
+				case enumMapWarType.Midnight:
+					_battleData = _reqBattle.Night_Sp(formationId).data;
+					_phase = CombatPhase.NIGHT;
+					header = _battleData.NightBattle.Header;
+					break;
+				default:
+					throw new Exception("Logic Error");
+				case enumMapWarType.Night_To_Day:
+					break;
 			}
 			_ships_f = _CreateShipData_f(header, practice: false);
 			_ships_e = _CreateShipData_e(header, practice: false);
@@ -148,9 +148,7 @@ namespace local.managers
 		{
 			if (_cache_result_fmt == null)
 			{
-                // var a = _reqBattle.DayBattle();
-
-                Api_Result <BattleResultFmt> api_Result = _reqBattle.BattleResult();
+				Api_Result<BattleResultFmt> api_Result = _reqBattle.BattleResult();
 				if (api_Result.state == Api_Result_State.Success)
 				{
 					_cache_result_fmt = api_Result.data;

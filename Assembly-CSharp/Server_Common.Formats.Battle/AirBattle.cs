@@ -1,19 +1,29 @@
 using System.Collections.Generic;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
+	[Serializable]
+	[XmlRoot("AirBattle")]
 	public class AirBattle
 	{
+		[XmlElement("StageFlag")]
 		public bool[] StageFlag;
 
+		[XmlElement("F_PlaneFrom")]
 		public List<int> F_PlaneFrom;
 
+		[XmlElement("E_PlaneFrom")]
 		public List<int> E_PlaneFrom;
 
+		[XmlElement("Air1")]
 		public AirBattle1 Air1;
 
+		[XmlElement("Air2")]
 		public AirBattle2 Air2;
 
+		[XmlElement("Air3")]
 		public AirBattle3 Air3;
 
 		public AirBattle()

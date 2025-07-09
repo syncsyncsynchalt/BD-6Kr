@@ -129,7 +129,7 @@ namespace KCV.Arsenal
 					_Btn_Shikaku.transform.localScale = Vector3.one;
 					_Btn_Shikaku.transform.localPositionX(525f);
 					_ShikakuBtnSprite.spriteName = "btn_sankaku";
-					_Btn_Shikaku_Label.text = "ソ\u30fcト";
+					_Btn_Shikaku_Label.text = "ソート";
 					goto IL_0152;
 				}
 			}
@@ -147,7 +147,7 @@ namespace KCV.Arsenal
 				_Btn_Shikaku.transform.localPositionX(525f);
 			}
 			goto IL_0152;
-			IL_0152:
+		IL_0152:
 			_now_mode = taskMainArsenalManager.isInConstructDialog();
 			if (taskArsenalListManager._ShikakuON)
 			{

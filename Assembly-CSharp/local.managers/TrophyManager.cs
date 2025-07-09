@@ -189,7 +189,7 @@ namespace local.managers
 
 		public override string ToString()
 		{
-			string text = "== トロフィ\u30fcデ\u30fcタ ==\n";
+			string text = "== トロフィーデータ ==\n";
 			if (_data != null)
 			{
 				for (int i = 0; i < _data.Count; i++)

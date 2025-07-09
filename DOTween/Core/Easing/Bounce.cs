@@ -1,4 +1,4 @@
-﻿//
+//
 // Bounce.cs
 //
 // Author: Daniele Giardini (C# port of the easing equations created by Robert Penner - http://robertpenner.com/easing)

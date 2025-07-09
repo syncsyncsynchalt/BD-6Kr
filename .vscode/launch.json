@@ -2,13 +2,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "enter the fully qualified path for the pipe program name, for example '/usr/bin/ssh'",
+                "pipeArgs": [],
+                "debuggerPath": "enter the path for the debugger on the target machine, for example ~/vsdbg/vsdbg"
+            }
+        },
+        {
             "name": "Debug Runner",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build runner",
-            "program": "${workspaceFolder}/runner/bin/Debug/net9.0/runner.dll",
+            "preLaunchTask": "build Runner",
+            "program": "${workspaceFolder}/Runner/bin/Debug/net9.0/Runner.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/runner",
+            "cwd": "${workspaceFolder}/Runner",
             "stopAtEntry": false,
             "console": "integratedTerminal"
         }

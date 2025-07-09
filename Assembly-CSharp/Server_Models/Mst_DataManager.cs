@@ -497,43 +497,56 @@ namespace Server_Models
 			string tableDirMaster = Utils.getTableDirMaster("mst_files");
 			string uri = tableDirMaster + "mst_files.xml";
 			IEnumerable<XElement> source = from file in XElement.Load(uri).Elements("item")
-				select (file);
+										   select (file);
 			List<XElement> list = source.ToList();
-			int num = callCount = list.Count();
-			masterAsyncDelegate masterAsyncDelegate = LoadElements;
-			for (int i = 0; i < num; i++)
+			int num = (callCount = list.Count());
+			for (int num2 = 0; num2 < num; num2++)
 			{
-				string value = list[i].Value;
-
-                var a = masterAsyncDelegate.Invoke(value);
-                // masterAsyncDelegate.BeginInvoke(value, loadCompleteAsynch, masterAsyncDelegate);
-                // loadCompleteAsynch();
-                loadCompleteAsynch2(a);
-            }
+				string value = list[num2].Value;
+				var result = LoadElements(value);
+				loadCompleteAsynch2(result);
+			}
 		}
+
+		// 元実装
+		// private void loadStartMstData()
+		// {
+		// 	string tableDirMaster = Utils.getTableDirMaster("mst_files");
+		// 	string uri = tableDirMaster + "mst_files.xml";
+		// 	IEnumerable<XElement> source = from file in XElement.Load(uri).Elements("item")
+		// 		select (file);
+		// 	List<XElement> list = source.ToList();
+		// 	int num = (callCount = list.Count());
+		// 	masterAsyncDelegate masterAsyncDelegate = LoadElements;
+		// 	for (int num2 = 0; num2 < num; num2++)
+		// 	{
+		// 		string value = list[num2].Value;
+		// 		IAsyncResult asyncResult = masterAsyncDelegate.BeginInvoke(value, loadCompleteAsynch, masterAsyncDelegate);
+		// 	}
+		// }
 
 		private KeyValuePair<string, IEnumerable<XElement>> LoadElements(string name)
 		{
 			return new KeyValuePair<string, IEnumerable<XElement>>(name, Utils.Xml_Result(name, name, null));
 		}
 
-        private void loadCompleteAsynch2(KeyValuePair<string, IEnumerable<XElement>> ret)
-        {
-            KeyValuePair<string, IEnumerable<XElement>> keyValuePair = ret;
-            lock (lockObj)
-            {
-                startMasterElement.Add(keyValuePair.Key, keyValuePair.Value);
-            }
-            Interlocked.Decrement(ref callCount);
-            if (callCount <= 0)
-            {
-                isMasterInit = 2;
-                initMasterCallback();
-                initMasterCallback = null;
-            }
-        }
+		private void loadCompleteAsynch2(KeyValuePair<string, IEnumerable<XElement>> ret)
+		{
+			KeyValuePair<string, IEnumerable<XElement>> keyValuePair = ret;
+			lock (lockObj)
+			{
+				startMasterElement.Add(keyValuePair.Key, keyValuePair.Value);
+			}
+			Interlocked.Decrement(ref callCount);
+			if (callCount <= 0)
+			{
+				isMasterInit = 2;
+				initMasterCallback();
+				initMasterCallback = null;
+			}
+		}
 
-        private void loadCompleteAsynch(IAsyncResult ar)
+		private void loadCompleteAsynch(IAsyncResult ar)
 		{
 			masterAsyncDelegate masterAsyncDelegate = (masterAsyncDelegate)ar.AsyncState;
 			KeyValuePair<string, IEnumerable<XElement>> keyValuePair = masterAsyncDelegate.EndInvoke(ar);
@@ -553,121 +566,121 @@ namespace Server_Models
 		private Dictionary<string, Action<Model_Base, XElement>> getMasterSetter()
 		{
 			Dictionary<string, Action<Model_Base, XElement>> dictionary = new Dictionary<string, Action<Model_Base, XElement>>();
-			dictionary.Add("mst_ship", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_ship", delegate (Model_Base x, XElement y)
 			{
 				Mst_ship instance21 = (Mst_ship)x;
 				Model_Base.SetMaster(out instance21, y);
 				Mst_ship.Add(instance21.Id, instance21);
 			});
-			dictionary.Add("mst_ship_resources", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_ship_resources", delegate (Model_Base x, XElement y)
 			{
 				Mst_ship_resources instance20 = (Mst_ship_resources)x;
 				Model_Base.SetMaster(out instance20, y);
 				Mst_ship_resources.Add(instance20.Id, instance20);
 			});
-			dictionary.Add("mst_slotitem", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_slotitem", delegate (Model_Base x, XElement y)
 			{
 				Mst_slotitem instance19 = (Mst_slotitem)x;
 				Model_Base.SetMaster(out instance19, y);
 				Mst_Slotitem.Add(instance19.Id, instance19);
 			});
-			dictionary.Add("mst_maparea", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_maparea", delegate (Model_Base x, XElement y)
 			{
 				Mst_maparea instance18 = (Mst_maparea)x;
 				Model_Base.SetMaster(out instance18, y);
 				Mst_maparea.Add(instance18.Id, instance18);
 			});
-			dictionary.Add("mst_mapinfo", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_mapinfo", delegate (Model_Base x, XElement y)
 			{
 				Mst_mapinfo instance17 = (Mst_mapinfo)x;
 				Model_Base.SetMaster(out instance17, y);
 				Mst_mapinfo.Add(instance17.Id, instance17);
 			});
-			dictionary.Add("mst_useitem", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_useitem", delegate (Model_Base x, XElement y)
 			{
 				Mst_useitem instance16 = (Mst_useitem)x;
 				Model_Base.SetMaster(out instance16, y);
 				Mst_useitem.Add(instance16.Id, instance16);
 			});
-			dictionary.Add("mst_stype", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_stype", delegate (Model_Base x, XElement y)
 			{
 				Mst_stype instance15 = (Mst_stype)x;
 				Model_Base.SetMaster(out instance15, y);
 				Mst_stype.Add(instance15.Id, instance15);
 			});
-			dictionary.Add("mst_mission2", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_mission2", delegate (Model_Base x, XElement y)
 			{
 				Mst_mission2 instance14 = (Mst_mission2)x;
 				Model_Base.SetMaster(out instance14, y);
 				Mst_mission.Add(instance14.Id, instance14);
 			});
-			dictionary.Add("mst_shipupgrade", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_shipupgrade", delegate (Model_Base x, XElement y)
 			{
 				Mst_shipupgrade instance13 = (Mst_shipupgrade)x;
 				Model_Base.SetMaster(out instance13, y);
 				Mst_upgrade.Add(instance13.Id, instance13);
 			});
-			dictionary.Add("mst_furniture", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_furniture", delegate (Model_Base x, XElement y)
 			{
 				Mst_furniture instance12 = (Mst_furniture)x;
 				Model_Base.SetMaster(out instance12, y);
 				Mst_furniture.Add(instance12.Id, instance12);
 			});
-			dictionary.Add("mst_shipgraph", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_shipgraph", delegate (Model_Base x, XElement y)
 			{
 				Mst_shipgraph instance11 = (Mst_shipgraph)x;
 				Model_Base.SetMaster(out instance11, y);
 				Mst_shipgraph.Add(instance11.Id, instance11);
 			});
-			dictionary.Add("mst_item_limit", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_item_limit", delegate (Model_Base x, XElement y)
 			{
 				Mst_item_limit instance10 = (Mst_item_limit)x;
 				Model_Base.SetMaster(out instance10, y);
 				Mst_item_limit.Add(instance10.Id, instance10);
 			});
-			dictionary.Add("mst_equip_category", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_equip_category", delegate (Model_Base x, XElement y)
 			{
 				Mst_equip_category instance9 = (Mst_equip_category)x;
 				Model_Base.SetMaster(out instance9, y);
 				Mst_equip_category.Add(instance9.Id, instance9);
 			});
-			dictionary.Add("mst_equip_ship", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_equip_ship", delegate (Model_Base x, XElement y)
 			{
 				Mst_equip_ship instance8 = (Mst_equip_ship)x;
 				Model_Base.SetMaster(out instance8, y);
 				Mst_equip_ship.Add(instance8.Id, instance8);
 			});
-			dictionary.Add("mst_shipgraphbattle", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_shipgraphbattle", delegate (Model_Base x, XElement y)
 			{
 				Mst_shipgraphbattle instance7 = (Mst_shipgraphbattle)x;
 				Model_Base.SetMaster(out instance7, y);
 				Mst_shipgraphbattle.Add(instance7.Id, instance7);
 			});
-			dictionary.Add("mst_const", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_const", delegate (Model_Base x, XElement y)
 			{
 				Mst_const instance6 = (Mst_const)x;
 				Model_Base.SetMaster(out instance6, y);
 				Mst_const.Add(instance6.Id, instance6);
 			});
-			dictionary.Add("mst_questcount", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_questcount", delegate (Model_Base x, XElement y)
 			{
 				Mst_questcount instance5 = (Mst_questcount)x;
 				Model_Base.SetMaster(out instance5, y);
 				Mst_questcount.Add(instance5.Id, instance5);
 			});
-			dictionary.Add("mst_rebellionpoint", delegate(Model_Base x, XElement y)
+			dictionary.Add("mst_rebellionpoint", delegate (Model_Base x, XElement y)
 			{
 				Mst_rebellionpoint instance4 = (Mst_rebellionpoint)x;
 				Model_Base.SetMaster(out instance4, y);
 				Mst_RebellionPoint.Add(instance4.Id, instance4);
 			});
-			dictionary.Add(Mst_bgm_jukebox.tableName, delegate(Model_Base x, XElement y)
+			dictionary.Add(Mst_bgm_jukebox.tableName, delegate (Model_Base x, XElement y)
 			{
 				Mst_bgm_jukebox instance3 = (Mst_bgm_jukebox)x;
 				Model_Base.SetMaster(out instance3, y);
 				_mst_jukebox.Add(instance3.Bgm_id, instance3);
 			});
-			dictionary.Add(Mst_radingtype.tableName, delegate(Model_Base x, XElement y)
+			dictionary.Add(Mst_radingtype.tableName, delegate (Model_Base x, XElement y)
 			{
 				Mst_radingtype instance2 = (Mst_radingtype)x;
 				Model_Base.SetMaster(out instance2, y);
@@ -679,7 +692,7 @@ namespace Server_Models
 				}
 				value2.Add(instance2);
 			});
-			dictionary.Add(Mst_radingrate.tableName, delegate(Model_Base x, XElement y)
+			dictionary.Add(Mst_radingrate.tableName, delegate (Model_Base x, XElement y)
 			{
 				Mst_radingrate instance = (Mst_radingrate)x;
 				Model_Base.SetMaster(out instance, y);
@@ -815,8 +828,8 @@ namespace Server_Models
 			foreach (IGrouping<int, Mst_mapincentive> item2 in lookup)
 			{
 				dictionary.Add(item2.Key, (from x in item2
-					orderby x.Incentive_no
-					select x).ToList());
+										   orderby x.Incentive_no
+										   select x).ToList());
 			}
 			return dictionary;
 		}
@@ -843,8 +856,8 @@ namespace Server_Models
 			foreach (IGrouping<int, Mst_mapcellincentive> item2 in lookup)
 			{
 				dictionary.Add(item2.Key, (from x in item2
-					orderby x.Incentive_no
-					select x).ToList());
+										   orderby x.Incentive_no
+										   select x).ToList());
 			}
 			return dictionary;
 		}
@@ -862,10 +875,10 @@ namespace Server_Models
 				return null;
 			}
 			var source = (from key in enumerable.Elements("Cabinet_no")
-				select new
-				{
-					no = int.Parse(key.Value)
-				}).Distinct();
+						  select new
+						  {
+							  no = int.Parse(key.Value)
+						  }).Distinct();
 			Dictionary<int, List<Mst_item_shop>> dictionary = source.ToDictionary(key => key.no, val => new List<Mst_item_shop>());
 			foreach (XElement item2 in enumerable)
 			{
@@ -969,8 +982,8 @@ namespace Server_Models
 		public List<Mst_bgm_jukebox> GetJukeBoxList()
 		{
 			return (from x in _mst_jukebox.Values
-				orderby x.Id
-				select x).ToList();
+					orderby x.Id
+					select x).ToList();
 		}
 
 		public Mst_bgm_jukebox GetJukeBoxItem(int bgmId)

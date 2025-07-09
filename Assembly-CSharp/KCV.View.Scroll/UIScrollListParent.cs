@@ -40,7 +40,7 @@ namespace KCV.View.Scroll
 		private UIScrollListParentCheck mUIScrollListParentCheck;
 
 		[SerializeField]
-		[Tooltip("ユ\u30fcザが１度に見ることができる要素の最大数を設定してください。予備のオブジェクトの事は考えないでください")]
+		[Tooltip("ユーザが１度に見ることができる要素の最大数を設定してください。予備のオブジェクトの事は考えないでください")]
 		private int MAX_USER_VIEW_OBJECTS = 6;
 
 		[SerializeField]
@@ -50,7 +50,7 @@ namespace KCV.View.Scroll
 
 		private bool mUseBottomUpReposition;
 
-		[Tooltip("リスト下にフォ\u30fcカスが入った時にフォ\u30fcカス位置を底上げします")]
+		[Tooltip("リスト下にフォーカスが入った時にフォーカス位置を底上げします")]
 		[SerializeField]
 		private Vector3 mVector3_BottomUpPosition = default(Vector3);
 

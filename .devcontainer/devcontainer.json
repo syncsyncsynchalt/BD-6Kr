@@ -5,7 +5,21 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0-bookworm",
 	"features": {
-		"ghcr.io/devcontainers/features/dotnet:2": {}
+		"ghcr.io/devcontainers/features/dotnet:2": {
+			"version": "9.0"
+		}
+	},
+	"containerEnv": {
+		"DOCKER_BUILDKIT": "0",
+		"BUILDKIT_INLINE_CACHE": "1",
+		"PYTHONHTTPSVERIFY": "0",
+		"NODE_TLS_REJECT_UNAUTHORIZED": "0",
+		"DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER": "0",
+		"DOTNET_USE_POLLING_FILE_WATCHER": "true",
+		"NUGET_XMLDOC_MODE": "skip",
+		"CURL_CA_BUNDLE": "",
+		"CURL_INSECURE": "1",
+		"DOTNET_CLI_TELEMETRY_OPTOUT": "1"
 	},
 	"customizations": {
 		"vscode": {
@@ -18,20 +32,9 @@
 				"ms-dotnettools.csdevkit"
 			]
 		}
-	}
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [5000, 5001],
-	// "portsAttributes": {
-	//		"5001": {
-	//			"protocol": "https"
-	//		}
-	// }
+	},
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "dotnet restore",
+	"postCreateCommand": "sudo chown -R vscode:vscode /workspaces/BD-6Kr && dotnet restore --ignore-failed-sources --disable-parallel",
 	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "vscode"
 }

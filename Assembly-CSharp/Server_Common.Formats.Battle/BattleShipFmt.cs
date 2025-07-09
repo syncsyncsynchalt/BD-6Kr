@@ -1,36 +1,39 @@
 using Server_Models;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
-	[DataContract]
+	[Serializable]
+	[XmlRoot("BattleShipFmt")]
 	public class BattleShipFmt
 	{
-		[DataMember]
+		[XmlElement("Id")]
 		public int Id;
 
-		[DataMember]
+		[XmlElement("ShipId")]
 		public int ShipId;
 
-		[DataMember]
+		[XmlElement("Level")]
 		public int Level;
 
-		[DataMember]
+		[XmlElement("NowHp")]
 		public int NowHp;
 
-		[DataMember]
+		[XmlElement("MaxHp")]
 		public int MaxHp;
 
-		[DataMember]
+		[XmlElement("EscapeFlag")]
 		public bool EscapeFlag;
 
-		[DataMember]
+		[XmlElement("BattleParam")]
 		public Ship_GrowValues BattleParam;
 
-		[DataMember]
+		[XmlElement("Slot")]
 		public List<int> Slot;
 
+		[XmlElement("ExSlot")]
 		public int ExSlot;
 
 		public BattleShipFmt()
@@ -49,7 +52,7 @@ namespace Server_Common.Formats.Battle
 			Slot = new List<int>();
 			if (!ship.IsEnemy())
 			{
-				ship.Slot.ForEach(delegate(int x)
+				ship.Slot.ForEach(delegate (int x)
 				{
 					int item = -1;
 					if (Comm_UserDatas.Instance.User_slot.ContainsKey(x))
@@ -61,7 +64,7 @@ namespace Server_Common.Formats.Battle
 			}
 			else
 			{
-				ship.Slot.ForEach(delegate(int x)
+				ship.Slot.ForEach(delegate (int x)
 				{
 					Slot.Add(x);
 				});

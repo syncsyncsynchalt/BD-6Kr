@@ -132,22 +132,22 @@ namespace local.models
 
 		public override string ToString()
 		{
-			string str = $"[ユ\u30fcザ\u30fc事前行動フェ\u30fcズ]:\n";
+			string str = $"[ユーザー事前行動フェーズ]:\n";
 			MaterialInfo resources = Resources;
 			str += $" 資源回収:燃/弾/鋼/ボ:{resources.Fuel}/{resources.Ammo}/{resources.Steel}/{resources.Baux} 高速建造/高速修復/開発資材/改修資材:{resources.BuildKit}/{resources.RepairKit}/{resources.Devkit}/{resources.Revkit}\n";
 			resources = GetMonthlyBonus();
 			if (resources.HasPositive())
 			{
-				str += $" 月頭ボ\u30fcナス:燃/弾/鋼/ボ:{resources.Fuel}/{resources.Ammo}/{resources.Steel}/{resources.Baux} 高速建造/高速修復/開発資材/改修資材:{resources.BuildKit}/{resources.RepairKit}/{resources.Devkit}/{resources.Revkit}\n";
+				str += $" 月頭ボーナス:燃/弾/鋼/ボ:{resources.Fuel}/{resources.Ammo}/{resources.Steel}/{resources.Baux} 高速建造/高速修復/開発資材/改修資材:{resources.BuildKit}/{resources.RepairKit}/{resources.Devkit}/{resources.Revkit}\n";
 			}
 			resources = GetWeeklyBonus();
 			if (resources.HasPositive())
 			{
-				str += $" 週頭ボ\u30fcナス:燃/弾/鋼/ボ:{resources.Fuel}/{resources.Ammo}/{resources.Steel}/{resources.Baux} 高速建造/高速修復/開発資材/改修資材:{resources.BuildKit}/{resources.RepairKit}/{resources.Devkit}/{resources.Revkit}\n";
+				str += $" 週頭ボーナス:燃/弾/鋼/ボ:{resources.Fuel}/{resources.Ammo}/{resources.Steel}/{resources.Baux} 高速建造/高速修復/開発資材/改修資材:{resources.BuildKit}/{resources.RepairKit}/{resources.Devkit}/{resources.Revkit}\n";
 			}
 			if (Rewards != null && Rewards.Count > 0)
 			{
-				str += $"[特別ボ\u30fcナス] ";
+				str += $"[特別ボーナス] ";
 				for (int i = 0; i < Rewards.Count; i++)
 				{
 					str += $"{Rewards[i]} ";

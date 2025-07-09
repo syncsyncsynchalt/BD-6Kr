@@ -14,7 +14,7 @@ namespace local.models
 
 		public override string ToString()
 		{
-			string str = $"[タ\u30fcン終了フェ\u30fcズ]: \n";
+			string str = $"[ターン終了フェーズ]: \n";
 			str += $"=通商破壊=\n";
 			if (RadingResult == null)
 			{
@@ -29,7 +29,7 @@ namespace local.models
 					str += $"海上護衛艦隊の対潜/対空能力:{radingResultData.DeckAttackPow}\n";
 					for (int j = 0; j < radingResultData.RadingDamage.Count; j++)
 					{
-						str += $"\t海上護衛艦隊(MemId:{radingResultData.RadingDamage[j].Rid})は{radingResultData.RadingDamage[j].Damage}のダメ\u30fcジ({radingResultData.RadingDamage[j].DamageState})";
+						str += $"\t海上護衛艦隊(MemId:{radingResultData.RadingDamage[j].Rid})は{radingResultData.RadingDamage[j].Damage}のダメージ({radingResultData.RadingDamage[j].DamageState})";
 					}
 				}
 			}

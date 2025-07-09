@@ -184,7 +184,7 @@ namespace local.managers
 		public override string ToString()
 		{
 			string str = $"{UserInfo}\n{Material} 所持家具コイン:{UserInfo.FCoin}\n";
-			str += $"総タ\u30fcン数:{Turn}\t日時:{Datetime}";
+			str += $"総ターン数:{Turn}\t日時:{Datetime}";
 			string str2 = str;
 			object[] array = new object[4];
 			TurnString datetimeString = DatetimeString;

@@ -1,282 +1,73 @@
 using Common.Enum;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System;
 
 namespace Server_Common.Formats.Battle
 {
+	[Serializable]
+	[XmlRoot("BattleResultFmt")]
 	public class BattleResultFmt
 	{
-		private BattleWinRankKinds _winRank;
+		[XmlElement("WinRank")]
+		public BattleWinRankKinds WinRank;
 
-		private int _basicLevel;
+		[XmlElement("BasicLevel")]
+		public int BasicLevel;
 
-		private string _questName;
+		[XmlElement("QuestName")]
+		public string QuestName;
 
-		private int _mvpShip;
+		[XmlElement("MvpShip")]
+		public int MvpShip;
 
-		private int _getBaseExp;
+		[XmlElement("GetBaseExp")]
+		public int GetBaseExp;
 
 		[XmlIgnore]
-		private SerializableDictionary<int, int> _getShipExp;
+		public SerializableDictionary<int, int> GetShipExp;
 
 		[XmlIgnore]
-		private SerializableDictionary<int, List<int>> _levelUpInfo;
+		public SerializableDictionary<int, List<int>> LevelUpInfo;
 
-		private List<int> _enemyId;
+		[XmlElement("EnemyId")]
+		public List<int> EnemyId;
 
-		private string _enemyName;
+		[XmlElement("EnemyName")]
+		public string EnemyName;
 
-		private bool _firstClear;
+		[XmlElement("FirstClear")]
+		public bool FirstClear;
 
-		private bool _firstAreaComplete;
+		[XmlElement("FirstAreaComplete")]
+		public bool FirstAreaComplete;
 
-		private int _getSpoint;
+		[XmlElement("GetSpoint")]
+		public int GetSpoint;
 
-		private List<MapItemGetFmt> _getAirReconnaissanceItems;
+		[XmlElement("GetAirReconnaissanceItems")]
+		public List<MapItemGetFmt> GetAirReconnaissanceItems;
 
-		private List<ItemGetFmt> _getItem;
+		[XmlElement("GetItem")]
+		public List<ItemGetFmt> GetItem;
 
+		[XmlElement("AreaClearRewardItem")]
 		public ItemGetFmt AreaClearRewardItem;
 
-		private List<ItemGetFmt> _getEventItem;
+		[XmlElement("GetEventItem")]
+		public List<ItemGetFmt> GetEventItem;
 
-		private ExMapRewardInfo _exMapReward;
+		[XmlElement("ExMapReward")]
+		public ExMapRewardInfo ExMapReward;
 
-		private EscapeInfo _escapeInfo;
+		[XmlElement("EscapeInfo")]
+		public EscapeInfo EscapeInfo;
 
-		private List<int> _newOpenMapId;
+		[XmlElement("NewOpenMapId")]
+		public List<int> NewOpenMapId;
 
-		private List<int> _reOpenMapId;
-
-		public BattleWinRankKinds WinRank
-		{
-			get
-			{
-				return _winRank;
-			}
-			set
-			{
-				_winRank = value;
-			}
-		}
-
-		public int BasicLevel
-		{
-			get
-			{
-				return _basicLevel;
-			}
-			set
-			{
-				_basicLevel = value;
-			}
-		}
-
-		public string QuestName
-		{
-			get
-			{
-				return _questName;
-			}
-			set
-			{
-				_questName = value;
-			}
-		}
-
-		public int MvpShip
-		{
-			get
-			{
-				return _mvpShip;
-			}
-			set
-			{
-				_mvpShip = value;
-			}
-		}
-
-		public int GetBaseExp
-		{
-			get
-			{
-				return _getBaseExp;
-			}
-			set
-			{
-				_getBaseExp = value;
-			}
-		}
-
-		[XmlIgnore]
-		public SerializableDictionary<int, int> GetShipExp
-		{
-			get
-			{
-				return _getShipExp;
-			}
-			set
-			{
-				_getShipExp = value;
-			}
-		}
-
-		[XmlIgnore]
-		public SerializableDictionary<int, List<int>> LevelUpInfo
-		{
-			get
-			{
-				return _levelUpInfo;
-			}
-			set
-			{
-				_levelUpInfo = value;
-			}
-		}
-
-		public List<int> EnemyId
-		{
-			get
-			{
-				return _enemyId;
-			}
-			set
-			{
-				_enemyId = value;
-			}
-		}
-
-		public string EnemyName
-		{
-			get
-			{
-				return _enemyName;
-			}
-			set
-			{
-				_enemyName = value;
-			}
-		}
-
-		public bool FirstClear
-		{
-			get
-			{
-				return _firstClear;
-			}
-			set
-			{
-				_firstClear = value;
-			}
-		}
-
-		public bool FirstAreaComplete
-		{
-			get
-			{
-				return _firstAreaComplete;
-			}
-			set
-			{
-				_firstAreaComplete = value;
-			}
-		}
-
-		public int GetSpoint
-		{
-			get
-			{
-				return _getSpoint;
-			}
-			set
-			{
-				_getSpoint = value;
-			}
-		}
-
-		public List<MapItemGetFmt> GetAirReconnaissanceItems
-		{
-			get
-			{
-				return _getAirReconnaissanceItems;
-			}
-			set
-			{
-				_getAirReconnaissanceItems = value;
-			}
-		}
-
-		public List<ItemGetFmt> GetItem
-		{
-			get
-			{
-				return _getItem;
-			}
-			set
-			{
-				_getItem = value;
-			}
-		}
-
-		public List<ItemGetFmt> GetEventItem
-		{
-			get
-			{
-				return _getEventItem;
-			}
-			set
-			{
-				_getEventItem = value;
-			}
-		}
-
-		public ExMapRewardInfo ExMapReward
-		{
-			get
-			{
-				return _exMapReward;
-			}
-			set
-			{
-				_exMapReward = value;
-			}
-		}
-
-		public EscapeInfo EscapeInfo
-		{
-			get
-			{
-				return _escapeInfo;
-			}
-			set
-			{
-				_escapeInfo = value;
-			}
-		}
-
-		public List<int> NewOpenMapId
-		{
-			get
-			{
-				return _newOpenMapId;
-			}
-			set
-			{
-				_newOpenMapId = value;
-			}
-		}
-
-		public List<int> ReOpenMapId
-		{
-			get
-			{
-				return _reOpenMapId;
-			}
-			set
-			{
-				_reOpenMapId = value;
-			}
-		}
+		[XmlElement("ReOpenMapId")]
+		public List<int> ReOpenMapId;
 
 		public BattleResultFmt()
 		{

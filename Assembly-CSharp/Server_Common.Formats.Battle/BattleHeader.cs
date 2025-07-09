@@ -1,18 +1,21 @@
 using Server_Models;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System;
+using System.Xml.Serialization;
 
 namespace Server_Common.Formats.Battle
 {
-	[DataContract]
+	[Serializable]
+	[XmlRoot("BattleHeader")]
 	public class BattleHeader
 	{
-		[DataMember]
+		[XmlElement("F_DeckShip1")]
 		public BattleHeaderItem F_DeckShip1;
 
-		[DataMember]
+		[XmlElement("E_DeckShip1")]
 		public BattleHeaderItem E_DeckShip1;
 
+		[XmlIgnore]
 		public Dictionary<int, List<Mst_slotitem>> UseRationShips;
 
 		public BattleHeader()

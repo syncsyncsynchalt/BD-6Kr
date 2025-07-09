@@ -11,7 +11,7 @@ namespace local.models
 
 		public override string ToString()
 		{
-			return $"[ユ\u30fcザ\u30fc行動フェ\u30fcズ]: ";
+			return $"[ユーザー行動フェーズ]: ";
 		}
 	}
 }

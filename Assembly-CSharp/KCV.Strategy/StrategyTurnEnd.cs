@@ -55,7 +55,7 @@ namespace KCV.Strategy
 			if (tutorial.GetStep() == 7 && !tutorial.GetStepTutorialFlg(8))
 			{
 				tutorial.SetStepTutorialFlg(8);
-				CommonPopupDialog.Instance.StartPopup("「タ\u30fcン終了」 達成");
+				CommonPopupDialog.Instance.StartPopup("「ターン終了」 達成");
 				SoundUtils.PlaySE(SEFIleInfos.SE_012);
 			}
 			TurnEndFinish = false;
@@ -110,7 +110,7 @@ namespace KCV.Strategy
 				{
 					SingletonMonoBehaviour<TutorialGuideManager>.Instance.GetTutorialDialog().OnClosed = delegate
 					{
-                        TutorialFinished3 = true;
+						TutorialFinished3 = true;
 					};
 				});
 				while (!TutorialFinished3)
@@ -173,7 +173,7 @@ namespace KCV.Strategy
 			{
 				SingletonMonoBehaviour<TutorialGuideManager>.Instance.GetTutorialDialog().OnClosed = delegate
 				{
-                    TutorialFinished2 = true;
+					TutorialFinished2 = true;
 				};
 			});
 			while (!TutorialFinished2)
@@ -231,8 +231,8 @@ namespace KCV.Strategy
 					Anim.Initialize(LogicMng.UserInfo.GetDeck(userPreAction.MissionResults[i].DeckID));
 					Anim.PlayFinishedCutin(delegate
 					{
-                        throw new NotImplementedException("なにこれ");
-                        // _003CUserPreAction_003Ec__Iterator186 _003CUserPreAction_003Ec__Iterator = this;
+						throw new NotImplementedException("なにこれ");
+						// _003CUserPreAction_003Ec__Iterator186 _003CUserPreAction_003Ec__Iterator = this;
 
 
 						UnityEngine.Object.Destroy(Anim.gameObject);
@@ -247,8 +247,8 @@ namespace KCV.Strategy
 							StrategyTopTaskManager.Instance.UIModel.UIMapManager.ShipIconManager.setShipIconsState();
 							userInterfaceStrategyResult.FadeOut(delegate
 							{
-                                UnityEngine.Object.Destroy(userInterfaceStrategyResult.gameObject);
-                                finished = true;
+								UnityEngine.Object.Destroy(userInterfaceStrategyResult.gameObject);
+								finished = true;
 							});
 						});
 						userInterfaceStrategyResult.Play();
@@ -288,7 +288,7 @@ namespace KCV.Strategy
 				{
 					SingletonMonoBehaviour<TutorialGuideManager>.Instance.GetTutorialDialog().OnClosed = delegate
 					{
-                        TutorialFinished = true;
+						TutorialFinished = true;
 					};
 				});
 				while (!TutorialFinished)

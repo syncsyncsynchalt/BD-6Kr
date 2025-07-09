@@ -214,7 +214,7 @@ namespace local.models.battle
 			{
 				_slots.Add(null);
 			}
-			if (IsNight() && Attacker.IsAircraftCarrier() && Attacker.Yomi != "グラ\u30fcフ・ツェッペリン")
+			if (IsNight() && Attacker.IsAircraftCarrier() && Attacker.Yomi != "グラーフ・ツェッペリン")
 			{
 				_attack_type = BattleAttackKind.AirAttack;
 			}
@@ -300,10 +300,10 @@ namespace local.models.battle
 			{
 				SlotitemModel_Battle[] slotitems = GetSlotitems();
 				str += $"{base.Defender.Name}({base.Defender.Index})は";
-				str += string.Format("{0}(c:{2})のダメ\u30fcジ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
+				str += string.Format("{0}(c:{2})のダメージ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
 				str += string.Format("{0}", (!GetRocketEffenct()) ? string.Empty : "[対地演出]");
 				str += string.Format("{0}", (!GetProtectEffect(0)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}", (!GetGurdEffect(0)) ? string.Empty : "[ガ\u30fcド]");
+				str += string.Format("{0}", (!GetGurdEffect(0)) ? string.Empty : "[ガード]");
 				for (int i = 0; i < slotitems.Length; i++)
 				{
 					str = ((slotitems[i] == null) ? (str + $"[--]") : (str + $"{slotitems[i]}"));
@@ -314,39 +314,39 @@ namespace local.models.battle
 				SlotitemModel_Battle[] slotitems2 = GetSlotitems();
 				str += $"\"{base.Defender.Name}({base.Defender.Index})は";
 				str += $"{slotitems2[0]},{slotitems2[1]}で";
-				str += string.Format("{0}({2})のダメ\u30fcジ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
+				str += string.Format("{0}({2})のダメージ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
 				str += string.Format("{0}", (!GetProtectEffect(0)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガ\u30fcド]");
-				str += string.Format("と{0}({2})のダメ\u30fcジ({1})", GetDamage(1), GetHitState(1), __GetDamage__(1));
+				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガード]");
+				str += string.Format("と{0}({2})のダメージ({1})", GetDamage(1), GetHitState(1), __GetDamage__(1));
 				str += string.Format("{0}\" ", (!GetProtectEffect(1)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}\" ", (!GetGurdEffect(1)) ? string.Empty : "[ガ\u30fcド]");
+				str += string.Format("{0}\" ", (!GetGurdEffect(1)) ? string.Empty : "[ガード]");
 			}
 			else if (AttackType == BattleAttackKind.Sp1 || AttackType == BattleAttackKind.Sp2 || AttackType == BattleAttackKind.Sp3 || AttackType == BattleAttackKind.Sp4)
 			{
 				SlotitemModel_Battle[] slotitems3 = GetSlotitems();
 				str += $"\"{base.Defender.Name}({base.Defender.Index})は";
 				str += $"{slotitems3[0]},{slotitems3[1]},{slotitems3[2]}で";
-				str += string.Format("{0}({2})のダメ\u30fcジ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
+				str += string.Format("{0}({2})のダメージ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
 				str += string.Format("{0}\" ", (!GetProtectEffect(0)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガ\u30fcド]");
+				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガード]");
 			}
 			else if (AttackType == BattleAttackKind.Syu_Rai || AttackType == BattleAttackKind.Rai_Rai)
 			{
 				SlotitemModel_Battle[] slotitems4 = GetSlotitems();
 				str += $"\"{base.Defender.Name}({base.Defender.Index})は";
 				str += $"{slotitems4[0]},{slotitems4[1]}で";
-				str += string.Format("{0}({2})のダメ\u30fcジ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
+				str += string.Format("{0}({2})のダメージ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
 				str += string.Format("{0}\" ", (!GetProtectEffect(0)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガ\u30fcド]");
+				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガード]");
 			}
 			else if (AttackType == BattleAttackKind.Syu_Syu_Syu || AttackType == BattleAttackKind.Syu_Syu_Fuku)
 			{
 				SlotitemModel_Battle[] slotitems5 = GetSlotitems();
 				str += $"\"{base.Defender.Name}({base.Defender.Index})は";
 				str += $"{slotitems5[0]},{slotitems5[1]},{slotitems5[2]}で";
-				str += string.Format("{0}({2})のダメ\u30fcジ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
+				str += string.Format("{0}({2})のダメージ({1})", GetDamage(0), GetHitState(0), __GetDamage__(0));
 				str += string.Format("{0}\" ", (!GetProtectEffect(0)) ? string.Empty : "[かばう]");
-				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガ\u30fcド]");
+				str += string.Format("{0}\" ", (!GetGurdEffect(0)) ? string.Empty : "[ガード]");
 			}
 			str += "\n";
 			str += $"Attacker:{Attacker}\n";

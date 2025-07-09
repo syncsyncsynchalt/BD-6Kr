@@ -32,8 +32,8 @@ namespace KCV.Checker
 		private Dictionary<int, Mst_ship> _dicMstShip;
 
 		private int MIN_SHIP_ID => (from order in Mst_DataManager.Instance.Mst_ship
-			orderby order.Value.Id
-			select order).First().Value.Id;
+									orderby order.Value.Id
+									select order).First().Value.Id;
 
 		private int MAX_SHIP_ID => Mst_DataManager.Instance.Mst_ship.Max((KeyValuePair<int, Mst_ship> order) => order.Value.Id);
 
@@ -190,7 +190,7 @@ namespace KCV.Checker
 			GUILayout.EndHorizontal();
 
 
-            GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
+			GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
 			int num = Mst_DataManager.Instance.Mst_ship_resources.ContainsKey(mstId) ? Mst_DataManager.Instance.Mst_ship_resources[mstId].Standing_id : 0;
 			if (num > 500)
 			{
@@ -204,10 +204,10 @@ namespace KCV.Checker
 			{
 				Vector3 shipOffsPos = ShipUtils.GetShipOffsPos(num2, isFriend, isDamaged: false, MstShipGraphColumn.CutIn);
 				Vector3 shipOffsPos2 = ShipUtils.GetShipOffsPos(num2, isFriend, isDamaged: true, MstShipGraphColumn.CutIn);
-				GUILayout.Label($"[主主主左上]\n通常:{shipOffsPos}\nダメ\u30fcジ:{shipOffsPos2}", new GUILayoutOption[0]);
+				GUILayout.Label($"[主主主左上]\n通常:{shipOffsPos}\nダメージ:{shipOffsPos2}", new GUILayoutOption[0]);
 				Vector3 shipOffsPos3 = ShipUtils.GetShipOffsPos(num2, isFriend, isDamaged: false, MstShipGraphColumn.CutInSp1);
 				Vector3 shipOffsPos4 = ShipUtils.GetShipOffsPos(num2, isFriend, isDamaged: true, MstShipGraphColumn.CutInSp1);
-				GUILayout.Label($"[雷雷中心]\n通常:{shipOffsPos3}\nダメ\u30fcジ:{shipOffsPos4}", new GUILayoutOption[0]);
+				GUILayout.Label($"[雷雷中心]\n通常:{shipOffsPos3}\nダメージ:{shipOffsPos4}", new GUILayoutOption[0]);
 			}
 			catch
 			{
@@ -217,7 +217,7 @@ namespace KCV.Checker
 			GUILayout.Label($"可変オフセット:{offset}", new GUILayoutOption[0]);
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal("box", new GUILayoutOption[0]);
-			if (GUILayout.Button(string.Format("ダメ\u30fcジ状態:{0}(D)", (!isDamaged) ? "通常" : "ダメ\u30fcジ"), new GUILayoutOption[0]))
+			if (GUILayout.Button(string.Format("ダメージ状態:{0}(D)", (!isDamaged) ? "通常" : "ダメージ"), new GUILayoutOption[0]))
 			{
 				SwitchIsDamaged();
 			}

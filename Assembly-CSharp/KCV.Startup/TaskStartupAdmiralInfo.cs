@@ -297,7 +297,7 @@ namespace KCV.Startup
 			dictionary.Add("ｭ", "ュ");
 			dictionary.Add("ｮ", "ョ");
 			dictionary.Add("ｯ", "ッ");
-			dictionary.Add("\uff70", "\u30fc");
+			dictionary.Add("\uff70", "ー");
 			dictionary.Add("ｱ", "ア");
 			dictionary.Add("ｲ", "イ");
 			dictionary.Add("ｳ", "ウ");

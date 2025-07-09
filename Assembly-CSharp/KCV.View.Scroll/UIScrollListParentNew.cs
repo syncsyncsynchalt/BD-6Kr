@@ -30,7 +30,7 @@ namespace KCV.View.Scroll
 		private UIGrid container;
 
 		[SerializeField]
-		[Tooltip("ユ\u30fcザが１度に見ることができる要素の最大数を設定してください。予備のオブジェクトの事は考えないでください")]
+		[Tooltip("ユーザが１度に見ることができる要素の最大数を設定してください。予備のオブジェクトの事は考えないでください")]
 		private int MAX_USER_VIEW_OBJECTS = 6;
 
 		[SerializeField]

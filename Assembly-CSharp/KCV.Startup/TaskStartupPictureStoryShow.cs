@@ -46,7 +46,7 @@ namespace KCV.Startup
 		{
 			UIStartupHeader startupHeader = StartupTaskManager.GetStartupHeader();
 			UIStartupNavigation navigation = StartupTaskManager.GetNavigation();
-			startupHeader.SetMessage("チュ\u30fcトリアル");
+			startupHeader.SetMessage("チュートリアル");
 			navigation.Hide(null);
 			_uiTutorialConfirmDialog = UITutorialConfirmDialog.Instantiate(((Component)StartupTaskManager.GetPrefabFile().prefabUITutorialConfirmDialog).GetComponent<UITutorialConfirmDialog>(), StartupTaskManager.GetSharedPlace());
 			_uiTutorialConfirmDialog.Init(OnPictureStoryShowConfirmCancel, OnPictureStoryShowConfirmDecide);

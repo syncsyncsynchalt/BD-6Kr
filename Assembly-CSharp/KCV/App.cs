@@ -117,7 +117,7 @@ namespace KCV
 			{
 				return _isMasterInit;
 			}
-			private set
+			set
 			{
 				_isMasterInit = value;
 			}
@@ -129,7 +129,7 @@ namespace KCV
 			{
 				return _isTrophyInit;
 			}
-			private set
+			set
 			{
 				_isTrophyInit = value;
 			}
@@ -270,7 +270,6 @@ namespace KCV
 			debug_Mod.Add_SlotItem(list2);
 			DebugUtils.SLog("DEBUG_MOD OK");
 		}
-
 		public static void InitLoadMasterDataManager()
 		{
 			if (!_isAtKeastOneMstLoadThread)
@@ -281,11 +280,10 @@ namespace KCV
 					Mst_DataManager.Instance.SetStartMasterData();
 					isMasterInit = true;
 				});
-
-                //SingletonMonoBehaviour<TrophyManager>.Instance.Initialize(delegate(bool x)
-				// {
-				//	_isTrophyInit = x;
-				//});
+				SingletonMonoBehaviour<TrophyManager>.Instance.Initialize(delegate (bool x)
+				{
+					_isTrophyInit = x;
+				});
 			}
 		}
 
@@ -327,18 +325,18 @@ namespace KCV
 		{
 			switch (iKind)
 			{
-			case BattleFormationKinds1.TanJuu:
-				return "単縦陣";
-			case BattleFormationKinds1.FukuJuu:
-				return "複縦陣";
-			case BattleFormationKinds1.Rinkei:
-				return "輪形陣";
-			case BattleFormationKinds1.Teikei:
-				return "梯形陣";
-			case BattleFormationKinds1.TanOu:
-				return "単横陣";
-			default:
-				return string.Empty;
+				case BattleFormationKinds1.TanJuu:
+					return "単縦陣";
+				case BattleFormationKinds1.FukuJuu:
+					return "複縦陣";
+				case BattleFormationKinds1.Rinkei:
+					return "輪形陣";
+				case BattleFormationKinds1.Teikei:
+					return "梯形陣";
+				case BattleFormationKinds1.TanOu:
+					return "単横陣";
+				default:
+					return string.Empty;
 			}
 		}
 	}

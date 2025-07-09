@@ -621,7 +621,7 @@ public class Util
 			result = "装備スロットがありません";
 			break;
 		case PopupMess.NoDockKey:
-			result = "ドック開放キ\u30fcがありません";
+			result = "ドック開放キーがありません";
 			break;
 		case PopupMess.MaterialUpperLimit:
 			result = "上限を超えている資材があります";

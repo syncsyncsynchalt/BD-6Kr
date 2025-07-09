@@ -199,13 +199,13 @@ namespace KCV.SortieMap
 			switch (_iCompassType)
 			{
 			case CompassType.Super:
-				OnCompassGirlMessage("はやくはやく\u30fc！");
+				OnCompassGirlMessage("はやくはやくー！");
 				break;
 			case CompassType.Normal:
-				OnCompassGirlMessage("よ\u30fcし、らしんばんまわすよ\u30fc！");
+				OnCompassGirlMessage("よーし、らしんばんまわすよー！");
 				break;
 			case CompassType.Stupid:
-				OnCompassGirlMessage("え\u30fc？らしんばん、まわすの\u30fc？");
+				OnCompassGirlMessage("えー？らしんばん、まわすのー？");
 				break;
 			case CompassType.Wizard:
 				_uiCompassGirl.transform.LTMoveLocalY(30f, 1f).setEase(LeanTweenType.easeInQuad).setLoopPingPong();
@@ -299,7 +299,7 @@ namespace KCV.SortieMap
 
 		private IEnumerator StartRollPony()
 		{
-			OnCompassGirlMessage("えいえいえ\u30fcいっ");
+			OnCompassGirlMessage("えいえいえーいっ");
 			OnStopRollCompass(UICompass.Power.Low);
 			for (int i = 0; i < 5; i++)
 			{
@@ -309,7 +309,7 @@ namespace KCV.SortieMap
 				yield return new WaitForSeconds(0.075f);
 				if (i == 2)
 				{
-					OnCompassGirlMessage("とまれ\u30fcっ");
+					OnCompassGirlMessage("とまれーっ");
 					yield return new WaitForSeconds(0.1f);
 				}
 			}

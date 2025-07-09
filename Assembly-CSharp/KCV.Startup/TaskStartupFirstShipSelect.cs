@@ -61,7 +61,7 @@ namespace KCV.Startup
 		private bool InitStarterSelect(object data)
 		{
 			UIStartupHeader startupHeader = StartupTaskManager.GetStartupHeader();
-			startupHeader.SetMessage("ゲ\u30fcム開始");
+			startupHeader.SetMessage("ゲーム開始");
 			_ctrlStarterSelect.Init(OnStarterSelected, OnStarterSelectCancel);
 			_ctrlPartnerSelect.SetActive(isActive: false);
 			StartCache(null);

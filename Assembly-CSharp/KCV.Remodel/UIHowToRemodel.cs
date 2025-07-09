@@ -90,87 +90,87 @@ namespace KCV.Remodel
 			{
 				switch (_now_mode)
 				{
-				case ScreenStatus.SELECT_SETTING_MODE:
-					SpriteStickR.SetActive(true);
-					R_slide(value: false);
-					break;
-				case ScreenStatus.MODE_SOUBI_HENKOU:
-					SpriteStickR.SetActive(true);
-					SpriteButtonShikaku.SetActive(false);
-					R_slide(value: false);
-					break;
-				case ScreenStatus.MODE_KINDAIKA_KAISHU:
-					SpriteStickR.SetActive(true);
-					R_slide(value: false);
-					break;
-				case ScreenStatus.SELECT_OTHER_SHIP:
-				case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
-					SpriteStickR.SetActive(true);
-					SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_shikaku";
-					((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "全てはずす";
-					SpriteButtonShikaku.transform.localScale = Vector3.zero;
-					R_slide(value: false);
-					break;
-				case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
-					SpriteButtonShikaku.SetActive(false);
-					R_slide(value: true);
-					break;
+					case ScreenStatus.SELECT_SETTING_MODE:
+						SpriteStickR.SetActive(true);
+						R_slide(value: false);
+						break;
+					case ScreenStatus.MODE_SOUBI_HENKOU:
+						SpriteStickR.SetActive(true);
+						SpriteButtonShikaku.SetActive(false);
+						R_slide(value: false);
+						break;
+					case ScreenStatus.MODE_KINDAIKA_KAISHU:
+						SpriteStickR.SetActive(true);
+						R_slide(value: false);
+						break;
+					case ScreenStatus.SELECT_OTHER_SHIP:
+					case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
+						SpriteStickR.SetActive(true);
+						SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_shikaku";
+						((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "全てはずす";
+						SpriteButtonShikaku.transform.localScale = Vector3.zero;
+						R_slide(value: false);
+						break;
+					case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
+						SpriteButtonShikaku.SetActive(false);
+						R_slide(value: true);
+						break;
 				}
 				_now_mode = _rm.status;
 				switch (_rm.status)
 				{
-				case ScreenStatus.MODE_SOUBI_HENKOU:
-					SpriteButtonShikaku.transform.localScale = Vector3.one;
-					_uil = ((Component)SpriteButtonShikaku.transform.FindChild("Label")).GetComponent<UILabel>();
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					SpriteButtonShikaku.SetActive(true);
-					_uil.text = "全てはずす";
-					break;
-				case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
-					SpriteButtonShikaku.SetActive(true);
-					R_slide(value: true);
-					SpriteButtonShikaku.transform.localScale = Vector3.one;
-					_uil = ((Component)SpriteButtonShikaku.transform.FindChild("Label")).GetComponent<UILabel>();
-					_uil.text = "装備ロック";
-					break;
-				case ScreenStatus.SELECT_SETTING_MODE:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					break;
-				case ScreenStatus.MODE_SOUBI_HENKOU_TYPE_SELECT:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					break;
-				case ScreenStatus.MODE_KINDAIKA_KAISHU:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					break;
-				case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					SpriteButtonShikaku.SetActive(true);
-					SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_sankaku";
-					((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "ソ\u30fcト";
-					SpriteButtonShikaku.transform.localScale = Vector3.one;
-					break;
-				case ScreenStatus.MODE_KAIZO:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					break;
-				case ScreenStatus.SELECT_OTHER_SHIP:
-					SpriteButtonShikaku.SetActive(true);
-					SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_sankaku";
-					((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "ソ\u30fcト";
-					SpriteButtonShikaku.transform.localScale = Vector3.one;
-					break;
-				case ScreenStatus.MODE_KINDAIKA_KAISHU_KAKUNIN:
-					SpriteStickR.SetActive(false);
-					R_slide(value: true);
-					break;
-				default:
-					SpriteButtonShikaku.transform.localScale = Vector3.zero;
-					break;
+					case ScreenStatus.MODE_SOUBI_HENKOU:
+						SpriteButtonShikaku.transform.localScale = Vector3.one;
+						_uil = ((Component)SpriteButtonShikaku.transform.FindChild("Label")).GetComponent<UILabel>();
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						SpriteButtonShikaku.SetActive(true);
+						_uil.text = "全てはずす";
+						break;
+					case ScreenStatus.MODE_SOUBI_HENKOU_ITEM_SELECT:
+						SpriteButtonShikaku.SetActive(true);
+						R_slide(value: true);
+						SpriteButtonShikaku.transform.localScale = Vector3.one;
+						_uil = ((Component)SpriteButtonShikaku.transform.FindChild("Label")).GetComponent<UILabel>();
+						_uil.text = "装備ロック";
+						break;
+					case ScreenStatus.SELECT_SETTING_MODE:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						break;
+					case ScreenStatus.MODE_SOUBI_HENKOU_TYPE_SELECT:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						break;
+					case ScreenStatus.MODE_KINDAIKA_KAISHU:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						break;
+					case ScreenStatus.MODE_KINDAIKA_KAISHU_SOZAI_SENTAKU:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						SpriteButtonShikaku.SetActive(true);
+						SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_sankaku";
+						((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "ソート";
+						SpriteButtonShikaku.transform.localScale = Vector3.one;
+						break;
+					case ScreenStatus.MODE_KAIZO:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						break;
+					case ScreenStatus.SELECT_OTHER_SHIP:
+						SpriteButtonShikaku.SetActive(true);
+						SpriteButtonShikaku.GetComponent<UISprite>().spriteName = "btn_sankaku";
+						((Component)SpriteButtonShikaku.transform.Find("Label")).GetComponent<UILabel>().text = "ソート";
+						SpriteButtonShikaku.transform.localScale = Vector3.one;
+						break;
+					case ScreenStatus.MODE_KINDAIKA_KAISHU_KAKUNIN:
+						SpriteStickR.SetActive(false);
+						R_slide(value: true);
+						break;
+					default:
+						SpriteButtonShikaku.transform.localScale = Vector3.zero;
+						break;
 				}
 			}
 		}

@@ -677,7 +677,7 @@ namespace local.managers
 			{
 				empty += $"Dock{i}:{docks[i]}\n";
 			}
-			empty += $"所持している開放キ\u30fc:{NumOfKeyPossessions}\n";
+			empty += $"所持している開放キー:{NumOfKeyPossessions}\n";
 			return empty + $"未配備の輸送船数:{_tanker_manager.GetCounts().GetCount()}(この海域への移動中:{_tanker_manager.GetCounts().GetCountMove()}) - 総数:{_tanker_manager.GetAllCount()}";
 		}
 	}
