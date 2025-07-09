@@ -64,7 +64,7 @@ namespace Runner
                 Console.WriteLine($"  戦闘開始！（陣形: {GetFormationName(formation)}）");
                 var sortieBattleManager = sortieMapManager.BattleStart_Write(formation);
 
-                // 戦闘コマンドの処理
+                // 戦闘指揮の処理
                 var battleResult = ProcessBattleCommands(sortieBattleManager, executeNightBattle);
 
                 return battleResult;
@@ -77,14 +77,14 @@ namespace Runner
         }
 
         /// <summary>
-        /// 戦闘コマンドを処理
+        /// 戦闘指揮を処理
         /// </summary>
         /// <param name="battleManager">戦闘マネージャー</param>
         /// <param name="executeNightBattle">夜戦を実行するかどうか</param>
         /// <returns>戦闘結果</returns>
         private BattleResult ProcessBattleCommands(SortieBattleManager battleManager, bool executeNightBattle = false)
         {
-            Console.WriteLine("  戦闘コマンドを準備中...");
+            Console.WriteLine("  戦闘指揮を準備中...");
             var commandPhaseModel = battleManager.GetCommandPhaseModel();
 
             if (commandPhaseModel == null)
@@ -95,7 +95,7 @@ namespace Runner
 
             Console.WriteLine("  コマンドフェーズモデルを取得しました");
 
-            // プリセットコマンドを取得
+            // 戦闘指揮を取得
             var presetCommands = commandPhaseModel.GetPresetCommand();
             var selectableCommands = commandPhaseModel.GetSelectableCommands().ToList();
 
@@ -103,21 +103,21 @@ namespace Runner
 
             if (presetCommands.Count == 0)
             {
-                Console.WriteLine("  プリセットコマンドがありません");
-                return new BattleResult { Success = false, ErrorMessage = "プリセットコマンドがありません" };
+                Console.WriteLine("  戦闘指揮がありません");
+                return new BattleResult { Success = false, ErrorMessage = "戦闘指揮がありません" };
             }
 
-            // プリセットコマンドを実行
+            // 戦闘指揮を実行
             bool commandResult = commandPhaseModel.SetCommand(presetCommands);
-            Console.WriteLine($"  戦闘コマンド実行結果: {commandResult}");
+            Console.WriteLine($"  戦闘指揮の実行結果: {commandResult}: {commandPhaseModel}");
 
             if (!commandResult)
             {
-                Console.WriteLine("  戦闘コマンドの実行に失敗しました");
-                return new BattleResult { Success = false, ErrorMessage = "戦闘コマンドの実行に失敗" };
+                Console.WriteLine("  戦闘指揮の実行に失敗しました");
+                return new BattleResult { Success = false, ErrorMessage = "戦闘指揮の実行に失敗" };
             }
 
-            Console.WriteLine("  戦闘コマンド実行完了");
+            Console.WriteLine("  戦闘指揮の実行完了");
 
             // 昼戦結果の取得
             Console.WriteLine("  昼戦結果を計算中...");
@@ -172,25 +172,15 @@ namespace Runner
         }
 
         /// <summary>
-        /// コマンド情報を表示
+        /// 戦闘指揮情報を表示
         /// </summary>
-        /// <param name="presetCommands">プリセットコマンド</param>
-        /// <param name="selectableCommands">選択可能コマンド</param>
+        /// <param name="presetCommands">戦闘指揮</param>
+        /// <param name="selectableCommands">選択可能な戦闘指揮</param>
         private void DisplayCommandInfo(List<BattleCommand> presetCommands, List<BattleCommand> selectableCommands)
         {
-            Console.WriteLine($"  プリセットコマンド数: {presetCommands.Count}");
-            Console.WriteLine("  プリセットコマンドの内容:");
-            for (int i = 0; i < presetCommands.Count; i++)
-            {
-                Console.WriteLine($"    {i + 1}番目: {presetCommands[i]} ({BattleCommandHelper.GetDescription(presetCommands[i])})");
-            }
-
-            Console.WriteLine($"  選択可能なコマンド数: {selectableCommands.Count}");
-            Console.WriteLine("  選択可能なコマンド:");
-            foreach (var cmd in selectableCommands)
-            {
-                Console.WriteLine($"    - {cmd} ({BattleCommandHelper.GetDescription(cmd)})");
-            }
+            Console.WriteLine($"  戦闘指揮数: {presetCommands.Count}");
+            Console.WriteLine($"  戦闘指揮の内容: {string.Join(", ", presetCommands.Select((cmd, i) => $"{cmd}({BattleCommandHelper.GetDescription(cmd)})"))}");
+            Console.WriteLine($"  選択可能な戦闘指揮: {string.Join(", ", selectableCommands.Select(cmd => $"{cmd}({BattleCommandHelper.GetDescription(cmd)})"))}");
         }
 
         /// <summary>
@@ -396,14 +386,14 @@ namespace Runner
     }
 
     /// <summary>
-    /// 戦闘コマンドのヘルパークラス
+    /// 戦闘指揮のヘルパークラス
     /// </summary>
     public static class BattleCommandHelper
     {
         /// <summary>
-        /// 戦闘コマンドの説明を取得
+        /// 戦闘指揮の説明を取得
         /// </summary>
-        /// <param name="command">戦闘コマンド</param>
+        /// <param name="command">戦闘指揮</param>
         /// <returns>コマンドの説明</returns>
         public static string GetDescription(BattleCommand command)
         {
