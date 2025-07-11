@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
@@ -16,9 +17,11 @@ public class MonoBehaviour : Behaviour
 		set;
 	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public extern MonoBehaviour();
+	public MonoBehaviour()
+	{
+		// Mock constructor for console application
+		System.Console.WriteLine($"MonoBehaviour Mock constructor called for {this.GetType().Name}");
+	}
 
 	[MethodImpl(MethodImplOptions.InternalCall)]
 	[WrapperlessIcall]
