@@ -235,8 +235,10 @@ public class Transform : Component, IEnumerable
 		set;
 	}
 
-	protected Transform()
+	public Transform()
 	{
+		// Mock constructor for console application
+		System.Console.WriteLine($"Transform Mock constructor called for {this.GetType().Name}");
 	}
 
 	[MethodImpl(MethodImplOptions.InternalCall)]
