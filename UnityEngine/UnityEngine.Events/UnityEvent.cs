@@ -16,7 +16,7 @@ public class UnityEvent : UnityEventBase
 
 	public void RemoveListener(UnityAction call)
 	{
-		RemoveListener(call.Target, call.GetMethodInfo());
+		RemoveListener(call.Target, System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(call));
 	}
 
 	protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -51,7 +51,7 @@ public abstract class UnityEvent<T0> : UnityEventBase
 
 	public void RemoveListener(UnityAction<T0> call)
 	{
-		RemoveListener(call.Target, call.GetMethodInfo());
+		RemoveListener(call.Target, System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(call));
 	}
 
 	protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -87,7 +87,7 @@ public abstract class UnityEvent<T0, T1> : UnityEventBase
 
 	public void RemoveListener(UnityAction<T0, T1> call)
 	{
-		RemoveListener(call.Target, call.GetMethodInfo());
+		RemoveListener(call.Target, System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(call));
 	}
 
 	protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -128,7 +128,7 @@ public abstract class UnityEvent<T0, T1, T2> : UnityEventBase
 
 	public void RemoveListener(UnityAction<T0, T1, T2> call)
 	{
-		RemoveListener(call.Target, call.GetMethodInfo());
+		RemoveListener(call.Target, System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(call));
 	}
 
 	protected override MethodInfo FindMethod_Impl(string name, object targetObj)
@@ -171,7 +171,7 @@ public abstract class UnityEvent<T0, T1, T2, T3> : UnityEventBase
 
 	public void RemoveListener(UnityAction<T0, T1, T2, T3> call)
 	{
-		RemoveListener(call.Target, call.GetMethodInfo());
+		RemoveListener(call.Target, System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(call));
 	}
 
 	protected override MethodInfo FindMethod_Impl(string name, object targetObj)

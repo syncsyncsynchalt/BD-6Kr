@@ -29,7 +29,7 @@ internal class InvokableCall : BaseInvokableCall
 
 	public override bool Find(object targetObj, MethodInfo method)
 	{
-		return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+		return this.Delegate.Target == targetObj && System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(this.Delegate) == method;
 	}
 }
 internal class InvokableCall<T1> : BaseInvokableCall
@@ -62,7 +62,7 @@ internal class InvokableCall<T1> : BaseInvokableCall
 
 	public override bool Find(object targetObj, MethodInfo method)
 	{
-		return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+		return this.Delegate.Target == targetObj && System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(this.Delegate) == method;
 	}
 }
 internal class InvokableCall<T1, T2> : BaseInvokableCall
@@ -96,7 +96,7 @@ internal class InvokableCall<T1, T2> : BaseInvokableCall
 
 	public override bool Find(object targetObj, MethodInfo method)
 	{
-		return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+		return this.Delegate.Target == targetObj && System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(this.Delegate) == method;
 	}
 }
 internal class InvokableCall<T1, T2, T3> : BaseInvokableCall
@@ -131,7 +131,7 @@ internal class InvokableCall<T1, T2, T3> : BaseInvokableCall
 
 	public override bool Find(object targetObj, MethodInfo method)
 	{
-		return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+		return this.Delegate.Target == targetObj && System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(this.Delegate) == method;
 	}
 }
 internal class InvokableCall<T1, T2, T3, T4> : BaseInvokableCall
@@ -167,6 +167,6 @@ internal class InvokableCall<T1, T2, T3, T4> : BaseInvokableCall
 
 	public override bool Find(object targetObj, MethodInfo method)
 	{
-		return this.Delegate.Target == targetObj && this.Delegate.GetMethodInfo() == method;
+		return this.Delegate.Target == targetObj && System.Reflection.RuntimeReflectionExtensions.GetMethodInfo(this.Delegate) == method;
 	}
 }
