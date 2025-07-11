@@ -73,14 +73,12 @@ public sealed class Time
 		get;
 	}
 
-	public static extern float timeScale
+	private static float _timeScale = 1.0f;
+
+	public static float timeScale
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		set;
+		get { return _timeScale; }
+		set { _timeScale = value; }
 	}
 
 	public static extern int frameCount
