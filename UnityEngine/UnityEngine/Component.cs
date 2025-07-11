@@ -9,18 +9,17 @@ namespace UnityEngine;
 
 public class Component : Object
 {
-	public extern Transform transform
+	private Transform _transform;
+	private GameObject _gameObject;
+
+	public Transform transform
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
+		get { return _transform ?? (_transform = new Transform()); }
 	}
 
-	public extern GameObject gameObject
+	public GameObject gameObject
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
+		get { return _gameObject ?? (_gameObject = new GameObject()); }
 	}
 
 	public string tag
