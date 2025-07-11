@@ -2,40 +2,53 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public class AsyncOperation : YieldInstruction
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class AsyncOperation : YieldInstruction
+	internal IntPtr m_Ptr;
+
+	public extern bool isDone
 	{
-		internal IntPtr m_Ptr;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool isDone
-		{
-			get;
-		}
+	public extern float progress
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public float progress
-		{
-			get;
-		}
+	public extern int priority
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int priority
-		{
-			get;
-			set;
-		}
+	public extern bool allowSceneActivation
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool allowSceneActivation
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void InternalDestroy();
 
-		private void InternalDestroy() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~AsyncOperation()
-		{
-			InternalDestroy();
-		}
+	~AsyncOperation()
+	{
+		InternalDestroy();
 	}
 }

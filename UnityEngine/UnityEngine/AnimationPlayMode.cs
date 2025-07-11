@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnimationPlayMode
 {
-	public enum AnimationPlayMode
-	{
-		Stop,
-		Queue,
-		Mix
-	}
+	Stop,
+	Queue,
+	Mix
 }

@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ImagePosition
 {
-	public enum ImagePosition
-	{
-		ImageLeft,
-		ImageAbove,
-		ImageOnly,
-		TextOnly
-	}
+	ImageLeft,
+	ImageAbove,
+	ImageOnly,
+	TextOnly
 }

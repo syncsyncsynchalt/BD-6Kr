@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum AnimationEventSource
 {
-	internal enum AnimationEventSource
-	{
-		NoSource,
-		Legacy,
-		Animator
-	}
+	NoSource,
+	Legacy,
+	Animator
 }

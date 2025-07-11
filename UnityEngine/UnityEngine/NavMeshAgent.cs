@@ -1,330 +1,465 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class NavMeshAgent : Behaviour
 {
-	public sealed class NavMeshAgent : Behaviour
+	public Vector3 destination
 	{
-		public Vector3 destination
+		get
 		{
-			get
-			{
-				INTERNAL_get_destination(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_destination(ref value);
-			}
+			INTERNAL_get_destination(out var value);
+			return value;
 		}
-
-		public float stoppingDistance
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_destination(ref value);
 		}
-
-		public Vector3 velocity
-		{
-			get
-			{
-				INTERNAL_get_velocity(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_velocity(ref value);
-			}
-		}
-
-		public Vector3 nextPosition
-		{
-			get
-			{
-				INTERNAL_get_nextPosition(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_nextPosition(ref value);
-			}
-		}
-
-		public Vector3 steeringTarget
-		{
-			get
-			{
-				INTERNAL_get_steeringTarget(out Vector3 value);
-				return value;
-			}
-		}
-
-		public Vector3 desiredVelocity
-		{
-			get
-			{
-				INTERNAL_get_desiredVelocity(out Vector3 value);
-				return value;
-			}
-		}
-
-		public float remainingDistance
-		{
-			get;
-		}
-
-		public float baseOffset
-		{
-			get;
-			set;
-		}
-
-		public bool isOnOffMeshLink
-		{
-			get;
-		}
-
-		public OffMeshLinkData currentOffMeshLinkData => GetCurrentOffMeshLinkDataInternal();
-
-		public OffMeshLinkData nextOffMeshLinkData => GetNextOffMeshLinkDataInternal();
-
-		public bool autoTraverseOffMeshLink
-		{
-			get;
-			set;
-		}
-
-		public bool autoBraking
-		{
-			get;
-			set;
-		}
-
-		public bool autoRepath
-		{
-			get;
-			set;
-		}
-
-		public bool hasPath
-		{
-			get;
-		}
-
-		public bool pathPending
-		{
-			get;
-		}
-
-		public bool isPathStale
-		{
-			get;
-		}
-
-		public NavMeshPathStatus pathStatus
-		{
-			get;
-		}
-
-		public Vector3 pathEndPosition
-		{
-			get
-			{
-				INTERNAL_get_pathEndPosition(out Vector3 value);
-				return value;
-			}
-		}
-
-		public NavMeshPath path
-		{
-			get
-			{
-				NavMeshPath navMeshPath = new NavMeshPath();
-				CopyPathTo(navMeshPath);
-				return navMeshPath;
-			}
-			set
-			{
-				if (value == null)
-				{
-					throw new NullReferenceException();
-				}
-				SetPath(value);
-			}
-		}
-
-		[Obsolete("Use areaMask instead.")]
-		public int walkableMask
-		{
-			get;
-			set;
-		}
-
-		public int areaMask
-		{
-			get;
-			set;
-		}
-
-		public float speed
-		{
-			get;
-			set;
-		}
-
-		public float angularSpeed
-		{
-			get;
-			set;
-		}
-
-		public float acceleration
-		{
-			get;
-			set;
-		}
-
-		public bool updatePosition
-		{
-			get;
-			set;
-		}
-
-		public bool updateRotation
-		{
-			get;
-			set;
-		}
-
-		public float radius
-		{
-			get;
-			set;
-		}
-
-		public float height
-		{
-			get;
-			set;
-		}
-
-		public ObstacleAvoidanceType obstacleAvoidanceType
-		{
-			get;
-			set;
-		}
-
-		public int avoidancePriority
-		{
-			get;
-			set;
-		}
-
-		public bool isOnNavMesh
-		{
-			get;
-		}
-
-		public bool SetDestination(Vector3 target)
-		{
-			return INTERNAL_CALL_SetDestination(this, ref target);
-		}
-
-		private static bool INTERNAL_CALL_SetDestination(NavMeshAgent self, ref Vector3 target) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_destination(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_destination(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_velocity(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_velocity(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_nextPosition(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_nextPosition(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_steeringTarget(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_desiredVelocity(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ActivateCurrentOffMeshLink(bool activated) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal OffMeshLinkData GetCurrentOffMeshLinkDataInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal OffMeshLinkData GetNextOffMeshLinkDataInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void CompleteOffMeshLink() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_pathEndPosition(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool Warp(Vector3 newPosition)
-		{
-			return INTERNAL_CALL_Warp(this, ref newPosition);
-		}
-
-		private static bool INTERNAL_CALL_Warp(NavMeshAgent self, ref Vector3 newPosition) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void Move(Vector3 offset)
-		{
-			INTERNAL_CALL_Move(this, ref offset);
-		}
-
-		private static void INTERNAL_CALL_Move(NavMeshAgent self, ref Vector3 offset) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void Stop()
-		{
-			StopInternal();
-		}
-
-		internal void StopInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Use Stop() instead")]
-		public void Stop(bool stopUpdates)
-		{
-			StopInternal();
-		}
-
-		public void Resume() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ResetPath() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool SetPath(NavMeshPath path) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal void CopyPathTo(NavMeshPath path) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool FindClosestEdge(out NavMeshHit hit) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool Raycast(Vector3 targetPosition, out NavMeshHit hit)
-		{
-			return INTERNAL_CALL_Raycast(this, ref targetPosition, out hit);
-		}
-
-		private static bool INTERNAL_CALL_Raycast(NavMeshAgent self, ref Vector3 targetPosition, out NavMeshHit hit) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool CalculatePath(Vector3 targetPosition, NavMeshPath path)
-		{
-			path.ClearCorners();
-			return CalculatePathInternal(targetPosition, path);
-		}
-
-		private bool CalculatePathInternal(Vector3 targetPosition, NavMeshPath path)
-		{
-			return INTERNAL_CALL_CalculatePathInternal(this, ref targetPosition, path);
-		}
-
-		private static bool INTERNAL_CALL_CalculatePathInternal(NavMeshAgent self, ref Vector3 targetPosition, NavMeshPath path) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool SamplePathPosition(int areaMask, float maxDistance, out NavMeshHit hit) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Use SetAreaCost instead.")]
-		public void SetLayerCost(int layer, float cost) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Use GetAreaCost instead.")]
-		public float GetLayerCost(int layer) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetAreaCost(int areaIndex, float areaCost) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public float GetAreaCost(int areaIndex) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern float stoppingDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Vector3 velocity
+	{
+		get
+		{
+			INTERNAL_get_velocity(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_velocity(ref value);
+		}
+	}
+
+	public Vector3 nextPosition
+	{
+		get
+		{
+			INTERNAL_get_nextPosition(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_nextPosition(ref value);
+		}
+	}
+
+	public Vector3 steeringTarget
+	{
+		get
+		{
+			INTERNAL_get_steeringTarget(out var value);
+			return value;
+		}
+	}
+
+	public Vector3 desiredVelocity
+	{
+		get
+		{
+			INTERNAL_get_desiredVelocity(out var value);
+			return value;
+		}
+	}
+
+	public extern float remainingDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float baseOffset
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isOnOffMeshLink
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public OffMeshLinkData currentOffMeshLinkData => GetCurrentOffMeshLinkDataInternal();
+
+	public OffMeshLinkData nextOffMeshLinkData => GetNextOffMeshLinkDataInternal();
+
+	public extern bool autoTraverseOffMeshLink
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool autoBraking
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool autoRepath
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool hasPath
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool pathPending
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool isPathStale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern NavMeshPathStatus pathStatus
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public Vector3 pathEndPosition
+	{
+		get
+		{
+			INTERNAL_get_pathEndPosition(out var value);
+			return value;
+		}
+	}
+
+	public NavMeshPath path
+	{
+		get
+		{
+			NavMeshPath result = new NavMeshPath();
+			CopyPathTo(result);
+			return result;
+		}
+		set
+		{
+			if (value == null)
+			{
+				throw new NullReferenceException();
+			}
+			SetPath(value);
+		}
+	}
+
+	[Obsolete("Use areaMask instead.")]
+	public extern int walkableMask
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int areaMask
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float speed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float angularSpeed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float acceleration
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool updatePosition
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool updateRotation
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float radius
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float height
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ObstacleAvoidanceType obstacleAvoidanceType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int avoidancePriority
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isOnNavMesh
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public bool SetDestination(Vector3 target)
+	{
+		return INTERNAL_CALL_SetDestination(this, ref target);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_SetDestination(NavMeshAgent self, ref Vector3 target);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_destination(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_destination(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_velocity(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_velocity(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_nextPosition(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_nextPosition(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_steeringTarget(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_desiredVelocity(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void ActivateCurrentOffMeshLink(bool activated);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern OffMeshLinkData GetCurrentOffMeshLinkDataInternal();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern OffMeshLinkData GetNextOffMeshLinkDataInternal();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void CompleteOffMeshLink();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_pathEndPosition(out Vector3 value);
+
+	public bool Warp(Vector3 newPosition)
+	{
+		return INTERNAL_CALL_Warp(this, ref newPosition);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_Warp(NavMeshAgent self, ref Vector3 newPosition);
+
+	public void Move(Vector3 offset)
+	{
+		INTERNAL_CALL_Move(this, ref offset);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Move(NavMeshAgent self, ref Vector3 offset);
+
+	public void Stop()
+	{
+		StopInternal();
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void StopInternal();
+
+	[Obsolete("Use Stop() instead")]
+	public void Stop(bool stopUpdates)
+	{
+		StopInternal();
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Resume();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void ResetPath();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool SetPath(NavMeshPath path);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void CopyPathTo(NavMeshPath path);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool FindClosestEdge(out NavMeshHit hit);
+
+	public bool Raycast(Vector3 targetPosition, out NavMeshHit hit)
+	{
+		return INTERNAL_CALL_Raycast(this, ref targetPosition, out hit);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_Raycast(NavMeshAgent self, ref Vector3 targetPosition, out NavMeshHit hit);
+
+	public bool CalculatePath(Vector3 targetPosition, NavMeshPath path)
+	{
+		path.ClearCorners();
+		return CalculatePathInternal(targetPosition, path);
+	}
+
+	private bool CalculatePathInternal(Vector3 targetPosition, NavMeshPath path)
+	{
+		return INTERNAL_CALL_CalculatePathInternal(this, ref targetPosition, path);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_CalculatePathInternal(NavMeshAgent self, ref Vector3 targetPosition, NavMeshPath path);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool SamplePathPosition(int areaMask, float maxDistance, out NavMeshHit hit);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	[Obsolete("Use SetAreaCost instead.")]
+	public extern void SetLayerCost(int layer, float cost);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[Obsolete("Use GetAreaCost instead.")]
+	[WrapperlessIcall]
+	public extern float GetLayerCost(int layer);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetAreaCost(int areaIndex, float areaCost);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern float GetAreaCost(int areaIndex);
 }

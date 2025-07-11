@@ -1,18 +1,17 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
+public sealed class RangeAttribute : PropertyAttribute
 {
-	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-	public sealed class RangeAttribute : PropertyAttribute
+	public readonly float min;
+
+	public readonly float max;
+
+	public RangeAttribute(float min, float max)
 	{
-		public readonly float min;
-
-		public readonly float max;
-
-		public RangeAttribute(float min, float max)
-		{
-			this.min = min;
-			this.max = max;
-		}
+		this.min = min;
+		this.max = max;
 	}
 }

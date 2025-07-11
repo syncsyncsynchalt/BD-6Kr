@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+public class SelectionBaseAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-	public class SelectionBaseAttribute : Attribute
-	{
-	}
 }

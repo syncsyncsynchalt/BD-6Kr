@@ -1,9 +1,8 @@
-namespace UnityEngine.Events
+namespace UnityEngine.Events;
+
+public enum UnityEventCallState
 {
-	public enum UnityEventCallState
-	{
-		Off,
-		EditorAndRuntime,
-		RuntimeOnly
-	}
+	Off,
+	EditorAndRuntime,
+	RuntimeOnly
 }

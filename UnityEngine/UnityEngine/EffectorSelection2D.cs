@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum EffectorSelection2D
 {
-	public enum EffectorSelection2D
-	{
-		Rigidbody,
-		Collider
-	}
+	Rigidbody,
+	Collider
 }

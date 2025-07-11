@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum QueueMode
 {
-	public enum QueueMode
-	{
-		CompleteOthers = 0,
-		PlayNow = 2
-	}
+	CompleteOthers = 0,
+	PlayNow = 2
 }

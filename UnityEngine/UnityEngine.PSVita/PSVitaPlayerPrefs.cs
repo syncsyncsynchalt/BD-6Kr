@@ -1,13 +1,14 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.PSVita
-{
-	public sealed class PSVitaPlayerPrefs
-	{
-		public static void LoadFromByteArray(byte[] bytes) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+namespace UnityEngine.PSVita;
 
-		public static byte[] SaveToByteArray() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+public sealed class PSVitaPlayerPrefs
+{
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void LoadFromByteArray(byte[] bytes);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern byte[] SaveToByteArray();
 }

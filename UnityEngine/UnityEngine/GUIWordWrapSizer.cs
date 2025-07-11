@@ -1,59 +1,58 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal sealed class GUIWordWrapSizer : GUILayoutEntry
 {
-	internal sealed class GUIWordWrapSizer : GUILayoutEntry
+	private readonly GUIContent m_Content;
+
+	private readonly float m_ForcedMinHeight;
+
+	private readonly float m_ForcedMaxHeight;
+
+	public GUIWordWrapSizer(GUIStyle style, GUIContent content, GUILayoutOption[] options)
+		: base(0f, 0f, 0f, 0f, style)
 	{
-		private readonly GUIContent m_Content;
+		m_Content = new GUIContent(content);
+		ApplyOptions(options);
+		m_ForcedMinHeight = minHeight;
+		m_ForcedMaxHeight = maxHeight;
+	}
 
-		private readonly float m_ForcedMinHeight;
-
-		private readonly float m_ForcedMaxHeight;
-
-		public GUIWordWrapSizer(GUIStyle style, GUIContent content, GUILayoutOption[] options)
-			: base(0f, 0f, 0f, 0f, style)
+	public override void CalcWidth()
+	{
+		if (minWidth == 0f || maxWidth == 0f)
 		{
-			m_Content = new GUIContent(content);
-			ApplyOptions(options);
-			m_ForcedMinHeight = minHeight;
-			m_ForcedMaxHeight = maxHeight;
-		}
-
-		public override void CalcWidth()
-		{
-			if (base.minWidth == 0f || base.maxWidth == 0f)
+			base.style.CalcMinMaxWidth(m_Content, out var num, out var num2);
+			if (minWidth == 0f)
 			{
-				base.style.CalcMinMaxWidth(m_Content, out float minWidth, out float maxWidth);
-				if (base.minWidth == 0f)
-				{
-					base.minWidth = minWidth;
-				}
-				if (base.maxWidth == 0f)
-				{
-					base.maxWidth = maxWidth;
-				}
+				minWidth = num;
+			}
+			if (maxWidth == 0f)
+			{
+				maxWidth = num2;
 			}
 		}
+	}
 
-		public override void CalcHeight()
+	public override void CalcHeight()
+	{
+		if (m_ForcedMinHeight == 0f || m_ForcedMaxHeight == 0f)
 		{
-			if (m_ForcedMinHeight == 0f || m_ForcedMaxHeight == 0f)
+			float num = base.style.CalcHeight(m_Content, rect.width);
+			if (m_ForcedMinHeight == 0f)
 			{
-				float num = base.style.CalcHeight(m_Content, rect.width);
-				if (m_ForcedMinHeight == 0f)
-				{
-					minHeight = num;
-				}
-				else
-				{
-					minHeight = m_ForcedMinHeight;
-				}
-				if (m_ForcedMaxHeight == 0f)
-				{
-					maxHeight = num;
-				}
-				else
-				{
-					maxHeight = m_ForcedMaxHeight;
-				}
+				minHeight = num;
+			}
+			else
+			{
+				minHeight = m_ForcedMinHeight;
+			}
+			if (m_ForcedMaxHeight == 0f)
+			{
+				maxHeight = num;
+			}
+			else
+			{
+				maxHeight = m_ForcedMaxHeight;
 			}
 		}
 	}

@@ -1,6 +1,5 @@
-namespace UnityEngine.Networking.Match
+namespace UnityEngine.Networking.Match;
+
+public class BasicResponse : Response
 {
-	public class BasicResponse : Response
-	{
-	}
 }

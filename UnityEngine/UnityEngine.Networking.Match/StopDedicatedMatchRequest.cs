@@ -1,13 +1,8 @@
 using UnityEngine.Networking.Types;
 
-namespace UnityEngine.Networking.Match
+namespace UnityEngine.Networking.Match;
+
+public class StopDedicatedMatchRequest : Request
 {
-	public class StopDedicatedMatchRequest : Request
-	{
-		public NetworkID networkId
-		{
-			get;
-			set;
-		}
-	}
+	public NetworkID networkId { get; set; }
 }

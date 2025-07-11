@@ -1,49 +1,48 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct ClothSphereColliderPair
 {
-	public struct ClothSphereColliderPair
+	private SphereCollider m_First;
+
+	private SphereCollider m_Second;
+
+	public SphereCollider first
 	{
-		private SphereCollider m_First;
-
-		private SphereCollider m_Second;
-
-		public SphereCollider first
+		get
 		{
-			get
-			{
-				return m_First;
-			}
-			set
-			{
-				m_First = value;
-			}
+			return m_First;
 		}
-
-		public SphereCollider second
+		set
 		{
-			get
-			{
-				return m_Second;
-			}
-			set
-			{
-				m_Second = value;
-			}
+			m_First = value;
 		}
+	}
 
-		public ClothSphereColliderPair(SphereCollider a)
+	public SphereCollider second
+	{
+		get
 		{
-			m_First = null;
-			m_Second = null;
-			first = a;
-			second = null;
+			return m_Second;
 		}
+		set
+		{
+			m_Second = value;
+		}
+	}
 
-		public ClothSphereColliderPair(SphereCollider a, SphereCollider b)
-		{
-			m_First = null;
-			m_Second = null;
-			first = a;
-			second = b;
-		}
+	public ClothSphereColliderPair(SphereCollider a)
+	{
+		m_First = null;
+		m_Second = null;
+		first = a;
+		second = null;
+	}
+
+	public ClothSphereColliderPair(SphereCollider a, SphereCollider b)
+	{
+		m_First = null;
+		m_Second = null;
+		first = a;
+		second = b;
 	}
 }

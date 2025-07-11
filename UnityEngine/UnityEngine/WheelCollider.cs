@@ -1,145 +1,203 @@
-using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WheelCollider : Collider
 {
-	public sealed class WheelCollider : Collider
+	public Vector3 center
 	{
-		public Vector3 center
+		get
 		{
-			get
-			{
-				INTERNAL_get_center(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_center(ref value);
-			}
+			INTERNAL_get_center(out var value);
+			return value;
 		}
-
-		public float radius
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_center(ref value);
 		}
-
-		public float suspensionDistance
-		{
-			get;
-			set;
-		}
-
-		public JointSpring suspensionSpring
-		{
-			get
-			{
-				INTERNAL_get_suspensionSpring(out JointSpring value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_suspensionSpring(ref value);
-			}
-		}
-
-		public float forceAppPointDistance
-		{
-			get;
-			set;
-		}
-
-		public float mass
-		{
-			get;
-			set;
-		}
-
-		public float wheelDampingRate
-		{
-			get;
-			set;
-		}
-
-		public WheelFrictionCurve forwardFriction
-		{
-			get
-			{
-				INTERNAL_get_forwardFriction(out WheelFrictionCurve value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_forwardFriction(ref value);
-			}
-		}
-
-		public WheelFrictionCurve sidewaysFriction
-		{
-			get
-			{
-				INTERNAL_get_sidewaysFriction(out WheelFrictionCurve value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_sidewaysFriction(ref value);
-			}
-		}
-
-		public float motorTorque
-		{
-			get;
-			set;
-		}
-
-		public float brakeTorque
-		{
-			get;
-			set;
-		}
-
-		public float steerAngle
-		{
-			get;
-			set;
-		}
-
-		public bool isGrounded
-		{
-			get;
-		}
-
-		public float sprungMass
-		{
-			get;
-		}
-
-		public float rpm
-		{
-			get;
-		}
-
-		private void INTERNAL_get_center(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_center(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_suspensionSpring(out JointSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_suspensionSpring(ref JointSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_forwardFriction(out WheelFrictionCurve value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_forwardFriction(ref WheelFrictionCurve value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_sidewaysFriction(out WheelFrictionCurve value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_sidewaysFriction(ref WheelFrictionCurve value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ConfigureVehicleSubsteps(float speedThreshold, int stepsBelowThreshold, int stepsAboveThreshold) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool GetGroundHit(out WheelHit hit) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void GetWorldPose(out Vector3 pos, out Quaternion quat) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern float radius
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float suspensionDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public JointSpring suspensionSpring
+	{
+		get
+		{
+			INTERNAL_get_suspensionSpring(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_suspensionSpring(ref value);
+		}
+	}
+
+	public extern float forceAppPointDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float mass
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float wheelDampingRate
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public WheelFrictionCurve forwardFriction
+	{
+		get
+		{
+			INTERNAL_get_forwardFriction(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_forwardFriction(ref value);
+		}
+	}
+
+	public WheelFrictionCurve sidewaysFriction
+	{
+		get
+		{
+			INTERNAL_get_sidewaysFriction(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_sidewaysFriction(ref value);
+		}
+	}
+
+	public extern float motorTorque
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float brakeTorque
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float steerAngle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isGrounded
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float sprungMass
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float rpm
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_center(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_center(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_suspensionSpring(out JointSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_suspensionSpring(ref JointSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_forwardFriction(out WheelFrictionCurve value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_forwardFriction(ref WheelFrictionCurve value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_sidewaysFriction(out WheelFrictionCurve value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_sidewaysFriction(ref WheelFrictionCurve value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void ConfigureVehicleSubsteps(float speedThreshold, int stepsBelowThreshold, int stepsAboveThreshold);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool GetGroundHit(out WheelHit hit);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void GetWorldPose(out Vector3 pos, out Quaternion quat);
 }

@@ -1,33 +1,32 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointMotor2D
 {
-	public struct JointMotor2D
+	private float m_MotorSpeed;
+
+	private float m_MaximumMotorTorque;
+
+	public float motorSpeed
 	{
-		private float m_MotorSpeed;
-
-		private float m_MaximumMotorTorque;
-
-		public float motorSpeed
+		get
 		{
-			get
-			{
-				return m_MotorSpeed;
-			}
-			set
-			{
-				m_MotorSpeed = value;
-			}
+			return m_MotorSpeed;
 		}
-
-		public float maxMotorTorque
+		set
 		{
-			get
-			{
-				return m_MaximumMotorTorque;
-			}
-			set
-			{
-				m_MaximumMotorTorque = value;
-			}
+			m_MotorSpeed = value;
+		}
+	}
+
+	public float maxMotorTorque
+	{
+		get
+		{
+			return m_MaximumMotorTorque;
+		}
+		set
+		{
+			m_MaximumMotorTorque = value;
 		}
 	}
 }

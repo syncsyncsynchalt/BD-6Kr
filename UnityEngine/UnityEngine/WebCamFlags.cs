@@ -1,7 +1,6 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum WebCamFlags
 {
-	public enum WebCamFlags
-	{
-		FrontFacing = 1
-	}
+	FrontFacing = 1
 }

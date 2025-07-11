@@ -1,32 +1,31 @@
 using System;
 
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+[Serializable]
+public class ChannelQOS
 {
-	[Serializable]
-	public class ChannelQOS
+	[SerializeField]
+	internal QosType m_Type;
+
+	public QosType QOS => m_Type;
+
+	public ChannelQOS(QosType value)
 	{
-		[SerializeField]
-		internal QosType m_Type;
+		m_Type = value;
+	}
 
-		public QosType QOS => m_Type;
+	public ChannelQOS()
+	{
+		m_Type = QosType.Unreliable;
+	}
 
-		public ChannelQOS(QosType value)
+	public ChannelQOS(ChannelQOS channel)
+	{
+		if (channel == null)
 		{
-			m_Type = value;
+			throw new NullReferenceException("channel is not defined");
 		}
-
-		public ChannelQOS()
-		{
-			m_Type = QosType.Unreliable;
-		}
-
-		public ChannelQOS(ChannelQOS channel)
-		{
-			if (channel == null)
-			{
-				throw new NullReferenceException("channel is not defined");
-			}
-			m_Type = channel.m_Type;
-		}
+		m_Type = channel.m_Type;
 	}
 }

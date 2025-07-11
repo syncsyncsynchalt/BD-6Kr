@@ -2,66 +2,40 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Networking.Types;
 
-namespace UnityEngine.Networking.Match
+namespace UnityEngine.Networking.Match;
+
+public class JoinMatchResponse : BasicResponse
 {
-	public class JoinMatchResponse : BasicResponse
+	public string address { get; set; }
+
+	public int port { get; set; }
+
+	public NetworkID networkId { get; set; }
+
+	public string accessTokenString { get; set; }
+
+	public NodeID nodeId { get; set; }
+
+	public bool usingRelay { get; set; }
+
+	public override string ToString()
 	{
-		public string address
-		{
-			get;
-			set;
-		}
+		return UnityString.Format("[{0}]-address:{1},port:{2},networkId:0x{3},nodeId:0x{4},usingRelay:{5}", base.ToString(), address, port, networkId.ToString("X"), nodeId.ToString("X"), usingRelay);
+	}
 
-		public int port
+	public override void Parse(object obj)
+	{
+		base.Parse(obj);
+		if (obj is IDictionary<string, object> dictJsonObj)
 		{
-			get;
-			set;
+			address = ParseJSONString("address", obj, dictJsonObj);
+			port = ParseJSONInt32("port", obj, dictJsonObj);
+			networkId = (NetworkID)ParseJSONUInt64("networkId", obj, dictJsonObj);
+			accessTokenString = ParseJSONString("accessTokenString", obj, dictJsonObj);
+			nodeId = (NodeID)ParseJSONUInt16("nodeId", obj, dictJsonObj);
+			usingRelay = ParseJSONBool("usingRelay", obj, dictJsonObj);
+			return;
 		}
-
-		public NetworkID networkId
-		{
-			get;
-			set;
-		}
-
-		public string accessTokenString
-		{
-			get;
-			set;
-		}
-
-		public NodeID nodeId
-		{
-			get;
-			set;
-		}
-
-		public bool usingRelay
-		{
-			get;
-			set;
-		}
-
-		public override string ToString()
-		{
-			return UnityString.Format("[{0}]-address:{1},port:{2},networkId:0x{3},nodeId:0x{4},usingRelay:{5}", base.ToString(), address, port, networkId.ToString("X"), nodeId.ToString("X"), usingRelay);
-		}
-
-		public override void Parse(object obj)
-		{
-			base.Parse(obj);
-			IDictionary<string, object> dictionary = obj as IDictionary<string, object>;
-			if (dictionary != null)
-			{
-				address = ParseJSONString("address", obj, dictionary);
-				port = ParseJSONInt32("port", obj, dictionary);
-				networkId = (NetworkID)ParseJSONUInt64("networkId", obj, dictionary);
-				accessTokenString = ParseJSONString("accessTokenString", obj, dictionary);
-				nodeId = (NodeID)ParseJSONUInt16("nodeId", obj, dictionary);
-				usingRelay = ParseJSONBool("usingRelay", obj, dictionary);
-				return;
-			}
-			throw new FormatException("While parsing JSON response, found obj is not of type IDictionary<string,object>:" + obj.ToString());
-		}
+		throw new FormatException("While parsing JSON response, found obj is not of type IDictionary<string,object>:" + obj.ToString());
 	}
 }

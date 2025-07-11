@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum JointLimitState2D
 {
-	public enum JointLimitState2D
-	{
-		Inactive,
-		LowerLimit,
-		UpperLimit,
-		EqualLimits
-	}
+	Inactive,
+	LowerLimit,
+	UpperLimit,
+	EqualLimits
 }

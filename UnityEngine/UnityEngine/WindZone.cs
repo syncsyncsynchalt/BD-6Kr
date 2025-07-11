@@ -1,43 +1,66 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WindZone : Component
 {
-	public sealed class WindZone : Component
+	public extern WindZoneMode mode
 	{
-		public WindZoneMode mode
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float radius
-		{
-			get;
-			set;
-		}
+	public extern float radius
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float windMain
-		{
-			get;
-			set;
-		}
+	public extern float windMain
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float windTurbulence
-		{
-			get;
-			set;
-		}
+	public extern float windTurbulence
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float windPulseMagnitude
-		{
-			get;
-			set;
-		}
+	public extern float windPulseMagnitude
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float windPulseFrequency
-		{
-			get;
-			set;
-		}
+	public extern float windPulseFrequency
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

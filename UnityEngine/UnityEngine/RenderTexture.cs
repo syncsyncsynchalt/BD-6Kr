@@ -2,271 +2,358 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class RenderTexture : Texture
 {
-	public sealed class RenderTexture : Texture
+	public override int width
 	{
-		public override int width
+		get
 		{
-			get
-			{
-				return Internal_GetWidth(this);
-			}
-			set
-			{
-				Internal_SetWidth(this, value);
-			}
+			return Internal_GetWidth(this);
 		}
-
-		public override int height
+		set
 		{
-			get
-			{
-				return Internal_GetHeight(this);
-			}
-			set
-			{
-				Internal_SetHeight(this, value);
-			}
+			Internal_SetWidth(this, value);
 		}
+	}
 
-		public int depth
+	public override int height
+	{
+		get
 		{
-			get;
-			set;
+			return Internal_GetHeight(this);
 		}
-
-		public bool isPowerOfTwo
+		set
 		{
-			get;
-			set;
+			Internal_SetHeight(this, value);
 		}
+	}
 
-		public bool sRGB
+	public extern int depth
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isPowerOfTwo
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool sRGB
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern RenderTextureFormat format
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool useMipMap
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool generateMips
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isCubemap
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isVolume
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int volumeDepth
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int antiAliasing
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool enableRandomWrite
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public RenderBuffer colorBuffer
+	{
+		get
 		{
-			get;
+			GetColorBuffer(out var res);
+			return res;
 		}
+	}
 
-		public RenderTextureFormat format
+	public RenderBuffer depthBuffer
+	{
+		get
 		{
-			get;
-			set;
+			GetDepthBuffer(out var res);
+			return res;
 		}
+	}
 
-		public bool useMipMap
+	public static extern RenderTexture active
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[Obsolete("Use SystemInfo.supportsRenderTextures instead.")]
+	public static extern bool enabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public RenderTexture(int width, int height, int depth, RenderTextureFormat format, RenderTextureReadWrite readWrite)
+	{
+		Internal_CreateRenderTexture(this);
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
+		this.format = format;
+		bool flag = readWrite == RenderTextureReadWrite.sRGB;
+		if (readWrite == RenderTextureReadWrite.Default)
 		{
-			get;
-			set;
+			flag = QualitySettings.activeColorSpace == ColorSpace.Linear;
 		}
+		Internal_SetSRGBReadWrite(this, flag);
+	}
 
-		public bool generateMips
-		{
-			get;
-			set;
-		}
+	public RenderTexture(int width, int height, int depth, RenderTextureFormat format)
+	{
+		Internal_CreateRenderTexture(this);
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
+		this.format = format;
+		Internal_SetSRGBReadWrite(this, QualitySettings.activeColorSpace == ColorSpace.Linear);
+	}
 
-		public bool isCubemap
-		{
-			get;
-			set;
-		}
+	public RenderTexture(int width, int height, int depth)
+	{
+		Internal_CreateRenderTexture(this);
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
+		format = RenderTextureFormat.Default;
+		Internal_SetSRGBReadWrite(this, QualitySettings.activeColorSpace == ColorSpace.Linear);
+	}
 
-		public bool isVolume
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_CreateRenderTexture([Writable] RenderTexture rt);
 
-		public int volumeDepth
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern RenderTexture GetTemporary(int width, int height, [DefaultValue("0")] int depthBuffer, [DefaultValue("RenderTextureFormat.Default")] RenderTextureFormat format, [DefaultValue("RenderTextureReadWrite.Default")] RenderTextureReadWrite readWrite, [DefaultValue("1")] int antiAliasing);
 
-		public int antiAliasing
-		{
-			get;
-			set;
-		}
+	[ExcludeFromDocs]
+	public static RenderTexture GetTemporary(int width, int height, int depthBuffer, RenderTextureFormat format, RenderTextureReadWrite readWrite)
+	{
+		int num = 1;
+		return GetTemporary(width, height, depthBuffer, format, readWrite, num);
+	}
 
-		public bool enableRandomWrite
-		{
-			get;
-			set;
-		}
+	[ExcludeFromDocs]
+	public static RenderTexture GetTemporary(int width, int height, int depthBuffer, RenderTextureFormat format)
+	{
+		int num = 1;
+		RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
+		return GetTemporary(width, height, depthBuffer, format, readWrite, num);
+	}
 
-		public RenderBuffer colorBuffer
-		{
-			get
-			{
-				GetColorBuffer(out RenderBuffer res);
-				return res;
-			}
-		}
+	[ExcludeFromDocs]
+	public static RenderTexture GetTemporary(int width, int height, int depthBuffer)
+	{
+		int num = 1;
+		RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
+		RenderTextureFormat renderTextureFormat = RenderTextureFormat.Default;
+		return GetTemporary(width, height, depthBuffer, renderTextureFormat, readWrite, num);
+	}
 
-		public RenderBuffer depthBuffer
-		{
-			get
-			{
-				GetDepthBuffer(out RenderBuffer res);
-				return res;
-			}
-		}
+	[ExcludeFromDocs]
+	public static RenderTexture GetTemporary(int width, int height)
+	{
+		int num = 1;
+		RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
+		RenderTextureFormat renderTextureFormat = RenderTextureFormat.Default;
+		int num2 = 0;
+		return GetTemporary(width, height, num2, renderTextureFormat, readWrite, num);
+	}
 
-		public static RenderTexture active
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void ReleaseTemporary(RenderTexture temp);
 
-		[Obsolete("Use SystemInfo.supportsRenderTextures instead.")]
-		public static bool enabled
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetWidth(RenderTexture mono);
 
-		public RenderTexture(int width, int height, int depth, RenderTextureFormat format, RenderTextureReadWrite readWrite)
-		{
-			Internal_CreateRenderTexture(this);
-			this.width = width;
-			this.height = height;
-			this.depth = depth;
-			this.format = format;
-			bool sRGB = readWrite == RenderTextureReadWrite.sRGB;
-			if (readWrite == RenderTextureReadWrite.Default)
-			{
-				sRGB = (QualitySettings.activeColorSpace == ColorSpace.Linear);
-			}
-			Internal_SetSRGBReadWrite(this, sRGB);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_SetWidth(RenderTexture mono, int width);
 
-		public RenderTexture(int width, int height, int depth, RenderTextureFormat format)
-		{
-			Internal_CreateRenderTexture(this);
-			this.width = width;
-			this.height = height;
-			this.depth = depth;
-			this.format = format;
-			Internal_SetSRGBReadWrite(this, QualitySettings.activeColorSpace == ColorSpace.Linear);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetHeight(RenderTexture mono);
 
-		public RenderTexture(int width, int height, int depth)
-		{
-			Internal_CreateRenderTexture(this);
-			this.width = width;
-			this.height = height;
-			this.depth = depth;
-			format = RenderTextureFormat.Default;
-			Internal_SetSRGBReadWrite(this, QualitySettings.activeColorSpace == ColorSpace.Linear);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_SetHeight(RenderTexture mono, int width);
 
-		private static void Internal_CreateRenderTexture([Writable] RenderTexture rt) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_SetSRGBReadWrite(RenderTexture mono, bool sRGB);
 
-		public static RenderTexture GetTemporary(int width, int height, [DefaultValue("0")] int depthBuffer, [DefaultValue("RenderTextureFormat.Default")] RenderTextureFormat format, [DefaultValue("RenderTextureReadWrite.Default")] RenderTextureReadWrite readWrite, [DefaultValue("1")] int antiAliasing) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public bool Create()
+	{
+		return INTERNAL_CALL_Create(this);
+	}
 
-		[ExcludeFromDocs]
-		public static RenderTexture GetTemporary(int width, int height, int depthBuffer, RenderTextureFormat format, RenderTextureReadWrite readWrite)
-		{
-			int antiAliasing = 1;
-			return GetTemporary(width, height, depthBuffer, format, readWrite, antiAliasing);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_Create(RenderTexture self);
 
-		[ExcludeFromDocs]
-		public static RenderTexture GetTemporary(int width, int height, int depthBuffer, RenderTextureFormat format)
-		{
-			int antiAliasing = 1;
-			RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
-			return GetTemporary(width, height, depthBuffer, format, readWrite, antiAliasing);
-		}
+	public void Release()
+	{
+		INTERNAL_CALL_Release(this);
+	}
 
-		[ExcludeFromDocs]
-		public static RenderTexture GetTemporary(int width, int height, int depthBuffer)
-		{
-			int antiAliasing = 1;
-			RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
-			RenderTextureFormat format = RenderTextureFormat.Default;
-			return GetTemporary(width, height, depthBuffer, format, readWrite, antiAliasing);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Release(RenderTexture self);
 
-		[ExcludeFromDocs]
-		public static RenderTexture GetTemporary(int width, int height)
-		{
-			int antiAliasing = 1;
-			RenderTextureReadWrite readWrite = RenderTextureReadWrite.Default;
-			RenderTextureFormat format = RenderTextureFormat.Default;
-			int depthBuffer = 0;
-			return GetTemporary(width, height, depthBuffer, format, readWrite, antiAliasing);
-		}
+	public bool IsCreated()
+	{
+		return INTERNAL_CALL_IsCreated(this);
+	}
 
-		public static void ReleaseTemporary(RenderTexture temp) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_IsCreated(RenderTexture self);
 
-		private static int Internal_GetWidth(RenderTexture mono) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public void DiscardContents()
+	{
+		INTERNAL_CALL_DiscardContents(this);
+	}
 
-		private static void Internal_SetWidth(RenderTexture mono, int width) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_DiscardContents(RenderTexture self);
 
-		private static int Internal_GetHeight(RenderTexture mono) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void DiscardContents(bool discardColor, bool discardDepth);
 
-		private static void Internal_SetHeight(RenderTexture mono, int width) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public void MarkRestoreExpected()
+	{
+		INTERNAL_CALL_MarkRestoreExpected(this);
+	}
 
-		private static void Internal_SetSRGBReadWrite(RenderTexture mono, bool sRGB) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_MarkRestoreExpected(RenderTexture self);
 
-		public bool Create()
-		{
-			return INTERNAL_CALL_Create(this);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetColorBuffer(out RenderBuffer res);
 
-		private static bool INTERNAL_CALL_Create(RenderTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetDepthBuffer(out RenderBuffer res);
 
-		public void Release()
-		{
-			INTERNAL_CALL_Release(this);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetGlobalShaderProperty(string propertyName);
 
-		private static void INTERNAL_CALL_Release(RenderTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_GetTexelOffset(RenderTexture tex, out Vector2 output);
 
-		public bool IsCreated()
-		{
-			return INTERNAL_CALL_IsCreated(this);
-		}
+	public Vector2 GetTexelOffset()
+	{
+		Internal_GetTexelOffset(this, out var output);
+		return output;
+	}
 
-		private static bool INTERNAL_CALL_IsCreated(RenderTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool SupportsStencil(RenderTexture rt);
 
-		public void DiscardContents()
-		{
-			INTERNAL_CALL_DiscardContents(this);
-		}
-
-		private static void INTERNAL_CALL_DiscardContents(RenderTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void DiscardContents(bool discardColor, bool discardDepth) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void MarkRestoreExpected()
-		{
-			INTERNAL_CALL_MarkRestoreExpected(this);
-		}
-
-		private static void INTERNAL_CALL_MarkRestoreExpected(RenderTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetColorBuffer(out RenderBuffer res) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetDepthBuffer(out RenderBuffer res) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetGlobalShaderProperty(string propertyName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void Internal_GetTexelOffset(RenderTexture tex, out Vector2 output) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public Vector2 GetTexelOffset()
-		{
-			Internal_GetTexelOffset(this, out Vector2 output);
-			return output;
-		}
-
-		public static bool SupportsStencil(RenderTexture rt) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("SetBorderColor is no longer supported.", true)]
-		public void SetBorderColor(Color color)
-		{
-		}
+	[Obsolete("SetBorderColor is no longer supported.", true)]
+	public void SetBorderColor(Color color)
+	{
 	}
 }

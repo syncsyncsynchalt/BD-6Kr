@@ -1,8 +1,7 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal class WrapperlessIcall : Attribute
 {
-	internal class WrapperlessIcall : Attribute
-	{
-	}
 }

@@ -1,10 +1,9 @@
-namespace UnityEngineInternal
+namespace UnityEngineInternal;
+
+public enum TypeInferenceRules
 {
-	public enum TypeInferenceRules
-	{
-		TypeReferencedByFirstArgument,
-		TypeReferencedBySecondArgument,
-		ArrayOfTypeReferencedByFirstArgument,
-		TypeOfFirstArgument
-	}
+	TypeReferencedByFirstArgument,
+	TypeReferencedBySecondArgument,
+	ArrayOfTypeReferencedByFirstArgument,
+	TypeOfFirstArgument
 }

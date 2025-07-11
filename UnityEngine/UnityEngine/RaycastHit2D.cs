@@ -1,116 +1,115 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct RaycastHit2D
 {
-	public struct RaycastHit2D
+	private Vector2 m_Centroid;
+
+	private Vector2 m_Point;
+
+	private Vector2 m_Normal;
+
+	private float m_Distance;
+
+	private float m_Fraction;
+
+	private Collider2D m_Collider;
+
+	public Vector2 centroid
 	{
-		private Vector2 m_Centroid;
-
-		private Vector2 m_Point;
-
-		private Vector2 m_Normal;
-
-		private float m_Distance;
-
-		private float m_Fraction;
-
-		private Collider2D m_Collider;
-
-		public Vector2 centroid
+		get
 		{
-			get
-			{
-				return m_Centroid;
-			}
-			set
-			{
-				m_Centroid = value;
-			}
+			return m_Centroid;
 		}
-
-		public Vector2 point
+		set
 		{
-			get
-			{
-				return m_Point;
-			}
-			set
-			{
-				m_Point = value;
-			}
+			m_Centroid = value;
 		}
+	}
 
-		public Vector2 normal
+	public Vector2 point
+	{
+		get
 		{
-			get
-			{
-				return m_Normal;
-			}
-			set
-			{
-				m_Normal = value;
-			}
+			return m_Point;
 		}
-
-		public float distance
+		set
 		{
-			get
-			{
-				return m_Distance;
-			}
-			set
-			{
-				m_Distance = value;
-			}
+			m_Point = value;
 		}
+	}
 
-		public float fraction
+	public Vector2 normal
+	{
+		get
 		{
-			get
-			{
-				return m_Fraction;
-			}
-			set
-			{
-				m_Fraction = value;
-			}
+			return m_Normal;
 		}
-
-		public Collider2D collider => m_Collider;
-
-		public Rigidbody2D rigidbody => (!(collider != null)) ? null : collider.attachedRigidbody;
-
-		public Transform transform
+		set
 		{
-			get
-			{
-				Rigidbody2D rigidbody = this.rigidbody;
-				if (rigidbody != null)
-				{
-					return rigidbody.transform;
-				}
-				if (collider != null)
-				{
-					return collider.transform;
-				}
-				return null;
-			}
+			m_Normal = value;
 		}
+	}
 
-		public int CompareTo(RaycastHit2D other)
+	public float distance
+	{
+		get
 		{
-			if (collider == null)
-			{
-				return 1;
-			}
-			if (other.collider == null)
-			{
-				return -1;
-			}
-			return fraction.CompareTo(other.fraction);
+			return m_Distance;
 		}
+		set
+		{
+			m_Distance = value;
+		}
+	}
 
-		public static implicit operator bool(RaycastHit2D hit)
+	public float fraction
+	{
+		get
 		{
-			return hit.collider != null;
+			return m_Fraction;
 		}
+		set
+		{
+			m_Fraction = value;
+		}
+	}
+
+	public Collider2D collider => m_Collider;
+
+	public Rigidbody2D rigidbody => (!(collider != null)) ? null : collider.attachedRigidbody;
+
+	public Transform transform
+	{
+		get
+		{
+			Rigidbody2D rigidbody2D = rigidbody;
+			if (rigidbody2D != null)
+			{
+				return rigidbody2D.transform;
+			}
+			if (collider != null)
+			{
+				return collider.transform;
+			}
+			return null;
+		}
+	}
+
+	public int CompareTo(RaycastHit2D other)
+	{
+		if (collider == null)
+		{
+			return 1;
+		}
+		if (other.collider == null)
+		{
+			return -1;
+		}
+		return fraction.CompareTo(other.fraction);
+	}
+
+	public static implicit operator bool(RaycastHit2D hit)
+	{
+		return hit.collider != null;
 	}
 }

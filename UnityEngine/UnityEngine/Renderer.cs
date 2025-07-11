@@ -4,207 +4,302 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class Renderer : Component
 {
-	public class Renderer : Component
+	internal extern Transform staticBatchRootTransform
 	{
-		internal Transform staticBatchRootTransform
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	internal extern int staticBatchIndex
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool isPartOfStaticBatch
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public Matrix4x4 worldToLocalMatrix
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_worldToLocalMatrix(out var value);
+			return value;
 		}
+	}
 
-		internal int staticBatchIndex
+	public Matrix4x4 localToWorldMatrix
+	{
+		get
 		{
-			get;
+			INTERNAL_get_localToWorldMatrix(out var value);
+			return value;
 		}
+	}
 
-		public bool isPartOfStaticBatch
+	public extern bool enabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ShadowCastingMode shadowCastingMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	[Obsolete("Property castShadows has been deprecated. Use shadowCastingMode instead.")]
+	public extern bool castShadows
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool receiveShadows
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Material material
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Material sharedMaterial
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Material[] materials
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Material[] sharedMaterials
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Bounds bounds
+	{
+		get
 		{
-			get;
+			INTERNAL_get_bounds(out var value);
+			return value;
 		}
+	}
 
-		public Matrix4x4 worldToLocalMatrix
+	public extern int lightmapIndex
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int realtimeLightmapIndex
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Vector4 lightmapScaleOffset
+	{
+		get
 		{
-			get
-			{
-				INTERNAL_get_worldToLocalMatrix(out Matrix4x4 value);
-				return value;
-			}
+			INTERNAL_get_lightmapScaleOffset(out var value);
+			return value;
 		}
-
-		public Matrix4x4 localToWorldMatrix
+		set
 		{
-			get
-			{
-				INTERNAL_get_localToWorldMatrix(out Matrix4x4 value);
-				return value;
-			}
+			INTERNAL_set_lightmapScaleOffset(ref value);
 		}
+	}
 
-		public bool enabled
+	public Vector4 realtimeLightmapScaleOffset
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_realtimeLightmapScaleOffset(out var value);
+			return value;
 		}
-
-		public ShadowCastingMode shadowCastingMode
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_realtimeLightmapScaleOffset(ref value);
 		}
+	}
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		[Obsolete("Property castShadows has been deprecated. Use shadowCastingMode instead.")]
-		public bool castShadows
-		{
-			get;
-			set;
-		}
+	public extern bool isVisible
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool receiveShadows
-		{
-			get;
-			set;
-		}
+	public extern bool useLightProbes
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Material material
-		{
-			get;
-			set;
-		}
+	public extern Transform probeAnchor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Material sharedMaterial
-		{
-			get;
-			set;
-		}
+	public extern ReflectionProbeUsage reflectionProbeUsage
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Material[] materials
-		{
-			get;
-			set;
-		}
+	public extern string sortingLayerName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Material[] sharedMaterials
-		{
-			get;
-			set;
-		}
+	public extern int sortingLayerID
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Bounds bounds
-		{
-			get
-			{
-				INTERNAL_get_bounds(out Bounds value);
-				return value;
-			}
-		}
+	public extern int sortingOrder
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int lightmapIndex
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void SetSubsetIndex(int index, int subSetIndexForMaterial);
 
-		public int realtimeLightmapIndex
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_worldToLocalMatrix(out Matrix4x4 value);
 
-		public Vector4 lightmapScaleOffset
-		{
-			get
-			{
-				INTERNAL_get_lightmapScaleOffset(out Vector4 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_lightmapScaleOffset(ref value);
-			}
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_localToWorldMatrix(out Matrix4x4 value);
 
-		public Vector4 realtimeLightmapScaleOffset
-		{
-			get
-			{
-				INTERNAL_get_realtimeLightmapScaleOffset(out Vector4 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_realtimeLightmapScaleOffset(ref value);
-			}
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_bounds(out Bounds value);
 
-		public bool isVisible
-		{
-			get;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_lightmapScaleOffset(out Vector4 value);
 
-		public bool useLightProbes
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_lightmapScaleOffset(ref Vector4 value);
 
-		public Transform probeAnchor
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_realtimeLightmapScaleOffset(out Vector4 value);
 
-		public ReflectionProbeUsage reflectionProbeUsage
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_realtimeLightmapScaleOffset(ref Vector4 value);
 
-		public string sortingLayerName
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetPropertyBlock(MaterialPropertyBlock properties);
 
-		public int sortingLayerID
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void GetPropertyBlock(MaterialPropertyBlock dest);
 
-		public int sortingOrder
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetClosestReflectionProbesInternal(object result);
 
-		internal void SetSubsetIndex(int index, int subSetIndexForMaterial) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_worldToLocalMatrix(out Matrix4x4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_localToWorldMatrix(out Matrix4x4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_bounds(out Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_lightmapScaleOffset(out Vector4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_lightmapScaleOffset(ref Vector4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_realtimeLightmapScaleOffset(out Vector4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_realtimeLightmapScaleOffset(ref Vector4 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetPropertyBlock(MaterialPropertyBlock properties) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void GetPropertyBlock(MaterialPropertyBlock dest) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetClosestReflectionProbesInternal(object result) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void GetClosestReflectionProbes(List<ReflectionProbeBlendInfo> result)
-		{
-			GetClosestReflectionProbesInternal(result);
-		}
+	public void GetClosestReflectionProbes(List<ReflectionProbeBlendInfo> result)
+	{
+		GetClosestReflectionProbesInternal(result);
 	}
 }

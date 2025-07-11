@@ -1,14 +1,13 @@
-namespace UnityEngineInternal
+namespace UnityEngineInternal;
+
+public enum GITextureType
 {
-	public enum GITextureType
-	{
-		Charting,
-		Albedo,
-		Emissive,
-		Irradiance,
-		Directionality,
-		Baked,
-		BakedDirectional,
-		InputWorkspace
-	}
+	Charting,
+	Albedo,
+	Emissive,
+	Irradiance,
+	Directionality,
+	Baked,
+	BakedDirectional,
+	InputWorkspace
 }

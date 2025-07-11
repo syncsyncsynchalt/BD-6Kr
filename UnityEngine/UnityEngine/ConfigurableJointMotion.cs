@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ConfigurableJointMotion
 {
-	public enum ConfigurableJointMotion
-	{
-		Locked,
-		Limited,
-		Free
-	}
+	Locked,
+	Limited,
+	Free
 }

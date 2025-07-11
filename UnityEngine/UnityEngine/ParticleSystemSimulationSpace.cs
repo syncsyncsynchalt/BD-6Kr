@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ParticleSystemSimulationSpace
 {
-	public enum ParticleSystemSimulationSpace
-	{
-		Local,
-		World
-	}
+	Local,
+	World
 }

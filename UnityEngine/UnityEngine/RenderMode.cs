@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RenderMode
 {
-	public enum RenderMode
-	{
-		ScreenSpaceOverlay,
-		ScreenSpaceCamera,
-		WorldSpace
-	}
+	ScreenSpaceOverlay,
+	ScreenSpaceCamera,
+	WorldSpace
 }

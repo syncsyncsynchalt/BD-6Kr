@@ -1,13 +1,14 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
-{
-	public sealed class AnimatorUtility
-	{
-		public static void OptimizeTransformHierarchy(GameObject go, string[] exposedTransforms) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+namespace UnityEngine;
 
-		public static void DeoptimizeTransformHierarchy(GameObject go) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+public sealed class AnimatorUtility
+{
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void OptimizeTransformHierarchy(GameObject go, string[] exposedTransforms);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void DeoptimizeTransformHierarchy(GameObject go);
 }

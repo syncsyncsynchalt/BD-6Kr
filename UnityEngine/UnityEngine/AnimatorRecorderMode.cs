@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnimatorRecorderMode
 {
-	public enum AnimatorRecorderMode
-	{
-		Offline,
-		Playback,
-		Record
-	}
+	Offline,
+	Playback,
+	Record
 }

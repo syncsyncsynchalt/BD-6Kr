@@ -1,9 +1,8 @@
-namespace UnityEngine.Networking.Match
-{
-	public interface IResponse
-	{
-		void SetSuccess();
+namespace UnityEngine.Networking.Match;
 
-		void SetFailure(string info);
-	}
+public interface IResponse
+{
+	void SetSuccess();
+
+	void SetFailure(string info);
 }

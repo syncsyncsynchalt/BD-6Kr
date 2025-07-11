@@ -1,15 +1,18 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal sealed class RuntimeUndo
 {
-	internal sealed class RuntimeUndo
-	{
-		public static void SetTransformParent(Transform transform, Transform newParent, string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void SetTransformParent(Transform transform, Transform newParent, string name);
 
-		public static void RecordObject(Object objectToUndo, string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void RecordObject(Object objectToUndo, string name);
 
-		public static void RecordObjects(Object[] objectsToUndo, string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void RecordObjects(Object[] objectsToUndo, string name);
 }

@@ -1,122 +1,177 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Canvas : Behaviour
 {
-	public sealed class Canvas : Behaviour
+	public delegate void WillRenderCanvases();
+
+	public extern RenderMode renderMode
 	{
-		public delegate void WillRenderCanvases();
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public RenderMode renderMode
+	public extern bool isRootCanvas
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern Camera worldCamera
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Rect pixelRect
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_pixelRect(out var value);
+			return value;
 		}
+	}
 
-		public bool isRootCanvas
+	public extern float scaleFactor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float referencePixelsPerUnit
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool overridePixelPerfect
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool pixelPerfect
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float planeDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int renderOrder
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool overrideSorting
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int sortingOrder
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int sortingLayerID
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int cachedSortingLayerValue
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern string sortingLayerName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static event WillRenderCanvases willRenderCanvases;
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_pixelRect(out Rect value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Material GetDefaultCanvasMaterial();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	[Obsolete("Shared default material now used for text and general UI elements, call Canvas.GetDefaultCanvasMaterial()")]
+	public static extern Material GetDefaultCanvasTextMaterial();
+
+	private static void SendWillRenderCanvases()
+	{
+		if (Canvas.willRenderCanvases != null)
 		{
-			get;
+			Canvas.willRenderCanvases();
 		}
+	}
 
-		public Camera worldCamera
-		{
-			get;
-			set;
-		}
-
-		public Rect pixelRect
-		{
-			get
-			{
-				INTERNAL_get_pixelRect(out Rect value);
-				return value;
-			}
-		}
-
-		public float scaleFactor
-		{
-			get;
-			set;
-		}
-
-		public float referencePixelsPerUnit
-		{
-			get;
-			set;
-		}
-
-		public bool overridePixelPerfect
-		{
-			get;
-			set;
-		}
-
-		public bool pixelPerfect
-		{
-			get;
-			set;
-		}
-
-		public float planeDistance
-		{
-			get;
-			set;
-		}
-
-		public int renderOrder
-		{
-			get;
-		}
-
-		public bool overrideSorting
-		{
-			get;
-			set;
-		}
-
-		public int sortingOrder
-		{
-			get;
-			set;
-		}
-
-		public int sortingLayerID
-		{
-			get;
-			set;
-		}
-
-		public int cachedSortingLayerValue
-		{
-			get;
-		}
-
-		public string sortingLayerName
-		{
-			get;
-			set;
-		}
-
-		public static event WillRenderCanvases willRenderCanvases;
-
-		private void INTERNAL_get_pixelRect(out Rect value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static Material GetDefaultCanvasMaterial() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Shared default material now used for text and general UI elements, call Canvas.GetDefaultCanvasMaterial()")]
-		public static Material GetDefaultCanvasTextMaterial() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void SendWillRenderCanvases()
-		{
-			if (Canvas.willRenderCanvases != null)
-			{
-				Canvas.willRenderCanvases();
-			}
-		}
-
-		public static void ForceUpdateCanvases()
-		{
-			SendWillRenderCanvases();
-		}
+	public static void ForceUpdateCanvases()
+	{
+		SendWillRenderCanvases();
 	}
 }

@@ -1,37 +1,56 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class PlatformEffector2D : Effector2D
 {
-	public sealed class PlatformEffector2D : Effector2D
+	public extern bool useOneWay
 	{
-		public bool useOneWay
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool useSideFriction
-		{
-			get;
-			set;
-		}
+	public extern bool useSideFriction
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool useSideBounce
-		{
-			get;
-			set;
-		}
+	public extern bool useSideBounce
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float surfaceArc
-		{
-			get;
-			set;
-		}
+	public extern float surfaceArc
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float sideArc
-		{
-			get;
-			set;
-		}
+	public extern float sideArc
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

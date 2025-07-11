@@ -1,66 +1,81 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WheelJoint2D : AnchoredJoint2D
 {
-	public sealed class WheelJoint2D : AnchoredJoint2D
+	public JointSuspension2D suspension
 	{
-		public JointSuspension2D suspension
+		get
 		{
-			get
-			{
-				INTERNAL_get_suspension(out JointSuspension2D value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_suspension(ref value);
-			}
+			INTERNAL_get_suspension(out var value);
+			return value;
 		}
-
-		public bool useMotor
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_suspension(ref value);
 		}
-
-		public JointMotor2D motor
-		{
-			get
-			{
-				INTERNAL_get_motor(out JointMotor2D value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_motor(ref value);
-			}
-		}
-
-		public float jointTranslation
-		{
-			get;
-		}
-
-		public float jointSpeed
-		{
-			get;
-		}
-
-		private void INTERNAL_get_suspension(out JointSuspension2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_suspension(ref JointSuspension2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_motor(out JointMotor2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_motor(ref JointMotor2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public float GetMotorTorque(float timeStep)
-		{
-			return INTERNAL_CALL_GetMotorTorque(this, timeStep);
-		}
-
-		private static float INTERNAL_CALL_GetMotorTorque(WheelJoint2D self, float timeStep) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern bool useMotor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public JointMotor2D motor
+	{
+		get
+		{
+			INTERNAL_get_motor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_motor(ref value);
+		}
+	}
+
+	public extern float jointTranslation
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float jointSpeed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_suspension(out JointSuspension2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_suspension(ref JointSuspension2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_motor(out JointMotor2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_motor(ref JointMotor2D value);
+
+	public float GetMotorTorque(float timeStep)
+	{
+		return INTERNAL_CALL_GetMotorTorque(this, timeStep);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern float INTERNAL_CALL_GetMotorTorque(WheelJoint2D self, float timeStep);
 }

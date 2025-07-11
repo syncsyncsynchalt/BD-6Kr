@@ -1,11 +1,10 @@
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+public enum NetworkEventType
 {
-	public enum NetworkEventType
-	{
-		DataEvent,
-		ConnectEvent,
-		DisconnectEvent,
-		Nothing,
-		BroadcastEvent
-	}
+	DataEvent,
+	ConnectEvent,
+	DisconnectEvent,
+	Nothing,
+	BroadcastEvent
 }

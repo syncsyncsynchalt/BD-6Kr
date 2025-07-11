@@ -1,10 +1,9 @@
 using System.ComponentModel;
 
-namespace UnityEngine.Networking.Types
+namespace UnityEngine.Networking.Types;
+
+[DefaultValue(NodeID.Invalid)]
+public enum NodeID : ushort
 {
-	[DefaultValue(NodeID.Invalid)]
-	public enum NodeID : ushort
-	{
-		Invalid
-	}
+	Invalid
 }

@@ -1,36 +1,35 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class TreePrototype
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class TreePrototype
+	internal GameObject m_Prefab;
+
+	internal float m_BendFactor;
+
+	public GameObject prefab
 	{
-		internal GameObject m_Prefab;
-
-		internal float m_BendFactor;
-
-		public GameObject prefab
+		get
 		{
-			get
-			{
-				return m_Prefab;
-			}
-			set
-			{
-				m_Prefab = value;
-			}
+			return m_Prefab;
 		}
-
-		public float bendFactor
+		set
 		{
-			get
-			{
-				return m_BendFactor;
-			}
-			set
-			{
-				m_BendFactor = value;
-			}
+			m_Prefab = value;
+		}
+	}
+
+	public float bendFactor
+	{
+		get
+		{
+			return m_BendFactor;
+		}
+		set
+		{
+			m_BendFactor = value;
 		}
 	}
 }

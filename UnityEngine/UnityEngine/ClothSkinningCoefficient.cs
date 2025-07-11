@@ -1,9 +1,8 @@
-namespace UnityEngine
-{
-	public struct ClothSkinningCoefficient
-	{
-		public float maxDistance;
+namespace UnityEngine;
 
-		public float collisionSphereDistance;
-	}
+public struct ClothSkinningCoefficient
+{
+	public float maxDistance;
+
+	public float collisionSphereDistance;
 }

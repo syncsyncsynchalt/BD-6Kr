@@ -1,97 +1,124 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class HingeJoint2D : AnchoredJoint2D
 {
-	public sealed class HingeJoint2D : AnchoredJoint2D
+	public extern bool useMotor
 	{
-		public bool useMotor
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool useLimits
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public JointMotor2D motor
+	{
+		get
 		{
-			get;
-			set;
-		}
-
-		public bool useLimits
-		{
-			get;
-			set;
-		}
-
-		public JointMotor2D motor
-		{
-			get
-			{
-				INTERNAL_get_motor(out JointMotor2D value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_motor(ref value);
-			}
-		}
-
-		public JointAngleLimits2D limits
-		{
-			get
-			{
-				INTERNAL_get_limits(out JointAngleLimits2D value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_limits(ref value);
-			}
-		}
-
-		public JointLimitState2D limitState
-		{
-			get;
-		}
-
-		public float referenceAngle
-		{
-			get;
-		}
-
-		public float jointAngle
-		{
-			get;
-		}
-
-		public float jointSpeed
-		{
-			get;
-		}
-
-		private void INTERNAL_get_motor(out JointMotor2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_motor(ref JointMotor2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_limits(out JointAngleLimits2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_limits(ref JointAngleLimits2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public Vector2 GetReactionForce(float timeStep)
-		{
-			HingeJoint2D_CUSTOM_INTERNAL_GetReactionForce(this, timeStep, out Vector2 value);
+			INTERNAL_get_motor(out var value);
 			return value;
 		}
-
-		private static void HingeJoint2D_CUSTOM_INTERNAL_GetReactionForce(HingeJoint2D joint, float timeStep, out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public float GetReactionTorque(float timeStep)
+		set
 		{
-			return INTERNAL_CALL_GetReactionTorque(this, timeStep);
+			INTERNAL_set_motor(ref value);
 		}
-
-		private static float INTERNAL_CALL_GetReactionTorque(HingeJoint2D self, float timeStep) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public float GetMotorTorque(float timeStep)
-		{
-			return INTERNAL_CALL_GetMotorTorque(this, timeStep);
-		}
-
-		private static float INTERNAL_CALL_GetMotorTorque(HingeJoint2D self, float timeStep) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public JointAngleLimits2D limits
+	{
+		get
+		{
+			INTERNAL_get_limits(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_limits(ref value);
+		}
+	}
+
+	public extern JointLimitState2D limitState
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float referenceAngle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float jointAngle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float jointSpeed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_motor(out JointMotor2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_motor(ref JointMotor2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_limits(out JointAngleLimits2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_limits(ref JointAngleLimits2D value);
+
+	public Vector2 GetReactionForce(float timeStep)
+	{
+		HingeJoint2D_CUSTOM_INTERNAL_GetReactionForce(this, timeStep, out var value);
+		return value;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void HingeJoint2D_CUSTOM_INTERNAL_GetReactionForce(HingeJoint2D joint, float timeStep, out Vector2 value);
+
+	public float GetReactionTorque(float timeStep)
+	{
+		return INTERNAL_CALL_GetReactionTorque(this, timeStep);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern float INTERNAL_CALL_GetReactionTorque(HingeJoint2D self, float timeStep);
+
+	public float GetMotorTorque(float timeStep)
+	{
+		return INTERNAL_CALL_GetMotorTorque(this, timeStep);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern float INTERNAL_CALL_GetMotorTorque(HingeJoint2D self, float timeStep);
 }

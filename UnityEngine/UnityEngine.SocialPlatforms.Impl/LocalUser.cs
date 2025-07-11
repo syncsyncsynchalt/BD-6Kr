@@ -1,51 +1,50 @@
 using System;
 
-namespace UnityEngine.SocialPlatforms.Impl
+namespace UnityEngine.SocialPlatforms.Impl;
+
+public class LocalUser : UserProfile, ILocalUser, IUserProfile
 {
-	public class LocalUser : UserProfile, ILocalUser, IUserProfile
+	private IUserProfile[] m_Friends;
+
+	private bool m_Authenticated;
+
+	private bool m_Underage;
+
+	public IUserProfile[] friends => m_Friends;
+
+	public bool authenticated => m_Authenticated;
+
+	public bool underage => m_Underage;
+
+	public LocalUser()
 	{
-		private IUserProfile[] m_Friends;
+		m_Friends = new UserProfile[0];
+		m_Authenticated = false;
+		m_Underage = false;
+	}
 
-		private bool m_Authenticated;
+	public void Authenticate(Action<bool> callback)
+	{
+		ActivePlatform.Instance.Authenticate(this, callback);
+	}
 
-		private bool m_Underage;
+	public void LoadFriends(Action<bool> callback)
+	{
+		ActivePlatform.Instance.LoadFriends(this, callback);
+	}
 
-		public IUserProfile[] friends => m_Friends;
+	public void SetFriends(IUserProfile[] friends)
+	{
+		m_Friends = friends;
+	}
 
-		public bool authenticated => m_Authenticated;
+	public void SetAuthenticated(bool value)
+	{
+		m_Authenticated = value;
+	}
 
-		public bool underage => m_Underage;
-
-		public LocalUser()
-		{
-			m_Friends = new UserProfile[0];
-			m_Authenticated = false;
-			m_Underage = false;
-		}
-
-		public void Authenticate(Action<bool> callback)
-		{
-			ActivePlatform.Instance.Authenticate(this, callback);
-		}
-
-		public void LoadFriends(Action<bool> callback)
-		{
-			ActivePlatform.Instance.LoadFriends(this, callback);
-		}
-
-		public void SetFriends(IUserProfile[] friends)
-		{
-			m_Friends = friends;
-		}
-
-		public void SetAuthenticated(bool value)
-		{
-			m_Authenticated = value;
-		}
-
-		public void SetUnderage(bool value)
-		{
-			m_Underage = value;
-		}
+	public void SetUnderage(bool value)
+	{
+		m_Underage = value;
 	}
 }

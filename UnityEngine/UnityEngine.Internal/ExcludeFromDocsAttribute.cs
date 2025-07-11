@@ -1,10 +1,9 @@
 using System;
 
-namespace UnityEngine.Internal
+namespace UnityEngine.Internal;
+
+[Serializable]
+[AttributeUsage(AttributeTargets.Method)]
+public class ExcludeFromDocsAttribute : Attribute
 {
-	[Serializable]
-	[AttributeUsage(AttributeTargets.Method)]
-	public class ExcludeFromDocsAttribute : Attribute
-	{
-	}
 }

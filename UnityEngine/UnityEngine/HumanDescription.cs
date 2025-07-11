@@ -1,121 +1,120 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct HumanDescription
 {
-	public struct HumanDescription
+	public HumanBone[] human;
+
+	public SkeletonBone[] skeleton;
+
+	internal float m_ArmTwist;
+
+	internal float m_ForeArmTwist;
+
+	internal float m_UpperLegTwist;
+
+	internal float m_LegTwist;
+
+	internal float m_ArmStretch;
+
+	internal float m_LegStretch;
+
+	internal float m_FeetSpacing;
+
+	private bool m_HasTranslationDoF;
+
+	public float upperArmTwist
 	{
-		public HumanBone[] human;
-
-		public SkeletonBone[] skeleton;
-
-		internal float m_ArmTwist;
-
-		internal float m_ForeArmTwist;
-
-		internal float m_UpperLegTwist;
-
-		internal float m_LegTwist;
-
-		internal float m_ArmStretch;
-
-		internal float m_LegStretch;
-
-		internal float m_FeetSpacing;
-
-		private bool m_HasTranslationDoF;
-
-		public float upperArmTwist
+		get
 		{
-			get
-			{
-				return m_ArmTwist;
-			}
-			set
-			{
-				m_ArmTwist = value;
-			}
+			return m_ArmTwist;
 		}
-
-		public float lowerArmTwist
+		set
 		{
-			get
-			{
-				return m_ForeArmTwist;
-			}
-			set
-			{
-				m_ForeArmTwist = value;
-			}
+			m_ArmTwist = value;
 		}
+	}
 
-		public float upperLegTwist
+	public float lowerArmTwist
+	{
+		get
 		{
-			get
-			{
-				return m_UpperLegTwist;
-			}
-			set
-			{
-				m_UpperLegTwist = value;
-			}
+			return m_ForeArmTwist;
 		}
-
-		public float lowerLegTwist
+		set
 		{
-			get
-			{
-				return m_LegTwist;
-			}
-			set
-			{
-				m_LegTwist = value;
-			}
+			m_ForeArmTwist = value;
 		}
+	}
 
-		public float armStretch
+	public float upperLegTwist
+	{
+		get
 		{
-			get
-			{
-				return m_ArmStretch;
-			}
-			set
-			{
-				m_ArmStretch = value;
-			}
+			return m_UpperLegTwist;
 		}
-
-		public float legStretch
+		set
 		{
-			get
-			{
-				return m_LegStretch;
-			}
-			set
-			{
-				m_LegStretch = value;
-			}
+			m_UpperLegTwist = value;
 		}
+	}
 
-		public float feetSpacing
+	public float lowerLegTwist
+	{
+		get
 		{
-			get
-			{
-				return m_FeetSpacing;
-			}
-			set
-			{
-				m_FeetSpacing = value;
-			}
+			return m_LegTwist;
 		}
-
-		public bool hasTranslationDoF
+		set
 		{
-			get
-			{
-				return m_HasTranslationDoF;
-			}
-			set
-			{
-				m_HasTranslationDoF = value;
-			}
+			m_LegTwist = value;
+		}
+	}
+
+	public float armStretch
+	{
+		get
+		{
+			return m_ArmStretch;
+		}
+		set
+		{
+			m_ArmStretch = value;
+		}
+	}
+
+	public float legStretch
+	{
+		get
+		{
+			return m_LegStretch;
+		}
+		set
+		{
+			m_LegStretch = value;
+		}
+	}
+
+	public float feetSpacing
+	{
+		get
+		{
+			return m_FeetSpacing;
+		}
+		set
+		{
+			m_FeetSpacing = value;
+		}
+	}
+
+	public bool hasTranslationDoF
+	{
+		get
+		{
+			return m_HasTranslationDoF;
+		}
+		set
+		{
+			m_HasTranslationDoF = value;
 		}
 	}
 }

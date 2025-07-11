@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum WindZoneMode
 {
-	public enum WindZoneMode
-	{
-		Directional,
-		Spherical
-	}
+	Directional,
+	Spherical
 }

@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LogType
 {
-	public enum LogType
-	{
-		Error,
-		Assert,
-		Warning,
-		Log,
-		Exception
-	}
+	Error,
+	Assert,
+	Warning,
+	Log,
+	Exception
 }

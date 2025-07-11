@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ParticleSystemRenderMode
 {
-	public enum ParticleSystemRenderMode
-	{
-		Billboard,
-		Stretch,
-		HorizontalBillboard,
-		VerticalBillboard,
-		Mesh
-	}
+	Billboard,
+	Stretch,
+	HorizontalBillboard,
+	VerticalBillboard,
+	Mesh
 }

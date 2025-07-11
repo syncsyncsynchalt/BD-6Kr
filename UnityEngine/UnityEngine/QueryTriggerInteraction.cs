@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum QueryTriggerInteraction
 {
-	public enum QueryTriggerInteraction
-	{
-		UseGlobal,
-		Ignore,
-		Collide
-	}
+	UseGlobal,
+	Ignore,
+	Collide
 }

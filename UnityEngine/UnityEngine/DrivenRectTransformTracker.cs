@@ -1,13 +1,12 @@
-namespace UnityEngine
-{
-	public struct DrivenRectTransformTracker
-	{
-		public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties)
-		{
-		}
+namespace UnityEngine;
 
-		public void Clear()
-		{
-		}
+public struct DrivenRectTransformTracker
+{
+	public void Add(Object driver, RectTransform rectTransform, DrivenTransformProperties drivenProperties)
+	{
+	}
+
+	public void Clear()
+	{
 	}
 }

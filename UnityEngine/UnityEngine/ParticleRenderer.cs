@@ -1,123 +1,158 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ParticleRenderer : Renderer
 {
-	public sealed class ParticleRenderer : Renderer
+	public extern ParticleRenderMode particleRenderMode
 	{
-		public ParticleRenderMode particleRenderMode
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float lengthScale
-		{
-			get;
-			set;
-		}
+	public extern float lengthScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float velocityScale
-		{
-			get;
-			set;
-		}
+	public extern float velocityScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float cameraVelocityScale
-		{
-			get;
-			set;
-		}
+	public extern float cameraVelocityScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float maxParticleSize
-		{
-			get;
-			set;
-		}
+	public extern float maxParticleSize
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int uvAnimationXTile
-		{
-			get;
-			set;
-		}
+	public extern int uvAnimationXTile
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int uvAnimationYTile
-		{
-			get;
-			set;
-		}
+	public extern int uvAnimationYTile
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float uvAnimationCycles
-		{
-			get;
-			set;
-		}
+	public extern float uvAnimationCycles
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		[Obsolete("animatedTextureCount has been replaced by uvAnimationXTile and uvAnimationYTile.")]
-		public int animatedTextureCount
+	[Obsolete("animatedTextureCount has been replaced by uvAnimationXTile and uvAnimationYTile.")]
+	public int animatedTextureCount
+	{
+		get
 		{
-			get
-			{
-				return uvAnimationXTile;
-			}
-			set
-			{
-				uvAnimationXTile = value;
-			}
+			return uvAnimationXTile;
 		}
-
-		public float maxPartileSize
+		set
 		{
-			get
-			{
-				return maxParticleSize;
-			}
-			set
-			{
-				maxParticleSize = value;
-			}
+			uvAnimationXTile = value;
 		}
+	}
 
-		public Rect[] uvTiles
+	public float maxPartileSize
+	{
+		get
 		{
-			get;
-			set;
+			return maxParticleSize;
 		}
-
-		[Obsolete("This function has been removed.", true)]
-		public AnimationCurve widthCurve
+		set
 		{
-			get
-			{
-				return null;
-			}
-			set
-			{
-			}
+			maxParticleSize = value;
 		}
+	}
 
-		[Obsolete("This function has been removed.", true)]
-		public AnimationCurve heightCurve
+	public extern Rect[] uvTiles
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[Obsolete("This function has been removed.", true)]
+	public AnimationCurve widthCurve
+	{
+		get
 		{
-			get
-			{
-				return null;
-			}
-			set
-			{
-			}
+			return null;
 		}
-
-		[Obsolete("This function has been removed.", true)]
-		public AnimationCurve rotationCurve
+		set
 		{
-			get
-			{
-				return null;
-			}
-			set
-			{
-			}
+		}
+	}
+
+	[Obsolete("This function has been removed.", true)]
+	public AnimationCurve heightCurve
+	{
+		get
+		{
+			return null;
+		}
+		set
+		{
+		}
+	}
+
+	[Obsolete("This function has been removed.", true)]
+	public AnimationCurve rotationCurve
+	{
+		get
+		{
+			return null;
+		}
+		set
+		{
 		}
 	}
 }

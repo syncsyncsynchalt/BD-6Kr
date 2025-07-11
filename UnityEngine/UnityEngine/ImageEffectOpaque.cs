@@ -1,8 +1,7 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ImageEffectOpaque : Attribute
 {
-	public sealed class ImageEffectOpaque : Attribute
-	{
-	}
 }

@@ -1,13 +1,16 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class CircleCollider2D : Collider2D
 {
-	public sealed class CircleCollider2D : Collider2D
+	public extern float radius
 	{
-		public float radius
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

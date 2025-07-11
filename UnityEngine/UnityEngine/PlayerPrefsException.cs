@@ -1,12 +1,11 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class PlayerPrefsException : Exception
 {
-	public sealed class PlayerPrefsException : Exception
+	public PlayerPrefsException(string error)
+		: base(error)
 	{
-		public PlayerPrefsException(string error)
-			: base(error)
-		{
-		}
 	}
 }

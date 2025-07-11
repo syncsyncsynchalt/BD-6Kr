@@ -1,48 +1,69 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class HumanTrait
 {
-	public sealed class HumanTrait
+	public static extern int MuscleCount
 	{
-		public static int MuscleCount
-		{
-			get;
-		}
-
-		public static string[] MuscleName
-		{
-			get;
-		}
-
-		public static int BoneCount
-		{
-			get;
-		}
-
-		public static string[] BoneName
-		{
-			get;
-		}
-
-		public static int RequiredBoneCount
-		{
-			get;
-		}
-
-		public static int MuscleFromBone(int i, int dofIndex) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int BoneFromMuscle(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool RequiredBone(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal static bool HasCollider(Avatar avatar, int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static float GetMuscleDefaultMin(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static float GetMuscleDefaultMax(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int GetParentBone(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public static extern string[] MuscleName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int BoneCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string[] BoneName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int RequiredBoneCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int MuscleFromBone(int i, int dofIndex);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int BoneFromMuscle(int i);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool RequiredBone(int i);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern bool HasCollider(Avatar avatar, int i);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern float GetMuscleDefaultMin(int i);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern float GetMuscleDefaultMax(int i);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetParentBone(int i);
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class EllipsoidParticleEmitter : ParticleEmitter
 {
-	public sealed class EllipsoidParticleEmitter : ParticleEmitter
+	internal EllipsoidParticleEmitter()
 	{
-		internal EllipsoidParticleEmitter()
-		{
-		}
 	}
 }

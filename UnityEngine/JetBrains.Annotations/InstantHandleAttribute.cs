@@ -1,9 +1,8 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[AttributeUsage(AttributeTargets.Parameter, Inherited = true)]
+public sealed class InstantHandleAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Parameter, Inherited = true)]
-	public sealed class InstantHandleAttribute : Attribute
-	{
-	}
 }

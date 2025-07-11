@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal class SliderState
 {
-	internal class SliderState
-	{
-		public float dragStartPos;
+	public float dragStartPos;
 
-		public float dragStartValue;
+	public float dragStartValue;
 
-		public bool isDragging;
-	}
+	public bool isDragging;
 }

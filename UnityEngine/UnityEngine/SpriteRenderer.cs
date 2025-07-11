@@ -1,41 +1,47 @@
-using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class SpriteRenderer : Renderer
 {
-	public sealed class SpriteRenderer : Renderer
+	public Sprite sprite
 	{
-		public Sprite sprite
+		get
 		{
-			get
-			{
-				return GetSprite_INTERNAL();
-			}
-			set
-			{
-				SetSprite_INTERNAL(value);
-			}
+			return GetSprite_INTERNAL();
 		}
-
-		public Color color
+		set
 		{
-			get
-			{
-				INTERNAL_get_color(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_color(ref value);
-			}
+			SetSprite_INTERNAL(value);
 		}
-
-		private Sprite GetSprite_INTERNAL() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void SetSprite_INTERNAL(Sprite sprite) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_color(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_color(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public Color color
+	{
+		get
+		{
+			INTERNAL_get_color(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_color(ref value);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern Sprite GetSprite_INTERNAL();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void SetSprite_INTERNAL(Sprite sprite);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_color(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_color(ref Color value);
 }

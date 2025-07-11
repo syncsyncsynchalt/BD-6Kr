@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum OpaqueSortMode
 {
-	public enum OpaqueSortMode
-	{
-		Default,
-		FrontToBack,
-		NoDistanceSort
-	}
+	Default,
+	FrontToBack,
+	NoDistanceSort
 }

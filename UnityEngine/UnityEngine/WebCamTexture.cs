@@ -1,130 +1,167 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WebCamTexture : Texture
 {
-	public sealed class WebCamTexture : Texture
+	public extern bool isPlaying
 	{
-		public bool isPlaying
-		{
-			get;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public string deviceName
-		{
-			get;
-			set;
-		}
+	public extern string deviceName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float requestedFPS
-		{
-			get;
-			set;
-		}
+	public extern float requestedFPS
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int requestedWidth
-		{
-			get;
-			set;
-		}
+	public extern int requestedWidth
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int requestedHeight
-		{
-			get;
-			set;
-		}
+	public extern int requestedHeight
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static WebCamDevice[] devices
-		{
-			get;
-		}
+	public static extern WebCamDevice[] devices
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public int videoRotationAngle
-		{
-			get;
-		}
+	public extern int videoRotationAngle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool videoVerticallyMirrored
-		{
-			get;
-		}
+	public extern bool videoVerticallyMirrored
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool didUpdateThisFrame
-		{
-			get;
-		}
+	public extern bool didUpdateThisFrame
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public WebCamTexture(string deviceName, int requestedWidth, int requestedHeight, int requestedFPS)
-		{
-			Internal_CreateWebCamTexture(this, deviceName, requestedWidth, requestedHeight, requestedFPS);
-		}
+	public WebCamTexture(string deviceName, int requestedWidth, int requestedHeight, int requestedFPS)
+	{
+		Internal_CreateWebCamTexture(this, deviceName, requestedWidth, requestedHeight, requestedFPS);
+	}
 
-		public WebCamTexture(string deviceName, int requestedWidth, int requestedHeight)
-		{
-			Internal_CreateWebCamTexture(this, deviceName, requestedWidth, requestedHeight, 0);
-		}
+	public WebCamTexture(string deviceName, int requestedWidth, int requestedHeight)
+	{
+		Internal_CreateWebCamTexture(this, deviceName, requestedWidth, requestedHeight, 0);
+	}
 
-		public WebCamTexture(string deviceName)
-		{
-			Internal_CreateWebCamTexture(this, deviceName, 0, 0, 0);
-		}
+	public WebCamTexture(string deviceName)
+	{
+		Internal_CreateWebCamTexture(this, deviceName, 0, 0, 0);
+	}
 
-		public WebCamTexture(int requestedWidth, int requestedHeight, int requestedFPS)
-		{
-			Internal_CreateWebCamTexture(this, string.Empty, requestedWidth, requestedHeight, requestedFPS);
-		}
+	public WebCamTexture(int requestedWidth, int requestedHeight, int requestedFPS)
+	{
+		Internal_CreateWebCamTexture(this, string.Empty, requestedWidth, requestedHeight, requestedFPS);
+	}
 
-		public WebCamTexture(int requestedWidth, int requestedHeight)
-		{
-			Internal_CreateWebCamTexture(this, string.Empty, requestedWidth, requestedHeight, 0);
-		}
+	public WebCamTexture(int requestedWidth, int requestedHeight)
+	{
+		Internal_CreateWebCamTexture(this, string.Empty, requestedWidth, requestedHeight, 0);
+	}
 
-		public WebCamTexture()
-		{
-			Internal_CreateWebCamTexture(this, string.Empty, 0, 0, 0);
-		}
+	public WebCamTexture()
+	{
+		Internal_CreateWebCamTexture(this, string.Empty, 0, 0, 0);
+	}
 
-		private static void Internal_CreateWebCamTexture([Writable] WebCamTexture self, string scriptingDevice, int requestedWidth, int requestedHeight, int maxFramerate) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_CreateWebCamTexture([Writable] WebCamTexture self, string scriptingDevice, int requestedWidth, int requestedHeight, int maxFramerate);
 
-		public void Play()
-		{
-			INTERNAL_CALL_Play(this);
-		}
+	public void Play()
+	{
+		INTERNAL_CALL_Play(this);
+	}
 
-		private static void INTERNAL_CALL_Play(WebCamTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Play(WebCamTexture self);
 
-		public void Pause()
-		{
-			INTERNAL_CALL_Pause(this);
-		}
+	public void Pause()
+	{
+		INTERNAL_CALL_Pause(this);
+	}
 
-		private static void INTERNAL_CALL_Pause(WebCamTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Pause(WebCamTexture self);
 
-		public void Stop()
-		{
-			INTERNAL_CALL_Stop(this);
-		}
+	public void Stop()
+	{
+		INTERNAL_CALL_Stop(this);
+	}
 
-		private static void INTERNAL_CALL_Stop(WebCamTexture self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Stop(WebCamTexture self);
 
-		public Color GetPixel(int x, int y) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Color GetPixel(int x, int y);
 
-		public Color[] GetPixels()
-		{
-			return GetPixels(0, 0, width, height);
-		}
+	public Color[] GetPixels()
+	{
+		return GetPixels(0, 0, width, height);
+	}
 
-		public Color[] GetPixels(int x, int y, int blockWidth, int blockHeight) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Color[] GetPixels(int x, int y, int blockWidth, int blockHeight);
 
-		public Color32[] GetPixels32([DefaultValue("null")] Color32[] colors) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Color32[] GetPixels32([DefaultValue("null")] Color32[] colors);
 
-		[ExcludeFromDocs]
-		public Color32[] GetPixels32()
-		{
-			Color32[] colors = null;
-			return GetPixels32(colors);
-		}
+	[ExcludeFromDocs]
+	public Color32[] GetPixels32()
+	{
+		Color32[] colors = null;
+		return GetPixels32(colors);
 	}
 }

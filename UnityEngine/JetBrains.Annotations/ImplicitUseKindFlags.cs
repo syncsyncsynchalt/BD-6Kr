@@ -1,14 +1,13 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[Flags]
+public enum ImplicitUseKindFlags
 {
-	[Flags]
-	public enum ImplicitUseKindFlags
-	{
-		Default = 0x7,
-		Access = 0x1,
-		Assign = 0x2,
-		InstantiatedWithFixedConstructorSignature = 0x4,
-		InstantiatedNoFixedConstructorSignature = 0x8
-	}
+	Default = 7,
+	Access = 1,
+	Assign = 2,
+	InstantiatedWithFixedConstructorSignature = 4,
+	InstantiatedNoFixedConstructorSignature = 8
 }

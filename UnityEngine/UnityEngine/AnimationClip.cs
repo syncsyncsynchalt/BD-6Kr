@@ -1,111 +1,150 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class AnimationClip : Motion
 {
-	public sealed class AnimationClip : Motion
+	public extern float length
 	{
-		public float length
-		{
-			get;
-		}
-
-		internal float startTime
-		{
-			get;
-		}
-
-		internal float stopTime
-		{
-			get;
-		}
-
-		public float frameRate
-		{
-			get;
-			set;
-		}
-
-		public WrapMode wrapMode
-		{
-			get;
-			set;
-		}
-
-		public Bounds localBounds
-		{
-			get
-			{
-				INTERNAL_get_localBounds(out Bounds value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_localBounds(ref value);
-			}
-		}
-
-		public new bool legacy
-		{
-			get;
-			set;
-		}
-
-		public bool humanMotion
-		{
-			get;
-		}
-
-		public AnimationEvent[] events
-		{
-			get
-			{
-				return (AnimationEvent[])GetEventsInternal();
-			}
-			set
-			{
-				SetEventsInternal(value);
-			}
-		}
-
-		public AnimationClip()
-		{
-			Internal_CreateAnimationClip(this);
-		}
-
-		public void SampleAnimation(GameObject go, float time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void Internal_CreateAnimationClip([Writable] AnimationClip self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetCurve(string relativePath, Type type, string propertyName, AnimationCurve curve) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void EnsureQuaternionContinuity()
-		{
-			INTERNAL_CALL_EnsureQuaternionContinuity(this);
-		}
-
-		private static void INTERNAL_CALL_EnsureQuaternionContinuity(AnimationClip self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ClearCurves()
-		{
-			INTERNAL_CALL_ClearCurves(this);
-		}
-
-		private static void INTERNAL_CALL_ClearCurves(AnimationClip self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_localBounds(out Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_localBounds(ref Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void AddEvent(AnimationEvent evt)
-		{
-			AddEventInternal(evt);
-		}
-
-		internal void AddEventInternal(object evt) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal void SetEventsInternal(Array value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal Array GetEventsInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	internal extern float startTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	internal extern float stopTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float frameRate
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern WrapMode wrapMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Bounds localBounds
+	{
+		get
+		{
+			INTERNAL_get_localBounds(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_localBounds(ref value);
+		}
+	}
+
+	public new extern bool legacy
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool humanMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public AnimationEvent[] events
+	{
+		get
+		{
+			return (AnimationEvent[])GetEventsInternal();
+		}
+		set
+		{
+			SetEventsInternal(value);
+		}
+	}
+
+	public AnimationClip()
+	{
+		Internal_CreateAnimationClip(this);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SampleAnimation(GameObject go, float time);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_CreateAnimationClip([Writable] AnimationClip self);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetCurve(string relativePath, Type type, string propertyName, AnimationCurve curve);
+
+	public void EnsureQuaternionContinuity()
+	{
+		INTERNAL_CALL_EnsureQuaternionContinuity(this);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_EnsureQuaternionContinuity(AnimationClip self);
+
+	public void ClearCurves()
+	{
+		INTERNAL_CALL_ClearCurves(this);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_ClearCurves(AnimationClip self);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_localBounds(out Bounds value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_localBounds(ref Bounds value);
+
+	public void AddEvent(AnimationEvent evt)
+	{
+		AddEventInternal(evt);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void AddEventInternal(object evt);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void SetEventsInternal(Array value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern Array GetEventsInternal();
 }

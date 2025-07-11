@@ -1,23 +1,28 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Sprites
+namespace UnityEngine.Sprites;
+
+public sealed class DataUtility
 {
-	public sealed class DataUtility
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Vector4 GetInnerUV(Sprite sprite);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Vector4 GetOuterUV(Sprite sprite);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Vector4 GetPadding(Sprite sprite);
+
+	public static Vector2 GetMinSize(Sprite sprite)
 	{
-		public static Vector4 GetInnerUV(Sprite sprite) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static Vector4 GetOuterUV(Sprite sprite) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static Vector4 GetPadding(Sprite sprite) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static Vector2 GetMinSize(Sprite sprite)
-		{
-			Internal_GetMinSize(sprite, out Vector2 output);
-			return output;
-		}
-
-		private static void Internal_GetMinSize(Sprite sprite, out Vector2 output) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		Internal_GetMinSize(sprite, out var output);
+		return output;
 	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_GetMinSize(Sprite sprite, out Vector2 output);
 }

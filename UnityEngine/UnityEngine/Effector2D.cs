@@ -1,34 +1,47 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class Effector2D : Behaviour
 {
-	public class Effector2D : Behaviour
+	public extern bool useColliderMask
 	{
-		public bool useColliderMask
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public int colliderMask
-		{
-			get;
-			set;
-		}
+	public extern int colliderMask
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		internal bool requiresCollider
-		{
-			get;
-		}
+	internal extern bool requiresCollider
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		internal bool designedForTrigger
-		{
-			get;
-		}
+	internal extern bool designedForTrigger
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		internal bool designedForNonTrigger
-		{
-			get;
-		}
+	internal extern bool designedForNonTrigger
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
 }

@@ -1,21 +1,28 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.PSVita
+namespace UnityEngine.PSVita;
+
+public sealed class Diagnostics
 {
-	public sealed class Diagnostics
+	public static extern bool enableHUD
 	{
-		public static bool enableHUD
-		{
-			get;
-			set;
-		}
-
-		public static int GetFreeMemoryLPDDR() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int GetFreeMemoryCDRAM() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int GetFreeMemoryPHYSCONT() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetFreeMemoryLPDDR();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetFreeMemoryCDRAM();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetFreeMemoryPHYSCONT();
 }

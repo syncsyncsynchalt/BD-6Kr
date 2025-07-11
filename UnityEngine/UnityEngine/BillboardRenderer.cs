@@ -1,13 +1,16 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class BillboardRenderer : Renderer
 {
-	public sealed class BillboardRenderer : Renderer
+	public extern BillboardAsset billboard
 	{
-		public BillboardAsset billboard
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

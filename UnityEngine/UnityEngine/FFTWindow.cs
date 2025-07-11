@@ -1,12 +1,11 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum FFTWindow
 {
-	public enum FFTWindow
-	{
-		Rectangular,
-		Triangle,
-		Hamming,
-		Hanning,
-		Blackman,
-		BlackmanHarris
-	}
+	Rectangular,
+	Triangle,
+	Hamming,
+	Hanning,
+	Blackman,
+	BlackmanHarris
 }

@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LocationServiceStatus
 {
-	public enum LocationServiceStatus
-	{
-		Stopped,
-		Initializing,
-		Running,
-		Failed
-	}
+	Stopped,
+	Initializing,
+	Running,
+	Failed
 }

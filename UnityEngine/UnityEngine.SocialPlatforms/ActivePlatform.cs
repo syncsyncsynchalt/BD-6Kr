@@ -1,28 +1,27 @@
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+internal static class ActivePlatform
 {
-	internal static class ActivePlatform
+	private static ISocialPlatform _active;
+
+	internal static ISocialPlatform Instance
 	{
-		private static ISocialPlatform _active;
-
-		internal static ISocialPlatform Instance
+		get
 		{
-			get
+			if (_active == null)
 			{
-				if (_active == null)
-				{
-					_active = SelectSocialPlatform();
-				}
-				return _active;
+				_active = SelectSocialPlatform();
 			}
-			set
-			{
-				_active = value;
-			}
+			return _active;
 		}
-
-		private static ISocialPlatform SelectSocialPlatform()
+		set
 		{
-			return new Local();
+			_active = value;
 		}
+	}
+
+	private static ISocialPlatform SelectSocialPlatform()
+	{
+		return new Local();
 	}
 }

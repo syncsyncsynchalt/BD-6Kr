@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LightRenderMode
 {
-	public enum LightRenderMode
-	{
-		Auto,
-		ForcePixel,
-		ForceVertex
-	}
+	Auto,
+	ForcePixel,
+	ForceVertex
 }

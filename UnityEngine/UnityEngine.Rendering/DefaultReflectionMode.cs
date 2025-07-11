@@ -1,8 +1,7 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum DefaultReflectionMode
 {
-	public enum DefaultReflectionMode
-	{
-		Skybox,
-		Custom
-	}
+	Skybox,
+	Custom
 }

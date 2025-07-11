@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+public sealed class SharedBetweenAnimatorsAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-	public sealed class SharedBetweenAnimatorsAttribute : Attribute
-	{
-	}
 }

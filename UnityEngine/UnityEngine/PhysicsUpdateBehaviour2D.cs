@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public class PhysicsUpdateBehaviour2D : Behaviour
 {
-	public class PhysicsUpdateBehaviour2D : Behaviour
-	{
-	}
 }

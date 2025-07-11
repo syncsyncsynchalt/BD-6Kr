@@ -2,661 +2,722 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class Event
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class Event
+	[NonSerialized]
+	internal IntPtr m_Ptr;
+
+	private static Event s_Current;
+
+	private static Event s_MasterEvent;
+
+	public Vector2 mousePosition
 	{
-		[NonSerialized]
-		internal IntPtr m_Ptr;
-
-		private static Event s_Current;
-
-		private static Event s_MasterEvent;
-
-		public Vector2 mousePosition
+		get
 		{
-			get
-			{
-				Internal_GetMousePosition(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				Internal_SetMousePosition(value);
-			}
+			Internal_GetMousePosition(out var value);
+			return value;
 		}
-
-		public Vector2 delta
+		set
 		{
-			get
-			{
-				Internal_GetMouseDelta(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				Internal_SetMouseDelta(value);
-			}
+			Internal_SetMousePosition(value);
 		}
+	}
 
-		[Obsolete("Use HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);", true)]
-		public Ray mouseRay
+	public Vector2 delta
+	{
+		get
 		{
-			get
-			{
-				return new Ray(Vector3.up, Vector3.up);
-			}
-			set
-			{
-			}
+			Internal_GetMouseDelta(out var value);
+			return value;
 		}
-
-		public bool shift
+		set
 		{
-			get
+			Internal_SetMouseDelta(value);
+		}
+	}
+
+	[Obsolete("Use HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);", true)]
+	public Ray mouseRay
+	{
+		get
+		{
+			return new Ray(Vector3.up, Vector3.up);
+		}
+		set
+		{
+		}
+	}
+
+	public bool shift
+	{
+		get
+		{
+			return (modifiers & EventModifiers.Shift) != 0;
+		}
+		set
+		{
+			if (!value)
 			{
-				return (modifiers & EventModifiers.Shift) != 0;
+				modifiers &= ~EventModifiers.Shift;
 			}
-			set
+			else
 			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.Shift;
-				}
-				else
-				{
-					modifiers |= EventModifiers.Shift;
-				}
+				modifiers |= EventModifiers.Shift;
 			}
 		}
+	}
 
-		public bool control
+	public bool control
+	{
+		get
 		{
-			get
-			{
-				return (modifiers & EventModifiers.Control) != 0;
-			}
-			set
-			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.Control;
-				}
-				else
-				{
-					modifiers |= EventModifiers.Control;
-				}
-			}
+			return (modifiers & EventModifiers.Control) != 0;
 		}
-
-		public bool alt
+		set
 		{
-			get
+			if (!value)
 			{
-				return (modifiers & EventModifiers.Alt) != 0;
+				modifiers &= ~EventModifiers.Control;
 			}
-			set
+			else
 			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.Alt;
-				}
-				else
-				{
-					modifiers |= EventModifiers.Alt;
-				}
+				modifiers |= EventModifiers.Control;
 			}
 		}
+	}
 
-		public bool command
+	public bool alt
+	{
+		get
 		{
-			get
-			{
-				return (modifiers & EventModifiers.Command) != 0;
-			}
-			set
-			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.Command;
-				}
-				else
-				{
-					modifiers |= EventModifiers.Command;
-				}
-			}
+			return (modifiers & EventModifiers.Alt) != 0;
 		}
-
-		public bool capsLock
+		set
 		{
-			get
+			if (!value)
 			{
-				return (modifiers & EventModifiers.CapsLock) != 0;
+				modifiers &= ~EventModifiers.Alt;
 			}
-			set
+			else
 			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.CapsLock;
-				}
-				else
-				{
-					modifiers |= EventModifiers.CapsLock;
-				}
+				modifiers |= EventModifiers.Alt;
 			}
 		}
+	}
 
-		public bool numeric
+	public bool command
+	{
+		get
 		{
-			get
-			{
-				return (modifiers & EventModifiers.Numeric) != 0;
-			}
-			set
-			{
-				if (!value)
-				{
-					modifiers &= ~EventModifiers.Shift;
-				}
-				else
-				{
-					modifiers |= EventModifiers.Shift;
-				}
-			}
+			return (modifiers & EventModifiers.Command) != 0;
 		}
-
-		public bool functionKey => (modifiers & EventModifiers.FunctionKey) != 0;
-
-		public static Event current
+		set
 		{
-			get
+			if (!value)
 			{
-				return s_Current;
+				modifiers &= ~EventModifiers.Command;
 			}
-			set
+			else
 			{
-				if (value != null)
-				{
-					s_Current = value;
-				}
-				else
-				{
-					s_Current = s_MasterEvent;
-				}
-				Internal_SetNativeEvent(s_Current.m_Ptr);
+				modifiers |= EventModifiers.Command;
 			}
 		}
+	}
 
-		public bool isKey
+	public bool capsLock
+	{
+		get
 		{
-			get
+			return (modifiers & EventModifiers.CapsLock) != 0;
+		}
+		set
+		{
+			if (!value)
 			{
-				EventType type = this.type;
-				return type == EventType.KeyDown || type == EventType.KeyUp;
+				modifiers &= ~EventModifiers.CapsLock;
+			}
+			else
+			{
+				modifiers |= EventModifiers.CapsLock;
 			}
 		}
+	}
 
-		public bool isMouse
+	public bool numeric
+	{
+		get
 		{
-			get
+			return (modifiers & EventModifiers.Numeric) != 0;
+		}
+		set
+		{
+			if (!value)
 			{
-				EventType type = this.type;
-				return type == EventType.MouseMove || type == EventType.MouseDown || type == EventType.MouseUp || type == EventType.MouseDrag;
+				modifiers &= ~EventModifiers.Shift;
+			}
+			else
+			{
+				modifiers |= EventModifiers.Shift;
 			}
 		}
+	}
 
-		public EventType rawType
+	public bool functionKey => (modifiers & EventModifiers.FunctionKey) != 0;
+
+	public static Event current
+	{
+		get
 		{
-			get;
+			return s_Current;
 		}
-
-		public EventType type
+		set
 		{
-			get;
-			set;
-		}
-
-		public int button
-		{
-			get;
-			set;
-		}
-
-		public EventModifiers modifiers
-		{
-			get;
-			set;
-		}
-
-		public float pressure
-		{
-			get;
-			set;
-		}
-
-		public int clickCount
-		{
-			get;
-			set;
-		}
-
-		public char character
-		{
-			get;
-			set;
-		}
-
-		public string commandName
-		{
-			get;
-			set;
-		}
-
-		public KeyCode keyCode
-		{
-			get;
-			set;
-		}
-
-		public Event()
-		{
-			Init();
-		}
-
-		public Event(Event other)
-		{
-			if (other == null)
+			if (value != null)
 			{
-				throw new ArgumentException("Event to copy from is null.");
+				s_Current = value;
 			}
-			InitCopy(other);
-		}
-
-		private Event(IntPtr ptr)
-		{
-			InitPtr(ptr);
-		}
-
-		~Event()
-		{
-			Cleanup();
-		}
-
-		private static void Internal_MakeMasterEventCurrent()
-		{
-			if (s_MasterEvent == null)
+			else
 			{
-				s_MasterEvent = new Event();
+				s_Current = s_MasterEvent;
 			}
-			s_Current = s_MasterEvent;
-			Internal_SetNativeEvent(s_MasterEvent.m_Ptr);
+			Internal_SetNativeEvent(s_Current.m_Ptr);
 		}
+	}
 
-		public static Event KeyboardEvent(string key)
+	public bool isKey
+	{
+		get
 		{
-			Event @event = new Event();
-			@event.type = EventType.KeyDown;
-			if (string.IsNullOrEmpty(key))
+			EventType eventType = type;
+			return eventType == EventType.KeyDown || eventType == EventType.KeyUp;
+		}
+	}
+
+	public bool isMouse
+	{
+		get
+		{
+			EventType eventType = type;
+			return eventType == EventType.MouseMove || eventType == EventType.MouseDown || eventType == EventType.MouseUp || eventType == EventType.MouseDrag;
+		}
+	}
+
+	public extern EventType rawType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern EventType type
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int button
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern EventModifiers modifiers
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float pressure
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int clickCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern char character
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern string commandName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern KeyCode keyCode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Event()
+	{
+		Init();
+	}
+
+	public Event(Event other)
+	{
+		if (other == null)
+		{
+			throw new ArgumentException("Event to copy from is null.");
+		}
+		InitCopy(other);
+	}
+
+	private Event(IntPtr ptr)
+	{
+		InitPtr(ptr);
+	}
+
+	~Event()
+	{
+		Cleanup();
+	}
+
+	private static void Internal_MakeMasterEventCurrent()
+	{
+		if (s_MasterEvent == null)
+		{
+			s_MasterEvent = new Event();
+		}
+		s_Current = s_MasterEvent;
+		Internal_SetNativeEvent(s_MasterEvent.m_Ptr);
+	}
+
+	public static Event KeyboardEvent(string key)
+	{
+		Event obj = new Event();
+		obj.type = EventType.KeyDown;
+		if (string.IsNullOrEmpty(key))
+		{
+			return obj;
+		}
+		int num = 0;
+		bool flag = false;
+		do
+		{
+			flag = true;
+			if (num >= key.Length)
 			{
-				return @event;
+				flag = false;
+				break;
 			}
-			int num = 0;
-			bool flag;
-			do
+			switch (key[num])
 			{
-				flag = true;
-				if (num >= key.Length)
-				{
-					break;
-				}
-				switch (key[num])
-				{
-				case '&':
-					@event.modifiers |= EventModifiers.Alt;
-					num++;
-					break;
-				case '^':
-					@event.modifiers |= EventModifiers.Control;
-					num++;
-					break;
-				case '%':
-					@event.modifiers |= EventModifiers.Command;
-					num++;
-					break;
-				case '#':
-					@event.modifiers |= EventModifiers.Shift;
-					num++;
-					break;
-				default:
-					flag = false;
-					break;
-				}
-			}
-			while (flag);
-			string text = key.Substring(num, key.Length - num).ToLower();
-			switch (text)
-			{
-			case "[0]":
-				@event.character = '0';
-				@event.keyCode = KeyCode.Keypad0;
+			case '&':
+				obj.modifiers |= EventModifiers.Alt;
+				num++;
 				break;
-			case "[1]":
-				@event.character = '1';
-				@event.keyCode = KeyCode.Keypad1;
+			case '^':
+				obj.modifiers |= EventModifiers.Control;
+				num++;
 				break;
-			case "[2]":
-				@event.character = '2';
-				@event.keyCode = KeyCode.Keypad2;
+			case '%':
+				obj.modifiers |= EventModifiers.Command;
+				num++;
 				break;
-			case "[3]":
-				@event.character = '3';
-				@event.keyCode = KeyCode.Keypad3;
-				break;
-			case "[4]":
-				@event.character = '4';
-				@event.keyCode = KeyCode.Keypad4;
-				break;
-			case "[5]":
-				@event.character = '5';
-				@event.keyCode = KeyCode.Keypad5;
-				break;
-			case "[6]":
-				@event.character = '6';
-				@event.keyCode = KeyCode.Keypad6;
-				break;
-			case "[7]":
-				@event.character = '7';
-				@event.keyCode = KeyCode.Keypad7;
-				break;
-			case "[8]":
-				@event.character = '8';
-				@event.keyCode = KeyCode.Keypad8;
-				break;
-			case "[9]":
-				@event.character = '9';
-				@event.keyCode = KeyCode.Keypad9;
-				break;
-			case "[.]":
-				@event.character = '.';
-				@event.keyCode = KeyCode.KeypadPeriod;
-				break;
-			case "[/]":
-				@event.character = '/';
-				@event.keyCode = KeyCode.KeypadDivide;
-				break;
-			case "[-]":
-				@event.character = '-';
-				@event.keyCode = KeyCode.KeypadMinus;
-				break;
-			case "[+]":
-				@event.character = '+';
-				@event.keyCode = KeyCode.KeypadPlus;
-				break;
-			case "[=]":
-				@event.character = '=';
-				@event.keyCode = KeyCode.KeypadEquals;
-				break;
-			case "[equals]":
-				@event.character = '=';
-				@event.keyCode = KeyCode.KeypadEquals;
-				break;
-			case "[enter]":
-				@event.character = '\n';
-				@event.keyCode = KeyCode.KeypadEnter;
-				break;
-			case "up":
-				@event.keyCode = KeyCode.UpArrow;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "down":
-				@event.keyCode = KeyCode.DownArrow;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "left":
-				@event.keyCode = KeyCode.LeftArrow;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "right":
-				@event.keyCode = KeyCode.RightArrow;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "insert":
-				@event.keyCode = KeyCode.Insert;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "home":
-				@event.keyCode = KeyCode.Home;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "end":
-				@event.keyCode = KeyCode.End;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "pgup":
-				@event.keyCode = KeyCode.PageDown;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "page up":
-				@event.keyCode = KeyCode.PageUp;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "pgdown":
-				@event.keyCode = KeyCode.PageUp;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "page down":
-				@event.keyCode = KeyCode.PageDown;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "backspace":
-				@event.keyCode = KeyCode.Backspace;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "delete":
-				@event.keyCode = KeyCode.Delete;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "tab":
-				@event.keyCode = KeyCode.Tab;
-				break;
-			case "f1":
-				@event.keyCode = KeyCode.F1;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f2":
-				@event.keyCode = KeyCode.F2;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f3":
-				@event.keyCode = KeyCode.F3;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f4":
-				@event.keyCode = KeyCode.F4;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f5":
-				@event.keyCode = KeyCode.F5;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f6":
-				@event.keyCode = KeyCode.F6;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f7":
-				@event.keyCode = KeyCode.F7;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f8":
-				@event.keyCode = KeyCode.F8;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f9":
-				@event.keyCode = KeyCode.F9;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f10":
-				@event.keyCode = KeyCode.F10;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f11":
-				@event.keyCode = KeyCode.F11;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f12":
-				@event.keyCode = KeyCode.F12;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f13":
-				@event.keyCode = KeyCode.F13;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f14":
-				@event.keyCode = KeyCode.F14;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "f15":
-				@event.keyCode = KeyCode.F15;
-				@event.modifiers |= EventModifiers.FunctionKey;
-				break;
-			case "[esc]":
-				@event.keyCode = KeyCode.Escape;
-				break;
-			case "return":
-				@event.character = '\n';
-				@event.keyCode = KeyCode.Return;
-				@event.modifiers &= ~EventModifiers.FunctionKey;
-				break;
-			case "space":
-				@event.keyCode = KeyCode.Space;
-				@event.character = ' ';
-				@event.modifiers &= ~EventModifiers.FunctionKey;
+			case '#':
+				obj.modifiers |= EventModifiers.Shift;
+				num++;
 				break;
 			default:
-				if (text.Length != 1)
-				{
-					try
-					{
-						@event.keyCode = (KeyCode)(int)Enum.Parse(typeof(KeyCode), text, ignoreCase: true);
-						return @event;
-					}
-					catch (ArgumentException)
-					{
-						Debug.LogError(UnityString.Format("Unable to find key name that matches '{0}'", text));
-						return @event;
-					}
-				}
-				@event.character = text.ToLower()[0];
-				@event.keyCode = (KeyCode)@event.character;
-				if (@event.modifiers != 0)
-				{
-					@event.character = '\0';
-				}
+				flag = false;
 				break;
 			}
-			return @event;
 		}
-
-		public override int GetHashCode()
+		while (flag);
+		string text = key.Substring(num, key.Length - num).ToLower();
+		switch (text)
 		{
-			int num = 1;
-			if (isKey)
+		case "[0]":
+			obj.character = '0';
+			obj.keyCode = KeyCode.Keypad0;
+			break;
+		case "[1]":
+			obj.character = '1';
+			obj.keyCode = KeyCode.Keypad1;
+			break;
+		case "[2]":
+			obj.character = '2';
+			obj.keyCode = KeyCode.Keypad2;
+			break;
+		case "[3]":
+			obj.character = '3';
+			obj.keyCode = KeyCode.Keypad3;
+			break;
+		case "[4]":
+			obj.character = '4';
+			obj.keyCode = KeyCode.Keypad4;
+			break;
+		case "[5]":
+			obj.character = '5';
+			obj.keyCode = KeyCode.Keypad5;
+			break;
+		case "[6]":
+			obj.character = '6';
+			obj.keyCode = KeyCode.Keypad6;
+			break;
+		case "[7]":
+			obj.character = '7';
+			obj.keyCode = KeyCode.Keypad7;
+			break;
+		case "[8]":
+			obj.character = '8';
+			obj.keyCode = KeyCode.Keypad8;
+			break;
+		case "[9]":
+			obj.character = '9';
+			obj.keyCode = KeyCode.Keypad9;
+			break;
+		case "[.]":
+			obj.character = '.';
+			obj.keyCode = KeyCode.KeypadPeriod;
+			break;
+		case "[/]":
+			obj.character = '/';
+			obj.keyCode = KeyCode.KeypadDivide;
+			break;
+		case "[-]":
+			obj.character = '-';
+			obj.keyCode = KeyCode.KeypadMinus;
+			break;
+		case "[+]":
+			obj.character = '+';
+			obj.keyCode = KeyCode.KeypadPlus;
+			break;
+		case "[=]":
+			obj.character = '=';
+			obj.keyCode = KeyCode.KeypadEquals;
+			break;
+		case "[equals]":
+			obj.character = '=';
+			obj.keyCode = KeyCode.KeypadEquals;
+			break;
+		case "[enter]":
+			obj.character = '\n';
+			obj.keyCode = KeyCode.KeypadEnter;
+			break;
+		case "up":
+			obj.keyCode = KeyCode.UpArrow;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "down":
+			obj.keyCode = KeyCode.DownArrow;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "left":
+			obj.keyCode = KeyCode.LeftArrow;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "right":
+			obj.keyCode = KeyCode.RightArrow;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "insert":
+			obj.keyCode = KeyCode.Insert;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "home":
+			obj.keyCode = KeyCode.Home;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "end":
+			obj.keyCode = KeyCode.End;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "pgup":
+			obj.keyCode = KeyCode.PageDown;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "page up":
+			obj.keyCode = KeyCode.PageUp;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "pgdown":
+			obj.keyCode = KeyCode.PageUp;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "page down":
+			obj.keyCode = KeyCode.PageDown;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "backspace":
+			obj.keyCode = KeyCode.Backspace;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "delete":
+			obj.keyCode = KeyCode.Delete;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "tab":
+			obj.keyCode = KeyCode.Tab;
+			break;
+		case "f1":
+			obj.keyCode = KeyCode.F1;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f2":
+			obj.keyCode = KeyCode.F2;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f3":
+			obj.keyCode = KeyCode.F3;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f4":
+			obj.keyCode = KeyCode.F4;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f5":
+			obj.keyCode = KeyCode.F5;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f6":
+			obj.keyCode = KeyCode.F6;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f7":
+			obj.keyCode = KeyCode.F7;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f8":
+			obj.keyCode = KeyCode.F8;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f9":
+			obj.keyCode = KeyCode.F9;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f10":
+			obj.keyCode = KeyCode.F10;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f11":
+			obj.keyCode = KeyCode.F11;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f12":
+			obj.keyCode = KeyCode.F12;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f13":
+			obj.keyCode = KeyCode.F13;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f14":
+			obj.keyCode = KeyCode.F14;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "f15":
+			obj.keyCode = KeyCode.F15;
+			obj.modifiers |= EventModifiers.FunctionKey;
+			break;
+		case "[esc]":
+			obj.keyCode = KeyCode.Escape;
+			break;
+		case "return":
+			obj.character = '\n';
+			obj.keyCode = KeyCode.Return;
+			obj.modifiers &= ~EventModifiers.FunctionKey;
+			break;
+		case "space":
+			obj.keyCode = KeyCode.Space;
+			obj.character = ' ';
+			obj.modifiers &= ~EventModifiers.FunctionKey;
+			break;
+		default:
+			if (text.Length != 1)
 			{
-				num = (ushort)keyCode;
+				try
+				{
+					obj.keyCode = (KeyCode)(int)Enum.Parse(typeof(KeyCode), text, ignoreCase: true);
+				}
+				catch (ArgumentException)
+				{
+					Debug.LogError(UnityString.Format("Unable to find key name that matches '{0}'", text));
+				}
 			}
-			if (isMouse)
+			else
 			{
-				num = mousePosition.GetHashCode();
+				obj.character = text.ToLower()[0];
+				obj.keyCode = (KeyCode)obj.character;
+				if (obj.modifiers != EventModifiers.None)
+				{
+					obj.character = '\0';
+				}
 			}
-			return (num * 37) | (int)modifiers;
+			break;
 		}
+		return obj;
+	}
 
-		public override bool Equals(object obj)
+	public override int GetHashCode()
+	{
+		int num = 1;
+		if (isKey)
 		{
-			if (obj == null)
-			{
-				return false;
-			}
-			if (object.ReferenceEquals(this, obj))
-			{
-				return true;
-			}
-			if (obj.GetType() != GetType())
-			{
-				return false;
-			}
-			Event @event = (Event)obj;
-			if (type != @event.type || (modifiers & ~EventModifiers.CapsLock) != (@event.modifiers & ~EventModifiers.CapsLock))
-			{
-				return false;
-			}
-			if (isKey)
-			{
-				return keyCode == @event.keyCode;
-			}
-			if (isMouse)
-			{
-				return mousePosition == @event.mousePosition;
-			}
+			num = (ushort)keyCode;
+		}
+		if (isMouse)
+		{
+			num = mousePosition.GetHashCode();
+		}
+		return (num * 37) | (int)modifiers;
+	}
+
+	public override bool Equals(object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-
-		public override string ToString()
+		if (object.ReferenceEquals(this, obj))
 		{
-			if (isKey)
-			{
-				if (character == '\0')
-				{
-					return UnityString.Format("Event:{0}   Character:\\0   Modifiers:{1}   KeyCode:{2}", type, modifiers, keyCode);
-				}
-				return "Event:" + type + "   Character:" + (int)character + "   Modifiers:" + modifiers + "   KeyCode:" + keyCode;
-			}
-			if (isMouse)
-			{
-				return UnityString.Format("Event: {0}   Position: {1} Modifiers: {2}", type, mousePosition, modifiers);
-			}
-			if (type == EventType.ExecuteCommand || type == EventType.ValidateCommand)
-			{
-				return UnityString.Format("Event: {0}  \"{1}\"", type, commandName);
-			}
-			return string.Empty + type;
+			return true;
 		}
-
-		private void Init() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Cleanup() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void InitCopy(Event other) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void InitPtr(IntPtr ptr) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public EventType GetTypeForControl(int controlID) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Internal_SetMousePosition(Vector2 value)
+		if (obj.GetType() != GetType())
 		{
-			INTERNAL_CALL_Internal_SetMousePosition(this, ref value);
+			return false;
 		}
-
-		private static void INTERNAL_CALL_Internal_SetMousePosition(Event self, ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Internal_GetMousePosition(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Internal_SetMouseDelta(Vector2 value)
+		Event obj2 = (Event)obj;
+		if (type != obj2.type || (modifiers & ~EventModifiers.CapsLock) != (obj2.modifiers & ~EventModifiers.CapsLock))
 		{
-			INTERNAL_CALL_Internal_SetMouseDelta(this, ref value);
+			return false;
 		}
-
-		private static void INTERNAL_CALL_Internal_SetMouseDelta(Event self, ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Internal_GetMouseDelta(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void Internal_SetNativeEvent(IntPtr ptr) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void Use() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool PopEvent(Event outEvent) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int GetEventCount() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		if (isKey)
+		{
+			return keyCode == obj2.keyCode;
+		}
+		if (isMouse)
+		{
+			return mousePosition == obj2.mousePosition;
+		}
+		return false;
 	}
+
+	public override string ToString()
+	{
+		if (isKey)
+		{
+			if (character == '\0')
+			{
+				return UnityString.Format("Event:{0}   Character:\\0   Modifiers:{1}   KeyCode:{2}", type, modifiers, keyCode);
+			}
+			return string.Concat("Event:", type, "   Character:", (int)character, "   Modifiers:", modifiers, "   KeyCode:", keyCode);
+		}
+		if (isMouse)
+		{
+			return UnityString.Format("Event: {0}   Position: {1} Modifiers: {2}", type, mousePosition, modifiers);
+		}
+		if (type == EventType.ExecuteCommand || type == EventType.ValidateCommand)
+		{
+			return UnityString.Format("Event: {0}  \"{1}\"", type, commandName);
+		}
+		return string.Empty + type;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Init();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Cleanup();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void InitCopy(Event other);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void InitPtr(IntPtr ptr);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern EventType GetTypeForControl(int controlID);
+
+	private void Internal_SetMousePosition(Vector2 value)
+	{
+		INTERNAL_CALL_Internal_SetMousePosition(this, ref value);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Internal_SetMousePosition(Event self, ref Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Internal_GetMousePosition(out Vector2 value);
+
+	private void Internal_SetMouseDelta(Vector2 value)
+	{
+		INTERNAL_CALL_Internal_SetMouseDelta(this, ref value);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Internal_SetMouseDelta(Event self, ref Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Internal_GetMouseDelta(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_SetNativeEvent(IntPtr ptr);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Use();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool PopEvent(Event outEvent);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetEventCount();
 }

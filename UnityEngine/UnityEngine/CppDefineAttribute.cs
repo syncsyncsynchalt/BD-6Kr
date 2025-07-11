@@ -1,12 +1,11 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true)]
+internal class CppDefineAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true)]
-	internal class CppDefineAttribute : Attribute
+	public CppDefineAttribute(string symbol, string value)
 	{
-		public CppDefineAttribute(string symbol, string value)
-		{
-		}
 	}
 }

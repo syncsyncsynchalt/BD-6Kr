@@ -1,41 +1,18 @@
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public interface IAchievementDescription
 {
-	public interface IAchievementDescription
-	{
-		string id
-		{
-			get;
-			set;
-		}
+	string id { get; set; }
 
-		string title
-		{
-			get;
-		}
+	string title { get; }
 
-		Texture2D image
-		{
-			get;
-		}
+	Texture2D image { get; }
 
-		string achievedDescription
-		{
-			get;
-		}
+	string achievedDescription { get; }
 
-		string unachievedDescription
-		{
-			get;
-		}
+	string unachievedDescription { get; }
 
-		bool hidden
-		{
-			get;
-		}
+	bool hidden { get; }
 
-		int points
-		{
-			get;
-		}
-	}
+	int points { get; }
 }

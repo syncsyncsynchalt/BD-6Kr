@@ -1,39 +1,52 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+internal sealed class GlobalConfigInternal : IDisposable
 {
-	internal sealed class GlobalConfigInternal : IDisposable
+	internal IntPtr m_Ptr;
+
+	public GlobalConfigInternal(GlobalConfig config)
 	{
-		internal IntPtr m_Ptr;
+		InitWrapper();
+		InitThreadAwakeTimeout(config.ThreadAwakeTimeout);
+		InitReactorModel((byte)config.ReactorModel);
+		InitReactorMaximumReceivedMessages(config.ReactorMaximumReceivedMessages);
+		InitReactorMaximumSentMessages(config.ReactorMaximumSentMessages);
+		InitMaxPacketSize(config.MaxPacketSize);
+	}
 
-		public GlobalConfigInternal(GlobalConfig config)
-		{
-			InitWrapper();
-			InitThreadAwakeTimeout(config.ThreadAwakeTimeout);
-			InitReactorModel((byte)config.ReactorModel);
-			InitReactorMaximumReceivedMessages(config.ReactorMaximumReceivedMessages);
-			InitReactorMaximumSentMessages(config.ReactorMaximumSentMessages);
-			InitMaxPacketSize(config.MaxPacketSize);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitWrapper();
 
-		public void InitWrapper() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitThreadAwakeTimeout(uint ms);
 
-		public void InitThreadAwakeTimeout(uint ms) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitReactorModel(byte model);
 
-		public void InitReactorModel(byte model) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitReactorMaximumReceivedMessages(ushort size);
 
-		public void InitReactorMaximumReceivedMessages(ushort size) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitReactorMaximumSentMessages(ushort size);
 
-		public void InitReactorMaximumSentMessages(ushort size) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMaxPacketSize(ushort size);
 
-		public void InitMaxPacketSize(ushort size) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Dispose();
 
-		public void Dispose() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~GlobalConfigInternal()
-		{
-			Dispose();
-		}
+	~GlobalConfigInternal()
+	{
+		Dispose();
 	}
 }

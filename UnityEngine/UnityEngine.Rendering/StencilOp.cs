@@ -1,14 +1,13 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum StencilOp
 {
-	public enum StencilOp
-	{
-		Keep,
-		Zero,
-		Replace,
-		IncrementSaturate,
-		DecrementSaturate,
-		Invert,
-		IncrementWrap,
-		DecrementWrap
-	}
+	Keep,
+	Zero,
+	Replace,
+	IncrementSaturate,
+	DecrementSaturate,
+	Invert,
+	IncrementWrap,
+	DecrementWrap
 }

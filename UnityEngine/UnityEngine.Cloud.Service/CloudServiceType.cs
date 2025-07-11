@@ -1,7 +1,6 @@
-namespace UnityEngine.Cloud.Service
+namespace UnityEngine.Cloud.Service;
+
+internal enum CloudServiceType
 {
-	internal enum CloudServiceType
-	{
-		Analytics = 1
-	}
+	Analytics = 1
 }

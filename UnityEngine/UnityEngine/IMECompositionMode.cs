@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum IMECompositionMode
 {
-	public enum IMECompositionMode
-	{
-		Auto,
-		On,
-		Off
-	}
+	Auto,
+	On,
+	Off
 }

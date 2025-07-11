@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ReflectionCubemapCompression
 {
-	public enum ReflectionCubemapCompression
-	{
-		Uncompressed,
-		Compressed,
-		Auto
-	}
+	Uncompressed,
+	Compressed,
+	Auto
 }

@@ -1,12 +1,11 @@
 using System;
 
-namespace AOT
+namespace AOT;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class MonoPInvokeCallbackAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Method)]
-	public class MonoPInvokeCallbackAttribute : Attribute
+	public MonoPInvokeCallbackAttribute(Type type)
 	{
-		public MonoPInvokeCallbackAttribute(Type type)
-		{
-		}
 	}
 }

@@ -1,17 +1,16 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Flags]
+public enum EventModifiers
 {
-	[Flags]
-	public enum EventModifiers
-	{
-		None = 0x0,
-		Shift = 0x1,
-		Control = 0x2,
-		Alt = 0x4,
-		Command = 0x8,
-		Numeric = 0x10,
-		CapsLock = 0x20,
-		FunctionKey = 0x40
-	}
+	None = 0,
+	Shift = 1,
+	Control = 2,
+	Alt = 4,
+	Command = 8,
+	Numeric = 0x10,
+	CapsLock = 0x20,
+	FunctionKey = 0x40
 }

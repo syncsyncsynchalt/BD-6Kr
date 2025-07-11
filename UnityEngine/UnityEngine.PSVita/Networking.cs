@@ -1,13 +1,16 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.PSVita
+namespace UnityEngine.PSVita;
+
+public sealed class Networking
 {
-	public sealed class Networking
+	public static extern bool enableUDPP2P
 	{
-		public static bool enableUDPP2P
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

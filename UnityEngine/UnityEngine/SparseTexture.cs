@@ -1,41 +1,53 @@
-using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class SparseTexture : Texture
 {
-	public sealed class SparseTexture : Texture
+	public extern int tileWidth
 	{
-		public int tileWidth
-		{
-			get;
-		}
-
-		public int tileHeight
-		{
-			get;
-		}
-
-		public bool isCreated
-		{
-			get;
-		}
-
-		public SparseTexture(int width, int height, TextureFormat format, int mipCount)
-		{
-			Internal_Create(this, width, height, format, mipCount, linear: false);
-		}
-
-		public SparseTexture(int width, int height, TextureFormat format, int mipCount, bool linear)
-		{
-			Internal_Create(this, width, height, format, mipCount, linear);
-		}
-
-		private static void Internal_Create([Writable] SparseTexture mono, int width, int height, TextureFormat format, int mipCount, bool linear) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void UpdateTile(int tileX, int tileY, int miplevel, Color32[] data) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void UpdateTileRaw(int tileX, int tileY, int miplevel, byte[] data) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void UnloadTile(int tileX, int tileY, int miplevel) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public extern int tileHeight
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool isCreated
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public SparseTexture(int width, int height, TextureFormat format, int mipCount)
+	{
+		Internal_Create(this, width, height, format, mipCount, linear: false);
+	}
+
+	public SparseTexture(int width, int height, TextureFormat format, int mipCount, bool linear)
+	{
+		Internal_Create(this, width, height, format, mipCount, linear);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_Create([Writable] SparseTexture mono, int width, int height, TextureFormat format, int mipCount, bool linear);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void UpdateTile(int tileX, int tileY, int miplevel, Color32[] data);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void UpdateTileRaw(int tileX, int tileY, int miplevel, byte[] data);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void UnloadTile(int tileX, int tileY, int miplevel);
 }

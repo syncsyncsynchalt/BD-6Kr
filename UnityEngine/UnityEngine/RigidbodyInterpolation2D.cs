@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RigidbodyInterpolation2D
 {
-	public enum RigidbodyInterpolation2D
-	{
-		None,
-		Interpolate,
-		Extrapolate
-	}
+	None,
+	Interpolate,
+	Extrapolate
 }

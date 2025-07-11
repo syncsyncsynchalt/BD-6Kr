@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum CullMode
 {
-	public enum CullMode
-	{
-		Off,
-		Front,
-		Back
-	}
+	Off,
+	Front,
+	Back
 }

@@ -1,52 +1,51 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct Resolution
 {
-	public struct Resolution
+	private int m_Width;
+
+	private int m_Height;
+
+	private int m_RefreshRate;
+
+	public int width
 	{
-		private int m_Width;
-
-		private int m_Height;
-
-		private int m_RefreshRate;
-
-		public int width
+		get
 		{
-			get
-			{
-				return m_Width;
-			}
-			set
-			{
-				m_Width = value;
-			}
+			return m_Width;
 		}
-
-		public int height
+		set
 		{
-			get
-			{
-				return m_Height;
-			}
-			set
-			{
-				m_Height = value;
-			}
+			m_Width = value;
 		}
+	}
 
-		public int refreshRate
+	public int height
+	{
+		get
 		{
-			get
-			{
-				return m_RefreshRate;
-			}
-			set
-			{
-				m_RefreshRate = value;
-			}
+			return m_Height;
 		}
+		set
+		{
+			m_Height = value;
+		}
+	}
 
-		public override string ToString()
+	public int refreshRate
+	{
+		get
 		{
-			return UnityString.Format("{0} x {1} @ {2}Hz", m_Width, m_Height, m_RefreshRate);
+			return m_RefreshRate;
 		}
+		set
+		{
+			m_RefreshRate = value;
+		}
+	}
+
+	public override string ToString()
+	{
+		return UnityString.Format("{0} x {1} @ {2}Hz", m_Width, m_Height, m_RefreshRate);
 	}
 }

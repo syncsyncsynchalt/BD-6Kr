@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum ColliderErrorState2D
 {
-	internal enum ColliderErrorState2D
-	{
-		None,
-		NoShapes,
-		RemovedShapes
-	}
+	None,
+	NoShapes,
+	RemovedShapes
 }

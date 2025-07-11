@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum CursorMode
 {
-	public enum CursorMode
-	{
-		Auto,
-		ForceSoftware
-	}
+	Auto,
+	ForceSoftware
 }

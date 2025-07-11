@@ -1,27 +1,26 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct ParticleCollisionEvent
 {
-	public struct ParticleCollisionEvent
-	{
-		private Vector3 m_Intersection;
+	private Vector3 m_Intersection;
 
-		private Vector3 m_Normal;
+	private Vector3 m_Normal;
 
-		private Vector3 m_Velocity;
+	private Vector3 m_Velocity;
 
-		private int m_ColliderInstanceID;
+	private int m_ColliderInstanceID;
 
-		public Vector3 intersection => m_Intersection;
+	public Vector3 intersection => m_Intersection;
 
-		public Vector3 normal => m_Normal;
+	public Vector3 normal => m_Normal;
 
-		public Vector3 velocity => m_Velocity;
+	public Vector3 velocity => m_Velocity;
 
-		public Collider collider => InstanceIDToCollider(m_ColliderInstanceID);
+	public Collider collider => InstanceIDToCollider(m_ColliderInstanceID);
 
-		private static Collider InstanceIDToCollider(int instanceID) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern Collider InstanceIDToCollider(int instanceID);
 }

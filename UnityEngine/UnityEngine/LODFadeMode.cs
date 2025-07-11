@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LODFadeMode
 {
-	public enum LODFadeMode
-	{
-		None,
-		CrossFade,
-		SpeedTree
-	}
+	None,
+	CrossFade,
+	SpeedTree
 }

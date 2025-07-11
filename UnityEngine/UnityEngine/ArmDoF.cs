@@ -1,16 +1,15 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum ArmDoF
 {
-	internal enum ArmDoF
-	{
-		ShoulderDownUp,
-		ShoulderFrontBack,
-		ArmDownUp,
-		ArmFrontBack,
-		ArmRollInOut,
-		ForeArmCloseOpen,
-		ForeArmRollInOut,
-		HandDownUp,
-		HandInOut,
-		LastArmDoF
-	}
+	ShoulderDownUp,
+	ShoulderFrontBack,
+	ArmDownUp,
+	ArmFrontBack,
+	ArmRollInOut,
+	ForeArmCloseOpen,
+	ForeArmRollInOut,
+	HandDownUp,
+	HandInOut,
+	LastArmDoF
 }

@@ -1,25 +1,32 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.VR
+namespace UnityEngine.VR;
+
+public sealed class VRDevice
 {
-	public sealed class VRDevice
+	public static extern bool isPresent
 	{
-		public static bool isPresent
-		{
-			get;
-		}
-
-		public static string family
-		{
-			get;
-		}
-
-		public static string model
-		{
-			get;
-		}
-
-		public static IntPtr GetNativePtr() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public static extern string family
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string model
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern IntPtr GetNativePtr();
 }

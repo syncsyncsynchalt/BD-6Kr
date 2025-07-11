@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum StackTraceLogType
 {
-	public enum StackTraceLogType
-	{
-		None,
-		ScriptOnly,
-		Full
-	}
+	None,
+	ScriptOnly,
+	Full
 }

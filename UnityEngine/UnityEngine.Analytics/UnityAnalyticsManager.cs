@@ -1,52 +1,77 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Analytics
+namespace UnityEngine.Analytics;
+
+internal class UnityAnalyticsManager
 {
-	internal class UnityAnalyticsManager
+	public static extern bool enabled
 	{
-		public static bool enabled
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static bool initializeOnStartup
-		{
-			get;
-			set;
-		}
+	public static extern bool initializeOnStartup
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static bool testMode
-		{
-			get;
-			set;
-		}
+	public static extern bool testMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static string testEventUrl
-		{
-			get;
-			set;
-		}
+	public static extern string testEventUrl
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static string testConfigUrl
-		{
-			get;
-			set;
-		}
+	public static extern string testConfigUrl
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static string unityAdsId
-		{
-			get;
-		}
+	public static extern string unityAdsId
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static bool unityAdsTrackingEnabled
-		{
-			get;
-		}
+	public static extern bool unityAdsTrackingEnabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static string deviceUniqueIdentifier
-		{
-			get;
-		}
+	public static extern string deviceUniqueIdentifier
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
 }

@@ -2,183 +2,252 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class SystemInfo
 {
-	public sealed class SystemInfo
+	public static extern string operatingSystem
 	{
-		public static string operatingSystem
-		{
-			get;
-		}
-
-		public static string processorType
-		{
-			get;
-		}
-
-		public static int processorCount
-		{
-			get;
-		}
-
-		public static int systemMemorySize
-		{
-			get;
-		}
-
-		public static int graphicsMemorySize
-		{
-			get;
-		}
-
-		public static string graphicsDeviceName
-		{
-			get;
-		}
-
-		public static string graphicsDeviceVendor
-		{
-			get;
-		}
-
-		public static int graphicsDeviceID
-		{
-			get;
-		}
-
-		public static int graphicsDeviceVendorID
-		{
-			get;
-		}
-
-		public static GraphicsDeviceType graphicsDeviceType
-		{
-			get;
-		}
-
-		public static string graphicsDeviceVersion
-		{
-			get;
-		}
-
-		public static int graphicsShaderLevel
-		{
-			get;
-		}
-
-		[Obsolete("graphicsPixelFillrate is no longer supported in Unity 5.0+.")]
-		public static int graphicsPixelFillrate => -1;
-
-		[Obsolete("Vertex program support is required in Unity 5.0+")]
-		public static bool supportsVertexPrograms => true;
-
-		public static bool graphicsMultiThreaded
-		{
-			get;
-		}
-
-		public static bool supportsShadows
-		{
-			get;
-		}
-
-		public static bool supportsRenderTextures
-		{
-			get;
-		}
-
-		public static bool supportsRenderToCubemap
-		{
-			get;
-		}
-
-		public static bool supportsImageEffects
-		{
-			get;
-		}
-
-		public static bool supports3DTextures
-		{
-			get;
-		}
-
-		public static bool supportsComputeShaders
-		{
-			get;
-		}
-
-		public static bool supportsInstancing
-		{
-			get;
-		}
-
-		public static bool supportsSparseTextures
-		{
-			get;
-		}
-
-		public static int supportedRenderTargetCount
-		{
-			get;
-		}
-
-		public static int supportsStencil
-		{
-			get;
-		}
-
-		public static NPOTSupport npotSupport
-		{
-			get;
-		}
-
-		public static string deviceUniqueIdentifier
-		{
-			get;
-		}
-
-		public static string deviceName
-		{
-			get;
-		}
-
-		public static string deviceModel
-		{
-			get;
-		}
-
-		public static bool supportsAccelerometer
-		{
-			get;
-		}
-
-		public static bool supportsGyroscope
-		{
-			get;
-		}
-
-		public static bool supportsLocationService
-		{
-			get;
-		}
-
-		public static bool supportsVibration
-		{
-			get;
-		}
-
-		public static DeviceType deviceType
-		{
-			get;
-		}
-
-		public static int maxTextureSize
-		{
-			get;
-		}
-
-		public static bool SupportsRenderTextureFormat(RenderTextureFormat format) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool SupportsTextureFormat(TextureFormat format) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public static extern string processorType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int processorCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int systemMemorySize
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int graphicsMemorySize
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string graphicsDeviceName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string graphicsDeviceVendor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int graphicsDeviceID
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int graphicsDeviceVendorID
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern GraphicsDeviceType graphicsDeviceType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string graphicsDeviceVersion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int graphicsShaderLevel
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[Obsolete("graphicsPixelFillrate is no longer supported in Unity 5.0+.")]
+	public static int graphicsPixelFillrate => -1;
+
+	[Obsolete("Vertex program support is required in Unity 5.0+")]
+	public static bool supportsVertexPrograms => true;
+
+	public static extern bool graphicsMultiThreaded
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsShadows
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsRenderTextures
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsRenderToCubemap
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsImageEffects
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supports3DTextures
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsComputeShaders
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsInstancing
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsSparseTextures
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int supportedRenderTargetCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int supportsStencil
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern NPOTSupport npotSupport
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string deviceUniqueIdentifier
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string deviceName
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string deviceModel
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsAccelerometer
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsGyroscope
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsLocationService
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool supportsVibration
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern DeviceType deviceType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int maxTextureSize
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool SupportsRenderTextureFormat(RenderTextureFormat format);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool SupportsTextureFormat(TextureFormat format);
 }

@@ -1,15 +1,14 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TouchScreenKeyboardType
 {
-	public enum TouchScreenKeyboardType
-	{
-		Default,
-		ASCIICapable,
-		NumbersAndPunctuation,
-		URL,
-		NumberPad,
-		PhonePad,
-		NamePhonePad,
-		EmailAddress,
-		NintendoNetworkAccount
-	}
+	Default,
+	ASCIICapable,
+	NumbersAndPunctuation,
+	URL,
+	NumberPad,
+	PhonePad,
+	NamePhonePad,
+	EmailAddress,
+	NintendoNetworkAccount
 }

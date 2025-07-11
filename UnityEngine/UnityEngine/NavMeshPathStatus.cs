@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NavMeshPathStatus
 {
-	public enum NavMeshPathStatus
-	{
-		PathComplete,
-		PathPartial,
-		PathInvalid
-	}
+	PathComplete,
+	PathPartial,
+	PathInvalid
 }

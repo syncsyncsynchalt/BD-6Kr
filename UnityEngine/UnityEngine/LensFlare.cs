@@ -1,44 +1,57 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class LensFlare : Behaviour
 {
-	public sealed class LensFlare : Behaviour
+	public extern Flare flare
 	{
-		public Flare flare
-		{
-			get;
-			set;
-		}
-
-		public float brightness
-		{
-			get;
-			set;
-		}
-
-		public float fadeSpeed
-		{
-			get;
-			set;
-		}
-
-		public Color color
-		{
-			get
-			{
-				INTERNAL_get_color(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_color(ref value);
-			}
-		}
-
-		private void INTERNAL_get_color(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_color(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public extern float brightness
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float fadeSpeed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Color color
+	{
+		get
+		{
+			INTERNAL_get_color(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_color(ref value);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_color(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_color(ref Color value);
 }

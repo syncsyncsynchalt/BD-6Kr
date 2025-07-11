@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum FogMode
 {
-	public enum FogMode
-	{
-		Linear = 1,
-		Exponential,
-		ExponentialSquared
-	}
+	Linear = 1,
+	Exponential,
+	ExponentialSquared
 }

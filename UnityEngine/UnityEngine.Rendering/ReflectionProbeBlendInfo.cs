@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
-{
-	public struct ReflectionProbeBlendInfo
-	{
-		public ReflectionProbe probe;
+namespace UnityEngine.Rendering;
 
-		public float weight;
-	}
+public struct ReflectionProbeBlendInfo
+{
+	public ReflectionProbe probe;
+
+	public float weight;
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
-{
-	public struct UICharInfo
-	{
-		public Vector2 cursorPos;
+namespace UnityEngine;
 
-		public float charWidth;
-	}
+public struct UICharInfo
+{
+	public Vector2 cursorPos;
+
+	public float charWidth;
 }

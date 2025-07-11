@@ -1,13 +1,12 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct WebCamDevice
 {
-	public struct WebCamDevice
-	{
-		internal string m_Name;
+	internal string m_Name;
 
-		internal int m_Flags;
+	internal int m_Flags;
 
-		public string name => m_Name;
+	public string name => m_Name;
 
-		public bool isFrontFacing => (m_Flags & 1) == 1;
-	}
+	public bool isFrontFacing => (m_Flags & 1) == 1;
 }

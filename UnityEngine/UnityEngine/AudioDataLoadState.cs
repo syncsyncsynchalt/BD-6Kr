@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AudioDataLoadState
 {
-	public enum AudioDataLoadState
-	{
-		Unloaded,
-		Loading,
-		Loaded,
-		Failed
-	}
+	Unloaded,
+	Loading,
+	Loaded,
+	Failed
 }

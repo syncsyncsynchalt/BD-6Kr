@@ -1,12 +1,11 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum JointProjectionMode
 {
-	public enum JointProjectionMode
-	{
-		None,
-		PositionAndRotation,
-		[Obsolete("JointProjectionMode.PositionOnly is no longer supported", true)]
-		PositionOnly
-	}
+	None,
+	PositionAndRotation,
+	[Obsolete("JointProjectionMode.PositionOnly is no longer supported", true)]
+	PositionOnly
 }

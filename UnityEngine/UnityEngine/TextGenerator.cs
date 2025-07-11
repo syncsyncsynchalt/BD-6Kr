@@ -3,233 +3,260 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class TextGenerator : IDisposable
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class TextGenerator : IDisposable
+	internal IntPtr m_Ptr;
+
+	private string m_LastString;
+
+	private TextGenerationSettings m_LastSettings;
+
+	private bool m_HasGenerated;
+
+	private bool m_LastValid;
+
+	private readonly List<UIVertex> m_Verts;
+
+	private readonly List<UICharInfo> m_Characters;
+
+	private readonly List<UILineInfo> m_Lines;
+
+	private bool m_CachedVerts;
+
+	private bool m_CachedCharacters;
+
+	private bool m_CachedLines;
+
+	public Rect rectExtents
 	{
-		internal IntPtr m_Ptr;
-
-		private string m_LastString;
-
-		private TextGenerationSettings m_LastSettings;
-
-		private bool m_HasGenerated;
-
-		private bool m_LastValid;
-
-		private readonly List<UIVertex> m_Verts;
-
-		private readonly List<UICharInfo> m_Characters;
-
-		private readonly List<UILineInfo> m_Lines;
-
-		private bool m_CachedVerts;
-
-		private bool m_CachedCharacters;
-
-		private bool m_CachedLines;
-
-		public Rect rectExtents
+		get
 		{
-			get
+			INTERNAL_get_rectExtents(out var value);
+			return value;
+		}
+	}
+
+	public extern int vertexCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern int characterCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public int characterCountVisible => (!string.IsNullOrEmpty(m_LastString)) ? Mathf.Min(m_LastString.Length, Mathf.Max(0, (vertexCount - 4) / 4)) : 0;
+
+	public extern int lineCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern int fontSizeUsedForBestFit
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public IList<UIVertex> verts
+	{
+		get
+		{
+			if (!m_CachedVerts)
 			{
-				INTERNAL_get_rectExtents(out Rect value);
-				return value;
+				GetVertices(m_Verts);
+				m_CachedVerts = true;
 			}
+			return m_Verts;
 		}
+	}
 
-		public int vertexCount
+	public IList<UICharInfo> characters
+	{
+		get
 		{
-			get;
-		}
-
-		public int characterCount
-		{
-			get;
-		}
-
-		public int characterCountVisible => (!string.IsNullOrEmpty(m_LastString)) ? Mathf.Min(m_LastString.Length, Mathf.Max(0, (vertexCount - 4) / 4)) : 0;
-
-		public int lineCount
-		{
-			get;
-		}
-
-		public int fontSizeUsedForBestFit
-		{
-			get;
-		}
-
-		public IList<UIVertex> verts
-		{
-			get
+			if (!m_CachedCharacters)
 			{
-				if (!m_CachedVerts)
-				{
-					GetVertices(m_Verts);
-					m_CachedVerts = true;
-				}
-				return m_Verts;
+				GetCharacters(m_Characters);
+				m_CachedCharacters = true;
 			}
+			return m_Characters;
 		}
+	}
 
-		public IList<UICharInfo> characters
+	public IList<UILineInfo> lines
+	{
+		get
 		{
-			get
+			if (!m_CachedLines)
 			{
-				if (!m_CachedCharacters)
-				{
-					GetCharacters(m_Characters);
-					m_CachedCharacters = true;
-				}
-				return m_Characters;
+				GetLines(m_Lines);
+				m_CachedLines = true;
 			}
+			return m_Lines;
 		}
+	}
 
-		public IList<UILineInfo> lines
+	public TextGenerator()
+		: this(50)
+	{
+	}
+
+	public TextGenerator(int initialCapacity)
+	{
+		m_Verts = new List<UIVertex>((initialCapacity + 1) * 4);
+		m_Characters = new List<UICharInfo>(initialCapacity + 1);
+		m_Lines = new List<UILineInfo>(20);
+		Init();
+	}
+
+	void IDisposable.Dispose()
+	{
+		Dispose_cpp();
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Init();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Dispose_cpp();
+
+	internal bool Populate_Internal(string str, Font font, Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, VerticalWrapMode verticalOverFlow, HorizontalWrapMode horizontalOverflow, bool updateBounds, TextAnchor anchor, Vector2 extents, Vector2 pivot, bool generateOutOfBounds)
+	{
+		return Populate_Internal_cpp(str, font, color, fontSize, scaleFactor, lineSpacing, style, richText, resizeTextForBestFit, resizeTextMinSize, resizeTextMaxSize, (int)verticalOverFlow, (int)horizontalOverflow, updateBounds, anchor, extents.x, extents.y, pivot.x, pivot.y, generateOutOfBounds);
+	}
+
+	internal bool Populate_Internal_cpp(string str, Font font, Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, int verticalOverFlow, int horizontalOverflow, bool updateBounds, TextAnchor anchor, float extentsX, float extentsY, float pivotX, float pivotY, bool generateOutOfBounds)
+	{
+		return INTERNAL_CALL_Populate_Internal_cpp(this, str, font, ref color, fontSize, scaleFactor, lineSpacing, style, richText, resizeTextForBestFit, resizeTextMinSize, resizeTextMaxSize, verticalOverFlow, horizontalOverflow, updateBounds, anchor, extentsX, extentsY, pivotX, pivotY, generateOutOfBounds);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_Populate_Internal_cpp(TextGenerator self, string str, Font font, ref Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, int verticalOverFlow, int horizontalOverflow, bool updateBounds, TextAnchor anchor, float extentsX, float extentsY, float pivotX, float pivotY, bool generateOutOfBounds);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_rectExtents(out Rect value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetVerticesInternal(object vertices);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern UIVertex[] GetVerticesArray();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetCharactersInternal(object characters);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern UICharInfo[] GetCharactersArray();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetLinesInternal(object lines);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern UILineInfo[] GetLinesArray();
+
+	~TextGenerator()
+	{
+		((IDisposable)this).Dispose();
+	}
+
+	private TextGenerationSettings ValidatedSettings(TextGenerationSettings settings)
+	{
+		if (settings.font != null && settings.font.dynamic)
 		{
-			get
-			{
-				if (!m_CachedLines)
-				{
-					GetLines(m_Lines);
-					m_CachedLines = true;
-				}
-				return m_Lines;
-			}
-		}
-
-		public TextGenerator()
-			: this(50)
-		{
-		}
-
-		public TextGenerator(int initialCapacity)
-		{
-			m_Verts = new List<UIVertex>((initialCapacity + 1) * 4);
-			m_Characters = new List<UICharInfo>(initialCapacity + 1);
-			m_Lines = new List<UILineInfo>(20);
-			Init();
-		}
-
-		void IDisposable.Dispose()
-		{
-			Dispose_cpp();
-		}
-
-		private void Init() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Dispose_cpp() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal bool Populate_Internal(string str, Font font, Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, VerticalWrapMode verticalOverFlow, HorizontalWrapMode horizontalOverflow, bool updateBounds, TextAnchor anchor, Vector2 extents, Vector2 pivot, bool generateOutOfBounds)
-		{
-			return Populate_Internal_cpp(str, font, color, fontSize, scaleFactor, lineSpacing, style, richText, resizeTextForBestFit, resizeTextMinSize, resizeTextMaxSize, (int)verticalOverFlow, (int)horizontalOverflow, updateBounds, anchor, extents.x, extents.y, pivot.x, pivot.y, generateOutOfBounds);
-		}
-
-		internal bool Populate_Internal_cpp(string str, Font font, Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, int verticalOverFlow, int horizontalOverflow, bool updateBounds, TextAnchor anchor, float extentsX, float extentsY, float pivotX, float pivotY, bool generateOutOfBounds)
-		{
-			return INTERNAL_CALL_Populate_Internal_cpp(this, str, font, ref color, fontSize, scaleFactor, lineSpacing, style, richText, resizeTextForBestFit, resizeTextMinSize, resizeTextMaxSize, verticalOverFlow, horizontalOverflow, updateBounds, anchor, extentsX, extentsY, pivotX, pivotY, generateOutOfBounds);
-		}
-
-		private static bool INTERNAL_CALL_Populate_Internal_cpp(TextGenerator self, string str, Font font, ref Color color, int fontSize, float scaleFactor, float lineSpacing, FontStyle style, bool richText, bool resizeTextForBestFit, int resizeTextMinSize, int resizeTextMaxSize, int verticalOverFlow, int horizontalOverflow, bool updateBounds, TextAnchor anchor, float extentsX, float extentsY, float pivotX, float pivotY, bool generateOutOfBounds) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_rectExtents(out Rect value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetVerticesInternal(object vertices) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public UIVertex[] GetVerticesArray() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetCharactersInternal(object characters) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public UICharInfo[] GetCharactersArray() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetLinesInternal(object lines) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public UILineInfo[] GetLinesArray() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~TextGenerator()
-		{
-			((IDisposable)this).Dispose();
-		}
-
-		private TextGenerationSettings ValidatedSettings(TextGenerationSettings settings)
-		{
-			if (settings.font != null && settings.font.dynamic)
-			{
-				return settings;
-			}
-			if (settings.fontSize != 0 || settings.fontStyle != 0)
-			{
-				Debug.LogWarning("Font size and style overrides are only supported for dynamic fonts.");
-				settings.fontSize = 0;
-				settings.fontStyle = FontStyle.Normal;
-			}
-			if (settings.resizeTextForBestFit)
-			{
-				Debug.LogWarning("BestFit is only suppoerted for dynamic fonts.");
-				settings.resizeTextForBestFit = false;
-			}
 			return settings;
 		}
-
-		public void Invalidate()
+		if (settings.fontSize != 0 || settings.fontStyle != FontStyle.Normal)
 		{
-			m_HasGenerated = false;
+			Debug.LogWarning("Font size and style overrides are only supported for dynamic fonts.");
+			settings.fontSize = 0;
+			settings.fontStyle = FontStyle.Normal;
 		}
-
-		public void GetCharacters(List<UICharInfo> characters)
+		if (settings.resizeTextForBestFit)
 		{
-			GetCharactersInternal(characters);
+			Debug.LogWarning("BestFit is only suppoerted for dynamic fonts.");
+			settings.resizeTextForBestFit = false;
 		}
+		return settings;
+	}
 
-		public void GetLines(List<UILineInfo> lines)
-		{
-			GetLinesInternal(lines);
-		}
+	public void Invalidate()
+	{
+		m_HasGenerated = false;
+	}
 
-		public void GetVertices(List<UIVertex> vertices)
-		{
-			GetVerticesInternal(vertices);
-		}
+	public void GetCharacters(List<UICharInfo> characters)
+	{
+		GetCharactersInternal(characters);
+	}
 
-		public float GetPreferredWidth(string str, TextGenerationSettings settings)
-		{
-			settings.horizontalOverflow = HorizontalWrapMode.Overflow;
-			settings.verticalOverflow = VerticalWrapMode.Overflow;
-			settings.updateBounds = true;
-			Populate(str, settings);
-			return rectExtents.width;
-		}
+	public void GetLines(List<UILineInfo> lines)
+	{
+		GetLinesInternal(lines);
+	}
 
-		public float GetPreferredHeight(string str, TextGenerationSettings settings)
-		{
-			settings.verticalOverflow = VerticalWrapMode.Overflow;
-			settings.updateBounds = true;
-			Populate(str, settings);
-			return rectExtents.height;
-		}
+	public void GetVertices(List<UIVertex> vertices)
+	{
+		GetVerticesInternal(vertices);
+	}
 
-		public bool Populate(string str, TextGenerationSettings settings)
-		{
-			if (m_HasGenerated && str == m_LastString && settings.Equals(m_LastSettings))
-			{
-				return m_LastValid;
-			}
-			return PopulateAlways(str, settings);
-		}
+	public float GetPreferredWidth(string str, TextGenerationSettings settings)
+	{
+		settings.horizontalOverflow = HorizontalWrapMode.Overflow;
+		settings.verticalOverflow = VerticalWrapMode.Overflow;
+		settings.updateBounds = true;
+		Populate(str, settings);
+		return rectExtents.width;
+	}
 
-		private bool PopulateAlways(string str, TextGenerationSettings settings)
+	public float GetPreferredHeight(string str, TextGenerationSettings settings)
+	{
+		settings.verticalOverflow = VerticalWrapMode.Overflow;
+		settings.updateBounds = true;
+		Populate(str, settings);
+		return rectExtents.height;
+	}
+
+	public bool Populate(string str, TextGenerationSettings settings)
+	{
+		if (m_HasGenerated && str == m_LastString && settings.Equals(m_LastSettings))
 		{
-			m_LastString = str;
-			m_HasGenerated = true;
-			m_CachedVerts = false;
-			m_CachedCharacters = false;
-			m_CachedLines = false;
-			m_LastSettings = settings;
-			TextGenerationSettings textGenerationSettings = ValidatedSettings(settings);
-			m_LastValid = Populate_Internal(str, textGenerationSettings.font, textGenerationSettings.color, textGenerationSettings.fontSize, textGenerationSettings.scaleFactor, textGenerationSettings.lineSpacing, textGenerationSettings.fontStyle, textGenerationSettings.richText, textGenerationSettings.resizeTextForBestFit, textGenerationSettings.resizeTextMinSize, textGenerationSettings.resizeTextMaxSize, textGenerationSettings.verticalOverflow, textGenerationSettings.horizontalOverflow, textGenerationSettings.updateBounds, textGenerationSettings.textAnchor, textGenerationSettings.generationExtents, textGenerationSettings.pivot, textGenerationSettings.generateOutOfBounds);
 			return m_LastValid;
 		}
+		return PopulateAlways(str, settings);
+	}
+
+	private bool PopulateAlways(string str, TextGenerationSettings settings)
+	{
+		m_LastString = str;
+		m_HasGenerated = true;
+		m_CachedVerts = false;
+		m_CachedCharacters = false;
+		m_CachedLines = false;
+		m_LastSettings = settings;
+		TextGenerationSettings textGenerationSettings = ValidatedSettings(settings);
+		m_LastValid = Populate_Internal(str, textGenerationSettings.font, textGenerationSettings.color, textGenerationSettings.fontSize, textGenerationSettings.scaleFactor, textGenerationSettings.lineSpacing, textGenerationSettings.fontStyle, textGenerationSettings.richText, textGenerationSettings.resizeTextForBestFit, textGenerationSettings.resizeTextMinSize, textGenerationSettings.resizeTextMaxSize, textGenerationSettings.verticalOverflow, textGenerationSettings.horizontalOverflow, textGenerationSettings.updateBounds, textGenerationSettings.textAnchor, textGenerationSettings.generationExtents, textGenerationSettings.pivot, textGenerationSettings.generateOutOfBounds);
+		return m_LastValid;
 	}
 }

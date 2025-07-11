@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RenderTextureReadWrite
 {
-	public enum RenderTextureReadWrite
-	{
-		Default,
-		Linear,
-		sRGB
-	}
+	Default,
+	Linear,
+	sRGB
 }

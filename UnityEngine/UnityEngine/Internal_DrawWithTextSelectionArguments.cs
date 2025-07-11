@@ -1,29 +1,28 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal struct Internal_DrawWithTextSelectionArguments
 {
-	internal struct Internal_DrawWithTextSelectionArguments
-	{
-		public IntPtr target;
+	public IntPtr target;
 
-		public Rect position;
+	public Rect position;
 
-		public int firstPos;
+	public int firstPos;
 
-		public int lastPos;
+	public int lastPos;
 
-		public Color cursorColor;
+	public Color cursorColor;
 
-		public Color selectionColor;
+	public Color selectionColor;
 
-		public int isHover;
+	public int isHover;
 
-		public int isActive;
+	public int isActive;
 
-		public int on;
+	public int on;
 
-		public int hasKeyboardFocus;
+	public int hasKeyboardFocus;
 
-		public int drawSelectionAsComposition;
-	}
+	public int drawSelectionAsComposition;
 }

@@ -1,13 +1,16 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class LightProbeGroup : Component
 {
-	public sealed class LightProbeGroup : Component
+	public extern Vector3[] probePositions
 	{
-		public Vector3[] probePositions
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

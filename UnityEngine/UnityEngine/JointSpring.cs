@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointSpring
 {
-	public struct JointSpring
-	{
-		public float spring;
+	public float spring;
 
-		public float damper;
+	public float damper;
 
-		public float targetPosition;
-	}
+	public float targetPosition;
 }

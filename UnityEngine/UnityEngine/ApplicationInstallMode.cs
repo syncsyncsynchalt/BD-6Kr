@@ -1,12 +1,11 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ApplicationInstallMode
 {
-	public enum ApplicationInstallMode
-	{
-		Unknown,
-		Store,
-		DeveloperBuild,
-		Adhoc,
-		Enterprise,
-		Editor
-	}
+	Unknown,
+	Store,
+	DeveloperBuild,
+	Adhoc,
+	Enterprise,
+	Editor
 }

@@ -1,47 +1,46 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointMotor
 {
-	public struct JointMotor
+	private float m_TargetVelocity;
+
+	private float m_Force;
+
+	private int m_FreeSpin;
+
+	public float targetVelocity
 	{
-		private float m_TargetVelocity;
-
-		private float m_Force;
-
-		private int m_FreeSpin;
-
-		public float targetVelocity
+		get
 		{
-			get
-			{
-				return m_TargetVelocity;
-			}
-			set
-			{
-				m_TargetVelocity = value;
-			}
+			return m_TargetVelocity;
 		}
-
-		public float force
+		set
 		{
-			get
-			{
-				return m_Force;
-			}
-			set
-			{
-				m_Force = value;
-			}
+			m_TargetVelocity = value;
 		}
+	}
 
-		public bool freeSpin
+	public float force
+	{
+		get
 		{
-			get
-			{
-				return m_FreeSpin == 1;
-			}
-			set
-			{
-				m_FreeSpin = (value ? 1 : 0);
-			}
+			return m_Force;
+		}
+		set
+		{
+			m_Force = value;
+		}
+	}
+
+	public bool freeSpin
+	{
+		get
+		{
+			return m_FreeSpin == 1;
+		}
+		set
+		{
+			m_FreeSpin = (value ? 1 : 0);
 		}
 	}
 }

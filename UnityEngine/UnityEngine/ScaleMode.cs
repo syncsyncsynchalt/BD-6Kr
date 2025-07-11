@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ScaleMode
 {
-	public enum ScaleMode
-	{
-		StretchToFill,
-		ScaleAndCrop,
-		ScaleToFit
-	}
+	StretchToFill,
+	ScaleAndCrop,
+	ScaleToFit
 }

@@ -1,75 +1,74 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct HumanLimit
 {
-	public struct HumanLimit
+	private Vector3 m_Min;
+
+	private Vector3 m_Max;
+
+	private Vector3 m_Center;
+
+	private float m_AxisLength;
+
+	private int m_UseDefaultValues;
+
+	public bool useDefaultValues
 	{
-		private Vector3 m_Min;
-
-		private Vector3 m_Max;
-
-		private Vector3 m_Center;
-
-		private float m_AxisLength;
-
-		private int m_UseDefaultValues;
-
-		public bool useDefaultValues
+		get
 		{
-			get
-			{
-				return m_UseDefaultValues != 0;
-			}
-			set
-			{
-				m_UseDefaultValues = (value ? 1 : 0);
-			}
+			return m_UseDefaultValues != 0;
 		}
-
-		public Vector3 min
+		set
 		{
-			get
-			{
-				return m_Min;
-			}
-			set
-			{
-				m_Min = value;
-			}
+			m_UseDefaultValues = (value ? 1 : 0);
 		}
+	}
 
-		public Vector3 max
+	public Vector3 min
+	{
+		get
 		{
-			get
-			{
-				return m_Max;
-			}
-			set
-			{
-				m_Max = value;
-			}
+			return m_Min;
 		}
-
-		public Vector3 center
+		set
 		{
-			get
-			{
-				return m_Center;
-			}
-			set
-			{
-				m_Center = value;
-			}
+			m_Min = value;
 		}
+	}
 
-		public float axisLength
+	public Vector3 max
+	{
+		get
 		{
-			get
-			{
-				return m_AxisLength;
-			}
-			set
-			{
-				m_AxisLength = value;
-			}
+			return m_Max;
+		}
+		set
+		{
+			m_Max = value;
+		}
+	}
+
+	public Vector3 center
+	{
+		get
+		{
+			return m_Center;
+		}
+		set
+		{
+			m_Center = value;
+		}
+	}
+
+	public float axisLength
+	{
+		get
+		{
+			return m_AxisLength;
+		}
+		set
+		{
+			m_AxisLength = value;
 		}
 	}
 }

@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ObstacleAvoidanceType
 {
-	public enum ObstacleAvoidanceType
-	{
-		NoObstacleAvoidance,
-		LowQualityObstacleAvoidance,
-		MedQualityObstacleAvoidance,
-		GoodQualityObstacleAvoidance,
-		HighQualityObstacleAvoidance
-	}
+	NoObstacleAvoidance,
+	LowQualityObstacleAvoidance,
+	MedQualityObstacleAvoidance,
+	GoodQualityObstacleAvoidance,
+	HighQualityObstacleAvoidance
 }

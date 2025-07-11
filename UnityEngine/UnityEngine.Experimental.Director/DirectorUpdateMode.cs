@@ -1,10 +1,9 @@
-namespace UnityEngine.Experimental.Director
+namespace UnityEngine.Experimental.Director;
+
+public enum DirectorUpdateMode
 {
-	public enum DirectorUpdateMode
-	{
-		DSPClock,
-		GameTime,
-		UnscaledGameTime,
-		Manual
-	}
+	DSPClock,
+	GameTime,
+	UnscaledGameTime,
+	Manual
 }

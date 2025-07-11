@@ -1,10 +1,9 @@
 using System;
 using System.Diagnostics;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Conditional("UNITY_WINRT")]
+internal class MarshallOnlyFirstField : Attribute
 {
-	[Conditional("UNITY_WINRT")]
-	internal class MarshallOnlyFirstField : Attribute
-	{
-	}
 }

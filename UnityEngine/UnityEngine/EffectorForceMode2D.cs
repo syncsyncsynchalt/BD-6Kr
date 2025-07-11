@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum EffectorForceMode2D
 {
-	public enum EffectorForceMode2D
-	{
-		Constant,
-		InverseLinear,
-		InverseSquared
-	}
+	Constant,
+	InverseLinear,
+	InverseSquared
 }

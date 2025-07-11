@@ -1,34 +1,43 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Ping
 {
-	public sealed class Ping
+	private IntPtr pingWrapper;
+
+	public extern bool isDone
 	{
-		private IntPtr pingWrapper;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool isDone
-		{
-			get;
-		}
+	public extern int time
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public int time
-		{
-			get;
-		}
+	public extern string ip
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public string ip
-		{
-			get;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Ping(string address);
 
-		public Ping(string address) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void DestroyPing();
 
-		public void DestroyPing() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~Ping()
-		{
-			DestroyPing();
-		}
+	~Ping()
+	{
+		DestroyPing();
 	}
 }

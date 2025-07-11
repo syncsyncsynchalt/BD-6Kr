@@ -1,11 +1,10 @@
-namespace UnityEngine.VR
+namespace UnityEngine.VR;
+
+public enum VRDeviceType
 {
-	public enum VRDeviceType
-	{
-		None,
-		Stereo,
-		Split,
-		Oculus,
-		Morpheus
-	}
+	None,
+	Stereo,
+	Split,
+	Oculus,
+	Morpheus
 }

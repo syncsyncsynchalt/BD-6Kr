@@ -1,15 +1,14 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct SkeletonBone
 {
-	public struct SkeletonBone
-	{
-		public string name;
+	public string name;
 
-		public Vector3 position;
+	public Vector3 position;
 
-		public Quaternion rotation;
+	public Quaternion rotation;
 
-		public Vector3 scale;
+	public Vector3 scale;
 
-		public int transformModified;
-	}
+	public int transformModified;
 }

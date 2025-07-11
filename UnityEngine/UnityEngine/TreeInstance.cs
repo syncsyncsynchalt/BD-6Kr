@@ -1,21 +1,20 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct TreeInstance
 {
-	public struct TreeInstance
-	{
-		public Vector3 position;
+	public Vector3 position;
 
-		public float widthScale;
+	public float widthScale;
 
-		public float heightScale;
+	public float heightScale;
 
-		public float rotation;
+	public float rotation;
 
-		public Color32 color;
+	public Color32 color;
 
-		public Color32 lightmapColor;
+	public Color32 lightmapColor;
 
-		public int prototypeIndex;
+	public int prototypeIndex;
 
-		internal float temporaryDistance;
-	}
+	internal float temporaryDistance;
 }

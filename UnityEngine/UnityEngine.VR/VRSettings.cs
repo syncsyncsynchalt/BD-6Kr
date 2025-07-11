@@ -1,31 +1,46 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.VR
+namespace UnityEngine.VR;
+
+public sealed class VRSettings
 {
-	public sealed class VRSettings
+	public static extern bool enabled
 	{
-		public static bool enabled
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static bool showDeviceView
-		{
-			get;
-			set;
-		}
+	public static extern bool showDeviceView
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static float renderScale
-		{
-			get;
-			set;
-		}
+	public static extern float renderScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static VRDeviceType loadedDevice
-		{
-			get;
-			set;
-		}
+	public static extern VRDeviceType loadedDevice
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

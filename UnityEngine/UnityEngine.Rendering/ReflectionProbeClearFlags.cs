@@ -1,8 +1,7 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ReflectionProbeClearFlags
 {
-	public enum ReflectionProbeClearFlags
-	{
-		Skybox = 1,
-		SolidColor
-	}
+	Skybox = 1,
+	SolidColor
 }

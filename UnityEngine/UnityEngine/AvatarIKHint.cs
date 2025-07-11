@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AvatarIKHint
 {
-	public enum AvatarIKHint
-	{
-		LeftKnee,
-		RightKnee,
-		LeftElbow,
-		RightElbow
-	}
+	LeftKnee,
+	RightKnee,
+	LeftElbow,
+	RightElbow
 }

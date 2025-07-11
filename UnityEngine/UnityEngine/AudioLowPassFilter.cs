@@ -1,25 +1,36 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class AudioLowPassFilter : Behaviour
 {
-	public sealed class AudioLowPassFilter : Behaviour
+	public extern float cutoffFrequency
 	{
-		public float cutoffFrequency
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public AnimationCurve customCutoffCurve
-		{
-			get;
-			set;
-		}
+	public extern AnimationCurve customCutoffCurve
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float lowpassResonanceQ
-		{
-			get;
-			set;
-		}
+	public extern float lowpassResonanceQ
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum MasterServerEvent
 {
-	public enum MasterServerEvent
-	{
-		RegistrationFailedGameName,
-		RegistrationFailedGameType,
-		RegistrationFailedNoServer,
-		RegistrationSucceeded,
-		HostListReceived
-	}
+	RegistrationFailedGameName,
+	RegistrationFailedGameType,
+	RegistrationFailedNoServer,
+	RegistrationSucceeded,
+	HostListReceived
 }

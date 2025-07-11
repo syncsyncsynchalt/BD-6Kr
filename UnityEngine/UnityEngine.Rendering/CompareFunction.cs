@@ -1,15 +1,14 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum CompareFunction
 {
-	public enum CompareFunction
-	{
-		Disabled,
-		Never,
-		Less,
-		Equal,
-		LessEqual,
-		Greater,
-		NotEqual,
-		GreaterEqual,
-		Always
-	}
+	Disabled,
+	Never,
+	Less,
+	Equal,
+	LessEqual,
+	Greater,
+	NotEqual,
+	GreaterEqual,
+	Always
 }

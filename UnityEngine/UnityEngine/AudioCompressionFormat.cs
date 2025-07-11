@@ -1,15 +1,14 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AudioCompressionFormat
 {
-	public enum AudioCompressionFormat
-	{
-		PCM,
-		Vorbis,
-		ADPCM,
-		MP3,
-		VAG,
-		HEVAG,
-		XMA,
-		AAC,
-		GCADPCM
-	}
+	PCM,
+	Vorbis,
+	ADPCM,
+	MP3,
+	VAG,
+	HEVAG,
+	XMA,
+	AAC,
+	GCADPCM
 }

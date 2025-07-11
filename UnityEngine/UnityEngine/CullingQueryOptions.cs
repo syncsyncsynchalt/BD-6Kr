@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum CullingQueryOptions
 {
-	internal enum CullingQueryOptions
-	{
-		Normal,
-		IgnoreVisibility,
-		IgnoreDistance
-	}
+	Normal,
+	IgnoreVisibility,
+	IgnoreDistance
 }

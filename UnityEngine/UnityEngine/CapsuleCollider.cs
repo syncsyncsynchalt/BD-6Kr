@@ -1,44 +1,57 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class CapsuleCollider : Collider
 {
-	public sealed class CapsuleCollider : Collider
+	public Vector3 center
 	{
-		public Vector3 center
+		get
 		{
-			get
-			{
-				INTERNAL_get_center(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_center(ref value);
-			}
+			INTERNAL_get_center(out var value);
+			return value;
 		}
-
-		public float radius
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_center(ref value);
 		}
-
-		public float height
-		{
-			get;
-			set;
-		}
-
-		public int direction
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_center(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_center(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern float radius
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float height
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int direction
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_center(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_center(ref Vector3 value);
 }

@@ -1,33 +1,32 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct SoftJointLimitSpring
 {
-	public struct SoftJointLimitSpring
+	private float m_Spring;
+
+	private float m_Damper;
+
+	public float spring
 	{
-		private float m_Spring;
-
-		private float m_Damper;
-
-		public float spring
+		get
 		{
-			get
-			{
-				return m_Spring;
-			}
-			set
-			{
-				m_Spring = value;
-			}
+			return m_Spring;
 		}
-
-		public float damper
+		set
 		{
-			get
-			{
-				return m_Damper;
-			}
-			set
-			{
-				m_Damper = value;
-			}
+			m_Spring = value;
+		}
+	}
+
+	public float damper
+	{
+		get
+		{
+			return m_Damper;
+		}
+		set
+		{
+			m_Damper = value;
 		}
 	}
 }

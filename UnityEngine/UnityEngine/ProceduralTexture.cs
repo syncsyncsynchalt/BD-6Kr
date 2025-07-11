@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ProceduralTexture : Texture
 {
-	public sealed class ProceduralTexture : Texture
-	{
-	}
 }

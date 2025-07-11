@@ -1,80 +1,107 @@
-using System;
-
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class MonoBehaviour : Behaviour
 {
-	public class MonoBehaviour : Behaviour
+	public extern bool useGUILayout
 	{
-		public bool useGUILayout
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		// public MonoBehaviour() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern MonoBehaviour();
 
-		private void Internal_CancelInvokeAll() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Internal_CancelInvokeAll();
 
-		private bool Internal_IsInvokingAll() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern bool Internal_IsInvokingAll();
 
-		public void Invoke(string methodName, float time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Invoke(string methodName, float time);
 
-		public void InvokeRepeating(string methodName, float time, float repeatRate) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InvokeRepeating(string methodName, float time, float repeatRate);
 
-		public void CancelInvoke()
-		{
-			Internal_CancelInvokeAll();
-		}
+	public void CancelInvoke()
+	{
+		Internal_CancelInvokeAll();
+	}
 
-		public void CancelInvoke(string methodName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void CancelInvoke(string methodName);
 
-		public bool IsInvoking(string methodName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool IsInvoking(string methodName);
 
-		public bool IsInvoking()
-		{
-			return Internal_IsInvokingAll();
-		}
+	public bool IsInvoking()
+	{
+		return Internal_IsInvokingAll();
+	}
 
-		public Coroutine StartCoroutine(IEnumerator routine)
-		{
-			return StartCoroutine_Auto(routine);
-		}
+	public Coroutine StartCoroutine(IEnumerator routine)
+	{
+		return StartCoroutine_Auto(routine);
+	}
 
-		public Coroutine StartCoroutine_Auto(IEnumerator routine) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Coroutine StartCoroutine_Auto(IEnumerator routine);
 
-		public Coroutine StartCoroutine(string methodName, [DefaultValue("null")] object value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Coroutine StartCoroutine(string methodName, [DefaultValue("null")] object value);
 
-		[ExcludeFromDocs]
-		public Coroutine StartCoroutine(string methodName)
-		{
-			object value = null;
-			return StartCoroutine(methodName, value);
-		}
+	[ExcludeFromDocs]
+	public Coroutine StartCoroutine(string methodName)
+	{
+		object value = null;
+		return StartCoroutine(methodName, value);
+	}
 
-		public void StopCoroutine(string methodName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void StopCoroutine(string methodName);
 
-		public void StopCoroutine(IEnumerator routine)
-		{
-			StopCoroutineViaEnumerator_Auto(routine);
-		}
+	public void StopCoroutine(IEnumerator routine)
+	{
+		StopCoroutineViaEnumerator_Auto(routine);
+	}
 
-		public void StopCoroutine(Coroutine routine)
-		{
-			StopCoroutine_Auto(routine);
-		}
+	public void StopCoroutine(Coroutine routine)
+	{
+		StopCoroutine_Auto(routine);
+	}
 
-		internal void StopCoroutineViaEnumerator_Auto(IEnumerator routine) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void StopCoroutineViaEnumerator_Auto(IEnumerator routine);
 
-		internal void StopCoroutine_Auto(Coroutine routine) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal extern void StopCoroutine_Auto(Coroutine routine);
 
-		public void StopAllCoroutines() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void StopAllCoroutines();
 
-		public static void print(object message)
-		{
-			Debug.Log(message);
-		}
+	public static void print(object message)
+	{
+		Debug.Log(message);
 	}
 }

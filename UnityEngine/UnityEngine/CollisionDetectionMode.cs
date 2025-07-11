@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum CollisionDetectionMode
 {
-	public enum CollisionDetectionMode
-	{
-		Discrete,
-		Continuous,
-		ContinuousDynamic
-	}
+	Discrete,
+	Continuous,
+	ContinuousDynamic
 }

@@ -1,15 +1,18 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.VR
+namespace UnityEngine.VR;
+
+public sealed class InputTracking
 {
-	public sealed class InputTracking
-	{
-		public static Vector3 GetLocalPosition(VRNode node) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Vector3 GetLocalPosition(VRNode node);
 
-		public static Quaternion GetLocalRotation(VRNode node) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Quaternion GetLocalRotation(VRNode node);
 
-		public static void Recenter() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void Recenter();
 }

@@ -1,20 +1,19 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = true)]
+public class SpaceAttribute : PropertyAttribute
 {
-	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = true)]
-	public class SpaceAttribute : PropertyAttribute
+	public readonly float height;
+
+	public SpaceAttribute()
 	{
-		public readonly float height;
+		height = 8f;
+	}
 
-		public SpaceAttribute()
-		{
-			height = 8f;
-		}
-
-		public SpaceAttribute(float height)
-		{
-			this.height = height;
-		}
+	public SpaceAttribute(float height)
+	{
+		this.height = height;
 	}
 }

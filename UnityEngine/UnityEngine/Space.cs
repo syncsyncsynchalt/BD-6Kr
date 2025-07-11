@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum Space
 {
-	public enum Space
-	{
-		World,
-		Self
-	}
+	World,
+	Self
 }

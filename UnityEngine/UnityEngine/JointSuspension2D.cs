@@ -1,47 +1,46 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointSuspension2D
 {
-	public struct JointSuspension2D
+	private float m_DampingRatio;
+
+	private float m_Frequency;
+
+	private float m_Angle;
+
+	public float dampingRatio
 	{
-		private float m_DampingRatio;
-
-		private float m_Frequency;
-
-		private float m_Angle;
-
-		public float dampingRatio
+		get
 		{
-			get
-			{
-				return m_DampingRatio;
-			}
-			set
-			{
-				m_DampingRatio = value;
-			}
+			return m_DampingRatio;
 		}
-
-		public float frequency
+		set
 		{
-			get
-			{
-				return m_Frequency;
-			}
-			set
-			{
-				m_Frequency = value;
-			}
+			m_DampingRatio = value;
 		}
+	}
 
-		public float angle
+	public float frequency
+	{
+		get
 		{
-			get
-			{
-				return m_Angle;
-			}
-			set
-			{
-				m_Angle = value;
-			}
+			return m_Frequency;
+		}
+		set
+		{
+			m_Frequency = value;
+		}
+	}
+
+	public float angle
+	{
+		get
+		{
+			return m_Angle;
+		}
+		set
+		{
+			m_Angle = value;
 		}
 	}
 }

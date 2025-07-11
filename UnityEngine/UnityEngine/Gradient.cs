@@ -2,41 +2,56 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class Gradient
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class Gradient
+	internal IntPtr m_Ptr;
+
+	public extern GradientColorKey[] colorKeys
 	{
-		internal IntPtr m_Ptr;
-
-		public GradientColorKey[] colorKeys
-		{
-			get;
-			set;
-		}
-
-		public GradientAlphaKey[] alphaKeys
-		{
-			get;
-			set;
-		}
-
-		public Gradient()
-		{
-			Init();
-		}
-
-		private void Init() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Cleanup() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~Gradient()
-		{
-			Cleanup();
-		}
-
-		public Color Evaluate(float time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetKeys(GradientColorKey[] colorKeys, GradientAlphaKey[] alphaKeys) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public extern GradientAlphaKey[] alphaKeys
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Gradient()
+	{
+		Init();
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Init();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Cleanup();
+
+	~Gradient()
+	{
+		Cleanup();
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Color Evaluate(float time);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetKeys(GradientColorKey[] colorKeys, GradientAlphaKey[] alphaKeys);
 }

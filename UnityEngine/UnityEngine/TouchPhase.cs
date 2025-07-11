@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TouchPhase
 {
-	public enum TouchPhase
-	{
-		Began,
-		Moved,
-		Stationary,
-		Ended,
-		Canceled
-	}
+	Began,
+	Moved,
+	Stationary,
+	Ended,
+	Canceled
 }

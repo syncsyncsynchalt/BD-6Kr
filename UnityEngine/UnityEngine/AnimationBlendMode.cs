@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnimationBlendMode
 {
-	public enum AnimationBlendMode
-	{
-		Blend,
-		Additive
-	}
+	Blend,
+	Additive
 }

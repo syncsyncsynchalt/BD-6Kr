@@ -1,35 +1,52 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Advertisements
+namespace UnityEngine.Advertisements;
+
+internal class UnityAdsManager
 {
-	internal class UnityAdsManager
+	public static extern bool enabled
 	{
-		public static bool enabled
-		{
-			get;
-			set;
-		}
-
-		public static bool initializeOnStartup
-		{
-			get;
-			set;
-		}
-
-		public static bool testMode
-		{
-			get;
-			set;
-		}
-
-		public static bool IsPlatformEnabled(RuntimePlatform platform) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void SetPlatformEnabled(RuntimePlatform platform, bool value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static string GetGameId(RuntimePlatform platform) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void SetGameId(RuntimePlatform platform, string gameId) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public static extern bool initializeOnStartup
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern bool testMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool IsPlatformEnabled(RuntimePlatform platform);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void SetPlatformEnabled(RuntimePlatform platform, bool value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern string GetGameId(RuntimePlatform platform);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void SetGameId(RuntimePlatform platform, string gameId);
 }

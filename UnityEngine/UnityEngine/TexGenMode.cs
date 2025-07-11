@@ -1,12 +1,11 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TexGenMode
 {
-	public enum TexGenMode
-	{
-		None,
-		SphereMap,
-		Object,
-		EyeLinear,
-		CubeReflect,
-		CubeNormal
-	}
+	None,
+	SphereMap,
+	Object,
+	EyeLinear,
+	CubeReflect,
+	CubeNormal
 }

@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false)]
+internal class WritableAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false)]
-	internal class WritableAttribute : Attribute
-	{
-	}
 }

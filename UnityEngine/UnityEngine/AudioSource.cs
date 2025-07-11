@@ -3,283 +3,426 @@ using System.Runtime.CompilerServices;
 using UnityEngine.Audio;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class AudioSource : Behaviour
 {
-	public sealed class AudioSource : Behaviour
+	public extern float volume
 	{
-		public float volume
-		{
-			get;
-			set;
-		}
-
-		public float pitch
-		{
-			get;
-			set;
-		}
-
-		public float time
-		{
-			get;
-			set;
-		}
-
-		public int timeSamples
-		{
-			get;
-			set;
-		}
-
-		public AudioClip clip
-		{
-			get;
-			set;
-		}
-
-		public AudioMixerGroup outputAudioMixerGroup
-		{
-			get;
-			set;
-		}
-
-		public bool isPlaying
-		{
-			get;
-		}
-
-		public bool loop
-		{
-			get;
-			set;
-		}
-
-		public bool ignoreListenerVolume
-		{
-			get;
-			set;
-		}
-
-		public bool playOnAwake
-		{
-			get;
-			set;
-		}
-
-		public bool ignoreListenerPause
-		{
-			get;
-			set;
-		}
-
-		public AudioVelocityUpdateMode velocityUpdateMode
-		{
-			get;
-			set;
-		}
-
-		public float panStereo
-		{
-			get;
-			set;
-		}
-
-		public float spatialBlend
-		{
-			get;
-			set;
-		}
-
-		public bool spatialize
-		{
-			get;
-			set;
-		}
-
-		public float reverbZoneMix
-		{
-			get;
-			set;
-		}
-
-		public bool bypassEffects
-		{
-			get;
-			set;
-		}
-
-		public bool bypassListenerEffects
-		{
-			get;
-			set;
-		}
-
-		public bool bypassReverbZones
-		{
-			get;
-			set;
-		}
-
-		public float dopplerLevel
-		{
-			get;
-			set;
-		}
-
-		public float spread
-		{
-			get;
-			set;
-		}
-
-		public int priority
-		{
-			get;
-			set;
-		}
-
-		public bool mute
-		{
-			get;
-			set;
-		}
-
-		public float minDistance
-		{
-			get;
-			set;
-		}
-
-		public float maxDistance
-		{
-			get;
-			set;
-		}
-
-		public AudioRolloffMode rolloffMode
-		{
-			get;
-			set;
-		}
-
-		[Obsolete("minVolume is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
-		public float minVolume
-		{
-			get;
-			set;
-		}
-
-		[Obsolete("maxVolume is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
-		public float maxVolume
-		{
-			get;
-			set;
-		}
-
-		[Obsolete("rolloffFactor is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
-		public float rolloffFactor
-		{
-			get;
-			set;
-		}
-
-		public void Play([DefaultValue("0")] ulong delay) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[ExcludeFromDocs]
-		public void Play()
-		{
-			ulong delay = 0uL;
-			Play(delay);
-		}
-
-		public void PlayDelayed(float delay) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void PlayScheduled(double time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetScheduledStartTime(double time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetScheduledEndTime(double time) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void Stop() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void Pause()
-		{
-			INTERNAL_CALL_Pause(this);
-		}
-
-		private static void INTERNAL_CALL_Pause(AudioSource self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void UnPause()
-		{
-			INTERNAL_CALL_UnPause(this);
-		}
-
-		private static void INTERNAL_CALL_UnPause(AudioSource self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void PlayOneShot(AudioClip clip, [DefaultValue("1.0F")] float volumeScale) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[ExcludeFromDocs]
-		public void PlayOneShot(AudioClip clip)
-		{
-			float volumeScale = 1f;
-			PlayOneShot(clip, volumeScale);
-		}
-
-		[ExcludeFromDocs]
-		public static void PlayClipAtPoint(AudioClip clip, Vector3 position)
-		{
-			float volume = 1f;
-			PlayClipAtPoint(clip, position, volume);
-		}
-
-		public static void PlayClipAtPoint(AudioClip clip, Vector3 position, [DefaultValue("1.0F")] float volume)
-		{
-			GameObject gameObject = new GameObject("One shot audio");
-			gameObject.transform.position = position;
-			AudioSource audioSource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-			audioSource.clip = clip;
-			audioSource.spatialBlend = 1f;
-			audioSource.volume = volume;
-			audioSource.Play();
-			Object.Destroy(gameObject, clip.length * ((!(Time.timeScale < 0.01f)) ? Time.timeScale : 0.01f));
-		}
-
-		public void SetCustomCurve(AudioSourceCurveType type, AnimationCurve curve) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public AnimationCurve GetCustomCurve(AudioSourceCurveType type) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void GetOutputDataHelper(float[] samples, int channel) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("GetOutputData return a float[] is deprecated, use GetOutputData passing a pre allocated array instead.")]
-		public float[] GetOutputData(int numSamples, int channel)
-		{
-			float[] array = new float[numSamples];
-			GetOutputDataHelper(array, channel);
-			return array;
-		}
-
-		public void GetOutputData(float[] samples, int channel)
-		{
-			GetOutputDataHelper(samples, channel);
-		}
-
-		private void GetSpectrumDataHelper(float[] samples, int channel, FFTWindow window) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("GetSpectrumData returning a float[] is deprecated, use GetSpectrumData passing a pre allocated array instead.")]
-		public float[] GetSpectrumData(int numSamples, int channel, FFTWindow window)
-		{
-			float[] array = new float[numSamples];
-			GetSpectrumDataHelper(array, channel, window);
-			return array;
-		}
-
-		public void GetSpectrumData(float[] samples, int channel, FFTWindow window)
-		{
-			GetSpectrumDataHelper(samples, channel, window);
-		}
-
-		public bool SetSpatializerFloat(int index, float value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool GetSpatializerFloat(int index, out float value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public extern float pitch
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float time
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int timeSamples
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern AudioClip clip
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern AudioMixerGroup outputAudioMixerGroup
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool isPlaying
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool loop
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool ignoreListenerVolume
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool playOnAwake
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool ignoreListenerPause
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern AudioVelocityUpdateMode velocityUpdateMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float panStereo
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float spatialBlend
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool spatialize
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float reverbZoneMix
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool bypassEffects
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool bypassListenerEffects
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool bypassReverbZones
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float dopplerLevel
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float spread
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int priority
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool mute
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float minDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float maxDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern AudioRolloffMode rolloffMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[Obsolete("minVolume is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
+	public extern float minVolume
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[Obsolete("maxVolume is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
+	public extern float maxVolume
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[Obsolete("rolloffFactor is not supported anymore. Use min-, maxDistance and rolloffMode instead.", true)]
+	public extern float rolloffFactor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Play([DefaultValue("0")] ulong delay);
+
+	[ExcludeFromDocs]
+	public void Play()
+	{
+		ulong delay = 0uL;
+		Play(delay);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void PlayDelayed(float delay);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void PlayScheduled(double time);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetScheduledStartTime(double time);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetScheduledEndTime(double time);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Stop();
+
+	public void Pause()
+	{
+		INTERNAL_CALL_Pause(this);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_Pause(AudioSource self);
+
+	public void UnPause()
+	{
+		INTERNAL_CALL_UnPause(this);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_UnPause(AudioSource self);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void PlayOneShot(AudioClip clip, [DefaultValue("1.0F")] float volumeScale);
+
+	[ExcludeFromDocs]
+	public void PlayOneShot(AudioClip clip)
+	{
+		float volumeScale = 1f;
+		PlayOneShot(clip, volumeScale);
+	}
+
+	[ExcludeFromDocs]
+	public static void PlayClipAtPoint(AudioClip clip, Vector3 position)
+	{
+		float num = 1f;
+		PlayClipAtPoint(clip, position, num);
+	}
+
+	public static void PlayClipAtPoint(AudioClip clip, Vector3 position, [DefaultValue("1.0F")] float volume)
+	{
+		GameObject gameObject = new GameObject("One shot audio");
+		gameObject.transform.position = position;
+		AudioSource audioSource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
+		audioSource.clip = clip;
+		audioSource.spatialBlend = 1f;
+		audioSource.volume = volume;
+		audioSource.Play();
+		Object.Destroy(gameObject, clip.length * ((!(Time.timeScale < 0.01f)) ? Time.timeScale : 0.01f));
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetCustomCurve(AudioSourceCurveType type, AnimationCurve curve);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern AnimationCurve GetCustomCurve(AudioSourceCurveType type);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetOutputDataHelper(float[] samples, int channel);
+
+	[Obsolete("GetOutputData return a float[] is deprecated, use GetOutputData passing a pre allocated array instead.")]
+	public float[] GetOutputData(int numSamples, int channel)
+	{
+		float[] array = new float[numSamples];
+		GetOutputDataHelper(array, channel);
+		return array;
+	}
+
+	public void GetOutputData(float[] samples, int channel)
+	{
+		GetOutputDataHelper(samples, channel);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void GetSpectrumDataHelper(float[] samples, int channel, FFTWindow window);
+
+	[Obsolete("GetSpectrumData returning a float[] is deprecated, use GetSpectrumData passing a pre allocated array instead.")]
+	public float[] GetSpectrumData(int numSamples, int channel, FFTWindow window)
+	{
+		float[] array = new float[numSamples];
+		GetSpectrumDataHelper(array, channel, window);
+		return array;
+	}
+
+	public void GetSpectrumData(float[] samples, int channel, FFTWindow window)
+	{
+		GetSpectrumDataHelper(samples, channel, window);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool SetSpatializerFloat(int index, float value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool GetSpatializerFloat(int index, out float value);
 }

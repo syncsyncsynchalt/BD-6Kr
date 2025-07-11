@@ -1,9 +1,8 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public class YieldInstruction
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class YieldInstruction
-	{
-	}
 }

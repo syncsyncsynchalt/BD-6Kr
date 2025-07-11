@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum DetailRenderMode
 {
-	public enum DetailRenderMode
-	{
-		GrassBillboard,
-		VertexLit,
-		Grass
-	}
+	GrassBillboard,
+	VertexLit,
+	Grass
 }

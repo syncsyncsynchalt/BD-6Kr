@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WaitForFixedUpdate : YieldInstruction
 {
-	public sealed class WaitForFixedUpdate : YieldInstruction
-	{
-	}
 }

@@ -1,27 +1,34 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class EdgeCollider2D : Collider2D
 {
-	public sealed class EdgeCollider2D : Collider2D
+	public extern int edgeCount
 	{
-		public int edgeCount
-		{
-			get;
-		}
-
-		public int pointCount
-		{
-			get;
-		}
-
-		public Vector2[] points
-		{
-			get;
-			set;
-		}
-
-		public void Reset() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public extern int pointCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern Vector2[] points
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Reset();
 }

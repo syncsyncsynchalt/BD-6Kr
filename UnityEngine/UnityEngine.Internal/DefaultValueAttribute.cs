@@ -1,41 +1,39 @@
 using System;
 
-namespace UnityEngine.Internal
+namespace UnityEngine.Internal;
+
+[Serializable]
+[AttributeUsage(AttributeTargets.Parameter | AttributeTargets.GenericParameter)]
+public class DefaultValueAttribute : Attribute
 {
-	[Serializable]
-	[AttributeUsage(AttributeTargets.Parameter | AttributeTargets.GenericParameter)]
-	public class DefaultValueAttribute : Attribute
+	private object DefaultValue;
+
+	public object Value => DefaultValue;
+
+	public DefaultValueAttribute(string value)
 	{
-		private object DefaultValue;
+		DefaultValue = value;
+	}
 
-		public object Value => DefaultValue;
-
-		public DefaultValueAttribute(string value)
+	public override bool Equals(object obj)
+	{
+		if (!(obj is DefaultValueAttribute defaultValueAttribute))
 		{
-			DefaultValue = value;
+			return false;
 		}
-
-		public override bool Equals(object obj)
+		if (DefaultValue == null)
 		{
-			DefaultValueAttribute defaultValueAttribute = obj as DefaultValueAttribute;
-			if (defaultValueAttribute == null)
-			{
-				return false;
-			}
-			if (DefaultValue == null)
-			{
-				return defaultValueAttribute.Value == null;
-			}
-			return DefaultValue.Equals(defaultValueAttribute.Value);
+			return defaultValueAttribute.Value == null;
 		}
+		return DefaultValue.Equals(defaultValueAttribute.Value);
+	}
 
-		public override int GetHashCode()
+	public override int GetHashCode()
+	{
+		if (DefaultValue == null)
 		{
-			if (DefaultValue == null)
-			{
-				return base.GetHashCode();
-			}
-			return DefaultValue.GetHashCode();
+			return base.GetHashCode();
 		}
+		return DefaultValue.GetHashCode();
 	}
 }

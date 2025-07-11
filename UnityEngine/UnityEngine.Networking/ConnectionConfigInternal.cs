@@ -1,96 +1,139 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+internal sealed class ConnectionConfigInternal : IDisposable
 {
-	internal sealed class ConnectionConfigInternal : IDisposable
+	internal IntPtr m_Ptr;
+
+	public extern int ChannelSize
 	{
-		internal IntPtr m_Ptr;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public int ChannelSize
+	private ConnectionConfigInternal()
+	{
+	}
+
+	public ConnectionConfigInternal(ConnectionConfig config)
+	{
+		if (config == null)
 		{
-			get;
+			throw new NullReferenceException("config is not defined");
 		}
-
-		private ConnectionConfigInternal()
+		InitWrapper();
+		InitPacketSize(config.PacketSize);
+		InitFragmentSize(config.FragmentSize);
+		InitResendTimeout(config.ResendTimeout);
+		InitDisconnectTimeout(config.DisconnectTimeout);
+		InitConnectTimeout(config.ConnectTimeout);
+		InitMinUpdateTimeout(config.MinUpdateTimeout);
+		InitPingTimeout(config.PingTimeout);
+		InitReducedPingTimeout(config.ReducedPingTimeout);
+		InitAllCostTimeout(config.AllCostTimeout);
+		InitNetworkDropThreshold(config.NetworkDropThreshold);
+		InitOverflowDropThreshold(config.OverflowDropThreshold);
+		InitMaxConnectionAttempt(config.MaxConnectionAttempt);
+		InitAckDelay(config.AckDelay);
+		InitMaxCombinedReliableMessageSize(config.MaxCombinedReliableMessageSize);
+		InitMaxCombinedReliableMessageCount(config.MaxCombinedReliableMessageCount);
+		InitMaxSentMessageQueueSize(config.MaxSentMessageQueueSize);
+		InitIsAcksLong(config.IsAcksLong);
+		for (byte b = 0; b < config.ChannelCount; b++)
 		{
+			AddChannel(config.GetChannel(b));
 		}
+	}
 
-		public ConnectionConfigInternal(ConnectionConfig config)
-		{
-			if (config == null)
-			{
-				throw new NullReferenceException("config is not defined");
-			}
-			InitWrapper();
-			InitPacketSize(config.PacketSize);
-			InitFragmentSize(config.FragmentSize);
-			InitResendTimeout(config.ResendTimeout);
-			InitDisconnectTimeout(config.DisconnectTimeout);
-			InitConnectTimeout(config.ConnectTimeout);
-			InitMinUpdateTimeout(config.MinUpdateTimeout);
-			InitPingTimeout(config.PingTimeout);
-			InitReducedPingTimeout(config.ReducedPingTimeout);
-			InitAllCostTimeout(config.AllCostTimeout);
-			InitNetworkDropThreshold(config.NetworkDropThreshold);
-			InitOverflowDropThreshold(config.OverflowDropThreshold);
-			InitMaxConnectionAttempt(config.MaxConnectionAttempt);
-			InitAckDelay(config.AckDelay);
-			InitMaxCombinedReliableMessageSize(config.MaxCombinedReliableMessageSize);
-			InitMaxCombinedReliableMessageCount(config.MaxCombinedReliableMessageCount);
-			InitMaxSentMessageQueueSize(config.MaxSentMessageQueueSize);
-			InitIsAcksLong(config.IsAcksLong);
-			for (byte b = 0; b < config.ChannelCount; b = (byte)(b + 1))
-			{
-				AddChannel(config.GetChannel(b));
-			}
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitWrapper();
 
-		public void InitWrapper() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern byte AddChannel(QosType value);
 
-		public byte AddChannel(QosType value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern QosType GetChannel(int i);
 
-		public QosType GetChannel(int i) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitPacketSize(ushort value);
 
-		public void InitPacketSize(ushort value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitFragmentSize(ushort value);
 
-		public void InitFragmentSize(ushort value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitResendTimeout(uint value);
 
-		public void InitResendTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitDisconnectTimeout(uint value);
 
-		public void InitDisconnectTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitConnectTimeout(uint value);
 
-		public void InitConnectTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMinUpdateTimeout(uint value);
 
-		public void InitMinUpdateTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitPingTimeout(uint value);
 
-		public void InitPingTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitReducedPingTimeout(uint value);
 
-		public void InitReducedPingTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitAllCostTimeout(uint value);
 
-		public void InitAllCostTimeout(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitNetworkDropThreshold(byte value);
 
-		public void InitNetworkDropThreshold(byte value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitOverflowDropThreshold(byte value);
 
-		public void InitOverflowDropThreshold(byte value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMaxConnectionAttempt(byte value);
 
-		public void InitMaxConnectionAttempt(byte value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitAckDelay(uint value);
 
-		public void InitAckDelay(uint value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMaxCombinedReliableMessageSize(ushort value);
 
-		public void InitMaxCombinedReliableMessageSize(ushort value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMaxCombinedReliableMessageCount(ushort value);
 
-		public void InitMaxCombinedReliableMessageCount(ushort value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitMaxSentMessageQueueSize(ushort value);
 
-		public void InitMaxSentMessageQueueSize(ushort value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void InitIsAcksLong(bool value);
 
-		public void InitIsAcksLong(bool value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void Dispose();
 
-		public void Dispose() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~ConnectionConfigInternal()
-		{
-			Dispose();
-		}
+	~ConnectionConfigInternal()
+	{
+		Dispose();
 	}
 }

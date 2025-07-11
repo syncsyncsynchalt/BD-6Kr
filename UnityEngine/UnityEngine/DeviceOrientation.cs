@@ -1,13 +1,12 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum DeviceOrientation
 {
-	public enum DeviceOrientation
-	{
-		Unknown,
-		Portrait,
-		PortraitUpsideDown,
-		LandscapeLeft,
-		LandscapeRight,
-		FaceUp,
-		FaceDown
-	}
+	Unknown,
+	Portrait,
+	PortraitUpsideDown,
+	LandscapeLeft,
+	LandscapeRight,
+	FaceUp,
+	FaceDown
 }

@@ -1,55 +1,68 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class GUITexture : GUIElement
 {
-	public sealed class GUITexture : GUIElement
+	public Color color
 	{
-		public Color color
+		get
 		{
-			get
-			{
-				INTERNAL_get_color(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_color(ref value);
-			}
+			INTERNAL_get_color(out var value);
+			return value;
 		}
-
-		public Texture texture
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_color(ref value);
 		}
-
-		public Rect pixelInset
-		{
-			get
-			{
-				INTERNAL_get_pixelInset(out Rect value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_pixelInset(ref value);
-			}
-		}
-
-		public RectOffset border
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_color(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_color(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_pixelInset(out Rect value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_pixelInset(ref Rect value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern Texture texture
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Rect pixelInset
+	{
+		get
+		{
+			INTERNAL_get_pixelInset(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_pixelInset(ref value);
+		}
+	}
+
+	public extern RectOffset border
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_color(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_color(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_pixelInset(out Rect value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_pixelInset(ref Rect value);
 }

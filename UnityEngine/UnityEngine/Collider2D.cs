@@ -1,89 +1,116 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class Collider2D : Behaviour
 {
-	public class Collider2D : Behaviour
+	public extern bool isTrigger
 	{
-		public bool isTrigger
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool usedByEffector
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Vector2 offset
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_offset(out var value);
+			return value;
 		}
-
-		public bool usedByEffector
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_offset(ref value);
 		}
+	}
 
-		public Vector2 offset
+	public extern Rigidbody2D attachedRigidbody
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern int shapeCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public Bounds bounds
+	{
+		get
 		{
-			get
-			{
-				INTERNAL_get_offset(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_offset(ref value);
-			}
+			INTERNAL_get_bounds(out var value);
+			return value;
 		}
+	}
 
-		public Rigidbody2D attachedRigidbody
-		{
-			get;
-		}
+	internal extern ColliderErrorState2D errorState
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public int shapeCount
-		{
-			get;
-		}
+	public extern PhysicsMaterial2D sharedMaterial
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Bounds bounds
-		{
-			get
-			{
-				INTERNAL_get_bounds(out Bounds value);
-				return value;
-			}
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_offset(out Vector2 value);
 
-		internal ColliderErrorState2D errorState
-		{
-			get;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_offset(ref Vector2 value);
 
-		public PhysicsMaterial2D sharedMaterial
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_bounds(out Bounds value);
 
-		private void INTERNAL_get_offset(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public bool OverlapPoint(Vector2 point)
+	{
+		return INTERNAL_CALL_OverlapPoint(this, ref point);
+	}
 
-		private void INTERNAL_set_offset(ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_OverlapPoint(Collider2D self, ref Vector2 point);
 
-		private void INTERNAL_get_bounds(out Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool IsTouching(Collider2D collider);
 
-		public bool OverlapPoint(Vector2 point)
-		{
-			return INTERNAL_CALL_OverlapPoint(this, ref point);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool IsTouchingLayers([DefaultValue("Physics2D.AllLayers")] int layerMask);
 
-		private static bool INTERNAL_CALL_OverlapPoint(Collider2D self, ref Vector2 point) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool IsTouching(Collider2D collider) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool IsTouchingLayers([DefaultValue("Physics2D.AllLayers")] int layerMask) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[ExcludeFromDocs]
-		public bool IsTouchingLayers()
-		{
-			int layerMask = -1;
-			return IsTouchingLayers(layerMask);
-		}
+	[ExcludeFromDocs]
+	public bool IsTouchingLayers()
+	{
+		int layerMask = -1;
+		return IsTouchingLayers(layerMask);
 	}
 }

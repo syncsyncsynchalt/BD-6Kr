@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class MeshParticleEmitter : ParticleEmitter
 {
-	public sealed class MeshParticleEmitter : ParticleEmitter
+	internal MeshParticleEmitter()
 	{
-		internal MeshParticleEmitter()
-		{
-		}
 	}
 }

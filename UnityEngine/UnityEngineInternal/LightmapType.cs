@@ -1,9 +1,8 @@
-namespace UnityEngineInternal
+namespace UnityEngineInternal;
+
+public enum LightmapType
 {
-	public enum LightmapType
-	{
-		NoLightmap = -1,
-		StaticLightmap,
-		DynamicLightmap
-	}
+	NoLightmap = -1,
+	StaticLightmap,
+	DynamicLightmap
 }

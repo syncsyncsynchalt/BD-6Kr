@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ReflectionProbeMode
 {
-	public enum ReflectionProbeMode
-	{
-		Baked,
-		Realtime,
-		Custom
-	}
+	Baked,
+	Realtime,
+	Custom
 }

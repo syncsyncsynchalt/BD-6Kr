@@ -1,24 +1,33 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Microphone
 {
-	public sealed class Microphone
+	public static extern string[] devices
 	{
-		public static string[] devices
-		{
-			get;
-		}
-
-		public static AudioClip Start(string deviceName, bool loop, int lengthSec, int frequency) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void End(string deviceName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool IsRecording(string deviceName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static int GetPosition(string deviceName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void GetDeviceCaps(string deviceName, out int minFreq, out int maxFreq) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern AudioClip Start(string deviceName, bool loop, int lengthSec, int frequency);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void End(string deviceName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool IsRecording(string deviceName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern int GetPosition(string deviceName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void GetDeviceCaps(string deviceName, out int minFreq, out int maxFreq);
 }

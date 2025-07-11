@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum VerticalWrapMode
 {
-	public enum VerticalWrapMode
-	{
-		Truncate,
-		Overflow
-	}
+	Truncate,
+	Overflow
 }

@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AvatarIKGoal
 {
-	public enum AvatarIKGoal
-	{
-		LeftFoot,
-		RightFoot,
-		LeftHand,
-		RightHand
-	}
+	LeftFoot,
+	RightFoot,
+	LeftHand,
+	RightHand
 }

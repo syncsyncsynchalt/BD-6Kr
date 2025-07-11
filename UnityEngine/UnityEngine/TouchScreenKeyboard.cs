@@ -1,112 +1,111 @@
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class TouchScreenKeyboard
 {
-	public sealed class TouchScreenKeyboard
+	public string text
 	{
-		public string text
+		get
 		{
-			get
-			{
-				return string.Empty;
-			}
-			set
-			{
-			}
+			return string.Empty;
 		}
-
-		public static bool hideInput
+		set
 		{
-			get
-			{
-				return false;
-			}
-			set
-			{
-			}
 		}
+	}
 
-		public bool active
+	public static bool hideInput
+	{
+		get
 		{
-			get
-			{
-				return false;
-			}
-			set
-			{
-			}
+			return false;
 		}
-
-		public bool done => true;
-
-		public bool wasCanceled => false;
-
-		private static Rect area => default(Rect);
-
-		private static bool visible => false;
-
-		public static bool isSupported => false;
-
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline, bool secure, bool alert)
+		set
 		{
-			string empty = string.Empty;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
 		}
+	}
 
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline, bool secure)
+	public bool active
+	{
+		get
 		{
-			string empty = string.Empty;
-			bool alert = false;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+			return false;
 		}
+		set
+		{
+		}
+	}
 
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline)
-		{
-			string empty = string.Empty;
-			bool alert = false;
-			bool secure = false;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
-		}
+	public bool done => true;
 
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection)
-		{
-			string empty = string.Empty;
-			bool alert = false;
-			bool secure = false;
-			bool multiline = false;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
-		}
+	public bool wasCanceled => false;
 
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType)
-		{
-			string empty = string.Empty;
-			bool alert = false;
-			bool secure = false;
-			bool multiline = false;
-			bool autocorrection = true;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
-		}
+	private static Rect area => default(Rect);
 
-		[ExcludeFromDocs]
-		public static TouchScreenKeyboard Open(string text)
-		{
-			string empty = string.Empty;
-			bool alert = false;
-			bool secure = false;
-			bool multiline = false;
-			bool autocorrection = true;
-			TouchScreenKeyboardType keyboardType = TouchScreenKeyboardType.Default;
-			return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
-		}
+	private static bool visible => false;
 
-		public static TouchScreenKeyboard Open(string text, [DefaultValue("TouchScreenKeyboardType.Default")] TouchScreenKeyboardType keyboardType, [DefaultValue("true")] bool autocorrection, [DefaultValue("false")] bool multiline, [DefaultValue("false")] bool secure, [DefaultValue("false")] bool alert, [DefaultValue("\"\"")] string textPlaceholder)
-		{
-			return null;
-		}
+	public static bool isSupported => false;
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline, bool secure, bool alert)
+	{
+		string empty = string.Empty;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline, bool secure)
+	{
+		string empty = string.Empty;
+		bool alert = false;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline)
+	{
+		string empty = string.Empty;
+		bool alert = false;
+		bool secure = false;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType, bool autocorrection)
+	{
+		string empty = string.Empty;
+		bool alert = false;
+		bool secure = false;
+		bool multiline = false;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text, TouchScreenKeyboardType keyboardType)
+	{
+		string empty = string.Empty;
+		bool alert = false;
+		bool secure = false;
+		bool multiline = false;
+		bool autocorrection = true;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	[ExcludeFromDocs]
+	public static TouchScreenKeyboard Open(string text)
+	{
+		string empty = string.Empty;
+		bool alert = false;
+		bool secure = false;
+		bool multiline = false;
+		bool autocorrection = true;
+		TouchScreenKeyboardType keyboardType = TouchScreenKeyboardType.Default;
+		return Open(text, keyboardType, autocorrection, multiline, secure, alert, empty);
+	}
+
+	public static TouchScreenKeyboard Open(string text, [DefaultValue("TouchScreenKeyboardType.Default")] TouchScreenKeyboardType keyboardType, [DefaultValue("true")] bool autocorrection, [DefaultValue("false")] bool multiline, [DefaultValue("false")] bool secure, [DefaultValue("false")] bool alert, [DefaultValue("\"\"")] string textPlaceholder)
+	{
+		return null;
 	}
 }

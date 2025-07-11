@@ -2,57 +2,68 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class NavMeshPath
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class NavMeshPath
+	internal IntPtr m_Ptr;
+
+	internal Vector3[] m_corners;
+
+	public Vector3[] corners
 	{
-		internal IntPtr m_Ptr;
-
-		internal Vector3[] m_corners;
-
-		public Vector3[] corners
+		get
 		{
-			get
-			{
-				CalculateCorners();
-				return m_corners;
-			}
+			CalculateCorners();
+			return m_corners;
 		}
+	}
 
-		public NavMeshPathStatus status
+	public extern NavMeshPathStatus status
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern NavMeshPath();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void DestroyNavMeshPath();
+
+	~NavMeshPath()
+	{
+		DestroyNavMeshPath();
+		m_Ptr = IntPtr.Zero;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern int GetCornersNonAlloc(Vector3[] results);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern Vector3[] CalculateCornersInternal();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void ClearCornersInternal();
+
+	public void ClearCorners()
+	{
+		ClearCornersInternal();
+		m_corners = null;
+	}
+
+	private void CalculateCorners()
+	{
+		if (m_corners == null)
 		{
-			get;
-		}
-
-		public NavMeshPath() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void DestroyNavMeshPath() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		~NavMeshPath()
-		{
-			DestroyNavMeshPath();
-			m_Ptr = IntPtr.Zero;
-		}
-
-		public int GetCornersNonAlloc(Vector3[] results) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private Vector3[] CalculateCornersInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void ClearCornersInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ClearCorners()
-		{
-			ClearCornersInternal();
-			m_corners = null;
-		}
-
-		private void CalculateCorners()
-		{
-			if (m_corners == null)
-			{
-				m_corners = CalculateCornersInternal();
-			}
+			m_corners = CalculateCornersInternal();
 		}
 	}
 }

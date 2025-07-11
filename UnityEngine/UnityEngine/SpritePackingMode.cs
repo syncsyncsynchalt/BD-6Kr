@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum SpritePackingMode
 {
-	public enum SpritePackingMode
-	{
-		Tight,
-		Rectangle
-	}
+	Tight,
+	Rectangle
 }

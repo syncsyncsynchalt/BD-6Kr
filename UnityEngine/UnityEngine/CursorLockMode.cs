@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum CursorLockMode
 {
-	public enum CursorLockMode
-	{
-		None,
-		Locked,
-		Confined
-	}
+	None,
+	Locked,
+	Confined
 }

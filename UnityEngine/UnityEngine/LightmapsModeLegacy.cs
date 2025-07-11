@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LightmapsModeLegacy
 {
-	public enum LightmapsModeLegacy
-	{
-		Single,
-		Dual,
-		Directional
-	}
+	Single,
+	Dual,
+	Directional
 }

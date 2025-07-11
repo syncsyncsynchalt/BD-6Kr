@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum FocusType
 {
-	public enum FocusType
-	{
-		Native,
-		Keyboard,
-		Passive
-	}
+	Native,
+	Keyboard,
+	Passive
 }

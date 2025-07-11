@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NPOTSupport
 {
-	public enum NPOTSupport
-	{
-		None,
-		Restricted,
-		Full
-	}
+	None,
+	Restricted,
+	Full
 }

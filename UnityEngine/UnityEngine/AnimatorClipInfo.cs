@@ -1,19 +1,18 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct AnimatorClipInfo
 {
-	public struct AnimatorClipInfo
-	{
-		private int m_ClipInstanceID;
+	private int m_ClipInstanceID;
 
-		private float m_Weight;
+	private float m_Weight;
 
-		public AnimationClip clip => (m_ClipInstanceID == 0) ? null : ClipInstanceToScriptingObject(m_ClipInstanceID);
+	public AnimationClip clip => (m_ClipInstanceID == 0) ? null : ClipInstanceToScriptingObject(m_ClipInstanceID);
 
-		public float weight => m_Weight;
+	public float weight => m_Weight;
 
-		private static AnimationClip ClipInstanceToScriptingObject(int instanceID) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern AnimationClip ClipInstanceToScriptingObject(int instanceID);
 }

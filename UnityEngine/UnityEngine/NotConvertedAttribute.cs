@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
+public sealed class NotConvertedAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-	public sealed class NotConvertedAttribute : Attribute
-	{
-	}
 }

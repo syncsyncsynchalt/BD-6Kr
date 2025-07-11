@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LightmapsMode
 {
-	public enum LightmapsMode
-	{
-		NonDirectional,
-		CombinedDirectional,
-		SeparateDirectional
-	}
+	NonDirectional,
+	CombinedDirectional,
+	SeparateDirectional
 }

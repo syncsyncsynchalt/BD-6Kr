@@ -1,32 +1,39 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class MeshCollider : Collider
 {
-	public sealed class MeshCollider : Collider
+	public extern Mesh sharedMesh
 	{
-		public Mesh sharedMesh
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool convex
-		{
-			get;
-			set;
-		}
+	public extern bool convex
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		[Obsolete("Configuring smooth sphere collisions is no longer needed. PhysX3 has a better behaviour in place.")]
-		public bool smoothSphereCollisions
+	[Obsolete("Configuring smooth sphere collisions is no longer needed. PhysX3 has a better behaviour in place.")]
+	public bool smoothSphereCollisions
+	{
+		get
 		{
-			get
-			{
-				return true;
-			}
-			set
-			{
-			}
+			return true;
+		}
+		set
+		{
 		}
 	}
 }

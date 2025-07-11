@@ -1,117 +1,116 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct WheelHit
 {
-	public struct WheelHit
+	private Vector3 m_Point;
+
+	private Vector3 m_Normal;
+
+	private Vector3 m_ForwardDir;
+
+	private Vector3 m_SidewaysDir;
+
+	private float m_Force;
+
+	private float m_ForwardSlip;
+
+	private float m_SidewaysSlip;
+
+	private Collider m_Collider;
+
+	public Collider collider
 	{
-		private Vector3 m_Point;
-
-		private Vector3 m_Normal;
-
-		private Vector3 m_ForwardDir;
-
-		private Vector3 m_SidewaysDir;
-
-		private float m_Force;
-
-		private float m_ForwardSlip;
-
-		private float m_SidewaysSlip;
-
-		private Collider m_Collider;
-
-		public Collider collider
+		get
 		{
-			get
-			{
-				return m_Collider;
-			}
-			set
-			{
-				m_Collider = value;
-			}
+			return m_Collider;
 		}
-
-		public Vector3 point
+		set
 		{
-			get
-			{
-				return m_Point;
-			}
-			set
-			{
-				m_Point = value;
-			}
+			m_Collider = value;
 		}
+	}
 
-		public Vector3 normal
+	public Vector3 point
+	{
+		get
 		{
-			get
-			{
-				return m_Normal;
-			}
-			set
-			{
-				m_Normal = value;
-			}
+			return m_Point;
 		}
-
-		public Vector3 forwardDir
+		set
 		{
-			get
-			{
-				return m_ForwardDir;
-			}
-			set
-			{
-				m_ForwardDir = value;
-			}
+			m_Point = value;
 		}
+	}
 
-		public Vector3 sidewaysDir
+	public Vector3 normal
+	{
+		get
 		{
-			get
-			{
-				return m_SidewaysDir;
-			}
-			set
-			{
-				m_SidewaysDir = value;
-			}
+			return m_Normal;
 		}
-
-		public float force
+		set
 		{
-			get
-			{
-				return m_Force;
-			}
-			set
-			{
-				m_Force = value;
-			}
+			m_Normal = value;
 		}
+	}
 
-		public float forwardSlip
+	public Vector3 forwardDir
+	{
+		get
 		{
-			get
-			{
-				return m_ForwardSlip;
-			}
-			set
-			{
-				m_Force = m_ForwardSlip;
-			}
+			return m_ForwardDir;
 		}
-
-		public float sidewaysSlip
+		set
 		{
-			get
-			{
-				return m_SidewaysSlip;
-			}
-			set
-			{
-				m_SidewaysSlip = value;
-			}
+			m_ForwardDir = value;
+		}
+	}
+
+	public Vector3 sidewaysDir
+	{
+		get
+		{
+			return m_SidewaysDir;
+		}
+		set
+		{
+			m_SidewaysDir = value;
+		}
+	}
+
+	public float force
+	{
+		get
+		{
+			return m_Force;
+		}
+		set
+		{
+			m_Force = value;
+		}
+	}
+
+	public float forwardSlip
+	{
+		get
+		{
+			return m_ForwardSlip;
+		}
+		set
+		{
+			m_Force = m_ForwardSlip;
+		}
+	}
+
+	public float sidewaysSlip
+	{
+		get
+		{
+			return m_SidewaysSlip;
+		}
+		set
+		{
+			m_SidewaysSlip = value;
 		}
 	}
 }

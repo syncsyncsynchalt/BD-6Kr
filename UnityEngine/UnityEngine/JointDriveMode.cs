@@ -1,13 +1,12 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Flags]
+public enum JointDriveMode
 {
-	[Flags]
-	public enum JointDriveMode
-	{
-		None = 0x0,
-		Position = 0x1,
-		Velocity = 0x2,
-		PositionAndVelocity = 0x3
-	}
+	None = 0,
+	Position = 1,
+	Velocity = 2,
+	PositionAndVelocity = 3
 }

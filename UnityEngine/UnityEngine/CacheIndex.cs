@@ -1,14 +1,13 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Obsolete("this API is not for public use.")]
+public struct CacheIndex
 {
-	[Obsolete("this API is not for public use.")]
-	public struct CacheIndex
-	{
-		public string name;
+	public string name;
 
-		public int bytesUsed;
+	public int bytesUsed;
 
-		public int expires;
-	}
+	public int expires;
 }

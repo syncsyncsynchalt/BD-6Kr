@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum DeviceType
 {
-	public enum DeviceType
-	{
-		Unknown,
-		Handheld,
-		Console,
-		Desktop
-	}
+	Unknown,
+	Handheld,
+	Console,
+	Desktop
 }

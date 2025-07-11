@@ -1,49 +1,58 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ConstantForce2D : PhysicsUpdateBehaviour2D
 {
-	public sealed class ConstantForce2D : PhysicsUpdateBehaviour2D
+	public Vector2 force
 	{
-		public Vector2 force
+		get
 		{
-			get
-			{
-				INTERNAL_get_force(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_force(ref value);
-			}
+			INTERNAL_get_force(out var value);
+			return value;
 		}
-
-		public Vector2 relativeForce
+		set
 		{
-			get
-			{
-				INTERNAL_get_relativeForce(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_relativeForce(ref value);
-			}
+			INTERNAL_set_force(ref value);
 		}
-
-		public float torque
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_force(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_force(ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_relativeForce(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_relativeForce(ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public Vector2 relativeForce
+	{
+		get
+		{
+			INTERNAL_get_relativeForce(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_relativeForce(ref value);
+		}
+	}
+
+	public extern float torque
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_force(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_force(ref Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_relativeForce(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_relativeForce(ref Vector2 value);
 }

@@ -1,188 +1,188 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential)]
+public sealed class AnimationEvent
 {
-	[Serializable]
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class AnimationEvent
+	internal float m_Time;
+
+	internal string m_FunctionName;
+
+	internal string m_StringParameter;
+
+	internal Object m_ObjectReferenceParameter;
+
+	internal float m_FloatParameter;
+
+	internal int m_IntParameter;
+
+	internal int m_MessageOptions;
+
+	internal AnimationEventSource m_Source;
+
+	internal AnimationState m_StateSender;
+
+	internal AnimatorStateInfo m_AnimatorStateInfo;
+
+	internal AnimatorClipInfo m_AnimatorClipInfo;
+
+	[Obsolete("Use stringParameter instead")]
+	public string data
 	{
-		internal float m_Time;
-
-		internal string m_FunctionName;
-
-		internal string m_StringParameter;
-
-		internal Object m_ObjectReferenceParameter;
-
-		internal float m_FloatParameter;
-
-		internal int m_IntParameter;
-
-		internal int m_MessageOptions;
-
-		internal AnimationEventSource m_Source;
-
-		internal AnimationState m_StateSender;
-
-		internal AnimatorStateInfo m_AnimatorStateInfo;
-
-		internal AnimatorClipInfo m_AnimatorClipInfo;
-
-		[Obsolete("Use stringParameter instead")]
-		public string data
+		get
 		{
-			get
-			{
-				return m_StringParameter;
-			}
-			set
-			{
-				m_StringParameter = value;
-			}
+			return m_StringParameter;
 		}
-
-		public string stringParameter
+		set
 		{
-			get
-			{
-				return m_StringParameter;
-			}
-			set
-			{
-				m_StringParameter = value;
-			}
+			m_StringParameter = value;
 		}
+	}
 
-		public float floatParameter
+	public string stringParameter
+	{
+		get
 		{
-			get
-			{
-				return m_FloatParameter;
-			}
-			set
-			{
-				m_FloatParameter = value;
-			}
+			return m_StringParameter;
 		}
-
-		public int intParameter
+		set
 		{
-			get
-			{
-				return m_IntParameter;
-			}
-			set
-			{
-				m_IntParameter = value;
-			}
+			m_StringParameter = value;
 		}
+	}
 
-		public Object objectReferenceParameter
+	public float floatParameter
+	{
+		get
 		{
-			get
-			{
-				return m_ObjectReferenceParameter;
-			}
-			set
-			{
-				m_ObjectReferenceParameter = value;
-			}
+			return m_FloatParameter;
 		}
-
-		public string functionName
+		set
 		{
-			get
-			{
-				return m_FunctionName;
-			}
-			set
-			{
-				m_FunctionName = value;
-			}
+			m_FloatParameter = value;
 		}
+	}
 
-		public float time
+	public int intParameter
+	{
+		get
 		{
-			get
-			{
-				return m_Time;
-			}
-			set
-			{
-				m_Time = value;
-			}
+			return m_IntParameter;
 		}
-
-		public SendMessageOptions messageOptions
+		set
 		{
-			get
-			{
-				return (SendMessageOptions)m_MessageOptions;
-			}
-			set
-			{
-				m_MessageOptions = (int)value;
-			}
+			m_IntParameter = value;
 		}
+	}
 
-		public bool isFiredByLegacy => m_Source == AnimationEventSource.Legacy;
-
-		public bool isFiredByAnimator => m_Source == AnimationEventSource.Animator;
-
-		public AnimationState animationState
+	public Object objectReferenceParameter
+	{
+		get
 		{
-			get
+			return m_ObjectReferenceParameter;
+		}
+		set
+		{
+			m_ObjectReferenceParameter = value;
+		}
+	}
+
+	public string functionName
+	{
+		get
+		{
+			return m_FunctionName;
+		}
+		set
+		{
+			m_FunctionName = value;
+		}
+	}
+
+	public float time
+	{
+		get
+		{
+			return m_Time;
+		}
+		set
+		{
+			m_Time = value;
+		}
+	}
+
+	public SendMessageOptions messageOptions
+	{
+		get
+		{
+			return (SendMessageOptions)m_MessageOptions;
+		}
+		set
+		{
+			m_MessageOptions = (int)value;
+		}
+	}
+
+	public bool isFiredByLegacy => m_Source == AnimationEventSource.Legacy;
+
+	public bool isFiredByAnimator => m_Source == AnimationEventSource.Animator;
+
+	public AnimationState animationState
+	{
+		get
+		{
+			if (!isFiredByLegacy)
 			{
-				if (!isFiredByLegacy)
-				{
-					Debug.LogError("AnimationEvent was not fired by Animation component, you shouldn't use AnimationEvent.animationState");
-				}
-				return m_StateSender;
+				Debug.LogError("AnimationEvent was not fired by Animation component, you shouldn't use AnimationEvent.animationState");
 			}
+			return m_StateSender;
 		}
+	}
 
-		public AnimatorStateInfo animatorStateInfo
+	public AnimatorStateInfo animatorStateInfo
+	{
+		get
 		{
-			get
+			if (!isFiredByAnimator)
 			{
-				if (!isFiredByAnimator)
-				{
-					Debug.LogError("AnimationEvent was not fired by Animator component, you shouldn't use AnimationEvent.animatorStateInfo");
-				}
-				return m_AnimatorStateInfo;
+				Debug.LogError("AnimationEvent was not fired by Animator component, you shouldn't use AnimationEvent.animatorStateInfo");
 			}
+			return m_AnimatorStateInfo;
 		}
+	}
 
-		public AnimatorClipInfo animatorClipInfo
+	public AnimatorClipInfo animatorClipInfo
+	{
+		get
 		{
-			get
+			if (!isFiredByAnimator)
 			{
-				if (!isFiredByAnimator)
-				{
-					Debug.LogError("AnimationEvent was not fired by Animator component, you shouldn't use AnimationEvent.animatorClipInfo");
-				}
-				return m_AnimatorClipInfo;
+				Debug.LogError("AnimationEvent was not fired by Animator component, you shouldn't use AnimationEvent.animatorClipInfo");
 			}
+			return m_AnimatorClipInfo;
 		}
+	}
 
-		public AnimationEvent()
-		{
-			m_Time = 0f;
-			m_FunctionName = string.Empty;
-			m_StringParameter = string.Empty;
-			m_ObjectReferenceParameter = null;
-			m_FloatParameter = 0f;
-			m_IntParameter = 0;
-			m_MessageOptions = 0;
-			m_Source = AnimationEventSource.NoSource;
-			m_StateSender = null;
-		}
+	public AnimationEvent()
+	{
+		m_Time = 0f;
+		m_FunctionName = string.Empty;
+		m_StringParameter = string.Empty;
+		m_ObjectReferenceParameter = null;
+		m_FloatParameter = 0f;
+		m_IntParameter = 0;
+		m_MessageOptions = 0;
+		m_Source = AnimationEventSource.NoSource;
+		m_StateSender = null;
+	}
 
-		internal int GetHash()
-		{
-			int hashCode = functionName.GetHashCode();
-			return 33 * hashCode + time.GetHashCode();
-		}
+	internal int GetHash()
+	{
+		int num = 0;
+		num = functionName.GetHashCode();
+		return 33 * num + time.GetHashCode();
 	}
 }

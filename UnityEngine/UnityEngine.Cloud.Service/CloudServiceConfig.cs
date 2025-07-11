@@ -1,78 +1,77 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine.Cloud.Service
+namespace UnityEngine.Cloud.Service;
+
+[StructLayout(LayoutKind.Sequential)]
+internal sealed class CloudServiceConfig
 {
-	[StructLayout(LayoutKind.Sequential)]
-	internal sealed class CloudServiceConfig
+	private int m_MaxNumberOfEventInGroup;
+
+	private string m_SessionHeaderName;
+
+	private string m_EventsHeaderName;
+
+	private string m_EventsEndPoint;
+
+	private int[] m_NetworkFailureRetryTimeoutInSec;
+
+	public int maxNumberOfEventInGroup
 	{
-		private int m_MaxNumberOfEventInGroup;
-
-		private string m_SessionHeaderName;
-
-		private string m_EventsHeaderName;
-
-		private string m_EventsEndPoint;
-
-		private int[] m_NetworkFailureRetryTimeoutInSec;
-
-		public int maxNumberOfEventInGroup
+		get
 		{
-			get
-			{
-				return m_MaxNumberOfEventInGroup;
-			}
-			set
-			{
-				m_MaxNumberOfEventInGroup = value;
-			}
+			return m_MaxNumberOfEventInGroup;
 		}
-
-		public string sessionHeaderName
+		set
 		{
-			get
-			{
-				return m_SessionHeaderName;
-			}
-			set
-			{
-				m_SessionHeaderName = value;
-			}
+			m_MaxNumberOfEventInGroup = value;
 		}
+	}
 
-		public string eventsHeaderName
+	public string sessionHeaderName
+	{
+		get
 		{
-			get
-			{
-				return m_EventsHeaderName;
-			}
-			set
-			{
-				m_EventsHeaderName = value;
-			}
+			return m_SessionHeaderName;
 		}
-
-		public string eventsEndPoint
+		set
 		{
-			get
-			{
-				return m_EventsEndPoint;
-			}
-			set
-			{
-				m_EventsEndPoint = value;
-			}
+			m_SessionHeaderName = value;
 		}
+	}
 
-		public int[] networkFailureRetryTimeoutInSec
+	public string eventsHeaderName
+	{
+		get
 		{
-			get
-			{
-				return m_NetworkFailureRetryTimeoutInSec;
-			}
-			set
-			{
-				m_NetworkFailureRetryTimeoutInSec = value;
-			}
+			return m_EventsHeaderName;
+		}
+		set
+		{
+			m_EventsHeaderName = value;
+		}
+	}
+
+	public string eventsEndPoint
+	{
+		get
+		{
+			return m_EventsEndPoint;
+		}
+		set
+		{
+			m_EventsEndPoint = value;
+		}
+	}
+
+	public int[] networkFailureRetryTimeoutInSec
+	{
+		get
+		{
+			return m_NetworkFailureRetryTimeoutInSec;
+		}
+		set
+		{
+			m_NetworkFailureRetryTimeoutInSec = value;
 		}
 	}
 }

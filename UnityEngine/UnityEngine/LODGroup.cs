@@ -1,74 +1,107 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class LODGroup : Component
 {
-	public sealed class LODGroup : Component
+	public Vector3 localReferencePoint
 	{
-		public Vector3 localReferencePoint
+		get
 		{
-			get
-			{
-				INTERNAL_get_localReferencePoint(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_localReferencePoint(ref value);
-			}
+			INTERNAL_get_localReferencePoint(out var value);
+			return value;
 		}
-
-		public float size
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_localReferencePoint(ref value);
 		}
-
-		public int lodCount
-		{
-			get;
-		}
-
-		public LODFadeMode fadeMode
-		{
-			get;
-			set;
-		}
-
-		public bool animateCrossFading
-		{
-			get;
-			set;
-		}
-
-		public bool enabled
-		{
-			get;
-			set;
-		}
-
-		public static float crossFadeAnimationDuration
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_localReferencePoint(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_localReferencePoint(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void RecalculateBounds() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public LOD[] GetLODs() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Use SetLODs instead.")]
-		public void SetLODS(LOD[] lods)
-		{
-			SetLODs(lods);
-		}
-
-		public void SetLODs(LOD[] lods) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void ForceLOD(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern float size
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int lodCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern LODFadeMode fadeMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool animateCrossFading
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool enabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float crossFadeAnimationDuration
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_localReferencePoint(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_localReferencePoint(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void RecalculateBounds();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern LOD[] GetLODs();
+
+	[Obsolete("Use SetLODs instead.")]
+	public void SetLODS(LOD[] lods)
+	{
+		SetLODs(lods);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetLODs(LOD[] lods);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void ForceLOD(int index);
 }

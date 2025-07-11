@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RigidbodySleepMode2D
 {
-	public enum RigidbodySleepMode2D
-	{
-		NeverSleep,
-		StartAwake,
-		StartAsleep
-	}
+	NeverSleep,
+	StartAwake,
+	StartAsleep
 }

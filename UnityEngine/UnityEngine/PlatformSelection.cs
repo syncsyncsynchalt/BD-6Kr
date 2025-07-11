@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum PlatformSelection
 {
-	internal enum PlatformSelection
-	{
-		Native,
-		Mac,
-		Windows
-	}
+	Native,
+	Mac,
+	Windows
 }

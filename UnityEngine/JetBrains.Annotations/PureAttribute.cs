@@ -1,9 +1,8 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[AttributeUsage(AttributeTargets.Method, Inherited = true)]
+public sealed class PureAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Method, Inherited = true)]
-	public sealed class PureAttribute : Attribute
-	{
-	}
 }

@@ -1,212 +1,301 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class RenderSettings : Object
 {
-	public sealed class RenderSettings : Object
+	public static extern bool fog
 	{
-		public static bool fog
-		{
-			get;
-			set;
-		}
-
-		public static FogMode fogMode
-		{
-			get;
-			set;
-		}
-
-		public static Color fogColor
-		{
-			get
-			{
-				INTERNAL_get_fogColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_fogColor(ref value);
-			}
-		}
-
-		public static float fogDensity
-		{
-			get;
-			set;
-		}
-
-		public static float fogStartDistance
-		{
-			get;
-			set;
-		}
-
-		public static float fogEndDistance
-		{
-			get;
-			set;
-		}
-
-		public static AmbientMode ambientMode
-		{
-			get;
-			set;
-		}
-
-		public static Color ambientSkyColor
-		{
-			get
-			{
-				INTERNAL_get_ambientSkyColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_ambientSkyColor(ref value);
-			}
-		}
-
-		public static Color ambientEquatorColor
-		{
-			get
-			{
-				INTERNAL_get_ambientEquatorColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_ambientEquatorColor(ref value);
-			}
-		}
-
-		public static Color ambientGroundColor
-		{
-			get
-			{
-				INTERNAL_get_ambientGroundColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_ambientGroundColor(ref value);
-			}
-		}
-
-		public static Color ambientLight
-		{
-			get
-			{
-				INTERNAL_get_ambientLight(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_ambientLight(ref value);
-			}
-		}
-
-		public static float ambientIntensity
-		{
-			get;
-			set;
-		}
-
-		public static SphericalHarmonicsL2 ambientProbe
-		{
-			get
-			{
-				INTERNAL_get_ambientProbe(out SphericalHarmonicsL2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_ambientProbe(ref value);
-			}
-		}
-
-		public static float reflectionIntensity
-		{
-			get;
-			set;
-		}
-
-		public static int reflectionBounces
-		{
-			get;
-			set;
-		}
-
-		public static float haloStrength
-		{
-			get;
-			set;
-		}
-
-		public static float flareStrength
-		{
-			get;
-			set;
-		}
-
-		public static float flareFadeSpeed
-		{
-			get;
-			set;
-		}
-
-		public static Material skybox
-		{
-			get;
-			set;
-		}
-
-		public static DefaultReflectionMode defaultReflectionMode
-		{
-			get;
-			set;
-		}
-
-		public static int defaultReflectionResolution
-		{
-			get;
-			set;
-		}
-
-		public static Cubemap customReflection
-		{
-			get;
-			set;
-		}
-
-		private static void INTERNAL_get_fogColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_fogColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_ambientSkyColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_ambientSkyColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_ambientEquatorColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_ambientEquatorColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_ambientGroundColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_ambientGroundColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_ambientLight(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_ambientLight(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_ambientProbe(out SphericalHarmonicsL2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_ambientProbe(ref SphericalHarmonicsL2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal static void Reset() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		internal static Object GetRenderSettings() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public static extern FogMode fogMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static Color fogColor
+	{
+		get
+		{
+			INTERNAL_get_fogColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_fogColor(ref value);
+		}
+	}
+
+	public static extern float fogDensity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float fogStartDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float fogEndDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern AmbientMode ambientMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static Color ambientSkyColor
+	{
+		get
+		{
+			INTERNAL_get_ambientSkyColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_ambientSkyColor(ref value);
+		}
+	}
+
+	public static Color ambientEquatorColor
+	{
+		get
+		{
+			INTERNAL_get_ambientEquatorColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_ambientEquatorColor(ref value);
+		}
+	}
+
+	public static Color ambientGroundColor
+	{
+		get
+		{
+			INTERNAL_get_ambientGroundColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_ambientGroundColor(ref value);
+		}
+	}
+
+	public static Color ambientLight
+	{
+		get
+		{
+			INTERNAL_get_ambientLight(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_ambientLight(ref value);
+		}
+	}
+
+	public static extern float ambientIntensity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static SphericalHarmonicsL2 ambientProbe
+	{
+		get
+		{
+			INTERNAL_get_ambientProbe(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_ambientProbe(ref value);
+		}
+	}
+
+	public static extern float reflectionIntensity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern int reflectionBounces
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float haloStrength
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float flareStrength
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern float flareFadeSpeed
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern Material skybox
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern DefaultReflectionMode defaultReflectionMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern int defaultReflectionResolution
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern Cubemap customReflection
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_fogColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_fogColor(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_ambientSkyColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_ambientSkyColor(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_ambientEquatorColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_ambientEquatorColor(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_ambientGroundColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_ambientGroundColor(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_ambientLight(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_ambientLight(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_ambientProbe(out SphericalHarmonicsL2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_ambientProbe(ref SphericalHarmonicsL2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern void Reset();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern Object GetRenderSettings();
 }

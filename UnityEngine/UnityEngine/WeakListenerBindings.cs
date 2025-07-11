@@ -1,12 +1,11 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal sealed class WeakListenerBindings
 {
-	internal sealed class WeakListenerBindings
-	{
-		public static void InvokeCallbacks(object inst, GCHandle gchandle, object[] parameters) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void InvokeCallbacks(object inst, GCHandle gchandle, object[] parameters);
 }

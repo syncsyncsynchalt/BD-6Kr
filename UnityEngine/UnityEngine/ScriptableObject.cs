@@ -2,38 +2,45 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public class ScriptableObject : Object
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class ScriptableObject : Object
+	public ScriptableObject()
 	{
-		public ScriptableObject()
-		{
-			Internal_CreateScriptableObject(this);
-		}
+		Internal_CreateScriptableObject(this);
+	}
 
-		private static void Internal_CreateScriptableObject([Writable] ScriptableObject self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void Internal_CreateScriptableObject([Writable] ScriptableObject self);
 
-		[Obsolete("Use EditorUtility.SetDirty instead")]
-		public void SetDirty()
-		{
-			INTERNAL_CALL_SetDirty(this);
-		}
+	[Obsolete("Use EditorUtility.SetDirty instead")]
+	public void SetDirty()
+	{
+		INTERNAL_CALL_SetDirty(this);
+	}
 
-		private static void INTERNAL_CALL_SetDirty(ScriptableObject self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_SetDirty(ScriptableObject self);
 
-		public static ScriptableObject CreateInstance(string className) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern ScriptableObject CreateInstance(string className);
 
-		public static ScriptableObject CreateInstance(Type type)
-		{
-			return CreateInstanceFromType(type);
-		}
+	public static ScriptableObject CreateInstance(Type type)
+	{
+		return CreateInstanceFromType(type);
+	}
 
-		private static ScriptableObject CreateInstanceFromType(Type type) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern ScriptableObject CreateInstanceFromType(Type type);
 
-		public static T CreateInstance<T>() where T : ScriptableObject
-		{
-			return (T)CreateInstance(typeof(T));
-		}
+	public static T CreateInstance<T>() where T : ScriptableObject
+	{
+		return (T)CreateInstance(typeof(T));
 	}
 }

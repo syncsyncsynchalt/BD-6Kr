@@ -1,16 +1,15 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct NavMeshTriangulation
 {
-	public struct NavMeshTriangulation
-	{
-		public Vector3[] vertices;
+	public Vector3[] vertices;
 
-		public int[] indices;
+	public int[] indices;
 
-		public int[] areas;
+	public int[] areas;
 
-		[Obsolete("Use areas instead.")]
-		public int[] layers => areas;
-	}
+	[Obsolete("Use areas instead.")]
+	public int[] layers => areas;
 }

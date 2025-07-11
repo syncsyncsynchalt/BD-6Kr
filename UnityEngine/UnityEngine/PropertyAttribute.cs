@@ -1,14 +1,9 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
+public abstract class PropertyAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-	public abstract class PropertyAttribute : Attribute
-	{
-		public int order
-		{
-			get;
-			set;
-		}
-	}
+	public int order { get; set; }
 }

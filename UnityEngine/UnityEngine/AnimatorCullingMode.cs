@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnimatorCullingMode
 {
-	public enum AnimatorCullingMode
-	{
-		AlwaysAnimate,
-		CullUpdateTransforms,
-		CullCompletely
-	}
+	AlwaysAnimate,
+	CullUpdateTransforms,
+	CullCompletely
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ReflectionProbeRefreshMode
 {
-	public enum ReflectionProbeRefreshMode
-	{
-		OnAwake,
-		EveryFrame,
-		ViaScripting
-	}
+	OnAwake,
+	EveryFrame,
+	ViaScripting
 }

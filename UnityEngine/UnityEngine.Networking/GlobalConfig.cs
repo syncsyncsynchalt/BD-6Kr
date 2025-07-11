@@ -1,96 +1,95 @@
 using System;
 
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+[Serializable]
+public class GlobalConfig
 {
-	[Serializable]
-	public class GlobalConfig
+	[SerializeField]
+	private uint m_ThreadAwakeTimeout;
+
+	[SerializeField]
+	private ReactorModel m_ReactorModel;
+
+	[SerializeField]
+	private ushort m_ReactorMaximumReceivedMessages;
+
+	[SerializeField]
+	private ushort m_ReactorMaximumSentMessages;
+
+	[SerializeField]
+	private ushort m_MaxPacketSize;
+
+	public uint ThreadAwakeTimeout
 	{
-		[SerializeField]
-		private uint m_ThreadAwakeTimeout;
-
-		[SerializeField]
-		private ReactorModel m_ReactorModel;
-
-		[SerializeField]
-		private ushort m_ReactorMaximumReceivedMessages;
-
-		[SerializeField]
-		private ushort m_ReactorMaximumSentMessages;
-
-		[SerializeField]
-		private ushort m_MaxPacketSize;
-
-		public uint ThreadAwakeTimeout
+		get
 		{
-			get
-			{
-				return m_ThreadAwakeTimeout;
-			}
-			set
-			{
-				if (value == 0)
-				{
-					throw new ArgumentOutOfRangeException("Minimal thread awake timeout should be > 0");
-				}
-				m_ThreadAwakeTimeout = value;
-			}
+			return m_ThreadAwakeTimeout;
 		}
-
-		public ReactorModel ReactorModel
+		set
 		{
-			get
+			if (value == 0)
 			{
-				return m_ReactorModel;
+				throw new ArgumentOutOfRangeException("Minimal thread awake timeout should be > 0");
 			}
-			set
-			{
-				m_ReactorModel = value;
-			}
+			m_ThreadAwakeTimeout = value;
 		}
+	}
 
-		public ushort ReactorMaximumReceivedMessages
+	public ReactorModel ReactorModel
+	{
+		get
 		{
-			get
-			{
-				return m_ReactorMaximumReceivedMessages;
-			}
-			set
-			{
-				m_ReactorMaximumReceivedMessages = value;
-			}
+			return m_ReactorModel;
 		}
+		set
+		{
+			m_ReactorModel = value;
+		}
+	}
 
-		public ushort ReactorMaximumSentMessages
+	public ushort ReactorMaximumReceivedMessages
+	{
+		get
 		{
-			get
-			{
-				return m_ReactorMaximumSentMessages;
-			}
-			set
-			{
-				m_ReactorMaximumSentMessages = value;
-			}
+			return m_ReactorMaximumReceivedMessages;
 		}
+		set
+		{
+			m_ReactorMaximumReceivedMessages = value;
+		}
+	}
 
-		public ushort MaxPacketSize
+	public ushort ReactorMaximumSentMessages
+	{
+		get
 		{
-			get
-			{
-				return m_MaxPacketSize;
-			}
-			set
-			{
-				m_MaxPacketSize = value;
-			}
+			return m_ReactorMaximumSentMessages;
 		}
+		set
+		{
+			m_ReactorMaximumSentMessages = value;
+		}
+	}
 
-		public GlobalConfig()
+	public ushort MaxPacketSize
+	{
+		get
 		{
-			m_ThreadAwakeTimeout = 1u;
-			m_ReactorModel = ReactorModel.SelectReactor;
-			m_ReactorMaximumReceivedMessages = 1024;
-			m_ReactorMaximumSentMessages = 1024;
-			m_MaxPacketSize = 2000;
+			return m_MaxPacketSize;
 		}
+		set
+		{
+			m_MaxPacketSize = value;
+		}
+	}
+
+	public GlobalConfig()
+	{
+		m_ThreadAwakeTimeout = 1u;
+		m_ReactorModel = ReactorModel.SelectReactor;
+		m_ReactorMaximumReceivedMessages = 1024;
+		m_ReactorMaximumSentMessages = 1024;
+		m_MaxPacketSize = 2000;
 	}
 }

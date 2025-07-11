@@ -1,11 +1,10 @@
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public enum UserState
 {
-	public enum UserState
-	{
-		Online,
-		OnlineAndAway,
-		OnlineAndBusy,
-		Offline,
-		Playing
-	}
+	Online,
+	OnlineAndAway,
+	OnlineAndBusy,
+	Offline,
+	Playing
 }

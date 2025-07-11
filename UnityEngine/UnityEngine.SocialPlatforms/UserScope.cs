@@ -1,8 +1,7 @@
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public enum UserScope
 {
-	public enum UserScope
-	{
-		Global,
-		FriendsOnly
-	}
+	Global,
+	FriendsOnly
 }

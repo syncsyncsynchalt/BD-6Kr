@@ -1,23 +1,18 @@
 using UnityEngine.Networking.Types;
 
-namespace UnityEngine.Networking.Match
+namespace UnityEngine.Networking.Match;
+
+public class DestroyMatchRequest : Request
 {
-	public class DestroyMatchRequest : Request
+	public NetworkID networkId { get; set; }
+
+	public override string ToString()
 	{
-		public NetworkID networkId
-		{
-			get;
-			set;
-		}
+		return UnityString.Format("[{0}]-networkId:0x{1}", base.ToString(), networkId.ToString("X"));
+	}
 
-		public override string ToString()
-		{
-			return UnityString.Format("[{0}]-networkId:0x{1}", base.ToString(), networkId.ToString("X"));
-		}
-
-		public override bool IsValid()
-		{
-			return base.IsValid() && networkId != NetworkID.Invalid;
-		}
+	public override bool IsValid()
+	{
+		return base.IsValid() && networkId != NetworkID.Invalid;
 	}
 }

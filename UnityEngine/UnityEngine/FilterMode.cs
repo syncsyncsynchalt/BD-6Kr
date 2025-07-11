@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum FilterMode
 {
-	public enum FilterMode
-	{
-		Point,
-		Bilinear,
-		Trilinear
-	}
+	Point,
+	Bilinear,
+	Trilinear
 }

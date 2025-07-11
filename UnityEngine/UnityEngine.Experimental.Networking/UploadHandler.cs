@@ -2,64 +2,65 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine.Experimental.Networking
+namespace UnityEngine.Experimental.Networking;
+
+[StructLayout(LayoutKind.Sequential)]
+public class UploadHandler : IDisposable
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class UploadHandler : IDisposable
+	[NonSerialized]
+	internal IntPtr m_Ptr;
+
+	public byte[] data => GetData();
+
+	public string contentType
 	{
-		[NonSerialized]
-		internal IntPtr m_Ptr;
-
-		public byte[] data => GetData();
-
-		public string contentType
+		get
 		{
-			get
-			{
-				return GetContentType();
-			}
-			set
-			{
-				SetContentType(value);
-			}
+			return GetContentType();
 		}
-
-		public float progress => GetProgress();
-
-		internal UploadHandler()
+		set
 		{
+			SetContentType(value);
 		}
+	}
 
-		private void InternalDestroy() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public float progress => GetProgress();
 
-		~UploadHandler()
-		{
-			InternalDestroy();
-		}
+	internal UploadHandler()
+	{
+	}
 
-		public void Dispose()
-		{
-			InternalDestroy();
-			GC.SuppressFinalize(this);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void InternalDestroy();
 
-		internal virtual byte[] GetData()
-		{
-			return null;
-		}
+	~UploadHandler()
+	{
+		InternalDestroy();
+	}
 
-		internal virtual string GetContentType()
-		{
-			return "text/plain";
-		}
+	public void Dispose()
+	{
+		InternalDestroy();
+		GC.SuppressFinalize(this);
+	}
 
-		internal virtual void SetContentType(string newContentType)
-		{
-		}
+	internal virtual byte[] GetData()
+	{
+		return null;
+	}
 
-		internal virtual float GetProgress()
-		{
-			return 0.5f;
-		}
+	internal virtual string GetContentType()
+	{
+		return "text/plain";
+	}
+
+	internal virtual void SetContentType(string newContentType)
+	{
+	}
+
+	internal virtual float GetProgress()
+	{
+		return 0.5f;
 	}
 }

@@ -1,41 +1,20 @@
 using System;
 
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public interface IScore
 {
-	public interface IScore
-	{
-		string leaderboardID
-		{
-			get;
-			set;
-		}
+	string leaderboardID { get; set; }
 
-		long value
-		{
-			get;
-			set;
-		}
+	long value { get; set; }
 
-		DateTime date
-		{
-			get;
-		}
+	DateTime date { get; }
 
-		string formattedValue
-		{
-			get;
-		}
+	string formattedValue { get; }
 
-		string userID
-		{
-			get;
-		}
+	string userID { get; }
 
-		int rank
-		{
-			get;
-		}
+	int rank { get; }
 
-		void ReportScore(Action<bool> callback);
-	}
+	void ReportScore(Action<bool> callback);
 }

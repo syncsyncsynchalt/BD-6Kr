@@ -1,13 +1,12 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[Flags]
+public enum ImplicitUseTargetFlags
 {
-	[Flags]
-	public enum ImplicitUseTargetFlags
-	{
-		Default = 0x1,
-		Itself = 0x1,
-		Members = 0x2,
-		WithMembers = 0x3
-	}
+	Default = 1,
+	Itself = 1,
+	Members = 2,
+	WithMembers = 3
 }

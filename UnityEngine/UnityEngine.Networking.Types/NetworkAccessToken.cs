@@ -1,50 +1,49 @@
 using System;
 
-namespace UnityEngine.Networking.Types
+namespace UnityEngine.Networking.Types;
+
+public class NetworkAccessToken
 {
-	public class NetworkAccessToken
+	private const int NETWORK_ACCESS_TOKEN_SIZE = 64;
+
+	public byte[] array;
+
+	public NetworkAccessToken()
 	{
-		private const int NETWORK_ACCESS_TOKEN_SIZE = 64;
+		array = new byte[64];
+	}
 
-		public byte[] array;
+	public NetworkAccessToken(byte[] array)
+	{
+		this.array = array;
+	}
 
-		public NetworkAccessToken()
+	public NetworkAccessToken(string strArray)
+	{
+		array = Convert.FromBase64String(strArray);
+	}
+
+	public string GetByteString()
+	{
+		return Convert.ToBase64String(array);
+	}
+
+	public bool IsValid()
+	{
+		if (this.array == null || this.array.Length != 64)
 		{
-			array = new byte[64];
+			return false;
 		}
-
-		public NetworkAccessToken(byte[] array)
+		bool result = false;
+		byte[] array = this.array;
+		for (int i = 0; i < array.Length; i++)
 		{
-			this.array = array;
-		}
-
-		public NetworkAccessToken(string strArray)
-		{
-			array = Convert.FromBase64String(strArray);
-		}
-
-		public string GetByteString()
-		{
-			return Convert.ToBase64String(array);
-		}
-
-		public bool IsValid()
-		{
-			if (this.array == null || this.array.Length != 64)
+			if (array[i] != 0)
 			{
-				return false;
+				result = true;
+				break;
 			}
-			bool result = false;
-			byte[] array = this.array;
-			for (int i = 0; i < array.Length; i++)
-			{
-				if (array[i] != 0)
-				{
-					result = true;
-					break;
-				}
-			}
-			return result;
 		}
+		return result;
 	}
 }

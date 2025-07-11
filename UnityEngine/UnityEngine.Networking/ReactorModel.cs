@@ -1,8 +1,7 @@
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+public enum ReactorModel
 {
-	public enum ReactorModel
-	{
-		SelectReactor,
-		FixRateReactor
-	}
+	SelectReactor,
+	FixRateReactor
 }

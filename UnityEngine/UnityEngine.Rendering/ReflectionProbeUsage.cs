@@ -1,10 +1,9 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ReflectionProbeUsage
 {
-	public enum ReflectionProbeUsage
-	{
-		Off,
-		BlendProbes,
-		BlendProbesAndSkybox,
-		Simple
-	}
+	Off,
+	BlendProbes,
+	BlendProbesAndSkybox,
+	Simple
 }

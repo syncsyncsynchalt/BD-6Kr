@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RenderingPath
 {
-	public enum RenderingPath
-	{
-		UsePlayerSettings = -1,
-		VertexLit,
-		Forward,
-		DeferredLighting,
-		DeferredShading
-	}
+	UsePlayerSettings = -1,
+	VertexLit,
+	Forward,
+	DeferredLighting,
+	DeferredShading
 }

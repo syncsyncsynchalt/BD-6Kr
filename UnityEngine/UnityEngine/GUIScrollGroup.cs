@@ -1,163 +1,162 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal sealed class GUIScrollGroup : GUILayoutGroup
 {
-	internal sealed class GUIScrollGroup : GUILayoutGroup
+	public float calcMinWidth;
+
+	public float calcMaxWidth;
+
+	public float calcMinHeight;
+
+	public float calcMaxHeight;
+
+	public float clientWidth;
+
+	public float clientHeight;
+
+	public bool allowHorizontalScroll = true;
+
+	public bool allowVerticalScroll = true;
+
+	public bool needsHorizontalScrollbar;
+
+	public bool needsVerticalScrollbar;
+
+	public GUIStyle horizontalScrollbar;
+
+	public GUIStyle verticalScrollbar;
+
+	public override void CalcWidth()
 	{
-		public float calcMinWidth;
-
-		public float calcMaxWidth;
-
-		public float calcMinHeight;
-
-		public float calcMaxHeight;
-
-		public float clientWidth;
-
-		public float clientHeight;
-
-		public bool allowHorizontalScroll = true;
-
-		public bool allowVerticalScroll = true;
-
-		public bool needsHorizontalScrollbar;
-
-		public bool needsVerticalScrollbar;
-
-		public GUIStyle horizontalScrollbar;
-
-		public GUIStyle verticalScrollbar;
-
-		public override void CalcWidth()
+		float num = minWidth;
+		float num2 = maxWidth;
+		if (allowHorizontalScroll)
 		{
-			float minWidth = base.minWidth;
-			float maxWidth = base.maxWidth;
-			if (allowHorizontalScroll)
+			minWidth = 0f;
+			maxWidth = 0f;
+		}
+		base.CalcWidth();
+		calcMinWidth = minWidth;
+		calcMaxWidth = maxWidth;
+		if (allowHorizontalScroll)
+		{
+			if (minWidth > 32f)
 			{
-				base.minWidth = 0f;
-				base.maxWidth = 0f;
+				minWidth = 32f;
 			}
-			base.CalcWidth();
-			calcMinWidth = base.minWidth;
-			calcMaxWidth = base.maxWidth;
-			if (allowHorizontalScroll)
+			if (num != 0f)
 			{
-				if (base.minWidth > 32f)
-				{
-					base.minWidth = 32f;
-				}
-				if (minWidth != 0f)
-				{
-					base.minWidth = minWidth;
-				}
-				if (maxWidth != 0f)
-				{
-					base.maxWidth = maxWidth;
-					stretchWidth = 0;
-				}
+				minWidth = num;
+			}
+			if (num2 != 0f)
+			{
+				maxWidth = num2;
+				stretchWidth = 0;
 			}
 		}
+	}
 
-		public override void SetHorizontal(float x, float width)
+	public override void SetHorizontal(float x, float width)
+	{
+		float num = ((!needsVerticalScrollbar) ? width : (width - verticalScrollbar.fixedWidth - (float)verticalScrollbar.margin.left));
+		if (allowHorizontalScroll && num < calcMinWidth)
 		{
-			float num = (!needsVerticalScrollbar) ? width : (width - verticalScrollbar.fixedWidth - (float)verticalScrollbar.margin.left);
-			if (allowHorizontalScroll && num < calcMinWidth)
-			{
-				needsHorizontalScrollbar = true;
-				minWidth = calcMinWidth;
-				maxWidth = calcMaxWidth;
-				base.SetHorizontal(x, calcMinWidth);
-				rect.width = width;
-				clientWidth = calcMinWidth;
-				return;
-			}
-			needsHorizontalScrollbar = false;
-			if (allowHorizontalScroll)
-			{
-				minWidth = calcMinWidth;
-				maxWidth = calcMaxWidth;
-			}
-			base.SetHorizontal(x, num);
+			needsHorizontalScrollbar = true;
+			minWidth = calcMinWidth;
+			maxWidth = calcMaxWidth;
+			base.SetHorizontal(x, calcMinWidth);
 			rect.width = width;
-			clientWidth = num;
+			clientWidth = calcMinWidth;
+			return;
 		}
-
-		public override void CalcHeight()
+		needsHorizontalScrollbar = false;
+		if (allowHorizontalScroll)
 		{
-			float minHeight = base.minHeight;
-			float maxHeight = base.maxHeight;
+			minWidth = calcMinWidth;
+			maxWidth = calcMaxWidth;
+		}
+		base.SetHorizontal(x, num);
+		rect.width = width;
+		clientWidth = num;
+	}
+
+	public override void CalcHeight()
+	{
+		float num = minHeight;
+		float num2 = maxHeight;
+		if (allowVerticalScroll)
+		{
+			minHeight = 0f;
+			maxHeight = 0f;
+		}
+		base.CalcHeight();
+		calcMinHeight = minHeight;
+		calcMaxHeight = maxHeight;
+		if (needsHorizontalScrollbar)
+		{
+			float num3 = horizontalScrollbar.fixedHeight + (float)horizontalScrollbar.margin.top;
+			minHeight += num3;
+			maxHeight += num3;
+		}
+		if (allowVerticalScroll)
+		{
+			if (minHeight > 32f)
+			{
+				minHeight = 32f;
+			}
+			if (num != 0f)
+			{
+				minHeight = num;
+			}
+			if (num2 != 0f)
+			{
+				maxHeight = num2;
+				stretchHeight = 0;
+			}
+		}
+	}
+
+	public override void SetVertical(float y, float height)
+	{
+		float num = height;
+		if (needsHorizontalScrollbar)
+		{
+			num -= horizontalScrollbar.fixedHeight + (float)horizontalScrollbar.margin.top;
+		}
+		if (allowVerticalScroll && num < calcMinHeight)
+		{
+			if (!needsHorizontalScrollbar && !needsVerticalScrollbar)
+			{
+				clientWidth = rect.width - verticalScrollbar.fixedWidth - (float)verticalScrollbar.margin.left;
+				if (clientWidth < calcMinWidth)
+				{
+					clientWidth = calcMinWidth;
+				}
+				float width = rect.width;
+				SetHorizontal(rect.x, clientWidth);
+				CalcHeight();
+				rect.width = width;
+			}
+			float num2 = minHeight;
+			float num3 = maxHeight;
+			minHeight = calcMinHeight;
+			maxHeight = calcMaxHeight;
+			base.SetVertical(y, calcMinHeight);
+			minHeight = num2;
+			maxHeight = num3;
+			rect.height = height;
+			clientHeight = calcMinHeight;
+		}
+		else
+		{
 			if (allowVerticalScroll)
 			{
-				base.minHeight = 0f;
-				base.maxHeight = 0f;
+				minHeight = calcMinHeight;
+				maxHeight = calcMaxHeight;
 			}
-			base.CalcHeight();
-			calcMinHeight = base.minHeight;
-			calcMaxHeight = base.maxHeight;
-			if (needsHorizontalScrollbar)
-			{
-				float num = horizontalScrollbar.fixedHeight + (float)horizontalScrollbar.margin.top;
-				base.minHeight += num;
-				base.maxHeight += num;
-			}
-			if (allowVerticalScroll)
-			{
-				if (base.minHeight > 32f)
-				{
-					base.minHeight = 32f;
-				}
-				if (minHeight != 0f)
-				{
-					base.minHeight = minHeight;
-				}
-				if (maxHeight != 0f)
-				{
-					base.maxHeight = maxHeight;
-					stretchHeight = 0;
-				}
-			}
-		}
-
-		public override void SetVertical(float y, float height)
-		{
-			float num = height;
-			if (needsHorizontalScrollbar)
-			{
-				num -= horizontalScrollbar.fixedHeight + (float)horizontalScrollbar.margin.top;
-			}
-			if (allowVerticalScroll && num < calcMinHeight)
-			{
-				if (!needsHorizontalScrollbar && !needsVerticalScrollbar)
-				{
-					clientWidth = rect.width - verticalScrollbar.fixedWidth - (float)verticalScrollbar.margin.left;
-					if (clientWidth < calcMinWidth)
-					{
-						clientWidth = calcMinWidth;
-					}
-					float width = rect.width;
-					SetHorizontal(rect.x, clientWidth);
-					CalcHeight();
-					rect.width = width;
-				}
-				float minHeight = base.minHeight;
-				float maxHeight = base.maxHeight;
-				base.minHeight = calcMinHeight;
-				base.maxHeight = calcMaxHeight;
-				base.SetVertical(y, calcMinHeight);
-				base.minHeight = minHeight;
-				base.maxHeight = maxHeight;
-				rect.height = height;
-				clientHeight = calcMinHeight;
-			}
-			else
-			{
-				if (allowVerticalScroll)
-				{
-					base.minHeight = calcMinHeight;
-					base.maxHeight = calcMaxHeight;
-				}
-				base.SetVertical(y, num);
-				rect.height = height;
-				clientHeight = num;
-			}
+			base.SetVertical(y, num);
+			rect.height = height;
+			clientHeight = num;
 		}
 	}
 }

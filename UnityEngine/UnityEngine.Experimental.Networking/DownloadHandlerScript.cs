@@ -1,9 +1,8 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine.Experimental.Networking
+namespace UnityEngine.Experimental.Networking;
+
+[StructLayout(LayoutKind.Sequential)]
+public class DownloadHandlerScript : DownloadHandler
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class DownloadHandlerScript : DownloadHandler
-	{
-	}
 }

@@ -1,46 +1,57 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Compass
 {
-	public sealed class Compass
+	public extern float magneticHeading
 	{
-		public float magneticHeading
-		{
-			get;
-		}
-
-		public float trueHeading
-		{
-			get;
-		}
-
-		public float headingAccuracy
-		{
-			get;
-		}
-
-		public Vector3 rawVector
-		{
-			get
-			{
-				INTERNAL_get_rawVector(out Vector3 value);
-				return value;
-			}
-		}
-
-		public double timestamp
-		{
-			get;
-		}
-
-		public bool enabled
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_rawVector(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public extern float trueHeading
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float headingAccuracy
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public Vector3 rawVector
+	{
+		get
+		{
+			INTERNAL_get_rawVector(out var value);
+			return value;
+		}
+	}
+
+	public extern double timestamp
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool enabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_rawVector(out Vector3 value);
 }

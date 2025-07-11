@@ -1,13 +1,12 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum CubemapFace
 {
-	public enum CubemapFace
-	{
-		Unknown = -1,
-		PositiveX,
-		NegativeX,
-		PositiveY,
-		NegativeY,
-		PositiveZ,
-		NegativeZ
-	}
+	Unknown = -1,
+	PositiveX,
+	NegativeX,
+	PositiveY,
+	NegativeY,
+	PositiveZ,
+	NegativeZ
 }

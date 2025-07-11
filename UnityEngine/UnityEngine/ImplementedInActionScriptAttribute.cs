@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class ImplementedInActionScriptAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Method)]
-	public class ImplementedInActionScriptAttribute : Attribute
-	{
-	}
 }

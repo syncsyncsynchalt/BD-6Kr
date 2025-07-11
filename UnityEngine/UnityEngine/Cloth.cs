@@ -2,171 +2,254 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Cloth : Component
 {
-	public sealed class Cloth : Component
+	public extern float sleepThreshold
 	{
-		public float sleepThreshold
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float bendingStiffness
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float stretchingStiffness
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float damping
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Vector3 externalAcceleration
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_externalAcceleration(out var value);
+			return value;
 		}
-
-		public float bendingStiffness
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_externalAcceleration(ref value);
 		}
+	}
 
-		public float stretchingStiffness
+	public Vector3 randomAcceleration
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_randomAcceleration(out var value);
+			return value;
 		}
-
-		public float damping
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_randomAcceleration(ref value);
 		}
+	}
 
-		public Vector3 externalAcceleration
-		{
-			get
-			{
-				INTERNAL_get_externalAcceleration(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_externalAcceleration(ref value);
-			}
-		}
+	public extern bool useGravity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Vector3 randomAcceleration
-		{
-			get
-			{
-				INTERNAL_get_randomAcceleration(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_randomAcceleration(ref value);
-			}
-		}
+	[Obsolete("Deprecated. Cloth.selfCollisions is no longer supported since Unity 5.0.", true)]
+	public extern bool selfCollision
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool useGravity
-		{
-			get;
-			set;
-		}
+	public extern bool enabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		[Obsolete("Deprecated. Cloth.selfCollisions is no longer supported since Unity 5.0.", true)]
-		public bool selfCollision
-		{
-			get;
-			set;
-		}
+	public extern Vector3[] vertices
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public bool enabled
-		{
-			get;
-			set;
-		}
+	public extern Vector3[] normals
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public Vector3[] vertices
-		{
-			get;
-		}
+	public extern float friction
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public Vector3[] normals
-		{
-			get;
-		}
+	public extern float collisionMassScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float friction
-		{
-			get;
-			set;
-		}
+	public extern float useContinuousCollision
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float collisionMassScale
-		{
-			get;
-			set;
-		}
+	public extern float useVirtualParticles
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float useContinuousCollision
-		{
-			get;
-			set;
-		}
+	public extern ClothSkinningCoefficient[] coefficients
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float useVirtualParticles
-		{
-			get;
-			set;
-		}
+	public extern float worldVelocityScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public ClothSkinningCoefficient[] coefficients
-		{
-			get;
-			set;
-		}
+	public extern float worldAccelerationScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float worldVelocityScale
-		{
-			get;
-			set;
-		}
+	public extern bool solverFrequency
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public float worldAccelerationScale
-		{
-			get;
-			set;
-		}
+	public extern CapsuleCollider[] capsuleColliders
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool solverFrequency
-		{
-			get;
-			set;
-		}
+	public extern ClothSphereColliderPair[] sphereColliders
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public CapsuleCollider[] capsuleColliders
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_externalAcceleration(out Vector3 value);
 
-		public ClothSphereColliderPair[] sphereColliders
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_externalAcceleration(ref Vector3 value);
 
-		private void INTERNAL_get_externalAcceleration(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_randomAcceleration(out Vector3 value);
 
-		private void INTERNAL_set_externalAcceleration(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_randomAcceleration(ref Vector3 value);
 
-		private void INTERNAL_get_randomAcceleration(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public void ClearTransformMotion()
+	{
+		INTERNAL_CALL_ClearTransformMotion(this);
+	}
 
-		private void INTERNAL_set_randomAcceleration(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_CALL_ClearTransformMotion(Cloth self);
 
-		public void ClearTransformMotion()
-		{
-			INTERNAL_CALL_ClearTransformMotion(this);
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void SetEnabledFading(bool enabled, [DefaultValue("0.5f")] float interpolationTime);
 
-		private static void INTERNAL_CALL_ClearTransformMotion(Cloth self) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public void SetEnabledFading(bool enabled, [DefaultValue("0.5f")] float interpolationTime) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[ExcludeFromDocs]
-		public void SetEnabledFading(bool enabled)
-		{
-			float interpolationTime = 0.5f;
-			SetEnabledFading(enabled, interpolationTime);
-		}
+	[ExcludeFromDocs]
+	public void SetEnabledFading(bool enabled)
+	{
+		float interpolationTime = 0.5f;
+		SetEnabledFading(enabled, interpolationTime);
 	}
 }

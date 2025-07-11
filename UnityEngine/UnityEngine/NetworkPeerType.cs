@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NetworkPeerType
 {
-	public enum NetworkPeerType
-	{
-		Disconnected,
-		Server,
-		Client,
-		Connecting
-	}
+	Disconnected,
+	Server,
+	Client,
+	Connecting
 }

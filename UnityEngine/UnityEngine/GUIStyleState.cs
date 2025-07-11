@@ -2,76 +2,87 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential)]
+public sealed class GUIStyleState
 {
-	[Serializable]
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class GUIStyleState
+	[NonSerialized]
+	internal IntPtr m_Ptr;
+
+	private readonly GUIStyle m_SourceStyle;
+
+	[NonSerialized]
+	private Texture2D m_Background;
+
+	public Texture2D background
 	{
-		[NonSerialized]
-		internal IntPtr m_Ptr;
-
-		private readonly GUIStyle m_SourceStyle;
-
-		[NonSerialized]
-		private Texture2D m_Background;
-
-		public Texture2D background
+		get
 		{
-			get
-			{
-				return GetBackgroundInternal();
-			}
-			set
-			{
-				SetBackgroundInternal(value);
-				m_Background = value;
-			}
+			return GetBackgroundInternal();
 		}
-
-		public Color textColor
+		set
 		{
-			get
-			{
-				INTERNAL_get_textColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_textColor(ref value);
-			}
+			SetBackgroundInternal(value);
+			m_Background = value;
 		}
-
-		public GUIStyleState()
-		{
-			Init();
-		}
-
-		internal GUIStyleState(GUIStyle sourceStyle, IntPtr source)
-		{
-			m_SourceStyle = sourceStyle;
-			m_Ptr = source;
-			m_Background = GetBackgroundInternal();
-		}
-
-		~GUIStyleState()
-		{
-			if (m_SourceStyle == null)
-			{
-				Cleanup();
-			}
-		}
-
-		private void Init() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void Cleanup() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void SetBackgroundInternal(Texture2D value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private Texture2D GetBackgroundInternal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_textColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_textColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public Color textColor
+	{
+		get
+		{
+			INTERNAL_get_textColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_textColor(ref value);
+		}
+	}
+
+	public GUIStyleState()
+	{
+		Init();
+	}
+
+	internal GUIStyleState(GUIStyle sourceStyle, IntPtr source)
+	{
+		m_SourceStyle = sourceStyle;
+		m_Ptr = source;
+		m_Background = GetBackgroundInternal();
+	}
+
+	~GUIStyleState()
+	{
+		if (m_SourceStyle == null)
+		{
+			Cleanup();
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Init();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void Cleanup();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void SetBackgroundInternal(Texture2D value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern Texture2D GetBackgroundInternal();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_textColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_textColor(ref Color value);
 }

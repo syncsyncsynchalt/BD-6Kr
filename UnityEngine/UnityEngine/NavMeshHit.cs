@@ -1,75 +1,74 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct NavMeshHit
 {
-	public struct NavMeshHit
+	private Vector3 m_Position;
+
+	private Vector3 m_Normal;
+
+	private float m_Distance;
+
+	private int m_Mask;
+
+	private int m_Hit;
+
+	public Vector3 position
 	{
-		private Vector3 m_Position;
-
-		private Vector3 m_Normal;
-
-		private float m_Distance;
-
-		private int m_Mask;
-
-		private int m_Hit;
-
-		public Vector3 position
+		get
 		{
-			get
-			{
-				return m_Position;
-			}
-			set
-			{
-				m_Position = value;
-			}
+			return m_Position;
 		}
-
-		public Vector3 normal
+		set
 		{
-			get
-			{
-				return m_Normal;
-			}
-			set
-			{
-				m_Normal = value;
-			}
+			m_Position = value;
 		}
+	}
 
-		public float distance
+	public Vector3 normal
+	{
+		get
 		{
-			get
-			{
-				return m_Distance;
-			}
-			set
-			{
-				m_Distance = value;
-			}
+			return m_Normal;
 		}
-
-		public int mask
+		set
 		{
-			get
-			{
-				return m_Mask;
-			}
-			set
-			{
-				m_Mask = value;
-			}
+			m_Normal = value;
 		}
+	}
 
-		public bool hit
+	public float distance
+	{
+		get
 		{
-			get
-			{
-				return m_Hit != 0;
-			}
-			set
-			{
-				m_Hit = (value ? 1 : 0);
-			}
+			return m_Distance;
+		}
+		set
+		{
+			m_Distance = value;
+		}
+	}
+
+	public int mask
+	{
+		get
+		{
+			return m_Mask;
+		}
+		set
+		{
+			m_Mask = value;
+		}
+	}
+
+	public bool hit
+	{
+		get
+		{
+			return m_Hit != 0;
+		}
+		set
+		{
+			m_Hit = (value ? 1 : 0);
 		}
 	}
 }

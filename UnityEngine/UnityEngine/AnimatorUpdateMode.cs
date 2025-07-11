@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnimatorUpdateMode
 {
-	public enum AnimatorUpdateMode
-	{
-		Normal,
-		AnimatePhysics,
-		UnscaledTime
-	}
+	Normal,
+	AnimatePhysics,
+	UnscaledTime
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AudioClipLoadType
 {
-	public enum AudioClipLoadType
-	{
-		DecompressOnLoad,
-		CompressedInMemory,
-		Streaming
-	}
+	DecompressOnLoad,
+	CompressedInMemory,
+	Streaming
 }

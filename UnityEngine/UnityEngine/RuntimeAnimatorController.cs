@@ -1,12 +1,13 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class RuntimeAnimatorController : Object
 {
-	public class RuntimeAnimatorController : Object
+	public extern AnimationClip[] animationClips
 	{
-		public AnimationClip[] animationClips
-		{
-			get;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
 }

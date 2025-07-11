@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TextClipping
 {
-	public enum TextClipping
-	{
-		Overflow,
-		Clip
-	}
+	Overflow,
+	Clip
 }

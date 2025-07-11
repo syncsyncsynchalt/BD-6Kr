@@ -1,78 +1,76 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class AnimatorControllerParameter
 {
-	public sealed class AnimatorControllerParameter
+	internal string m_Name = string.Empty;
+
+	internal AnimatorControllerParameterType m_Type;
+
+	internal float m_DefaultFloat;
+
+	internal int m_DefaultInt;
+
+	internal bool m_DefaultBool;
+
+	public string name => m_Name;
+
+	public int nameHash => Animator.StringToHash(m_Name);
+
+	public AnimatorControllerParameterType type
 	{
-		internal string m_Name = string.Empty;
-
-		internal AnimatorControllerParameterType m_Type;
-
-		internal float m_DefaultFloat;
-
-		internal int m_DefaultInt;
-
-		internal bool m_DefaultBool;
-
-		public string name => m_Name;
-
-		public int nameHash => Animator.StringToHash(m_Name);
-
-		public AnimatorControllerParameterType type
+		get
 		{
-			get
-			{
-				return m_Type;
-			}
-			set
-			{
-				m_Type = value;
-			}
+			return m_Type;
 		}
-
-		public float defaultFloat
+		set
 		{
-			get
-			{
-				return m_DefaultFloat;
-			}
-			set
-			{
-				m_DefaultFloat = value;
-			}
+			m_Type = value;
 		}
+	}
 
-		public int defaultInt
+	public float defaultFloat
+	{
+		get
 		{
-			get
-			{
-				return m_DefaultInt;
-			}
-			set
-			{
-				m_DefaultInt = value;
-			}
+			return m_DefaultFloat;
 		}
+		set
+		{
+			m_DefaultFloat = value;
+		}
+	}
 
-		public bool defaultBool
+	public int defaultInt
+	{
+		get
 		{
-			get
-			{
-				return m_DefaultBool;
-			}
-			set
-			{
-				m_DefaultBool = value;
-			}
+			return m_DefaultInt;
 		}
+		set
+		{
+			m_DefaultInt = value;
+		}
+	}
 
-		public override bool Equals(object o)
+	public bool defaultBool
+	{
+		get
 		{
-			AnimatorControllerParameter animatorControllerParameter = o as AnimatorControllerParameter;
-			return animatorControllerParameter != null && m_Name == animatorControllerParameter.m_Name && m_Type == animatorControllerParameter.m_Type && m_DefaultFloat == animatorControllerParameter.m_DefaultFloat && m_DefaultInt == animatorControllerParameter.m_DefaultInt && m_DefaultBool == animatorControllerParameter.m_DefaultBool;
+			return m_DefaultBool;
 		}
+		set
+		{
+			m_DefaultBool = value;
+		}
+	}
 
-		public override int GetHashCode()
-		{
-			return name.GetHashCode();
-		}
+	public override bool Equals(object o)
+	{
+		return o is AnimatorControllerParameter animatorControllerParameter && m_Name == animatorControllerParameter.m_Name && m_Type == animatorControllerParameter.m_Type && m_DefaultFloat == animatorControllerParameter.m_DefaultFloat && m_DefaultInt == animatorControllerParameter.m_DefaultInt && m_DefaultBool == animatorControllerParameter.m_DefaultBool;
+	}
+
+	public override int GetHashCode()
+	{
+		return name.GetHashCode();
 	}
 }

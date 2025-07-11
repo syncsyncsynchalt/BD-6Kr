@@ -1,8 +1,7 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum RenderBufferLoadAction
 {
-	public enum RenderBufferLoadAction
-	{
-		Load = 0,
-		DontCare = 2
-	}
+	Load = 0,
+	DontCare = 2
 }

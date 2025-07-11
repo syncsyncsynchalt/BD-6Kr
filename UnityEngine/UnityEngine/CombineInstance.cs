@@ -1,53 +1,52 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct CombineInstance
 {
-	public struct CombineInstance
+	private int m_MeshInstanceID;
+
+	private int m_SubMeshIndex;
+
+	private Matrix4x4 m_Transform;
+
+	public Mesh mesh
 	{
-		private int m_MeshInstanceID;
-
-		private int m_SubMeshIndex;
-
-		private Matrix4x4 m_Transform;
-
-		public Mesh mesh
+		get
 		{
-			get
-			{
-				return InternalGetMesh(m_MeshInstanceID);
-			}
-			set
-			{
-				m_MeshInstanceID = ((value != null) ? value.GetInstanceID() : 0);
-			}
+			return InternalGetMesh(m_MeshInstanceID);
 		}
-
-		public int subMeshIndex
+		set
 		{
-			get
-			{
-				return m_SubMeshIndex;
-			}
-			set
-			{
-				m_SubMeshIndex = value;
-			}
+			m_MeshInstanceID = ((value != null) ? value.GetInstanceID() : 0);
 		}
-
-		public Matrix4x4 transform
-		{
-			get
-			{
-				return m_Transform;
-			}
-			set
-			{
-				m_Transform = value;
-			}
-		}
-
-		private Mesh InternalGetMesh(int instanceID) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public int subMeshIndex
+	{
+		get
+		{
+			return m_SubMeshIndex;
+		}
+		set
+		{
+			m_SubMeshIndex = value;
+		}
+	}
+
+	public Matrix4x4 transform
+	{
+		get
+		{
+			return m_Transform;
+		}
+		set
+		{
+			m_Transform = value;
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern Mesh InternalGetMesh(int instanceID);
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TextAlignment
 {
-	public enum TextAlignment
-	{
-		Left,
-		Center,
-		Right
-	}
+	Left,
+	Center,
+	Right
 }

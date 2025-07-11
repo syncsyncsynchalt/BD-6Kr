@@ -1,52 +1,51 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public class TrackedReference
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public class TrackedReference
+	internal IntPtr m_Ptr;
+
+	protected TrackedReference()
 	{
-		internal IntPtr m_Ptr;
+	}
 
-		protected TrackedReference()
-		{
-		}
+	public override bool Equals(object o)
+	{
+		return o as TrackedReference == this;
+	}
 
-		public override bool Equals(object o)
-		{
-			return o as TrackedReference == this;
-		}
+	public override int GetHashCode()
+	{
+		return (int)m_Ptr;
+	}
 
-		public override int GetHashCode()
+	public static bool operator ==(TrackedReference x, TrackedReference y)
+	{
+		if ((object)y == null && (object)x == null)
 		{
-			return (int)m_Ptr;
+			return true;
 		}
+		if ((object)y == null)
+		{
+			return x.m_Ptr == IntPtr.Zero;
+		}
+		if ((object)x == null)
+		{
+			return y.m_Ptr == IntPtr.Zero;
+		}
+		return x.m_Ptr == y.m_Ptr;
+	}
 
-		public static bool operator ==(TrackedReference x, TrackedReference y)
-		{
-			if ((object)y == null && (object)x == null)
-			{
-				return true;
-			}
-			if ((object)y == null)
-			{
-				return x.m_Ptr == IntPtr.Zero;
-			}
-			if ((object)x == null)
-			{
-				return y.m_Ptr == IntPtr.Zero;
-			}
-			return x.m_Ptr == y.m_Ptr;
-		}
+	public static bool operator !=(TrackedReference x, TrackedReference y)
+	{
+		return !(x == y);
+	}
 
-		public static bool operator !=(TrackedReference x, TrackedReference y)
-		{
-			return !(x == y);
-		}
-
-		public static implicit operator bool(TrackedReference exists)
-		{
-			return exists != null;
-		}
+	public static implicit operator bool(TrackedReference exists)
+	{
+		return exists != null;
 	}
 }

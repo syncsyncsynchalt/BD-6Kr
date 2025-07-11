@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NavMeshObstacleShape
 {
-	public enum NavMeshObstacleShape
-	{
-		Capsule,
-		Box
-	}
+	Capsule,
+	Box
 }

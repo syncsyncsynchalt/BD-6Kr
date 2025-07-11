@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum FontStyle
 {
-	public enum FontStyle
-	{
-		Normal,
-		Bold,
-		Italic,
-		BoldAndItalic
-	}
+	Normal,
+	Bold,
+	Italic,
+	BoldAndItalic
 }

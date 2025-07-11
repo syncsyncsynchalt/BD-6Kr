@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ShadowProjection
 {
-	public enum ShadowProjection
-	{
-		CloseFit,
-		StableFit
-	}
+	CloseFit,
+	StableFit
 }

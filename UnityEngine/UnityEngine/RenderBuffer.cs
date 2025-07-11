@@ -1,51 +1,50 @@
 using System;
 using UnityEngine.Rendering;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct RenderBuffer
 {
-	public struct RenderBuffer
+	internal int m_RenderTextureInstanceID;
+
+	internal IntPtr m_BufferPtr;
+
+	internal RenderBufferLoadAction loadAction
 	{
-		internal int m_RenderTextureInstanceID;
-
-		internal IntPtr m_BufferPtr;
-
-		internal RenderBufferLoadAction loadAction
+		get
 		{
-			get
-			{
-				return (RenderBufferLoadAction)RenderBufferHelper.GetLoadAction(out this);
-			}
-			set
-			{
-				SetLoadAction(value);
-			}
+			return (RenderBufferLoadAction)RenderBufferHelper.GetLoadAction(out this);
 		}
-
-		internal RenderBufferStoreAction storeAction
+		set
 		{
-			get
-			{
-				return (RenderBufferStoreAction)RenderBufferHelper.GetStoreAction(out this);
-			}
-			set
-			{
-				SetStoreAction(value);
-			}
+			SetLoadAction(value);
 		}
+	}
 
-		internal void SetLoadAction(RenderBufferLoadAction action)
+	internal RenderBufferStoreAction storeAction
+	{
+		get
 		{
-			RenderBufferHelper.SetLoadAction(out this, (int)action);
+			return (RenderBufferStoreAction)RenderBufferHelper.GetStoreAction(out this);
 		}
+		set
+		{
+			SetStoreAction(value);
+		}
+	}
 
-		internal void SetStoreAction(RenderBufferStoreAction action)
-		{
-			RenderBufferHelper.SetStoreAction(out this, (int)action);
-		}
+	internal void SetLoadAction(RenderBufferLoadAction action)
+	{
+		RenderBufferHelper.SetLoadAction(out this, (int)action);
+	}
 
-		public IntPtr GetNativeRenderBufferPtr()
-		{
-			return m_BufferPtr;
-		}
+	internal void SetStoreAction(RenderBufferStoreAction action)
+	{
+		RenderBufferHelper.SetStoreAction(out this, (int)action);
+	}
+
+	public IntPtr GetNativeRenderBufferPtr()
+	{
+		return m_BufferPtr;
 	}
 }

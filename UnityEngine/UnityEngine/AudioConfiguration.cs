@@ -1,15 +1,14 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct AudioConfiguration
 {
-	public struct AudioConfiguration
-	{
-		public AudioSpeakerMode speakerMode;
+	public AudioSpeakerMode speakerMode;
 
-		public int dspBufferSize;
+	public int dspBufferSize;
 
-		public int sampleRate;
+	public int sampleRate;
 
-		public int numRealVoices;
+	public int numRealVoices;
 
-		public int numVirtualVoices;
-	}
+	public int numVirtualVoices;
 }

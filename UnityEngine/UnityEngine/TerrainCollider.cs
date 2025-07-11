@@ -1,13 +1,16 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class TerrainCollider : Collider
 {
-	public sealed class TerrainCollider : Collider
+	public extern TerrainData terrainData
 	{
-		public TerrainData terrainData
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

@@ -1,8 +1,7 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ExecuteInEditMode : Attribute
 {
-	public sealed class ExecuteInEditMode : Attribute
-	{
-	}
 }

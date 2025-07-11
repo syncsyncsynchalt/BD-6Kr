@@ -1,193 +1,280 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using UnityEngine.Internal;
 using UnityEngine.Rendering;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ReflectionProbe : Behaviour
 {
-	public sealed class ReflectionProbe : Behaviour
+	public extern ReflectionProbeType type
 	{
-		public ReflectionProbeType type
-		{
-			get;
-			set;
-		}
-
-		public bool hdr
-		{
-			get;
-			set;
-		}
-
-		public Vector3 size
-		{
-			get
-			{
-				INTERNAL_get_size(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_size(ref value);
-			}
-		}
-
-		public Vector3 center
-		{
-			get
-			{
-				INTERNAL_get_center(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_center(ref value);
-			}
-		}
-
-		public float nearClipPlane
-		{
-			get;
-			set;
-		}
-
-		public float farClipPlane
-		{
-			get;
-			set;
-		}
-
-		public float shadowDistance
-		{
-			get;
-			set;
-		}
-
-		public int resolution
-		{
-			get;
-			set;
-		}
-
-		public int cullingMask
-		{
-			get;
-			set;
-		}
-
-		public ReflectionProbeClearFlags clearFlags
-		{
-			get;
-			set;
-		}
-
-		public Color backgroundColor
-		{
-			get
-			{
-				INTERNAL_get_backgroundColor(out Color value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_backgroundColor(ref value);
-			}
-		}
-
-		public float intensity
-		{
-			get;
-			set;
-		}
-
-		public float blendDistance
-		{
-			get;
-			set;
-		}
-
-		public bool boxProjection
-		{
-			get;
-			set;
-		}
-
-		public Bounds bounds
-		{
-			get
-			{
-				INTERNAL_get_bounds(out Bounds value);
-				return value;
-			}
-		}
-
-		public ReflectionProbeMode mode
-		{
-			get;
-			set;
-		}
-
-		public int importance
-		{
-			get;
-			set;
-		}
-
-		public ReflectionProbeRefreshMode refreshMode
-		{
-			get;
-			set;
-		}
-
-		public ReflectionProbeTimeSlicingMode timeSlicingMode
-		{
-			get;
-			set;
-		}
-
-		public Texture bakedTexture
-		{
-			get;
-			set;
-		}
-
-		public Texture customBakedTexture
-		{
-			get;
-			set;
-		}
-
-		public Texture texture
-		{
-			get;
-		}
-
-		private void INTERNAL_get_size(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_size(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_center(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_center(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_backgroundColor(out Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_backgroundColor(ref Color value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_bounds(out Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public int RenderProbe([DefaultValue("null")] RenderTexture targetTexture) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[ExcludeFromDocs]
-		public int RenderProbe()
-		{
-			RenderTexture targetTexture = null;
-			return RenderProbe(targetTexture);
-		}
-
-		public bool IsFinishedRendering(int renderId) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool BlendCubemap(Texture src, Texture dst, float blend, RenderTexture target) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	public extern bool hdr
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Vector3 size
+	{
+		get
+		{
+			INTERNAL_get_size(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_size(ref value);
+		}
+	}
+
+	public Vector3 center
+	{
+		get
+		{
+			INTERNAL_get_center(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_center(ref value);
+		}
+	}
+
+	public extern float nearClipPlane
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float farClipPlane
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float shadowDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int resolution
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int cullingMask
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ReflectionProbeClearFlags clearFlags
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Color backgroundColor
+	{
+		get
+		{
+			INTERNAL_get_backgroundColor(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_backgroundColor(ref value);
+		}
+	}
+
+	public extern float intensity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float blendDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool boxProjection
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Bounds bounds
+	{
+		get
+		{
+			INTERNAL_get_bounds(out var value);
+			return value;
+		}
+	}
+
+	public extern ReflectionProbeMode mode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern int importance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ReflectionProbeRefreshMode refreshMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ReflectionProbeTimeSlicingMode timeSlicingMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Texture bakedTexture
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Texture customBakedTexture
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Texture texture
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_size(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_size(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_center(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_center(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_backgroundColor(out Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_backgroundColor(ref Color value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_bounds(out Bounds value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern int RenderProbe([DefaultValue("null")] RenderTexture targetTexture);
+
+	[ExcludeFromDocs]
+	public int RenderProbe()
+	{
+		RenderTexture targetTexture = null;
+		return RenderProbe(targetTexture);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern bool IsFinishedRendering(int renderId);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool BlendCubemap(Texture src, Texture dst, float blend, RenderTexture target);
 }

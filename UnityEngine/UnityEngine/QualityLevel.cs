@@ -1,15 +1,14 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Obsolete("See QualitySettings.names, QualitySettings.SetQualityLevel, and QualitySettings.GetQualityLevel")]
+public enum QualityLevel
 {
-	[Obsolete("See QualitySettings.names, QualitySettings.SetQualityLevel, and QualitySettings.GetQualityLevel")]
-	public enum QualityLevel
-	{
-		Fastest,
-		Fast,
-		Simple,
-		Good,
-		Beautiful,
-		Fantastic
-	}
+	Fastest,
+	Fast,
+	Simple,
+	Good,
+	Beautiful,
+	Fantastic
 }

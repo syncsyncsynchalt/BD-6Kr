@@ -1,28 +1,27 @@
 using System;
 
-namespace UnityEngine.Assertions
+namespace UnityEngine.Assertions;
+
+public class AssertionException : Exception
 {
-	public class AssertionException : Exception
+	private string m_UserMessage;
+
+	public override string Message
 	{
-		private string m_UserMessage;
-
-		public override string Message
+		get
 		{
-			get
+			string text = base.Message;
+			if (m_UserMessage != null)
 			{
-				string text = base.Message;
-				if (m_UserMessage != null)
-				{
-					text = text + '\n' + m_UserMessage;
-				}
-				return text;
+				text = text + '\n' + m_UserMessage;
 			}
+			return text;
 		}
+	}
 
-		public AssertionException(string message, string userMessage)
-			: base(message)
-		{
-			m_UserMessage = userMessage;
-		}
+	public AssertionException(string message, string userMessage)
+		: base(message)
+	{
+		m_UserMessage = userMessage;
 	}
 }

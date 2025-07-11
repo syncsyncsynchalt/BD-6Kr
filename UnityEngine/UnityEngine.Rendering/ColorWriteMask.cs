@@ -1,14 +1,13 @@
 using System;
 
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+[Flags]
+public enum ColorWriteMask
 {
-	[Flags]
-	public enum ColorWriteMask
-	{
-		Alpha = 0x1,
-		Blue = 0x2,
-		Green = 0x4,
-		Red = 0x8,
-		All = 0xF
-	}
+	Alpha = 1,
+	Blue = 2,
+	Green = 4,
+	Red = 8,
+	All = 0xF
 }

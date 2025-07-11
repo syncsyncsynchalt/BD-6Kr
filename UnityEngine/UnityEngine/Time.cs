@@ -1,81 +1,116 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Time
 {
-	public sealed class Time
+	public static extern float time
 	{
-		public static float time
-		{
-			get;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float timeSinceLevelLoad
-		{
-			get;
-		}
+	public static extern float timeSinceLevelLoad
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float deltaTime
-		{
-			get;
-		}
+	public static extern float deltaTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float fixedTime
-		{
-			get;
-		}
+	public static extern float fixedTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float unscaledTime
-		{
-			get;
-		}
+	public static extern float unscaledTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float unscaledDeltaTime
-		{
-			get;
-		}
+	public static extern float unscaledDeltaTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float fixedDeltaTime
-		{
-			get;
-			set;
-		}
+	public static extern float fixedDeltaTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static float maximumDeltaTime
-		{
-			get;
-			set;
-		}
+	public static extern float maximumDeltaTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static float smoothDeltaTime
-		{
-			get;
-		}
+	public static extern float smoothDeltaTime
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float timeScale
-		{
-			get;
-			set;
-		}
+	public static extern float timeScale
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public static int frameCount
-		{
-			get;
-		}
+	public static extern int frameCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static int renderedFrameCount
-		{
-			get;
-		}
+	public static extern int renderedFrameCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static float realtimeSinceStartup
-		{
-			get;
-		}
+	public static extern float realtimeSinceStartup
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public static int captureFramerate
-		{
-			get;
-			set;
-		}
+	public static extern int captureFramerate
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
 }

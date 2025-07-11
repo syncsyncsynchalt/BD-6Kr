@@ -1,20 +1,21 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.Audio
+namespace UnityEngine.Audio;
+
+public class AudioMixerSnapshot : Object
 {
-	public class AudioMixerSnapshot : Object
+	public extern AudioMixer audioMixer
 	{
-		public AudioMixer audioMixer
-		{
-			get;
-		}
-
-		internal AudioMixerSnapshot()
-		{
-		}
-
-		public void TransitionTo(float timeToReach) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	internal AudioMixerSnapshot()
+	{
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern void TransitionTo(float timeToReach);
 }

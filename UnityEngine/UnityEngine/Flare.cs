@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Flare : Object
 {
-	public sealed class Flare : Object
-	{
-	}
 }

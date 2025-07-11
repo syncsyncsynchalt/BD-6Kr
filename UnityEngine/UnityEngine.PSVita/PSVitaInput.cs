@@ -1,89 +1,119 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine.PSVita
+namespace UnityEngine.PSVita;
+
+public sealed class PSVitaInput
 {
-	public sealed class PSVitaInput
+	public enum CompassStability
 	{
-		public enum CompassStability
-		{
-			CompassUnstable,
-			CompassStable,
-			CompassVeryStable
-		}
-
-		public static bool secondaryTouchIsScreenSpace
-		{
-			get;
-			set;
-		}
-
-		public static Touch[] touchesSecondary
-		{
-			get
-			{
-				int touchCountSecondary = PSVitaInput.touchCountSecondary;
-				Touch[] array = new Touch[touchCountSecondary];
-				for (int i = 0; i < touchCountSecondary; i++)
-				{
-					array[i] = GetSecondaryTouch(i);
-				}
-				return array;
-			}
-		}
-
-		public static int touchCountSecondary
-		{
-			get;
-		}
-
-		public static bool secondaryTouchEnabled
-		{
-			get;
-		}
-
-		public static int secondaryTouchWidth
-		{
-			get;
-		}
-
-		public static int secondaryTouchHeight
-		{
-			get;
-		}
-
-		public static CompassStability compassFieldStability
-		{
-			get;
-		}
-
-		public static bool gyroDeadbandFilterEnabled
-		{
-			get;
-			set;
-		}
-
-		public static bool gyroTiltCorrectionEnabled
-		{
-			get;
-			set;
-		}
-
-		public static bool fingerIdEqSceTouchId
-		{
-			get;
-			set;
-		}
-
-		private PSVitaInput()
-		{
-		}
-
-		public static Touch GetSecondaryTouch(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void ResetMotionSensors() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool WirelesslyControlled() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		CompassUnstable,
+		CompassStable,
+		CompassVeryStable
 	}
+
+	public static extern bool secondaryTouchIsScreenSpace
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static Touch[] touchesSecondary
+	{
+		get
+		{
+			int num = touchCountSecondary;
+			Touch[] array = new Touch[num];
+			for (int i = 0; i < num; i++)
+			{
+				ref Touch reference = ref array[i];
+				reference = GetSecondaryTouch(i);
+			}
+			return array;
+		}
+	}
+
+	public static extern int touchCountSecondary
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool secondaryTouchEnabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int secondaryTouchWidth
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern int secondaryTouchHeight
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern CompassStability compassFieldStability
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool gyroDeadbandFilterEnabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern bool gyroTiltCorrectionEnabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern bool fingerIdEqSceTouchId
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	private PSVitaInput()
+	{
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Touch GetSecondaryTouch(int index);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void ResetMotionSensors();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool WirelesslyControlled();
 }

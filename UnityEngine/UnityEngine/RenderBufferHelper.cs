@@ -1,17 +1,22 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal struct RenderBufferHelper
 {
-	internal struct RenderBufferHelper
-	{
-		internal static int GetLoadAction(out RenderBuffer b) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern int GetLoadAction(out RenderBuffer b);
 
-		internal static void SetLoadAction(out RenderBuffer b, int a) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern void SetLoadAction(out RenderBuffer b, int a);
 
-		internal static int GetStoreAction(out RenderBuffer b) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern int GetStoreAction(out RenderBuffer b);
 
-		internal static void SetStoreAction(out RenderBuffer b, int a) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	internal static extern void SetStoreAction(out RenderBuffer b, int a);
 }

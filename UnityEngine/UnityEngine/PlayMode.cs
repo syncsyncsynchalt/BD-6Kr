@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum PlayMode
 {
-	public enum PlayMode
-	{
-		StopSameLayer = 0,
-		StopAll = 4
-	}
+	StopSameLayer = 0,
+	StopAll = 4
 }

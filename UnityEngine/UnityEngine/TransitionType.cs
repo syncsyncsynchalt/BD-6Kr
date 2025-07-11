@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum TransitionType
 {
-	internal enum TransitionType
-	{
-		Normal = 1,
-		Entry = 2,
-		Exit = 4
-	}
+	Normal = 1,
+	Entry = 2,
+	Exit = 4
 }

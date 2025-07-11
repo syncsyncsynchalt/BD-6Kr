@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NetworkLogLevel
 {
-	public enum NetworkLogLevel
-	{
-		Off = 0,
-		Informational = 1,
-		Full = 3
-	}
+	Off = 0,
+	Informational = 1,
+	Full = 3
 }

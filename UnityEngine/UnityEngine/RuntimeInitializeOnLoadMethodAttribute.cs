@@ -1,25 +1,20 @@
 using System;
 using UnityEngine.Scripting;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+public class RuntimeInitializeOnLoadMethodAttribute : PreserveAttribute
 {
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-	public class RuntimeInitializeOnLoadMethodAttribute : PreserveAttribute
+	public RuntimeInitializeLoadType loadType { get; private set; }
+
+	public RuntimeInitializeOnLoadMethodAttribute()
 	{
-		public RuntimeInitializeLoadType loadType
-		{
-			get;
-			private set;
-		}
+		loadType = RuntimeInitializeLoadType.AfterSceneLoad;
+	}
 
-		public RuntimeInitializeOnLoadMethodAttribute()
-		{
-			loadType = RuntimeInitializeLoadType.AfterSceneLoad;
-		}
-
-		public RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType loadType)
-		{
-			this.loadType = loadType;
-		}
+	public RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType loadType)
+	{
+		this.loadType = loadType;
 	}
 }

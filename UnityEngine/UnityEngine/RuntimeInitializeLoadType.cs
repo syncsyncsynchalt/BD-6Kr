@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RuntimeInitializeLoadType
 {
-	public enum RuntimeInitializeLoadType
-	{
-		AfterSceneLoad,
-		BeforeSceneLoad
-	}
+	AfterSceneLoad,
+	BeforeSceneLoad
 }

@@ -1,19 +1,26 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class AssetBundleManifest : Object
 {
-	public sealed class AssetBundleManifest : Object
-	{
-		public string[] GetAllAssetBundles() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern string[] GetAllAssetBundles();
 
-		public string[] GetAllAssetBundlesWithVariant() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern string[] GetAllAssetBundlesWithVariant();
 
-		public Hash128 GetAssetBundleHash(string assetBundleName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern Hash128 GetAssetBundleHash(string assetBundleName);
 
-		public string[] GetDirectDependencies(string assetBundleName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern string[] GetDirectDependencies(string assetBundleName);
 
-		public string[] GetAllDependencies(string assetBundleName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-	}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public extern string[] GetAllDependencies(string assetBundleName);
 }

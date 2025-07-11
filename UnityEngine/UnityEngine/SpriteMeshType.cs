@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum SpriteMeshType
 {
-	public enum SpriteMeshType
-	{
-		FullRect,
-		Tight
-	}
+	FullRect,
+	Tight
 }

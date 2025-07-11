@@ -1,36 +1,35 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class LightmapData
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class LightmapData
+	internal Texture2D m_Light;
+
+	internal Texture2D m_Dir;
+
+	public Texture2D lightmapFar
 	{
-		internal Texture2D m_Light;
-
-		internal Texture2D m_Dir;
-
-		public Texture2D lightmapFar
+		get
 		{
-			get
-			{
-				return m_Light;
-			}
-			set
-			{
-				m_Light = value;
-			}
+			return m_Light;
 		}
-
-		public Texture2D lightmapNear
+		set
 		{
-			get
-			{
-				return m_Dir;
-			}
-			set
-			{
-				m_Dir = value;
-			}
+			m_Light = value;
+		}
+	}
+
+	public Texture2D lightmapNear
+	{
+		get
+		{
+			return m_Dir;
+		}
+		set
+		{
+			m_Dir = value;
 		}
 	}
 }

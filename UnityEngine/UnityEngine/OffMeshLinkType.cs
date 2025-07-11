@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum OffMeshLinkType
 {
-	public enum OffMeshLinkType
-	{
-		LinkTypeManual,
-		LinkTypeDropDown,
-		LinkTypeJumpAcross
-	}
+	LinkTypeManual,
+	LinkTypeDropDown,
+	LinkTypeJumpAcross
 }

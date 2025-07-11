@@ -1,12 +1,11 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true)]
+internal class CppIncludeAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true)]
-	internal class CppIncludeAttribute : Attribute
+	public CppIncludeAttribute(string header)
 	{
-		public CppIncludeAttribute(string header)
-		{
-		}
 	}
 }

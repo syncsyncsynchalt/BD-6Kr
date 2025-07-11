@@ -1,20 +1,19 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
+public sealed class MultilineAttribute : PropertyAttribute
 {
-	[AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-	public sealed class MultilineAttribute : PropertyAttribute
+	public readonly int lines;
+
+	public MultilineAttribute()
 	{
-		public readonly int lines;
+		lines = 3;
+	}
 
-		public MultilineAttribute()
-		{
-			lines = 3;
-		}
-
-		public MultilineAttribute(int lines)
-		{
-			this.lines = lines;
-		}
+	public MultilineAttribute(int lines)
+	{
+		this.lines = lines;
 	}
 }

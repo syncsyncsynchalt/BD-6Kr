@@ -1,88 +1,113 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class HingeJoint : Joint
 {
-	public sealed class HingeJoint : Joint
+	public JointMotor motor
 	{
-		public JointMotor motor
+		get
 		{
-			get
-			{
-				INTERNAL_get_motor(out JointMotor value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_motor(ref value);
-			}
+			INTERNAL_get_motor(out var value);
+			return value;
 		}
-
-		public JointLimits limits
+		set
 		{
-			get
-			{
-				INTERNAL_get_limits(out JointLimits value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_limits(ref value);
-			}
+			INTERNAL_set_motor(ref value);
 		}
-
-		public JointSpring spring
-		{
-			get
-			{
-				INTERNAL_get_spring(out JointSpring value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_spring(ref value);
-			}
-		}
-
-		public bool useMotor
-		{
-			get;
-			set;
-		}
-
-		public bool useLimits
-		{
-			get;
-			set;
-		}
-
-		public bool useSpring
-		{
-			get;
-			set;
-		}
-
-		public float velocity
-		{
-			get;
-		}
-
-		public float angle
-		{
-			get;
-		}
-
-		private void INTERNAL_get_motor(out JointMotor value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_motor(ref JointMotor value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_limits(out JointLimits value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_limits(ref JointLimits value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_spring(out JointSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_spring(ref JointSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public JointLimits limits
+	{
+		get
+		{
+			INTERNAL_get_limits(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_limits(ref value);
+		}
+	}
+
+	public JointSpring spring
+	{
+		get
+		{
+			INTERNAL_get_spring(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_spring(ref value);
+		}
+	}
+
+	public extern bool useMotor
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool useLimits
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool useSpring
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float velocity
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern float angle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_motor(out JointMotor value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_motor(ref JointMotor value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_limits(out JointLimits value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_limits(ref JointLimits value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_spring(out JointSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_spring(ref JointSpring value);
 }

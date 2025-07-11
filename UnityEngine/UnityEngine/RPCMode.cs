@@ -1,11 +1,10 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum RPCMode
 {
-	public enum RPCMode
-	{
-		Server = 0,
-		Others = 1,
-		OthersBuffered = 5,
-		All = 2,
-		AllBuffered = 6
-	}
+	Server = 0,
+	Others = 1,
+	OthersBuffered = 5,
+	All = 2,
+	AllBuffered = 6
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AudioRolloffMode
 {
-	public enum AudioRolloffMode
-	{
-		Logarithmic,
-		Linear,
-		Custom
-	}
+	Logarithmic,
+	Linear,
+	Custom
 }

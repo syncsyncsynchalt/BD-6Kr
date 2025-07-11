@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Assembly)]
+public class AssemblyIsEditorAssembly : Attribute
 {
-	[AttributeUsage(AttributeTargets.Assembly)]
-	public class AssemblyIsEditorAssembly : Attribute
-	{
-	}
 }

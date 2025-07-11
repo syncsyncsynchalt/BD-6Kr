@@ -1,75 +1,74 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct WheelFrictionCurve
 {
-	public struct WheelFrictionCurve
+	private float m_ExtremumSlip;
+
+	private float m_ExtremumValue;
+
+	private float m_AsymptoteSlip;
+
+	private float m_AsymptoteValue;
+
+	private float m_Stiffness;
+
+	public float extremumSlip
 	{
-		private float m_ExtremumSlip;
-
-		private float m_ExtremumValue;
-
-		private float m_AsymptoteSlip;
-
-		private float m_AsymptoteValue;
-
-		private float m_Stiffness;
-
-		public float extremumSlip
+		get
 		{
-			get
-			{
-				return m_ExtremumSlip;
-			}
-			set
-			{
-				m_ExtremumSlip = value;
-			}
+			return m_ExtremumSlip;
 		}
-
-		public float extremumValue
+		set
 		{
-			get
-			{
-				return m_ExtremumValue;
-			}
-			set
-			{
-				m_ExtremumValue = value;
-			}
+			m_ExtremumSlip = value;
 		}
+	}
 
-		public float asymptoteSlip
+	public float extremumValue
+	{
+		get
 		{
-			get
-			{
-				return m_AsymptoteSlip;
-			}
-			set
-			{
-				m_AsymptoteSlip = value;
-			}
+			return m_ExtremumValue;
 		}
-
-		public float asymptoteValue
+		set
 		{
-			get
-			{
-				return m_AsymptoteValue;
-			}
-			set
-			{
-				m_AsymptoteValue = value;
-			}
+			m_ExtremumValue = value;
 		}
+	}
 
-		public float stiffness
+	public float asymptoteSlip
+	{
+		get
 		{
-			get
-			{
-				return m_Stiffness;
-			}
-			set
-			{
-				m_Stiffness = value;
-			}
+			return m_AsymptoteSlip;
+		}
+		set
+		{
+			m_AsymptoteSlip = value;
+		}
+	}
+
+	public float asymptoteValue
+	{
+		get
+		{
+			return m_AsymptoteValue;
+		}
+		set
+		{
+			m_AsymptoteValue = value;
+		}
+	}
+
+	public float stiffness
+	{
+		get
+		{
+			return m_Stiffness;
+		}
+		set
+		{
+			m_Stiffness = value;
 		}
 	}
 }

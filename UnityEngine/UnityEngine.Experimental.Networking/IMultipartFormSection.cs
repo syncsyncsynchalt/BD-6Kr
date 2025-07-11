@@ -1,25 +1,12 @@
-namespace UnityEngine.Experimental.Networking
+namespace UnityEngine.Experimental.Networking;
+
+public interface IMultipartFormSection
 {
-	public interface IMultipartFormSection
-	{
-		string sectionName
-		{
-			get;
-		}
+	string sectionName { get; }
 
-		byte[] sectionData
-		{
-			get;
-		}
+	byte[] sectionData { get; }
 
-		string fileName
-		{
-			get;
-		}
+	string fileName { get; }
 
-		string contentType
-		{
-			get;
-		}
-	}
+	string contentType { get; }
 }

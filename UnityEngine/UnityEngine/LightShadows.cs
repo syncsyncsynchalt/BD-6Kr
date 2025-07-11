@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LightShadows
 {
-	public enum LightShadows
-	{
-		None,
-		Hard,
-		Soft
-	}
+	None,
+	Hard,
+	Soft
 }

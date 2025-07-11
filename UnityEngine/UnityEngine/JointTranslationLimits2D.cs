@@ -1,33 +1,32 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointTranslationLimits2D
 {
-	public struct JointTranslationLimits2D
+	private float m_LowerTranslation;
+
+	private float m_UpperTranslation;
+
+	public float min
 	{
-		private float m_LowerTranslation;
-
-		private float m_UpperTranslation;
-
-		public float min
+		get
 		{
-			get
-			{
-				return m_LowerTranslation;
-			}
-			set
-			{
-				m_LowerTranslation = value;
-			}
+			return m_LowerTranslation;
 		}
-
-		public float max
+		set
 		{
-			get
-			{
-				return m_UpperTranslation;
-			}
-			set
-			{
-				m_UpperTranslation = value;
-			}
+			m_LowerTranslation = value;
+		}
+	}
+
+	public float max
+	{
+		get
+		{
+			return m_UpperTranslation;
+		}
+		set
+		{
+			m_UpperTranslation = value;
 		}
 	}
 }

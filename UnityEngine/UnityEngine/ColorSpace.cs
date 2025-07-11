@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ColorSpace
 {
-	public enum ColorSpace
-	{
-		Uninitialized = -1,
-		Gamma,
-		Linear
-	}
+	Uninitialized = -1,
+	Gamma,
+	Linear
 }

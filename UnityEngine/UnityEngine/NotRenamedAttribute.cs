@@ -1,11 +1,10 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Obsolete("NotRenamedAttribute was used for the Flash buildtarget, which is not supported anymore starting Unity 5.0", true)]
+[NotConverted]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface)]
+public sealed class NotRenamedAttribute : Attribute
 {
-	[Obsolete("NotRenamedAttribute was used for the Flash buildtarget, which is not supported anymore starting Unity 5.0", true)]
-	[NotConverted]
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface)]
-	public sealed class NotRenamedAttribute : Attribute
-	{
-	}
 }

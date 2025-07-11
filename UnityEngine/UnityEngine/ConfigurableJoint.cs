@@ -1,404 +1,525 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class ConfigurableJoint : Joint
 {
-	public sealed class ConfigurableJoint : Joint
+	public Vector3 secondaryAxis
 	{
-		public Vector3 secondaryAxis
+		get
 		{
-			get
-			{
-				INTERNAL_get_secondaryAxis(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_secondaryAxis(ref value);
-			}
+			INTERNAL_get_secondaryAxis(out var value);
+			return value;
 		}
-
-		public ConfigurableJointMotion xMotion
+		set
 		{
-			get;
-			set;
+			INTERNAL_set_secondaryAxis(ref value);
 		}
-
-		public ConfigurableJointMotion yMotion
-		{
-			get;
-			set;
-		}
-
-		public ConfigurableJointMotion zMotion
-		{
-			get;
-			set;
-		}
-
-		public ConfigurableJointMotion angularXMotion
-		{
-			get;
-			set;
-		}
-
-		public ConfigurableJointMotion angularYMotion
-		{
-			get;
-			set;
-		}
-
-		public ConfigurableJointMotion angularZMotion
-		{
-			get;
-			set;
-		}
-
-		public SoftJointLimitSpring linearLimitSpring
-		{
-			get
-			{
-				INTERNAL_get_linearLimitSpring(out SoftJointLimitSpring value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_linearLimitSpring(ref value);
-			}
-		}
-
-		public SoftJointLimitSpring angularXLimitSpring
-		{
-			get
-			{
-				INTERNAL_get_angularXLimitSpring(out SoftJointLimitSpring value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularXLimitSpring(ref value);
-			}
-		}
-
-		public SoftJointLimitSpring angularYZLimitSpring
-		{
-			get
-			{
-				INTERNAL_get_angularYZLimitSpring(out SoftJointLimitSpring value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularYZLimitSpring(ref value);
-			}
-		}
-
-		public SoftJointLimit linearLimit
-		{
-			get
-			{
-				INTERNAL_get_linearLimit(out SoftJointLimit value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_linearLimit(ref value);
-			}
-		}
-
-		public SoftJointLimit lowAngularXLimit
-		{
-			get
-			{
-				INTERNAL_get_lowAngularXLimit(out SoftJointLimit value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_lowAngularXLimit(ref value);
-			}
-		}
-
-		public SoftJointLimit highAngularXLimit
-		{
-			get
-			{
-				INTERNAL_get_highAngularXLimit(out SoftJointLimit value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_highAngularXLimit(ref value);
-			}
-		}
-
-		public SoftJointLimit angularYLimit
-		{
-			get
-			{
-				INTERNAL_get_angularYLimit(out SoftJointLimit value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularYLimit(ref value);
-			}
-		}
-
-		public SoftJointLimit angularZLimit
-		{
-			get
-			{
-				INTERNAL_get_angularZLimit(out SoftJointLimit value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularZLimit(ref value);
-			}
-		}
-
-		public Vector3 targetPosition
-		{
-			get
-			{
-				INTERNAL_get_targetPosition(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_targetPosition(ref value);
-			}
-		}
-
-		public Vector3 targetVelocity
-		{
-			get
-			{
-				INTERNAL_get_targetVelocity(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_targetVelocity(ref value);
-			}
-		}
-
-		public JointDrive xDrive
-		{
-			get
-			{
-				INTERNAL_get_xDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_xDrive(ref value);
-			}
-		}
-
-		public JointDrive yDrive
-		{
-			get
-			{
-				INTERNAL_get_yDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_yDrive(ref value);
-			}
-		}
-
-		public JointDrive zDrive
-		{
-			get
-			{
-				INTERNAL_get_zDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_zDrive(ref value);
-			}
-		}
-
-		public Quaternion targetRotation
-		{
-			get
-			{
-				INTERNAL_get_targetRotation(out Quaternion value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_targetRotation(ref value);
-			}
-		}
-
-		public Vector3 targetAngularVelocity
-		{
-			get
-			{
-				INTERNAL_get_targetAngularVelocity(out Vector3 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_targetAngularVelocity(ref value);
-			}
-		}
-
-		public RotationDriveMode rotationDriveMode
-		{
-			get;
-			set;
-		}
-
-		public JointDrive angularXDrive
-		{
-			get
-			{
-				INTERNAL_get_angularXDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularXDrive(ref value);
-			}
-		}
-
-		public JointDrive angularYZDrive
-		{
-			get
-			{
-				INTERNAL_get_angularYZDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_angularYZDrive(ref value);
-			}
-		}
-
-		public JointDrive slerpDrive
-		{
-			get
-			{
-				INTERNAL_get_slerpDrive(out JointDrive value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_slerpDrive(ref value);
-			}
-		}
-
-		public JointProjectionMode projectionMode
-		{
-			get;
-			set;
-		}
-
-		public float projectionDistance
-		{
-			get;
-			set;
-		}
-
-		public float projectionAngle
-		{
-			get;
-			set;
-		}
-
-		public bool configuredInWorldSpace
-		{
-			get;
-			set;
-		}
-
-		public bool swapBodies
-		{
-			get;
-			set;
-		}
-
-		private void INTERNAL_get_secondaryAxis(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_secondaryAxis(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_linearLimitSpring(out SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_linearLimitSpring(ref SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularXLimitSpring(out SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularXLimitSpring(ref SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularYZLimitSpring(out SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularYZLimitSpring(ref SoftJointLimitSpring value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_linearLimit(out SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_linearLimit(ref SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_lowAngularXLimit(out SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_lowAngularXLimit(ref SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_highAngularXLimit(out SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_highAngularXLimit(ref SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularYLimit(out SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularYLimit(ref SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularZLimit(out SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularZLimit(ref SoftJointLimit value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_targetPosition(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_targetPosition(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_targetVelocity(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_targetVelocity(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_xDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_xDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_yDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_yDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_zDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_zDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_targetRotation(out Quaternion value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_targetRotation(ref Quaternion value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_targetAngularVelocity(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_targetAngularVelocity(ref Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularXDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularXDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_angularYZDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_angularYZDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_slerpDrive(out JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_slerpDrive(ref JointDrive value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
 	}
+
+	public extern ConfigurableJointMotion xMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ConfigurableJointMotion yMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ConfigurableJointMotion zMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ConfigurableJointMotion angularXMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ConfigurableJointMotion angularYMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern ConfigurableJointMotion angularZMotion
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public SoftJointLimitSpring linearLimitSpring
+	{
+		get
+		{
+			INTERNAL_get_linearLimitSpring(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_linearLimitSpring(ref value);
+		}
+	}
+
+	public SoftJointLimitSpring angularXLimitSpring
+	{
+		get
+		{
+			INTERNAL_get_angularXLimitSpring(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularXLimitSpring(ref value);
+		}
+	}
+
+	public SoftJointLimitSpring angularYZLimitSpring
+	{
+		get
+		{
+			INTERNAL_get_angularYZLimitSpring(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularYZLimitSpring(ref value);
+		}
+	}
+
+	public SoftJointLimit linearLimit
+	{
+		get
+		{
+			INTERNAL_get_linearLimit(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_linearLimit(ref value);
+		}
+	}
+
+	public SoftJointLimit lowAngularXLimit
+	{
+		get
+		{
+			INTERNAL_get_lowAngularXLimit(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_lowAngularXLimit(ref value);
+		}
+	}
+
+	public SoftJointLimit highAngularXLimit
+	{
+		get
+		{
+			INTERNAL_get_highAngularXLimit(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_highAngularXLimit(ref value);
+		}
+	}
+
+	public SoftJointLimit angularYLimit
+	{
+		get
+		{
+			INTERNAL_get_angularYLimit(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularYLimit(ref value);
+		}
+	}
+
+	public SoftJointLimit angularZLimit
+	{
+		get
+		{
+			INTERNAL_get_angularZLimit(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularZLimit(ref value);
+		}
+	}
+
+	public Vector3 targetPosition
+	{
+		get
+		{
+			INTERNAL_get_targetPosition(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_targetPosition(ref value);
+		}
+	}
+
+	public Vector3 targetVelocity
+	{
+		get
+		{
+			INTERNAL_get_targetVelocity(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_targetVelocity(ref value);
+		}
+	}
+
+	public JointDrive xDrive
+	{
+		get
+		{
+			INTERNAL_get_xDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_xDrive(ref value);
+		}
+	}
+
+	public JointDrive yDrive
+	{
+		get
+		{
+			INTERNAL_get_yDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_yDrive(ref value);
+		}
+	}
+
+	public JointDrive zDrive
+	{
+		get
+		{
+			INTERNAL_get_zDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_zDrive(ref value);
+		}
+	}
+
+	public Quaternion targetRotation
+	{
+		get
+		{
+			INTERNAL_get_targetRotation(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_targetRotation(ref value);
+		}
+	}
+
+	public Vector3 targetAngularVelocity
+	{
+		get
+		{
+			INTERNAL_get_targetAngularVelocity(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_targetAngularVelocity(ref value);
+		}
+	}
+
+	public extern RotationDriveMode rotationDriveMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public JointDrive angularXDrive
+	{
+		get
+		{
+			INTERNAL_get_angularXDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularXDrive(ref value);
+		}
+	}
+
+	public JointDrive angularYZDrive
+	{
+		get
+		{
+			INTERNAL_get_angularYZDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_angularYZDrive(ref value);
+		}
+	}
+
+	public JointDrive slerpDrive
+	{
+		get
+		{
+			INTERNAL_get_slerpDrive(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_slerpDrive(ref value);
+		}
+	}
+
+	public extern JointProjectionMode projectionMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float projectionDistance
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float projectionAngle
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool configuredInWorldSpace
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern bool swapBodies
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_secondaryAxis(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_secondaryAxis(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_linearLimitSpring(out SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_linearLimitSpring(ref SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularXLimitSpring(out SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularXLimitSpring(ref SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularYZLimitSpring(out SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularYZLimitSpring(ref SoftJointLimitSpring value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_linearLimit(out SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_linearLimit(ref SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_lowAngularXLimit(out SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_lowAngularXLimit(ref SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_highAngularXLimit(out SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_highAngularXLimit(ref SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularYLimit(out SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularYLimit(ref SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularZLimit(out SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularZLimit(ref SoftJointLimit value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_targetPosition(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_targetPosition(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_targetVelocity(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_targetVelocity(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_xDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_xDrive(ref JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_yDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_yDrive(ref JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_zDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_zDrive(ref JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_targetRotation(out Quaternion value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_targetRotation(ref Quaternion value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_targetAngularVelocity(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_targetAngularVelocity(ref Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularXDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularXDrive(ref JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_angularYZDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_angularYZDrive(ref JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_slerpDrive(out JointDrive value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_slerpDrive(ref JointDrive value);
 }

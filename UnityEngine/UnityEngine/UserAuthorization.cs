@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum UserAuthorization
 {
-	public enum UserAuthorization
-	{
-		WebCam = 1,
-		Microphone
-	}
+	WebCam = 1,
+	Microphone
 }

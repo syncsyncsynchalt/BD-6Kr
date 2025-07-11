@@ -1,8 +1,7 @@
-namespace UnityEngine.Experimental.Director
+namespace UnityEngine.Experimental.Director;
+
+public enum PlayState
 {
-	public enum PlayState
-	{
-		Paused,
-		Playing
-	}
+	Paused,
+	Playing
 }

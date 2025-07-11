@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum LightType
 {
-	public enum LightType
-	{
-		Spot,
-		Directional,
-		Point,
-		Area
-	}
+	Spot,
+	Directional,
+	Point,
+	Area
 }

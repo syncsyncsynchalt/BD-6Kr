@@ -1,35 +1,34 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct HumanBone
 {
-	public struct HumanBone
+	private string m_BoneName;
+
+	private string m_HumanName;
+
+	public HumanLimit limit;
+
+	public string boneName
 	{
-		private string m_BoneName;
-
-		private string m_HumanName;
-
-		public HumanLimit limit;
-
-		public string boneName
+		get
 		{
-			get
-			{
-				return m_BoneName;
-			}
-			set
-			{
-				m_BoneName = value;
-			}
+			return m_BoneName;
 		}
-
-		public string humanName
+		set
 		{
-			get
-			{
-				return m_HumanName;
-			}
-			set
-			{
-				m_HumanName = value;
-			}
+			m_BoneName = value;
+		}
+	}
+
+	public string humanName
+	{
+		get
+		{
+			return m_HumanName;
+		}
+		set
+		{
+			m_HumanName = value;
 		}
 	}
 }

@@ -1,8 +1,7 @@
 using System.Collections;
 
-namespace UnityEngineInternal
+namespace UnityEngineInternal;
+
+public class GenericStack : Stack
 {
-	public class GenericStack : Stack
-	{
-	}
 }

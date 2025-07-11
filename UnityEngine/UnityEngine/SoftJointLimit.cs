@@ -1,86 +1,85 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct SoftJointLimit
 {
-	public struct SoftJointLimit
+	private float m_Limit;
+
+	private float m_Bounciness;
+
+	private float m_ContactDistance;
+
+	public float limit
 	{
-		private float m_Limit;
-
-		private float m_Bounciness;
-
-		private float m_ContactDistance;
-
-		public float limit
+		get
 		{
-			get
-			{
-				return m_Limit;
-			}
-			set
-			{
-				m_Limit = value;
-			}
+			return m_Limit;
 		}
-
-		[Obsolete("Spring has been moved to SoftJointLimitSpring class in Unity 5", true)]
-		public float spring
+		set
 		{
-			get
-			{
-				return 0f;
-			}
-			set
-			{
-			}
+			m_Limit = value;
 		}
+	}
 
-		[Obsolete("Damper has been moved to SoftJointLimitSpring class in Unity 5", true)]
-		public float damper
+	[Obsolete("Spring has been moved to SoftJointLimitSpring class in Unity 5", true)]
+	public float spring
+	{
+		get
 		{
-			get
-			{
-				return 0f;
-			}
-			set
-			{
-			}
+			return 0f;
 		}
-
-		public float bounciness
+		set
 		{
-			get
-			{
-				return m_Bounciness;
-			}
-			set
-			{
-				m_Bounciness = value;
-			}
 		}
+	}
 
-		public float contactDistance
+	[Obsolete("Damper has been moved to SoftJointLimitSpring class in Unity 5", true)]
+	public float damper
+	{
+		get
 		{
-			get
-			{
-				return m_ContactDistance;
-			}
-			set
-			{
-				m_ContactDistance = value;
-			}
+			return 0f;
 		}
-
-		[Obsolete("Use SoftJointLimit.bounciness instead", true)]
-		public float bouncyness
+		set
 		{
-			get
-			{
-				return m_Bounciness;
-			}
-			set
-			{
-				m_Bounciness = value;
-			}
+		}
+	}
+
+	public float bounciness
+	{
+		get
+		{
+			return m_Bounciness;
+		}
+		set
+		{
+			m_Bounciness = value;
+		}
+	}
+
+	public float contactDistance
+	{
+		get
+		{
+			return m_ContactDistance;
+		}
+		set
+		{
+			m_ContactDistance = value;
+		}
+	}
+
+	[Obsolete("Use SoftJointLimit.bounciness instead", true)]
+	public float bouncyness
+	{
+		get
+		{
+			return m_Bounciness;
+		}
+		set
+		{
+			m_Bounciness = value;
 		}
 	}
 }

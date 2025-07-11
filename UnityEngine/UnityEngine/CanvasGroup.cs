@@ -1,36 +1,51 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class CanvasGroup : Component, ICanvasRaycastFilter
 {
-	public sealed class CanvasGroup : Component, ICanvasRaycastFilter
+	public extern float alpha
 	{
-		public float alpha
-		{
-			get;
-			set;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool interactable
-		{
-			get;
-			set;
-		}
+	public extern bool interactable
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool blocksRaycasts
-		{
-			get;
-			set;
-		}
+	public extern bool blocksRaycasts
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool ignoreParentGroups
-		{
-			get;
-			set;
-		}
+	public extern bool ignoreParentGroups
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
 
-		public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
-		{
-			return blocksRaycasts;
-		}
+	public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
+	{
+		return blocksRaycasts;
 	}
 }

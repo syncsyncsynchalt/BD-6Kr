@@ -1,24 +1,19 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[AttributeUsage(AttributeTargets.Parameter)]
+public class PathReferenceAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Parameter)]
-	public class PathReferenceAttribute : Attribute
+	[NotNull]
+	public string BasePath { get; private set; }
+
+	public PathReferenceAttribute()
 	{
-		[NotNull]
-		public string BasePath
-		{
-			get;
-			private set;
-		}
+	}
 
-		public PathReferenceAttribute()
-		{
-		}
-
-		public PathReferenceAttribute([PathReference] string basePath)
-		{
-			BasePath = basePath;
-		}
+	public PathReferenceAttribute([PathReference] string basePath)
+	{
+		BasePath = basePath;
 	}
 }

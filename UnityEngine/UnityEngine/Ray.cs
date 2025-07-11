@@ -1,54 +1,53 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct Ray
 {
-	public struct Ray
+	private Vector3 m_Origin;
+
+	private Vector3 m_Direction;
+
+	public Vector3 origin
 	{
-		private Vector3 m_Origin;
-
-		private Vector3 m_Direction;
-
-		public Vector3 origin
+		get
 		{
-			get
-			{
-				return m_Origin;
-			}
-			set
-			{
-				m_Origin = value;
-			}
+			return m_Origin;
 		}
-
-		public Vector3 direction
+		set
 		{
-			get
-			{
-				return m_Direction;
-			}
-			set
-			{
-				m_Direction = value.normalized;
-			}
+			m_Origin = value;
 		}
+	}
 
-		public Ray(Vector3 origin, Vector3 direction)
+	public Vector3 direction
+	{
+		get
 		{
-			m_Origin = origin;
-			m_Direction = direction.normalized;
+			return m_Direction;
 		}
+		set
+		{
+			m_Direction = value.normalized;
+		}
+	}
 
-		public Vector3 GetPoint(float distance)
-		{
-			return m_Origin + m_Direction * distance;
-		}
+	public Ray(Vector3 origin, Vector3 direction)
+	{
+		m_Origin = origin;
+		m_Direction = direction.normalized;
+	}
 
-		public override string ToString()
-		{
-			return UnityString.Format("Origin: {0}, Dir: {1}", m_Origin, m_Direction);
-		}
+	public Vector3 GetPoint(float distance)
+	{
+		return m_Origin + m_Direction * distance;
+	}
 
-		public string ToString(string format)
-		{
-			return UnityString.Format("Origin: {0}, Dir: {1}", m_Origin.ToString(format), m_Direction.ToString(format));
-		}
+	public override string ToString()
+	{
+		return UnityString.Format("Origin: {0}, Dir: {1}", m_Origin, m_Direction);
+	}
+
+	public string ToString(string format)
+	{
+		return UnityString.Format("Origin: {0}, Dir: {1}", m_Origin.ToString(format), m_Direction.ToString(format));
 	}
 }

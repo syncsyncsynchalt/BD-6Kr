@@ -1,115 +1,129 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct NetworkPlayer
 {
-	public struct NetworkPlayer
+	internal int index;
+
+	public string ipAddress
 	{
-		internal int index;
-
-		public string ipAddress
+		get
 		{
-			get
+			if (index == Internal_GetPlayerIndex())
 			{
-				if (index == Internal_GetPlayerIndex())
-				{
-					return Internal_GetLocalIP();
-				}
-				return Internal_GetIPAddress(index);
+				return Internal_GetLocalIP();
 			}
+			return Internal_GetIPAddress(index);
 		}
+	}
 
-		public int port
+	public int port
+	{
+		get
 		{
-			get
+			if (index == Internal_GetPlayerIndex())
 			{
-				if (index == Internal_GetPlayerIndex())
-				{
-					return Internal_GetLocalPort();
-				}
-				return Internal_GetPort(index);
+				return Internal_GetLocalPort();
 			}
+			return Internal_GetPort(index);
 		}
+	}
 
-		public string guid
+	public string guid
+	{
+		get
 		{
-			get
+			if (index == Internal_GetPlayerIndex())
 			{
-				if (index == Internal_GetPlayerIndex())
-				{
-					return Internal_GetLocalGUID();
-				}
-				return Internal_GetGUID(index);
+				return Internal_GetLocalGUID();
 			}
+			return Internal_GetGUID(index);
 		}
+	}
 
-		public string externalIP => Internal_GetExternalIP();
+	public string externalIP => Internal_GetExternalIP();
 
-		public int externalPort => Internal_GetExternalPort();
+	public int externalPort => Internal_GetExternalPort();
 
-		internal static NetworkPlayer unassigned
+	internal static NetworkPlayer unassigned
+	{
+		get
 		{
-			get
-			{
-				NetworkPlayer result = default(NetworkPlayer);
-				result.index = -1;
-				return result;
-			}
+			NetworkPlayer result = default(NetworkPlayer);
+			result.index = -1;
+			return result;
 		}
+	}
 
-		public NetworkPlayer(string ip, int port)
+	public NetworkPlayer(string ip, int port)
+	{
+		Debug.LogError("Not yet implemented");
+		index = 0;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern string Internal_GetIPAddress(int index);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetPort(int index);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern string Internal_GetExternalIP();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetExternalPort();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern string Internal_GetLocalIP();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetLocalPort();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int Internal_GetPlayerIndex();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern string Internal_GetGUID(int index);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern string Internal_GetLocalGUID();
+
+	public override int GetHashCode()
+	{
+		return index.GetHashCode();
+	}
+
+	public override bool Equals(object other)
+	{
+		if (!(other is NetworkPlayer networkPlayer))
 		{
-			Debug.LogError("Not yet implemented");
-			index = 0;
+			return false;
 		}
+		return networkPlayer.index == index;
+	}
 
-		private static string Internal_GetIPAddress(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public override string ToString()
+	{
+		return index.ToString();
+	}
 
-		private static int Internal_GetPort(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+	public static bool operator ==(NetworkPlayer lhs, NetworkPlayer rhs)
+	{
+		return lhs.index == rhs.index;
+	}
 
-		private static string Internal_GetExternalIP() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static int Internal_GetExternalPort() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static string Internal_GetLocalIP() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static int Internal_GetLocalPort() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static int Internal_GetPlayerIndex() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static string Internal_GetGUID(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static string Internal_GetLocalGUID() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public override int GetHashCode()
-		{
-			return index.GetHashCode();
-		}
-
-		public override bool Equals(object other)
-		{
-			if (!(other is NetworkPlayer))
-			{
-				return false;
-			}
-			NetworkPlayer networkPlayer = (NetworkPlayer)other;
-			return networkPlayer.index == index;
-		}
-
-		public override string ToString()
-		{
-			return index.ToString();
-		}
-
-		public static bool operator ==(NetworkPlayer lhs, NetworkPlayer rhs)
-		{
-			return lhs.index == rhs.index;
-		}
-
-		public static bool operator !=(NetworkPlayer lhs, NetworkPlayer rhs)
-		{
-			return lhs.index != rhs.index;
-		}
+	public static bool operator !=(NetworkPlayer lhs, NetworkPlayer rhs)
+	{
+		return lhs.index != rhs.index;
 	}
 }

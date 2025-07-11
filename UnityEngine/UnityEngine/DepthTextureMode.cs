@@ -1,12 +1,11 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Flags]
+public enum DepthTextureMode
 {
-	[Flags]
-	public enum DepthTextureMode
-	{
-		None = 0x0,
-		Depth = 0x1,
-		DepthNormals = 0x2
-	}
+	None = 0,
+	Depth = 1,
+	DepthNormals = 2
 }

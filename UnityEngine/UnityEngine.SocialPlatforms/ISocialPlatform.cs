@@ -1,40 +1,36 @@
 using System;
 
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public interface ISocialPlatform
 {
-	public interface ISocialPlatform
-	{
-		ILocalUser localUser
-		{
-			get;
-		}
+	ILocalUser localUser { get; }
 
-		void LoadUsers(string[] userIDs, Action<IUserProfile[]> callback);
+	void LoadUsers(string[] userIDs, Action<IUserProfile[]> callback);
 
-		void ReportProgress(string achievementID, double progress, Action<bool> callback);
+	void ReportProgress(string achievementID, double progress, Action<bool> callback);
 
-		void LoadAchievementDescriptions(Action<IAchievementDescription[]> callback);
+	void LoadAchievementDescriptions(Action<IAchievementDescription[]> callback);
 
-		void LoadAchievements(Action<IAchievement[]> callback);
+	void LoadAchievements(Action<IAchievement[]> callback);
 
-		IAchievement CreateAchievement();
+	IAchievement CreateAchievement();
 
-		void ReportScore(long score, string board, Action<bool> callback);
+	void ReportScore(long score, string board, Action<bool> callback);
 
-		void LoadScores(string leaderboardID, Action<IScore[]> callback);
+	void LoadScores(string leaderboardID, Action<IScore[]> callback);
 
-		ILeaderboard CreateLeaderboard();
+	ILeaderboard CreateLeaderboard();
 
-		void ShowAchievementsUI();
+	void ShowAchievementsUI();
 
-		void ShowLeaderboardUI();
+	void ShowLeaderboardUI();
 
-		void Authenticate(ILocalUser user, Action<bool> callback);
+	void Authenticate(ILocalUser user, Action<bool> callback);
 
-		void LoadFriends(ILocalUser user, Action<bool> callback);
+	void LoadFriends(ILocalUser user, Action<bool> callback);
 
-		void LoadScores(ILeaderboard board, Action<bool> callback);
+	void LoadScores(ILeaderboard board, Action<bool> callback);
 
-		bool GetLoading(ILeaderboard board);
-	}
+	bool GetLoading(ILeaderboard board);
 }

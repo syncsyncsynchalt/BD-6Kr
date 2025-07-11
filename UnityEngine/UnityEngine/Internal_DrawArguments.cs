@@ -1,19 +1,18 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+internal struct Internal_DrawArguments
 {
-	internal struct Internal_DrawArguments
-	{
-		public IntPtr target;
+	public IntPtr target;
 
-		public Rect position;
+	public Rect position;
 
-		public int isHover;
+	public int isHover;
 
-		public int isActive;
+	public int isActive;
 
-		public int on;
+	public int on;
 
-		public int hasKeyboardFocus;
-	}
+	public int hasKeyboardFocus;
 }

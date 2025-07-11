@@ -1,23 +1,22 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal struct InternalDrawTextureArguments
 {
-	internal struct InternalDrawTextureArguments
-	{
-		public Rect screenRect;
+	public Rect screenRect;
 
-		public Texture texture;
+	public Texture texture;
 
-		public Rect sourceRect;
+	public Rect sourceRect;
 
-		public int leftBorder;
+	public int leftBorder;
 
-		public int rightBorder;
+	public int rightBorder;
 
-		public int topBorder;
+	public int topBorder;
 
-		public int bottomBorder;
+	public int bottomBorder;
 
-		public Color32 color;
+	public Color32 color;
 
-		public Material mat;
-	}
+	public Material mat;
 }

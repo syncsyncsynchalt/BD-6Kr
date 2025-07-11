@@ -1,61 +1,60 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointDrive
 {
-	public struct JointDrive
+	private int m_Mode;
+
+	private float m_PositionSpring;
+
+	private float m_PositionDamper;
+
+	private float m_MaximumForce;
+
+	public JointDriveMode mode
 	{
-		private int m_Mode;
-
-		private float m_PositionSpring;
-
-		private float m_PositionDamper;
-
-		private float m_MaximumForce;
-
-		public JointDriveMode mode
+		get
 		{
-			get
-			{
-				return (JointDriveMode)m_Mode;
-			}
-			set
-			{
-				m_Mode = (int)value;
-			}
+			return (JointDriveMode)m_Mode;
 		}
-
-		public float positionSpring
+		set
 		{
-			get
-			{
-				return m_PositionSpring;
-			}
-			set
-			{
-				m_PositionSpring = value;
-			}
+			m_Mode = (int)value;
 		}
+	}
 
-		public float positionDamper
+	public float positionSpring
+	{
+		get
 		{
-			get
-			{
-				return m_PositionDamper;
-			}
-			set
-			{
-				m_PositionDamper = value;
-			}
+			return m_PositionSpring;
 		}
-
-		public float maximumForce
+		set
 		{
-			get
-			{
-				return m_MaximumForce;
-			}
-			set
-			{
-				m_MaximumForce = value;
-			}
+			m_PositionSpring = value;
+		}
+	}
+
+	public float positionDamper
+	{
+		get
+		{
+			return m_PositionDamper;
+		}
+		set
+		{
+			m_PositionDamper = value;
+		}
+	}
+
+	public float maximumForce
+	{
+		get
+		{
+			return m_MaximumForce;
+		}
+		set
+		{
+			m_MaximumForce = value;
 		}
 	}
 }

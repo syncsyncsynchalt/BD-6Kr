@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum TextureWrapMode
 {
-	public enum TextureWrapMode
-	{
-		Repeat,
-		Clamp
-	}
+	Repeat,
+	Clamp
 }

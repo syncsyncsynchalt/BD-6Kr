@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AnisotropicFiltering
 {
-	public enum AnisotropicFiltering
-	{
-		Disable,
-		Enable,
-		ForceEnable
-	}
+	Disable,
+	Enable,
+	ForceEnable
 }

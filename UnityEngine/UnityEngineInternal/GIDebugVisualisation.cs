@@ -1,38 +1,55 @@
-using System;
-
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace UnityEngineInternal
+namespace UnityEngineInternal;
+
+public sealed class GIDebugVisualisation
 {
-	public sealed class GIDebugVisualisation
+	public static extern bool cycleMode
 	{
-		public static bool cycleMode
-		{
-			get;
-		}
-
-		public static bool pauseCycleMode
-		{
-			get;
-		}
-
-		public static GITextureType texType
-		{
-			get;
-			set;
-		}
-
-		public static void ResetRuntimeInputTextures() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void PlayCycleMode() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void PauseCycleMode() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void StopCycleMode() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void CycleSkipInstances(int skip) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void CycleSkipSystems(int skip) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
 	}
+
+	public static extern bool pauseCycleMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern GITextureType texType
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void ResetRuntimeInputTextures();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void PlayCycleMode();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void PauseCycleMode();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void StopCycleMode();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void CycleSkipInstances(int skip);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void CycleSkipSystems(int skip);
 }

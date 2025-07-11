@@ -1,9 +1,8 @@
 using System;
 
-namespace JetBrains.Annotations
+namespace JetBrains.Annotations;
+
+[AttributeUsage(AttributeTargets.Method)]
+public sealed class LinqTunnelAttribute : Attribute
 {
-	[AttributeUsage(AttributeTargets.Method)]
-	public sealed class LinqTunnelAttribute : Attribute
-	{
-	}
 }

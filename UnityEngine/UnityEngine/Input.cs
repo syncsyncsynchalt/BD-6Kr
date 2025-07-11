@@ -1,297 +1,388 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class Input
 {
-	public sealed class Input
+	private static Gyroscope m_MainGyro;
+
+	private static LocationService locationServiceInstance;
+
+	private static Compass compassInstance;
+
+	public static extern bool compensateSensors
 	{
-		private static Gyroscope m_MainGyro;
-
-		private static LocationService locationServiceInstance;
-
-		private static Compass compassInstance;
-
-		public static bool compensateSensors
-		{
-			get;
-			set;
-		}
-
-		[Obsolete("isGyroAvailable property is deprecated. Please use SystemInfo.supportsGyroscope instead.")]
-		public static bool isGyroAvailable
-		{
-			get;
-		}
-
-		public static Gyroscope gyro
-		{
-			get
-			{
-				if (m_MainGyro == null)
-				{
-					m_MainGyro = new Gyroscope(mainGyroIndex_Internal());
-				}
-				return m_MainGyro;
-			}
-		}
-
-		public static Vector3 mousePosition
-		{
-			get
-			{
-				INTERNAL_get_mousePosition(out Vector3 value);
-				return value;
-			}
-		}
-
-		public static Vector2 mouseScrollDelta
-		{
-			get
-			{
-				INTERNAL_get_mouseScrollDelta(out Vector2 value);
-				return value;
-			}
-		}
-
-		public static bool mousePresent
-		{
-			get;
-		}
-
-		public static bool simulateMouseWithTouches
-		{
-			get;
-			set;
-		}
-
-		public static bool anyKey
-		{
-			get;
-		}
-
-		public static bool anyKeyDown
-		{
-			get;
-		}
-
-		public static string inputString
-		{
-			get;
-		}
-
-		public static Vector3 acceleration
-		{
-			get
-			{
-				INTERNAL_get_acceleration(out Vector3 value);
-				return value;
-			}
-		}
-
-		public static AccelerationEvent[] accelerationEvents
-		{
-			get
-			{
-				int accelerationEventCount = Input.accelerationEventCount;
-				AccelerationEvent[] array = new AccelerationEvent[accelerationEventCount];
-				for (int i = 0; i < accelerationEventCount; i++)
-				{
-					array[i] = GetAccelerationEvent(i);
-				}
-				return array;
-			}
-		}
-
-		public static int accelerationEventCount
-		{
-			get;
-		}
-
-		public static Touch[] touches
-		{
-			get
-			{
-				int touchCount = Input.touchCount;
-				Touch[] array = new Touch[touchCount];
-				for (int i = 0; i < touchCount; i++)
-				{
-					array[i] = GetTouch(i);
-				}
-				return array;
-			}
-		}
-
-		public static int touchCount
-		{
-			get;
-		}
-
-		[Obsolete("eatKeyPressOnTextFieldFocus property is deprecated, and only provided to support legacy behavior.")]
-		public static bool eatKeyPressOnTextFieldFocus
-		{
-			get;
-			set;
-		}
-
-		public static bool touchPressureSupported
-		{
-			get;
-		}
-
-		public static bool touchSupported => true;
-
-		public static bool multiTouchEnabled
-		{
-			get;
-			set;
-		}
-
-		public static LocationService location
-		{
-			get
-			{
-				if (locationServiceInstance == null)
-				{
-					locationServiceInstance = new LocationService();
-				}
-				return locationServiceInstance;
-			}
-		}
-
-		public static Compass compass
-		{
-			get
-			{
-				if (compassInstance == null)
-				{
-					compassInstance = new Compass();
-				}
-				return compassInstance;
-			}
-		}
-
-		public static DeviceOrientation deviceOrientation
-		{
-			get;
-		}
-
-		public static IMECompositionMode imeCompositionMode
-		{
-			get;
-			set;
-		}
-
-		public static string compositionString
-		{
-			get;
-		}
-
-		public static bool imeIsSelected
-		{
-			get;
-		}
-
-		public static Vector2 compositionCursorPos
-		{
-			get
-			{
-				INTERNAL_get_compositionCursorPos(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_compositionCursorPos(ref value);
-			}
-		}
-
-		private static int mainGyroIndex_Internal() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyInt(int key) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyString(string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyUpInt(int key) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyUpString(string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyDownInt(int key) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool GetKeyDownString(string name) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static float GetAxis(string axisName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static float GetAxisRaw(string axisName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetButton(string buttonName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetButtonDown(string buttonName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetButtonUp(string buttonName) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetKey(string name)
-		{
-			return GetKeyString(name);
-		}
-
-		public static bool GetKey(KeyCode key)
-		{
-			return GetKeyInt((int)key);
-		}
-
-		public static bool GetKeyDown(string name)
-		{
-			return GetKeyDownString(name);
-		}
-
-		public static bool GetKeyDown(KeyCode key)
-		{
-			return GetKeyDownInt((int)key);
-		}
-
-		public static bool GetKeyUp(string name)
-		{
-			return GetKeyUpString(name);
-		}
-
-		public static bool GetKeyUp(KeyCode key)
-		{
-			return GetKeyUpInt((int)key);
-		}
-
-		public static string[] GetJoystickNames() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetMouseButton(int button) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetMouseButtonDown(int button) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static bool GetMouseButtonUp(int button) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static void ResetInputAxes() { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_mousePosition(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_mouseScrollDelta(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_get_acceleration(out Vector3 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static AccelerationEvent GetAccelerationEvent(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public static Touch GetTouch(int index) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		[Obsolete("Use ps3 move API instead", true)]
-		public static Quaternion GetRotation(int deviceID)
-		{
-			return Quaternion.identity;
-		}
-
-		[Obsolete("Use ps3 move API instead", true)]
-		public static Vector3 GetPosition(int deviceID)
-		{
-			return Vector3.zero;
-		}
-
-		private static void INTERNAL_get_compositionCursorPos(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static void INTERNAL_set_compositionCursorPos(ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
 	}
+
+	[Obsolete("isGyroAvailable property is deprecated. Please use SystemInfo.supportsGyroscope instead.")]
+	public static extern bool isGyroAvailable
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static Gyroscope gyro
+	{
+		get
+		{
+			if (m_MainGyro == null)
+			{
+				m_MainGyro = new Gyroscope(mainGyroIndex_Internal());
+			}
+			return m_MainGyro;
+		}
+	}
+
+	public static Vector3 mousePosition
+	{
+		get
+		{
+			INTERNAL_get_mousePosition(out var value);
+			return value;
+		}
+	}
+
+	public static Vector2 mouseScrollDelta
+	{
+		get
+		{
+			INTERNAL_get_mouseScrollDelta(out var value);
+			return value;
+		}
+	}
+
+	public static extern bool mousePresent
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool simulateMouseWithTouches
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern bool anyKey
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool anyKeyDown
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern string inputString
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static Vector3 acceleration
+	{
+		get
+		{
+			INTERNAL_get_acceleration(out var value);
+			return value;
+		}
+	}
+
+	public static AccelerationEvent[] accelerationEvents
+	{
+		get
+		{
+			int num = accelerationEventCount;
+			AccelerationEvent[] array = new AccelerationEvent[num];
+			for (int i = 0; i < num; i++)
+			{
+				ref AccelerationEvent reference = ref array[i];
+				reference = GetAccelerationEvent(i);
+			}
+			return array;
+		}
+	}
+
+	public static extern int accelerationEventCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static Touch[] touches
+	{
+		get
+		{
+			int num = touchCount;
+			Touch[] array = new Touch[num];
+			for (int i = 0; i < num; i++)
+			{
+				ref Touch reference = ref array[i];
+				reference = GetTouch(i);
+			}
+			return array;
+		}
+	}
+
+	public static extern int touchCount
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	[Obsolete("eatKeyPressOnTextFieldFocus property is deprecated, and only provided to support legacy behavior.")]
+	public static extern bool eatKeyPressOnTextFieldFocus
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern bool touchPressureSupported
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static bool touchSupported => true;
+
+	public static extern bool multiTouchEnabled
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static LocationService location
+	{
+		get
+		{
+			if (locationServiceInstance == null)
+			{
+				locationServiceInstance = new LocationService();
+			}
+			return locationServiceInstance;
+		}
+	}
+
+	public static Compass compass
+	{
+		get
+		{
+			if (compassInstance == null)
+			{
+				compassInstance = new Compass();
+			}
+			return compassInstance;
+		}
+	}
+
+	public static extern DeviceOrientation deviceOrientation
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern IMECompositionMode imeCompositionMode
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public static extern string compositionString
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static extern bool imeIsSelected
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public static Vector2 compositionCursorPos
+	{
+		get
+		{
+			INTERNAL_get_compositionCursorPos(out var value);
+			return value;
+		}
+		set
+		{
+			INTERNAL_set_compositionCursorPos(ref value);
+		}
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern int mainGyroIndex_Internal();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyInt(int key);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyString(string name);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyUpInt(int key);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyUpString(string name);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyDownInt(int key);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool GetKeyDownString(string name);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern float GetAxis(string axisName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern float GetAxisRaw(string axisName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetButton(string buttonName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetButtonDown(string buttonName);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetButtonUp(string buttonName);
+
+	public static bool GetKey(string name)
+	{
+		return GetKeyString(name);
+	}
+
+	public static bool GetKey(KeyCode key)
+	{
+		return GetKeyInt((int)key);
+	}
+
+	public static bool GetKeyDown(string name)
+	{
+		return GetKeyDownString(name);
+	}
+
+	public static bool GetKeyDown(KeyCode key)
+	{
+		return GetKeyDownInt((int)key);
+	}
+
+	public static bool GetKeyUp(string name)
+	{
+		return GetKeyUpString(name);
+	}
+
+	public static bool GetKeyUp(KeyCode key)
+	{
+		return GetKeyUpInt((int)key);
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern string[] GetJoystickNames();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetMouseButton(int button);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetMouseButtonDown(int button);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern bool GetMouseButtonUp(int button);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern void ResetInputAxes();
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_mousePosition(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_mouseScrollDelta(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_acceleration(out Vector3 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern AccelerationEvent GetAccelerationEvent(int index);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	public static extern Touch GetTouch(int index);
+
+	[Obsolete("Use ps3 move API instead", true)]
+	public static Quaternion GetRotation(int deviceID)
+	{
+		return Quaternion.identity;
+	}
+
+	[Obsolete("Use ps3 move API instead", true)]
+	public static Vector3 GetPosition(int deviceID)
+	{
+		return Vector3.zero;
+	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_get_compositionCursorPos(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern void INTERNAL_set_compositionCursorPos(ref Vector2 value);
 }

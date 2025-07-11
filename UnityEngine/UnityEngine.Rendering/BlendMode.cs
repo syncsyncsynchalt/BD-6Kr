@@ -1,17 +1,16 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum BlendMode
 {
-	public enum BlendMode
-	{
-		Zero,
-		One,
-		DstColor,
-		SrcColor,
-		OneMinusDstColor,
-		SrcAlpha,
-		OneMinusSrcColor,
-		DstAlpha,
-		OneMinusDstAlpha,
-		SrcAlphaSaturate,
-		OneMinusSrcAlpha
-	}
+	Zero,
+	One,
+	DstColor,
+	SrcColor,
+	OneMinusDstColor,
+	SrcAlpha,
+	OneMinusSrcColor,
+	DstAlpha,
+	OneMinusDstAlpha,
+	SrcAlphaSaturate,
+	OneMinusSrcAlpha
 }

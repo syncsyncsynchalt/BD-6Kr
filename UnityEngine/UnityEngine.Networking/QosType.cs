@@ -1,15 +1,14 @@
-namespace UnityEngine.Networking
+namespace UnityEngine.Networking;
+
+public enum QosType
 {
-	public enum QosType
-	{
-		Unreliable,
-		UnreliableFragmented,
-		UnreliableSequenced,
-		Reliable,
-		ReliableFragmented,
-		ReliableSequenced,
-		StateUpdate,
-		ReliableStateUpdate,
-		AllCostDelivery
-	}
+	Unreliable,
+	UnreliableFragmented,
+	UnreliableSequenced,
+	Reliable,
+	ReliableFragmented,
+	ReliableSequenced,
+	StateUpdate,
+	ReliableStateUpdate,
+	AllCostDelivery
 }

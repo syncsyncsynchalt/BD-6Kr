@@ -1,15 +1,14 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Flags]
+public enum RigidbodyConstraints2D
 {
-	[Flags]
-	public enum RigidbodyConstraints2D
-	{
-		None = 0x0,
-		FreezePositionX = 0x1,
-		FreezePositionY = 0x2,
-		FreezeRotation = 0x4,
-		FreezePosition = 0x3,
-		FreezeAll = 0x7
-	}
+	None = 0,
+	FreezePositionX = 1,
+	FreezePositionY = 2,
+	FreezeRotation = 4,
+	FreezePosition = 3,
+	FreezeAll = 7
 }

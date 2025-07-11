@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ForceMode
 {
-	public enum ForceMode
-	{
-		Force = 0,
-		Acceleration = 5,
-		Impulse = 1,
-		VelocityChange = 2
-	}
+	Force = 0,
+	Acceleration = 5,
+	Impulse = 1,
+	VelocityChange = 2
 }

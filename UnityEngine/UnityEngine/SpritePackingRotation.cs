@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum SpritePackingRotation
 {
-	public enum SpritePackingRotation
-	{
-		None = 0,
-		Any = 0xF
-	}
+	None = 0,
+	Any = 15
 }

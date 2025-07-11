@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum HorizontalWrapMode
 {
-	public enum HorizontalWrapMode
-	{
-		Wrap,
-		Overflow
-	}
+	Wrap,
+	Overflow
 }

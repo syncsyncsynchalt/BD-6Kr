@@ -1,12 +1,11 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AvatarTarget
 {
-	public enum AvatarTarget
-	{
-		Root,
-		Body,
-		LeftFoot,
-		RightFoot,
-		LeftHand,
-		RightHand
-	}
+	Root,
+	Body,
+	LeftFoot,
+	RightFoot,
+	LeftHand,
+	RightHand
 }

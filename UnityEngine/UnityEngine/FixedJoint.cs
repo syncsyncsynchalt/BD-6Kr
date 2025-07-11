@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class FixedJoint : Joint
 {
-	public sealed class FixedJoint : Joint
-	{
-	}
 }

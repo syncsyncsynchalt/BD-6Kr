@@ -1,16 +1,15 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[Flags]
+internal enum TerrainChangedFlags
 {
-	[Flags]
-	internal enum TerrainChangedFlags
-	{
-		NoChange = 0x0,
-		Heightmap = 0x1,
-		TreeInstances = 0x2,
-		DelayedHeightmapUpdate = 0x4,
-		FlushEverythingImmediately = 0x8,
-		RemoveDirtyDetailsImmediately = 0x10,
-		WillBeDestroyed = 0x100
-	}
+	NoChange = 0,
+	Heightmap = 1,
+	TreeInstances = 2,
+	DelayedHeightmapUpdate = 4,
+	FlushEverythingImmediately = 8,
+	RemoveDirtyDetailsImmediately = 0x10,
+	WillBeDestroyed = 0x100
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NetworkStateSynchronization
 {
-	public enum NetworkStateSynchronization
-	{
-		Off,
-		ReliableDeltaCompressed,
-		Unreliable
-	}
+	Off,
+	ReliableDeltaCompressed,
+	Unreliable
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum BlendWeights
 {
-	public enum BlendWeights
-	{
-		OneBone = 1,
-		TwoBones = 2,
-		FourBones = 4
-	}
+	OneBone = 1,
+	TwoBones = 2,
+	FourBones = 4
 }

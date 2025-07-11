@@ -1,9 +1,8 @@
 using System;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
+public sealed class DisallowMultipleComponent : Attribute
 {
-	[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-	public sealed class DisallowMultipleComponent : Attribute
-	{
-	}
 }

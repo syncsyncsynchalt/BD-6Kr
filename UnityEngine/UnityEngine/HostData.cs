@@ -1,148 +1,147 @@
 using System.Runtime.InteropServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+[StructLayout(LayoutKind.Sequential)]
+public sealed class HostData
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public sealed class HostData
+	private int m_Nat;
+
+	private string m_GameType;
+
+	private string m_GameName;
+
+	private int m_ConnectedPlayers;
+
+	private int m_PlayerLimit;
+
+	private string[] m_IP;
+
+	private int m_Port;
+
+	private int m_PasswordProtected;
+
+	private string m_Comment;
+
+	private string m_GUID;
+
+	public bool useNat
 	{
-		private int m_Nat;
-
-		private string m_GameType;
-
-		private string m_GameName;
-
-		private int m_ConnectedPlayers;
-
-		private int m_PlayerLimit;
-
-		private string[] m_IP;
-
-		private int m_Port;
-
-		private int m_PasswordProtected;
-
-		private string m_Comment;
-
-		private string m_GUID;
-
-		public bool useNat
+		get
 		{
-			get
-			{
-				return m_Nat != 0;
-			}
-			set
-			{
-				m_Nat = (value ? 1 : 0);
-			}
+			return m_Nat != 0;
 		}
-
-		public string gameType
+		set
 		{
-			get
-			{
-				return m_GameType;
-			}
-			set
-			{
-				m_GameType = value;
-			}
+			m_Nat = (value ? 1 : 0);
 		}
+	}
 
-		public string gameName
+	public string gameType
+	{
+		get
 		{
-			get
-			{
-				return m_GameName;
-			}
-			set
-			{
-				m_GameName = value;
-			}
+			return m_GameType;
 		}
-
-		public int connectedPlayers
+		set
 		{
-			get
-			{
-				return m_ConnectedPlayers;
-			}
-			set
-			{
-				m_ConnectedPlayers = value;
-			}
+			m_GameType = value;
 		}
+	}
 
-		public int playerLimit
+	public string gameName
+	{
+		get
 		{
-			get
-			{
-				return m_PlayerLimit;
-			}
-			set
-			{
-				m_PlayerLimit = value;
-			}
+			return m_GameName;
 		}
-
-		public string[] ip
+		set
 		{
-			get
-			{
-				return m_IP;
-			}
-			set
-			{
-				m_IP = value;
-			}
+			m_GameName = value;
 		}
+	}
 
-		public int port
+	public int connectedPlayers
+	{
+		get
 		{
-			get
-			{
-				return m_Port;
-			}
-			set
-			{
-				m_Port = value;
-			}
+			return m_ConnectedPlayers;
 		}
-
-		public bool passwordProtected
+		set
 		{
-			get
-			{
-				return m_PasswordProtected != 0;
-			}
-			set
-			{
-				m_PasswordProtected = (value ? 1 : 0);
-			}
+			m_ConnectedPlayers = value;
 		}
+	}
 
-		public string comment
+	public int playerLimit
+	{
+		get
 		{
-			get
-			{
-				return m_Comment;
-			}
-			set
-			{
-				m_Comment = value;
-			}
+			return m_PlayerLimit;
 		}
-
-		public string guid
+		set
 		{
-			get
-			{
-				return m_GUID;
-			}
-			set
-			{
-				m_GUID = value;
-			}
+			m_PlayerLimit = value;
+		}
+	}
+
+	public string[] ip
+	{
+		get
+		{
+			return m_IP;
+		}
+		set
+		{
+			m_IP = value;
+		}
+	}
+
+	public int port
+	{
+		get
+		{
+			return m_Port;
+		}
+		set
+		{
+			m_Port = value;
+		}
+	}
+
+	public bool passwordProtected
+	{
+		get
+		{
+			return m_PasswordProtected != 0;
+		}
+		set
+		{
+			m_PasswordProtected = (value ? 1 : 0);
+		}
+	}
+
+	public string comment
+	{
+		get
+		{
+			return m_Comment;
+		}
+		set
+		{
+			m_Comment = value;
+		}
+	}
+
+	public string guid
+	{
+		get
+		{
+			return m_GUID;
+		}
+		set
+		{
+			m_GUID = value;
 		}
 	}
 }

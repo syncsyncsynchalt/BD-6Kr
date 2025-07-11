@@ -1,26 +1,27 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class BoxCollider2D : Collider2D
 {
-	public sealed class BoxCollider2D : Collider2D
+	public Vector2 size
 	{
-		public Vector2 size
+		get
 		{
-			get
-			{
-				INTERNAL_get_size(out Vector2 value);
-				return value;
-			}
-			set
-			{
-				INTERNAL_set_size(ref value);
-			}
+			INTERNAL_get_size(out var value);
+			return value;
 		}
-
-		private void INTERNAL_get_size(out Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_set_size(ref Vector2 value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
+		set
+		{
+			INTERNAL_set_size(ref value);
+		}
 	}
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_size(out Vector2 value);
+
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_set_size(ref Vector2 value);
 }

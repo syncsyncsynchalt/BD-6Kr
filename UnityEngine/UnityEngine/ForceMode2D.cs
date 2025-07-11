@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ForceMode2D
 {
-	public enum ForceMode2D
-	{
-		Force,
-		Impulse
-	}
+	Force,
+	Impulse
 }

@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class FlareLayer : Behaviour
 {
-	public sealed class FlareLayer : Behaviour
+	internal FlareLayer()
 	{
-		internal FlareLayer()
-		{
-		}
 	}
 }

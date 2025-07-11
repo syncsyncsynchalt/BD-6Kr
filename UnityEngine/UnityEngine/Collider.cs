@@ -1,74 +1,99 @@
-using System;
-
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class Collider : Component
 {
-	public class Collider : Component
+	public extern bool enabled
 	{
-		public bool enabled
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern Rigidbody attachedRigidbody
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
+
+	public extern bool isTrigger
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern float contactOffset
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern PhysicMaterial material
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public extern PhysicMaterial sharedMaterial
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		set;
+	}
+
+	public Bounds bounds
+	{
+		get
 		{
-			get;
-			set;
+			INTERNAL_get_bounds(out var value);
+			return value;
 		}
+	}
 
-		public Rigidbody attachedRigidbody
-		{
-			get;
-		}
+	public Vector3 ClosestPointOnBounds(Vector3 position)
+	{
+		return INTERNAL_CALL_ClosestPointOnBounds(this, ref position);
+	}
 
-		public bool isTrigger
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern Vector3 INTERNAL_CALL_ClosestPointOnBounds(Collider self, ref Vector3 position);
 
-		public float contactOffset
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private extern void INTERNAL_get_bounds(out Bounds value);
 
-		public PhysicMaterial material
-		{
-			get;
-			set;
-		}
+	private static bool Internal_Raycast(Collider col, Ray ray, out RaycastHit hitInfo, float maxDistance)
+	{
+		return INTERNAL_CALL_Internal_Raycast(col, ref ray, out hitInfo, maxDistance);
+	}
 
-		public PhysicMaterial sharedMaterial
-		{
-			get;
-			set;
-		}
+	[MethodImpl(MethodImplOptions.InternalCall)]
+	[WrapperlessIcall]
+	private static extern bool INTERNAL_CALL_Internal_Raycast(Collider col, ref Ray ray, out RaycastHit hitInfo, float maxDistance);
 
-		public Bounds bounds
-		{
-			get
-			{
-				INTERNAL_get_bounds(out Bounds value);
-				return value;
-			}
-		}
-
-		public Vector3 ClosestPointOnBounds(Vector3 position)
-		{
-			return INTERNAL_CALL_ClosestPointOnBounds(this, ref position);
-		}
-
-		private static Vector3 INTERNAL_CALL_ClosestPointOnBounds(Collider self, ref Vector3 position) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private void INTERNAL_get_bounds(out Bounds value) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		private static bool Internal_Raycast(Collider col, Ray ray, out RaycastHit hitInfo, float maxDistance)
-		{
-			return INTERNAL_CALL_Internal_Raycast(col, ref ray, out hitInfo, maxDistance);
-		}
-
-		private static bool INTERNAL_CALL_Internal_Raycast(Collider col, ref Ray ray, out RaycastHit hitInfo, float maxDistance) { throw new NotImplementedException("‚È‚É‚±‚ê"); }
-
-		public bool Raycast(Ray ray, out RaycastHit hitInfo, float maxDistance)
-		{
-			return Internal_Raycast(this, ray, out hitInfo, maxDistance);
-		}
+	public bool Raycast(Ray ray, out RaycastHit hitInfo, float maxDistance)
+	{
+		return Internal_Raycast(this, ray, out hitInfo, maxDistance);
 	}
 }

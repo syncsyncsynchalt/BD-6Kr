@@ -1,6 +1,5 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public sealed class WaitForEndOfFrame : YieldInstruction
 {
-	public sealed class WaitForEndOfFrame : YieldInstruction
-	{
-	}
 }

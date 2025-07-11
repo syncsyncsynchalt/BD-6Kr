@@ -1,22 +1,25 @@
 using System.Runtime.CompilerServices;
 
-namespace UnityEngine
+namespace UnityEngine;
+
+public class TextAsset : Object
 {
-	public class TextAsset : Object
+	public extern string text
 	{
-		public string text
-		{
-			get;
-		}
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public byte[] bytes
-		{
-			get;
-		}
+	public extern byte[] bytes
+	{
+		[MethodImpl(MethodImplOptions.InternalCall)]
+		[WrapperlessIcall]
+		get;
+	}
 
-		public override string ToString()
-		{
-			return text;
-		}
+	public override string ToString()
+	{
+		return text;
 	}
 }

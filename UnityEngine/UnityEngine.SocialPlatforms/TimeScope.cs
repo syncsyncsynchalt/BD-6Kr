@@ -1,9 +1,8 @@
-namespace UnityEngine.SocialPlatforms
+namespace UnityEngine.SocialPlatforms;
+
+public enum TimeScope
 {
-	public enum TimeScope
-	{
-		Today,
-		Week,
-		AllTime
-	}
+	Today,
+	Week,
+	AllTime
 }

@@ -1,33 +1,32 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct JointAngleLimits2D
 {
-	public struct JointAngleLimits2D
+	private float m_LowerAngle;
+
+	private float m_UpperAngle;
+
+	public float min
 	{
-		private float m_LowerAngle;
-
-		private float m_UpperAngle;
-
-		public float min
+		get
 		{
-			get
-			{
-				return m_LowerAngle;
-			}
-			set
-			{
-				m_LowerAngle = value;
-			}
+			return m_LowerAngle;
 		}
-
-		public float max
+		set
 		{
-			get
-			{
-				return m_UpperAngle;
-			}
-			set
-			{
-				m_UpperAngle = value;
-			}
+			m_LowerAngle = value;
+		}
+	}
+
+	public float max
+	{
+		get
+		{
+			return m_UpperAngle;
+		}
+		set
+		{
+			m_UpperAngle = value;
 		}
 	}
 }

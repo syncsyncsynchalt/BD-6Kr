@@ -1,10 +1,9 @@
-namespace UnityEngine.Rendering
+namespace UnityEngine.Rendering;
+
+public enum ShadowCastingMode
 {
-	public enum ShadowCastingMode
-	{
-		Off,
-		On,
-		TwoSided,
-		ShadowsOnly
-	}
+	Off,
+	On,
+	TwoSided,
+	ShadowsOnly
 }

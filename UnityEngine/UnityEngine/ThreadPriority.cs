@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum ThreadPriority
 {
-	public enum ThreadPriority
-	{
-		Low = 0,
-		BelowNormal = 1,
-		Normal = 2,
-		High = 4
-	}
+	Low = 0,
+	BelowNormal = 1,
+	Normal = 2,
+	High = 4
 }

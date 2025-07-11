@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum NetworkDisconnection
 {
-	public enum NetworkDisconnection
-	{
-		LostConnection = 20,
-		Disconnected = 19
-	}
+	LostConnection = 20,
+	Disconnected = 19
 }

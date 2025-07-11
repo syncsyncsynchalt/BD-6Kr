@@ -1,39 +1,38 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public struct MatchTargetWeightMask
 {
-	public struct MatchTargetWeightMask
+	private Vector3 m_PositionXYZWeight;
+
+	private float m_RotationWeight;
+
+	public Vector3 positionXYZWeight
 	{
-		private Vector3 m_PositionXYZWeight;
-
-		private float m_RotationWeight;
-
-		public Vector3 positionXYZWeight
+		get
 		{
-			get
-			{
-				return m_PositionXYZWeight;
-			}
-			set
-			{
-				m_PositionXYZWeight = value;
-			}
+			return m_PositionXYZWeight;
 		}
-
-		public float rotationWeight
+		set
 		{
-			get
-			{
-				return m_RotationWeight;
-			}
-			set
-			{
-				m_RotationWeight = value;
-			}
+			m_PositionXYZWeight = value;
 		}
+	}
 
-		public MatchTargetWeightMask(Vector3 positionXYZWeight, float rotationWeight)
+	public float rotationWeight
+	{
+		get
 		{
-			m_PositionXYZWeight = positionXYZWeight;
-			m_RotationWeight = rotationWeight;
+			return m_RotationWeight;
 		}
+		set
+		{
+			m_RotationWeight = value;
+		}
+	}
+
+	public MatchTargetWeightMask(Vector3 positionXYZWeight, float rotationWeight)
+	{
+		m_PositionXYZWeight = positionXYZWeight;
+		m_RotationWeight = rotationWeight;
 	}
 }

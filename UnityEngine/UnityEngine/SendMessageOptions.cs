@@ -1,8 +1,7 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum SendMessageOptions
 {
-	public enum SendMessageOptions
-	{
-		RequireReceiver,
-		DontRequireReceiver
-	}
+	RequireReceiver,
+	DontRequireReceiver
 }

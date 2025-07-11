@@ -1,9 +1,8 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+internal enum DisableBatchingType
 {
-	internal enum DisableBatchingType
-	{
-		False,
-		True,
-		WhenLODFading
-	}
+	False,
+	True,
+	WhenLODFading
 }

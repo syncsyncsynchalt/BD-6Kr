@@ -1,10 +1,9 @@
-namespace UnityEngine
+namespace UnityEngine;
+
+public enum AudioSourceCurveType
 {
-	public enum AudioSourceCurveType
-	{
-		CustomRolloff,
-		SpatialBlend,
-		ReverbZoneMix,
-		Spread
-	}
+	CustomRolloff,
+	SpatialBlend,
+	ReverbZoneMix,
+	Spread
 }
