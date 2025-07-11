@@ -4,20 +4,16 @@ namespace UnityEngine;
 
 public class Behaviour : Component
 {
-	public extern bool enabled
+	private bool _enabled = true;
+
+	public bool enabled
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		set;
+		get { return _enabled; }
+		set { _enabled = value; }
 	}
 
-	public extern bool isActiveAndEnabled
+	public bool isActiveAndEnabled
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
+		get { return _enabled; }
 	}
 }
