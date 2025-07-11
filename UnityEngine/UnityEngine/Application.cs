@@ -90,17 +90,17 @@ public sealed class Application
 		{
 			switch (platform)
 			{
-			case RuntimePlatform.IPhonePlayer:
-			case RuntimePlatform.Android:
-			case RuntimePlatform.MetroPlayerX86:
-			case RuntimePlatform.MetroPlayerX64:
-			case RuntimePlatform.MetroPlayerARM:
-			case RuntimePlatform.WP8Player:
-			case RuntimePlatform.BlackBerryPlayer:
-			case RuntimePlatform.TizenPlayer:
-				return true;
-			default:
-				return false;
+				case RuntimePlatform.IPhonePlayer:
+				case RuntimePlatform.Android:
+				case RuntimePlatform.MetroPlayerX86:
+				case RuntimePlatform.MetroPlayerX64:
+				case RuntimePlatform.MetroPlayerARM:
+				case RuntimePlatform.WP8Player:
+				case RuntimePlatform.BlackBerryPlayer:
+				case RuntimePlatform.TizenPlayer:
+					return true;
+				default:
+					return false;
 			}
 		}
 	}
@@ -155,14 +155,14 @@ public sealed class Application
 		get;
 	}
 
-	public static extern string streamingAssetsPath
+	public static string streamingAssetsPath
 	{
-		[MethodImpl(MethodImplOptions.InternalCall)]
-		[WrapperlessIcall]
-		get;
+		get
+		{
+			return System.IO.Directory.GetCurrentDirectory(); ;
+		}
 	}
 
-	[SecurityCritical]
 	public static extern string persistentDataPath
 	{
 		[MethodImpl(MethodImplOptions.InternalCall)]
