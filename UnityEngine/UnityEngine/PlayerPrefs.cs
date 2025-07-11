@@ -1,21 +1,73 @@
-using System.Runtime.CompilerServices;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using UnityEngine.Internal;
 
 namespace UnityEngine;
 
 public sealed class PlayerPrefs
 {
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	private static extern bool TrySetInt(string key, int value);
+	private static Dictionary<string, object> _prefs = new Dictionary<string, object>();
+	private static readonly string _prefsFile = "unity_player_prefs.json";
+	private static bool _loaded = false;
+	private static readonly object _lock = new object();
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	private static extern bool TrySetFloat(string key, float value);
+	static PlayerPrefs()
+	{
+		LoadPrefs();
+	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	private static extern bool TrySetSetString(string key, string value);
+	private static bool TrySetInt(string key, int value)
+	{
+		try
+		{
+			EnsureLoaded();
+			lock (_lock)
+			{
+				_prefs[key] = value;
+			}
+			return true;
+		}
+		catch
+		{
+			return false;
+		}
+	}
+
+	private static bool TrySetFloat(string key, float value)
+	{
+		try
+		{
+			EnsureLoaded();
+			lock (_lock)
+			{
+				_prefs[key] = value;
+			}
+			return true;
+		}
+		catch
+		{
+			return false;
+		}
+	}
+
+	private static bool TrySetSetString(string key, string value)
+	{
+		try
+		{
+			EnsureLoaded();
+			lock (_lock)
+			{
+				_prefs[key] = value;
+			}
+			return true;
+		}
+		catch
+		{
+			return false;
+		}
+	}
 
 	public static void SetInt(string key, int value)
 	{
@@ -25,15 +77,26 @@ public sealed class PlayerPrefs
 		}
 	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern int GetInt(string key, [DefaultValue("0")] int defaultValue);
+	public static int GetInt(string key, [DefaultValue("0")] int defaultValue = 0)
+	{
+		EnsureLoaded();
+		lock (_lock)
+		{
+			if (_prefs.TryGetValue(key, out object value))
+			{
+				if (value is int intValue)
+					return intValue;
+				if (value is JsonElement element && element.ValueKind == JsonValueKind.Number)
+					return element.GetInt32();
+			}
+		}
+		return defaultValue;
+	}
 
 	[ExcludeFromDocs]
 	public static int GetInt(string key)
 	{
-		int defaultValue = 0;
-		return GetInt(key, defaultValue);
+		return GetInt(key, 0);
 	}
 
 	public static void SetFloat(string key, float value)
@@ -44,15 +107,26 @@ public sealed class PlayerPrefs
 		}
 	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern float GetFloat(string key, [DefaultValue("0.0F")] float defaultValue);
+	public static float GetFloat(string key, [DefaultValue("0.0F")] float defaultValue = 0.0f)
+	{
+		EnsureLoaded();
+		lock (_lock)
+		{
+			if (_prefs.TryGetValue(key, out object value))
+			{
+				if (value is float floatValue)
+					return floatValue;
+				if (value is JsonElement element && element.ValueKind == JsonValueKind.Number)
+					return element.GetSingle();
+			}
+		}
+		return defaultValue;
+	}
 
 	[ExcludeFromDocs]
 	public static float GetFloat(string key)
 	{
-		float defaultValue = 0f;
-		return GetFloat(key, defaultValue);
+		return GetFloat(key, 0f);
 	}
 
 	public static void SetString(string key, string value)
@@ -63,30 +137,103 @@ public sealed class PlayerPrefs
 		}
 	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern string GetString(string key, [DefaultValue("\"\"")] string defaultValue);
+	public static string GetString(string key, [DefaultValue("\"\"")] string defaultValue = "")
+	{
+		EnsureLoaded();
+		lock (_lock)
+		{
+			if (_prefs.TryGetValue(key, out object value))
+			{
+				if (value is string stringValue)
+					return stringValue;
+				if (value is JsonElement element && element.ValueKind == JsonValueKind.String)
+					return element.GetString();
+			}
+		}
+		return defaultValue;
+	}
 
 	[ExcludeFromDocs]
 	public static string GetString(string key)
 	{
-		string empty = string.Empty;
-		return GetString(key, empty);
+		return GetString(key, string.Empty);
 	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern bool HasKey(string key);
+	public static bool HasKey(string key)
+	{
+		EnsureLoaded();
+		lock (_lock)
+		{
+			return _prefs.ContainsKey(key);
+		}
+	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern void DeleteKey(string key);
+	public static void DeleteKey(string key)
+	{
+		EnsureLoaded();
+		lock (_lock)
+		{
+			_prefs.Remove(key);
+		}
+	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern void DeleteAll();
+	public static void DeleteAll()
+	{
+		lock (_lock)
+		{
+			_prefs.Clear();
+		}
+	}
 
-	[MethodImpl(MethodImplOptions.InternalCall)]
-	[WrapperlessIcall]
-	public static extern void Save();
+	public static void Save()
+	{
+		try
+		{
+			lock (_lock)
+			{
+				var json = JsonSerializer.Serialize(_prefs, new JsonSerializerOptions
+				{
+					WriteIndented = true
+				});
+				File.WriteAllText(_prefsFile, json);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"PlayerPrefs保存エラー: {ex.Message}");
+		}
+	}
+
+	private static void LoadPrefs()
+	{
+		try
+		{
+			if (File.Exists(_prefsFile))
+			{
+				var json = File.ReadAllText(_prefsFile);
+				lock (_lock)
+				{
+					_prefs = JsonSerializer.Deserialize<Dictionary<string, object>>(json) ?? new Dictionary<string, object>();
+				}
+			}
+			_loaded = true;
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"PlayerPrefs読み込みエラー: {ex.Message}");
+			lock (_lock)
+			{
+				_prefs = new Dictionary<string, object>();
+			}
+			_loaded = true;
+		}
+	}
+
+	private static void EnsureLoaded()
+	{
+		if (!_loaded)
+		{
+			LoadPrefs();
+		}
+	}
 }
