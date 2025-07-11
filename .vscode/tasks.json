@@ -130,16 +130,6 @@
                 "${workspaceFolder}/UnityEngine.UI/UnityEngine.UI.csproj"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build UnityScript.Lang",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/UnityScript.Lang/UnityScript.Lang.csproj"
-            ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }
