@@ -22,16 +22,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build Assembly-UnityScript",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/Assembly-UnityScript/Assembly-UnityScript.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "build Assembly-UnityScript-firstpass",
             "command": "dotnet",
             "type": "process",

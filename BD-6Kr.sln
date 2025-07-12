@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2DUnity", "Live2DUnity\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-UnityScript-firstpass", "Assembly-UnityScript-firstpass\Assembly-UnityScript-firstpass.csproj", "{ACF36535-1AF6-4250-BBFE-FFC748BF3D04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-UnityScript", "Assembly-UnityScript\Assembly-UnityScript.csproj", "{E6B86621-E916-4841-8B6E-0411E97F445D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj", "{681D6C3B-C4E3-4057-BB5B-449E82313856}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp\Assembly-CSharp.csproj", "{E8627D30-0171-4152-8F16-CE5B178BBA80}"
@@ -91,14 +89,6 @@ Global
 		{ACF36535-1AF6-4250-BBFE-FFC748BF3D04}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
 		{ACF36535-1AF6-4250-BBFE-FFC748BF3D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACF36535-1AF6-4250-BBFE-FFC748BF3D04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Release_IncludeRigidbody|Any CPU.ActiveCfg = Release|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6B86621-E916-4841-8B6E-0411E97F445D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{681D6C3B-C4E3-4057-BB5B-449E82313856}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
 		{681D6C3B-C4E3-4057-BB5B-449E82313856}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
 		{681D6C3B-C4E3-4057-BB5B-449E82313856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
