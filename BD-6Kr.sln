@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine", "UnityEngine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI\UnityEngine.UI.csproj", "{1909EEA7-3E75-4036-A86D-6620EB273A5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.Networking", "UnityEngine.Networking\UnityEngine.Networking.csproj", "{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonyVitaSavedGames", "SonyVitaSavedGames\SonyVitaSavedGames.csproj", "{4E58AADE-8576-470E-AE73-B6CC9A5FC9CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonyVitaCommonDialog", "SonyVitaCommonDialog\SonyVitaCommonDialog.csproj", "{4E53B152-4A5D-4156-A549-FAFDC5DDC24E}"
@@ -53,14 +51,6 @@ Global
 		{1909EEA7-3E75-4036-A86D-6620EB273A5B}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
 		{1909EEA7-3E75-4036-A86D-6620EB273A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1909EEA7-3E75-4036-A86D-6620EB273A5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Release_IncludeRigidbody|Any CPU.ActiveCfg = Release|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Release_IncludeRigidbody|Any CPU.Build.0 = Release|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D024CBA-4EF0-476E-BBE5-866CC8FF80E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E58AADE-8576-470E-AE73-B6CC9A5FC9CC}.CompatibilityMode|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E58AADE-8576-470E-AE73-B6CC9A5FC9CC}.CompatibilityMode|Any CPU.Build.0 = Debug|Any CPU
 		{4E58AADE-8576-470E-AE73-B6CC9A5FC9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

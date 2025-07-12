@@ -112,16 +112,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build UnityEngine.Networking",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/UnityEngine.Networking/UnityEngine.Networking.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "build UnityEngine.UI",
             "command": "dotnet",
             "type": "process",
