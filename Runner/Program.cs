@@ -5,6 +5,7 @@ using Server_Models;
 using Server_Controllers;
 using local.managers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Runner
 {
@@ -143,13 +144,34 @@ namespace Runner
                 throw new InvalidOperationException($"艦隊編成の準備に失敗しました: {ex.Message}", ex);
             }
 
+            // マップエリアごとに紐づくマップInfoを表示
+            Console.WriteLine("\n[mst_mapareaごとのmst_mapinfo一覧]");
+            var mapareas = Mst_DataManager.Instance.Mst_maparea;
+            var mapinfos = Mst_DataManager.Instance.Mst_mapinfo;
+            foreach (var area in mapareas.Values.OrderBy(a => a.Id))
+            {
+                Console.WriteLine($"■ mst_maparea ID: {area.Id}, 名称: {area.Name}");
+                var infos = mapinfos.Values.Where(x => x.Maparea_id == area.Id).OrderBy(x => x.No).ToList();
+                if (infos.Count == 0)
+                {
+                    Console.WriteLine("  紐づくmst_mapinfoなし");
+                }
+                else
+                {
+                    foreach (var info in infos)
+                    {
+                        Console.WriteLine($"  mst_mapinfo No: {info.No}, 名称: {info.Name}, Infotext: {info.Infotext}");
+                    }
+                }
+            }
+
             var sorties = new[] { "5-1", "5-2" };
             for (int i = 0; i < sorties.Length; i++)
             {
                 var mapArea = 5;
                 var mapNo = i + 1;
                 Console.WriteLine("\n出撃準備とマップ選択");
-                SortieHelper.PrepareForSortie(mapArea, mapNo);
+                Console.WriteLine($"  エリア{mapArea}のマップ{mapArea}-{mapNo}を選択");
                 Console.WriteLine($"\n戦闘実行: {sorties[i]}");
                 var battleResult = _battleHelper.ExecuteBattle(mapArea, mapNo, BattleFormationKinds1.TanJuu, true);
                 if (battleResult.Success)
