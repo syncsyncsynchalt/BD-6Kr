@@ -18,6 +18,7 @@ namespace local.managers
 		protected static MaterialModel _materialModel;
 
 		protected static UserInfoModel _userInfoModel;
+		public static UserInfoModel PublicUserInfo => _userInfoModel;
 
 		protected static SettingModel _settingModel;
 
