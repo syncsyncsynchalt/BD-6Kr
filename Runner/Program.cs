@@ -1,18 +1,10 @@
 using System;
 using Common.Enum;
-using UnityEngine;
 using KCV;
-using KCV.Strategy;
-using KCV.Startup;
-using Server_Common;
 using Server_Models;
 using Server_Controllers;
-using local.models;
-using local.models.battle;
-using local.utils;
 using local.managers;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace Runner
 {
@@ -36,69 +28,27 @@ namespace Runner
     }
 
     /// <summary>
-    /// ゲーム実行の設定を管理するクラス
-    /// StartupDataの機能を拡張したゲーム設定クラス
-    /// </summary>
-    public class GameConfig
-    {
-        // StartupDataで管理される基本設定
-        public string AdmiralName { get; set; } = "新米提督";
-        public int InitialShipIndex { get; set; } = 9;
-        public DifficultKind Difficulty { get; set; } = DifficultKind.OTU;
-        public bool IsInherit { get; set; } = false;
-
-        // 独自の拡張設定
-        public int ResourceAmount { get; set; } = 1000;
-        public int RepairKits { get; set; } = 10;
-        public int DevKits { get; set; } = 10;
-        public int InitialCoins { get; set; } = 5000;
-        public int FleetSize { get; set; } = 6;
-        public BattleFormationKinds1 Formation { get; set; } = BattleFormationKinds1.TanJuu;
-        public int EquipmentCount { get; set; } = 20;
-
-        /// <summary>
-        /// GameConfigからStartupDataを作成
-        /// </summary>
-        /// <returns>StartupData</returns>
-        public KCV.Startup.StartupData ToStartupData()
-        {
-            return new KCV.Startup.StartupData
-            {
-                AdmiralName = this.AdmiralName,
-                PartnerShipID = this.InitialShipIndex,
-                Difficlty = this.Difficulty,
-                isInherit = this.IsInherit
-            };
-        }
-    }
-
-    /// <summary>
     /// ゲーム実行の全体的な流れを管理するクラス
     /// </summary>
     public class GameRunner
     {
-        private readonly GameConfig _config;
         private readonly Debug_Mod _debugMod = new Debug_Mod();
-        private FleetManager _fleetManager;
-        private readonly BattleManager _battleManager = new BattleManager();
-
-        public GameRunner(GameConfig config = null)
-        {
-            _config = config ?? new GameConfig();
-        }
+        // 艦隊編成用のOrganizeManager
+        private OrganizeManager _organizeManager;
+        private readonly BattleHelper _battleHelper = new BattleHelper();
 
         /// <summary>
-        /// システム/マスターデータを初期化
+        /// システム/マスタデータを初期化
         /// </summary>
         private void InitializeSystem()
         {
             Console.WriteLine("  システム初期化を開始...");
             try
             {
-                Console.WriteLine("  マスターデータ初期化を開始...");
+                Console.WriteLine("  マスタデータ初期化を開始...");
                 if (!AppInitializeManager.IsInitialize)
                 {
-                    Console.WriteLine("  Mst_DataManagerでマスターデータを読み込み中...");
+                    Console.WriteLine("  Mst_DataManagerでマスタデータを読み込み中...");
                     InitializeMasterDataManager();
                     Console.WriteLine("  Appクラスでセーブデータを初期化中...");
                     App.Initialize();
@@ -120,14 +70,14 @@ namespace Runner
         }
 
         /// <summary>
-        /// マスターデータを初期化（TrophyManager なしで実行）
+        /// マスタデータを初期化
         /// </summary>
         private void InitializeMasterDataManager()
         {
-            Console.WriteLine("  マスターデータマネージャーを初期化中...");
+            Console.WriteLine("  マスタデータマネージャーを初期化中...");
             Mst_DataManager.Instance.LoadStartMaster(() =>
             {
-                Console.WriteLine("  マスターデータ読み込み完了");
+                Console.WriteLine("  マスタデータ読み込み完了");
                 Mst_DataManager.Instance.SetStartMasterData();
                 App.isMasterInit = true;
             });
@@ -135,38 +85,27 @@ namespace Runner
             App.isTrophyInit = true;
             if (!App.isMasterInit)
             {
-                throw new Exception("マスターデータの初期化がタイムアウトしました");
+                throw new Exception("マスタデータの初期化がタイムアウトしました");
             }
-            Console.WriteLine("  マスターデータマネージャーの初期化完了");
+            Console.WriteLine("  マスタデータマネージャーの初期化完了");
         }
 
-        // 未使用の InitializeTrophyManager メソッドを削除
-
         /// <summary>
-        /// 提督（プレイヤー）情報をまとめて初期化・セットアップ
+        /// 提督情報をまとめて初期化・セットアップ
         /// </summary>
         private void SetupAdmiralInfo()
         {
             Console.WriteLine("  提督情報の初期化を開始...");
-            try
-            {
-                var startupData = _config.ToStartupData();
-                Console.WriteLine($"  難易度: {startupData.Difficlty}");
-                Console.WriteLine($"  提督名: {startupData.AdmiralName}");
-                Console.WriteLine($"  初期艦娘: {FleetManager.GetShipName(startupData.PartnerShipID)} (ID: {startupData.PartnerShipID})");
-
-                bool success = App.CreateSaveDataNInitialize(
-                    startupData.AdmiralName,
-                    startupData.PartnerShipID,
-                    startupData.Difficlty,
-                    startupData.isInherit
-                );
-                Console.WriteLine(success ? "  セーブデータを正常に作成しました" : "  セーブデータの作成に失敗しました");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"  提督情報設定中にエラーが発生しました: {ex.Message}");
-            }
+            Console.WriteLine($"  難易度: {DifficultKind.OTU}");
+            Console.WriteLine($"  提督名: 新米提督");
+            Console.WriteLine($"  初期艦娘: {FleetPrinter.ShipName(9)} (ID: 9)");
+            bool success = App.CreateSaveDataNInitialize(
+                "新米提督",
+                9,
+                DifficultKind.OTU,
+                false
+            );
+            Console.WriteLine(success ? "  セーブデータを正常に作成しました" : "  セーブデータの作成に失敗しました");
         }
 
         /// <summary>
@@ -174,52 +113,67 @@ namespace Runner
         /// </summary>
         public void RunGame()
         {
-            Console.WriteLine("\n【ステップ1】システム/マスターデータ初期化");
+            Console.WriteLine("\nシステム/マスタデータ初期化");
             InitializeSystem();
-            Console.WriteLine("\n【ステップ2】提督（プレイヤー）情報の設定");
+            Console.WriteLine("\n提督（プレイヤー）情報の設定");
             SetupAdmiralInfo();
             Debug_Mod.OpenMapAreaAll();
-            Console.WriteLine("\n【ステップ3】基本的なゲームリソースの設定");
+            Console.WriteLine("\n基本的なゲームリソースの設定");
             SetupBasicResources();
             AddShips(GetDefaultAdditionalShips());
             AddBasicEquipments();
-            Console.WriteLine("\n【ステップ4】艦隊管理システムの初期化");
-            _fleetManager = new FleetManager();
-            Console.WriteLine("\n【ステップ5】艦隊編成の準備");
-            _fleetManager?.PrepareFleetOrganization(1, _config.FleetSize);
-            Console.WriteLine("\n【ステップ6】出撃準備とマップ選択");
 
-            SortieHelper.PrepareForSortie(5, 1);
-            Console.WriteLine("\n【ステップ7】最初の戦闘実行(5-1)");
-            var battleResult = _battleManager.ExecuteBattle(5, 1, _config.Formation, true); // 夜戦まで実行
-            if (battleResult.Success)
+            Console.WriteLine("\n艦隊編成の準備");
+            // 艦隊ID: 1, 艦数: 6
+            int fleetId = 1;
+            int shipCount = 6;
+            _organizeManager = new OrganizeManager(fleetId);
+            const int MaxFleetSize = 6;
+            const int StartPosition = 2; // 1番位置は初期艦娘のため2番から開始
+            try
             {
-                BattleResultDisplayer.DisplayBattleResult(battleResult.BattleResultModel);
-                Console.WriteLine("  5-1戦闘完了！");
+                // 艦隊に艦娘を配置（2番位置から開始、1番位置は初期艦娘）
+                for (int position = StartPosition; position <= Math.Min(shipCount, MaxFleetSize); position++)
+                {
+                    _organizeManager.ChangeOrganize(fleetId, position, position);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine($"  5-1戦闘に失敗しました: {battleResult.ErrorMessage}");
-                return;
+                throw new InvalidOperationException($"艦隊編成の準備に失敗しました: {ex.Message}", ex);
             }
 
-            Console.WriteLine("\n【ステップ8】5-2への移動準備");
-            SortieHelper.PrepareForSortie(5, 2);
-
-            Console.WriteLine("\n【ステップ9】5-2戦闘実行");
-            var battleResult2 = _battleManager.ExecuteBattle(5, 2, _config.Formation, true); // 夜戦まで実行
-            if (battleResult2.Success)
+            var sorties = new[] { "5-1", "5-2" };
+            for (int i = 0; i < sorties.Length; i++)
             {
-                BattleResultDisplayer.DisplayBattleResult(battleResult2.BattleResultModel);
-                Console.WriteLine("  5-2戦闘完了！");
-            }
-            else
-            {
-                Console.WriteLine($"  5-2戦闘に失敗しました: {battleResult2.ErrorMessage}");
+                var mapArea = 5;
+                var mapNo = i + 1;
+                Console.WriteLine("\n出撃準備とマップ選択");
+                SortieHelper.PrepareForSortie(mapArea, mapNo);
+                Console.WriteLine($"\n戦闘実行: {sorties[i]}");
+                var battleResult = _battleHelper.ExecuteBattle(mapArea, mapNo, BattleFormationKinds1.TanJuu, true);
+                if (battleResult.Success)
+                {
+                    BattlePrinter.PrintBattleResult(battleResult.BattleResultModel);
+                    Console.WriteLine($"  {sorties[i]}戦闘完了！");
+                    if (i == 0)
+                    {
+                        var deck1 = local.managers.ManagerBase.PublicUserInfo.GetDeck(1); // 第1艦隊
+                        var flagship1 = deck1?.GetFlagShip();
+                        if (flagship1 != null && flagship1.IsTaiha())
+                        {
+                            Console.WriteLine("\n旗艦が大破したため、艦隊は帰投します。5-2戦闘はスキップされました。");
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"  {sorties[i]}戦闘に失敗しました: {battleResult.ErrorMessage}");
+                    break;
+                }
             }
         }
-
-
 
         /// <summary>
         /// 基本的なゲームリソースを設定
@@ -227,16 +181,20 @@ namespace Runner
         private void SetupBasicResources()
         {
             Console.WriteLine("  基本的なゲームリソースを設定中...");
-            _debugMod.Add_Materials(enumMaterialCategory.Fuel, _config.ResourceAmount);
-            _debugMod.Add_Materials(enumMaterialCategory.Bull, _config.ResourceAmount);
-            _debugMod.Add_Materials(enumMaterialCategory.Steel, _config.ResourceAmount);
-            _debugMod.Add_Materials(enumMaterialCategory.Bauxite, _config.ResourceAmount);
-            _debugMod.Add_Materials(enumMaterialCategory.Repair_Kit, _config.RepairKits);
-            _debugMod.Add_Materials(enumMaterialCategory.Dev_Kit, _config.DevKits);
-            Console.WriteLine($"  基本資源: 燃料{_config.ResourceAmount}, 弾薬{_config.ResourceAmount}, 鋼材{_config.ResourceAmount}, ボーキサイト{_config.ResourceAmount}");
-            Console.WriteLine($"  高速修復材: {_config.RepairKits}個, 開発資材: {_config.DevKits}個");
-            _debugMod.Add_Coin(_config.InitialCoins);
-            Console.WriteLine($"  初期家具コイン: {_config.InitialCoins:N0}");
+            var resourceAmount = 1000;
+            var repairKits = 10;
+            var devKits = 10;
+            var initialCoins = 5000;
+            _debugMod.Add_Materials(enumMaterialCategory.Fuel, resourceAmount);
+            _debugMod.Add_Materials(enumMaterialCategory.Bull, resourceAmount);
+            _debugMod.Add_Materials(enumMaterialCategory.Steel, resourceAmount);
+            _debugMod.Add_Materials(enumMaterialCategory.Bauxite, resourceAmount);
+            _debugMod.Add_Materials(enumMaterialCategory.Repair_Kit, repairKits);
+            _debugMod.Add_Materials(enumMaterialCategory.Dev_Kit, devKits);
+            Console.WriteLine($"  基本資源: 燃料{resourceAmount}, 弾薬{resourceAmount}, 鋼材{resourceAmount}, ボーキサイト{resourceAmount}");
+            Console.WriteLine($"  高速修復材: {repairKits}個, 開発資材: {devKits}個");
+            _debugMod.Add_Coin(initialCoins);
+            Console.WriteLine($"  初期家具コイン: {initialCoins:N0}");
             Console.WriteLine("  基本リソース設定完了");
         }
 
@@ -249,8 +207,7 @@ namespace Runner
             Console.WriteLine("  追加の艦娘を配備中...");
             _debugMod.Add_Ship(shipIds);
             Console.WriteLine($"  追加艦娘: {shipIds.Count}隻");
-            foreach (int shipId in shipIds)
-                Console.WriteLine($"    - {FleetManager.GetShipName(shipId)} (ID: {shipId})");
+            shipIds.ForEach(shipId => Console.WriteLine($"    - {FleetPrinter.ShipName(shipId)} (ID: {shipId})"));
         }
 
         /// <summary>
@@ -259,8 +216,9 @@ namespace Runner
         private void AddBasicEquipments()
         {
             Console.WriteLine("  基本装備を配備中...");
+            var equipmentCount = 20;
             var basicEquipments = new List<int>();
-            for (int i = 0; i < _config.EquipmentCount; i++)
+            for (int i = 0; i < equipmentCount; i++)
             {
                 basicEquipments.Add(1);
                 basicEquipments.Add(14);

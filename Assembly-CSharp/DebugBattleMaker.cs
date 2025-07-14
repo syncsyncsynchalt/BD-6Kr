@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class DebugBattleMaker
 {
-	public static string currentDir = "//" + Application.streamingAssetsPath + "/Xml/DebugDatas/";
+	// Runnerプロジェクト下のXml/DebugDatasに出力する
+	public static string currentDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Xml/DebugDatas/");
 
 	public static void SerializeBattleStart()
 	{
