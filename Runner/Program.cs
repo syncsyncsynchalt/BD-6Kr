@@ -144,23 +144,44 @@ namespace Runner
                 throw new InvalidOperationException($"艦隊編成の準備に失敗しました: {ex.Message}", ex);
             }
 
-            // マップエリアごとに紐づくマップInfoを表示
-            Console.WriteLine("\n[mst_mapareaごとのmst_mapinfo一覧]");
-            var mapareas = Mst_DataManager.Instance.Mst_maparea;
+            Console.WriteLine("\nエリア/マップ/セルの一覧");
+            var maparea = Mst_DataManager.Instance.Mst_maparea.FirstOrDefault(x => x.Value.Id == 1);
             var mapinfos = Mst_DataManager.Instance.Mst_mapinfo;
-            foreach (var area in mapareas.Values.OrderBy(a => a.Id))
+            var mapcellsAll = new Dictionary<int, Mst_mapcell2>();
+            Console.WriteLine($"■ エリアID: {maparea.Value.Id}, 名称: {maparea.Value.Name}");
+            var infos = mapinfos.Values.Where(x => x.Maparea_id == maparea.Value.Id).OrderBy(x => x.No).ToList();
+            if (infos.Count == 0)
             {
-                Console.WriteLine($"■ mst_maparea ID: {area.Id}, 名称: {area.Name}");
-                var infos = mapinfos.Values.Where(x => x.Maparea_id == area.Id).OrderBy(x => x.No).ToList();
-                if (infos.Count == 0)
+                Console.WriteLine("  紐づくマップなし");
+            }
+            else
+            {
+                foreach (var info in infos)
                 {
-                    Console.WriteLine("  紐づくmst_mapinfoなし");
-                }
-                else
-                {
-                    foreach (var info in infos)
+                    Mst_DataManager.Instance.Make_MapCell(maparea.Value.Id, info.No);
+                    var relatedCells = Mst_DataManager.Instance.Mst_mapcell.Values
+                        .Where(cell => cell.Maparea_id == maparea.Value.Id && cell.Mapinfo_no == info.No)
+                        .OrderBy(cell => cell.No)
+                        .ToList();
+                    Console.WriteLine($"  マップNo: {info.No}, 名称: {info.Name} (紐づくセル数: {relatedCells.Count})");
+                    foreach (var cell in relatedCells)
                     {
-                        Console.WriteLine($"  mst_mapinfo No: {info.No}, 名称: {info.Name}, Infotext: {info.Infotext}");
+                        string startMark = cell.Event_1 == enumMapEventType.None ? " [START]" : "";
+                        var nextCells = new List<string>();
+                        var nextNos = new[] { cell.Next_no_1, cell.Next_no_2, cell.Next_no_3, cell.Next_no_4 };
+                        var nextRates = (cell.Next_rate ?? "").Split(',');
+                        for (int i = 0; i < nextNos.Length; i++)
+                        {
+                            if (nextNos[i] > 0)
+                            {
+                                string nextCellShort = $"{nextNos[i]}";
+                                string rate = (i < nextRates.Length) ? nextRates[i] : "";
+                                if (!string.IsNullOrWhiteSpace(rate)) nextCellShort += $"({rate}%)";
+                                nextCells.Add(nextCellShort);
+                            }
+                        }
+                        string nextCellInfo = nextCells.Count > 0 ? " | 次: " + string.Join(" / ", nextCells) : "";
+                        Console.WriteLine($"      - セルNo: {cell.No}, イベントタイプ: {cell.Event_1}, 戦闘タイプ: {cell.Event_2}{startMark}{nextCellInfo}");
                     }
                 }
             }

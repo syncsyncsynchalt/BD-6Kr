@@ -143,7 +143,7 @@ namespace Runner
                 var ship = friendlyShips[i];
                 if (ship == null) continue;
 
-                string damageState = GetDamageStateDescription(ship.DmgStateEnd);
+                string damageState = GetDamageStateDescription(ship.DmgStateEnd, true);
                 Console.WriteLine($"    {i + 1}. {ship.Name}: {ship.HpStart} → {ship.HpEnd} [{damageState}]");
             }
         }
@@ -152,9 +152,14 @@ namespace Runner
         /// 損傷状態の説明を取得
         /// </summary>
         /// <param name="damageState">損傷状態</param>
+        /// <param name="isFriendly">味方艦かどうか</param>
         /// <returns>損傷状態の説明</returns>
-        private static string GetDamageStateDescription(DamageState_Battle damageState)
+        private static string GetDamageStateDescription(DamageState_Battle damageState, bool isFriendly = false)
         {
+            if (isFriendly && (damageState == DamageState_Battle.Gekichin))
+            {
+                return "轟沈";
+            }
             switch (damageState)
             {
                 case DamageState_Battle.Normal:
@@ -166,7 +171,7 @@ namespace Runner
                 case DamageState_Battle.Taiha:
                     return "大破";
                 case DamageState_Battle.Gekichin:
-                    return "撃沈";
+                    return isFriendly ? "轟沈" : "撃沈";
                 default:
                     return "不明";
             }
