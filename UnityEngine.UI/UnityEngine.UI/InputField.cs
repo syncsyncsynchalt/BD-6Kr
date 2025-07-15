@@ -213,13 +213,13 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 		{
 			switch (Application.platform)
 			{
-			case RuntimePlatform.IPhonePlayer:
-			case RuntimePlatform.Android:
-			case RuntimePlatform.BlackBerryPlayer:
-			case RuntimePlatform.TizenPlayer:
-				return m_HideMobileInput;
-			default:
-				return true;
+				case RuntimePlatform.IPhonePlayer:
+				case RuntimePlatform.Android:
+				case RuntimePlatform.BlackBerryPlayer:
+				case RuntimePlatform.TizenPlayer:
+					return m_HideMobileInput;
+				default:
+					return true;
 			}
 		}
 		set
@@ -938,84 +938,84 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 		bool flag4 = flag && !flag3 && !flag2;
 		switch (evt.keyCode)
 		{
-		case KeyCode.Backspace:
-			Backspace();
-			return EditState.Continue;
-		case KeyCode.Delete:
-			ForwardSpace();
-			return EditState.Continue;
-		case KeyCode.Home:
-			MoveTextStart(flag2);
-			return EditState.Continue;
-		case KeyCode.End:
-			MoveTextEnd(flag2);
-			return EditState.Continue;
-		case KeyCode.A:
-			if (flag4)
-			{
-				SelectAll();
+			case KeyCode.Backspace:
+				Backspace();
 				return EditState.Continue;
-			}
-			break;
-		case KeyCode.C:
-			if (flag4)
-			{
-				if (inputType != InputType.Password)
-				{
-					clipboard = GetSelectedString();
-				}
-				else
-				{
-					clipboard = string.Empty;
-				}
+			case KeyCode.Delete:
+				ForwardSpace();
 				return EditState.Continue;
-			}
-			break;
-		case KeyCode.V:
-			if (flag4)
-			{
-				Append(clipboard);
+			case KeyCode.Home:
+				MoveTextStart(flag2);
 				return EditState.Continue;
-			}
-			break;
-		case KeyCode.X:
-			if (flag4)
-			{
-				if (inputType != InputType.Password)
-				{
-					clipboard = GetSelectedString();
-				}
-				else
-				{
-					clipboard = string.Empty;
-				}
-				Delete();
-				SendOnValueChangedAndUpdateLabel();
+			case KeyCode.End:
+				MoveTextEnd(flag2);
 				return EditState.Continue;
-			}
-			break;
-		case KeyCode.LeftArrow:
-			MoveLeft(flag2, flag);
-			return EditState.Continue;
-		case KeyCode.RightArrow:
-			MoveRight(flag2, flag);
-			return EditState.Continue;
-		case KeyCode.UpArrow:
-			MoveUp(flag2);
-			return EditState.Continue;
-		case KeyCode.DownArrow:
-			MoveDown(flag2);
-			return EditState.Continue;
-		case KeyCode.Return:
-		case KeyCode.KeypadEnter:
-			if (lineType != LineType.MultiLineNewline)
-			{
+			case KeyCode.A:
+				if (flag4)
+				{
+					SelectAll();
+					return EditState.Continue;
+				}
+				break;
+			case KeyCode.C:
+				if (flag4)
+				{
+					if (inputType != InputType.Password)
+					{
+						clipboard = GetSelectedString();
+					}
+					else
+					{
+						clipboard = string.Empty;
+					}
+					return EditState.Continue;
+				}
+				break;
+			case KeyCode.V:
+				if (flag4)
+				{
+					Append(clipboard);
+					return EditState.Continue;
+				}
+				break;
+			case KeyCode.X:
+				if (flag4)
+				{
+					if (inputType != InputType.Password)
+					{
+						clipboard = GetSelectedString();
+					}
+					else
+					{
+						clipboard = string.Empty;
+					}
+					Delete();
+					SendOnValueChangedAndUpdateLabel();
+					return EditState.Continue;
+				}
+				break;
+			case KeyCode.LeftArrow:
+				MoveLeft(flag2, flag);
+				return EditState.Continue;
+			case KeyCode.RightArrow:
+				MoveRight(flag2, flag);
+				return EditState.Continue;
+			case KeyCode.UpArrow:
+				MoveUp(flag2);
+				return EditState.Continue;
+			case KeyCode.DownArrow:
+				MoveDown(flag2);
+				return EditState.Continue;
+			case KeyCode.Return:
+			case KeyCode.KeypadEnter:
+				if (lineType != LineType.MultiLineNewline)
+				{
+					return EditState.Finish;
+				}
+				break;
+			case KeyCode.Escape:
+				m_WasCanceled = true;
 				return EditState.Finish;
-			}
-			break;
-		case KeyCode.Escape:
-			m_WasCanceled = true;
-			return EditState.Finish;
 		}
 		char c = evt.character;
 		if (!multiLine && (c == '\t' || c == '\r' || c == '\n'))
@@ -1041,13 +1041,13 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 	{
 		switch (c)
 		{
-		case '\u007f':
-			return false;
-		case '\t':
-		case '\n':
-			return true;
-		default:
-			return m_TextComponent.font.HasCharacter(c);
+			case '\u007f':
+				return false;
+			case '\t':
+			case '\n':
+				return true;
+			default:
+				return m_TextComponent.font.HasCharacter(c);
 		}
 	}
 
@@ -1080,10 +1080,10 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 			{
 				switch (m_ProcessingEvent.commandName)
 				{
-				case "SelectAll":
-					SelectAll();
-					flag = true;
-					break;
+					case "SelectAll":
+						SelectAll();
+						flag = true;
+						break;
 				}
 			}
 		}
@@ -1844,18 +1844,18 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 			}
 			switch (ch)
 			{
-			case '\'':
-				if (c != ' ' && c != '\'' && c2 != '\'' && !text.Contains("'"))
-				{
-					return ch;
-				}
-				break;
-			case ' ':
-				if (c != ' ' && c != '\'' && c2 != ' ' && c2 != '\'')
-				{
-					return ch;
-				}
-				break;
+				case '\'':
+					if (c != ' ' && c != '\'' && c2 != '\'' && !text.Contains("'"))
+					{
+						return ch;
+					}
+					break;
+				case ' ':
+					if (c != ' ' && c != '\'' && c2 != ' ' && c2 != '\'')
+					{
+						return ch;
+					}
+					break;
 			}
 		}
 		else if (characterValidation == CharacterValidation.EmailAddress)
@@ -1990,58 +1990,58 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 	{
 		switch (contentType)
 		{
-		case ContentType.Standard:
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.Default;
-			m_CharacterValidation = CharacterValidation.None;
-			break;
-		case ContentType.Autocorrected:
-			m_InputType = InputType.AutoCorrect;
-			m_KeyboardType = TouchScreenKeyboardType.Default;
-			m_CharacterValidation = CharacterValidation.None;
-			break;
-		case ContentType.IntegerNumber:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.NumberPad;
-			m_CharacterValidation = CharacterValidation.Integer;
-			break;
-		case ContentType.DecimalNumber:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
-			m_CharacterValidation = CharacterValidation.Decimal;
-			break;
-		case ContentType.Alphanumeric:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.ASCIICapable;
-			m_CharacterValidation = CharacterValidation.Alphanumeric;
-			break;
-		case ContentType.Name:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.Default;
-			m_CharacterValidation = CharacterValidation.Name;
-			break;
-		case ContentType.EmailAddress:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Standard;
-			m_KeyboardType = TouchScreenKeyboardType.EmailAddress;
-			m_CharacterValidation = CharacterValidation.EmailAddress;
-			break;
-		case ContentType.Password:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Password;
-			m_KeyboardType = TouchScreenKeyboardType.Default;
-			m_CharacterValidation = CharacterValidation.None;
-			break;
-		case ContentType.Pin:
-			m_LineType = LineType.SingleLine;
-			m_InputType = InputType.Password;
-			m_KeyboardType = TouchScreenKeyboardType.NumberPad;
-			m_CharacterValidation = CharacterValidation.Integer;
-			break;
+			case ContentType.Standard:
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.Default;
+				m_CharacterValidation = CharacterValidation.None;
+				break;
+			case ContentType.Autocorrected:
+				m_InputType = InputType.AutoCorrect;
+				m_KeyboardType = TouchScreenKeyboardType.Default;
+				m_CharacterValidation = CharacterValidation.None;
+				break;
+			case ContentType.IntegerNumber:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.NumberPad;
+				m_CharacterValidation = CharacterValidation.Integer;
+				break;
+			case ContentType.DecimalNumber:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.NumbersAndPunctuation;
+				m_CharacterValidation = CharacterValidation.Decimal;
+				break;
+			case ContentType.Alphanumeric:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.ASCIICapable;
+				m_CharacterValidation = CharacterValidation.Alphanumeric;
+				break;
+			case ContentType.Name:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.Default;
+				m_CharacterValidation = CharacterValidation.Name;
+				break;
+			case ContentType.EmailAddress:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Standard;
+				m_KeyboardType = TouchScreenKeyboardType.EmailAddress;
+				m_CharacterValidation = CharacterValidation.EmailAddress;
+				break;
+			case ContentType.Password:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Password;
+				m_KeyboardType = TouchScreenKeyboardType.Default;
+				m_CharacterValidation = CharacterValidation.None;
+				break;
+			case ContentType.Pin:
+				m_LineType = LineType.SingleLine;
+				m_InputType = InputType.Password;
+				m_KeyboardType = TouchScreenKeyboardType.NumberPad;
+				m_CharacterValidation = CharacterValidation.Integer;
+				break;
 		}
 	}
 
@@ -2082,13 +2082,13 @@ public class InputField : Selectable, IEventSystemHandler, IPointerClickHandler,
 		base.DoStateTransition(state, instant);
 	}
 
-	virtual bool ICanvasElement.IsDestroyed()
+	bool ICanvasElement.IsDestroyed()
 	{
 		return IsDestroyed();
 	}
 
-	virtual Transform ICanvasElement.get_transform()
+	Transform ICanvasElement.transform
 	{
-		return base.transform;
+		get { return base.transform; }
 	}
 }

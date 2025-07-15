@@ -569,13 +569,13 @@ public abstract class Graphic : UIBehaviour, ICanvasElement
 		m_OnDirtyMaterialCallback = (UnityAction)Delegate.Remove(m_OnDirtyMaterialCallback, action);
 	}
 
-	virtual bool ICanvasElement.IsDestroyed()
+	bool ICanvasElement.IsDestroyed()
 	{
 		return IsDestroyed();
 	}
 
-	virtual Transform ICanvasElement.get_transform()
+	Transform ICanvasElement.transform
 	{
-		return base.transform;
+		get { return base.transform; }
 	}
 }

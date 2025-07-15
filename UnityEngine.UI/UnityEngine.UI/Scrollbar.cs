@@ -265,18 +265,18 @@ public class Scrollbar : Selectable, IEventSystemHandler, IBeginDragHandler, IIn
 		{
 			switch (m_Direction)
 			{
-			case Direction.LeftToRight:
-				Set(vector2.x / num2);
-				break;
-			case Direction.RightToLeft:
-				Set(1f - vector2.x / num2);
-				break;
-			case Direction.BottomToTop:
-				Set(vector2.y / num2);
-				break;
-			case Direction.TopToBottom:
-				Set(1f - vector2.y / num2);
-				break;
+				case Direction.LeftToRight:
+					Set(vector2.x / num2);
+					break;
+				case Direction.RightToLeft:
+					Set(1f - vector2.x / num2);
+					break;
+				case Direction.BottomToTop:
+					Set(vector2.y / num2);
+					break;
+				case Direction.TopToBottom:
+					Set(1f - vector2.y / num2);
+					break;
 			}
 		}
 	}
@@ -353,46 +353,46 @@ public class Scrollbar : Selectable, IEventSystemHandler, IBeginDragHandler, IIn
 		}
 		switch (eventData.moveDir)
 		{
-		case MoveDirection.Left:
-			if (axis == Axis.Horizontal && FindSelectableOnLeft() == null)
-			{
-				Set((!reverseValue) ? (value - stepSize) : (value + stepSize));
-			}
-			else
-			{
-				base.OnMove(eventData);
-			}
-			break;
-		case MoveDirection.Right:
-			if (axis == Axis.Horizontal && FindSelectableOnRight() == null)
-			{
-				Set((!reverseValue) ? (value + stepSize) : (value - stepSize));
-			}
-			else
-			{
-				base.OnMove(eventData);
-			}
-			break;
-		case MoveDirection.Up:
-			if (axis == Axis.Vertical && FindSelectableOnUp() == null)
-			{
-				Set((!reverseValue) ? (value + stepSize) : (value - stepSize));
-			}
-			else
-			{
-				base.OnMove(eventData);
-			}
-			break;
-		case MoveDirection.Down:
-			if (axis == Axis.Vertical && FindSelectableOnDown() == null)
-			{
-				Set((!reverseValue) ? (value - stepSize) : (value + stepSize));
-			}
-			else
-			{
-				base.OnMove(eventData);
-			}
-			break;
+			case MoveDirection.Left:
+				if (axis == Axis.Horizontal && FindSelectableOnLeft() == null)
+				{
+					Set((!reverseValue) ? (value - stepSize) : (value + stepSize));
+				}
+				else
+				{
+					base.OnMove(eventData);
+				}
+				break;
+			case MoveDirection.Right:
+				if (axis == Axis.Horizontal && FindSelectableOnRight() == null)
+				{
+					Set((!reverseValue) ? (value + stepSize) : (value - stepSize));
+				}
+				else
+				{
+					base.OnMove(eventData);
+				}
+				break;
+			case MoveDirection.Up:
+				if (axis == Axis.Vertical && FindSelectableOnUp() == null)
+				{
+					Set((!reverseValue) ? (value + stepSize) : (value - stepSize));
+				}
+				else
+				{
+					base.OnMove(eventData);
+				}
+				break;
+			case MoveDirection.Down:
+				if (axis == Axis.Vertical && FindSelectableOnDown() == null)
+				{
+					Set((!reverseValue) ? (value - stepSize) : (value + stepSize));
+				}
+				else
+				{
+					base.OnMove(eventData);
+				}
+				break;
 		}
 	}
 
@@ -455,13 +455,13 @@ public class Scrollbar : Selectable, IEventSystemHandler, IBeginDragHandler, IIn
 		}
 	}
 
-	virtual bool ICanvasElement.IsDestroyed()
+	bool ICanvasElement.IsDestroyed()
 	{
 		return IsDestroyed();
 	}
 
-	virtual Transform ICanvasElement.get_transform()
+	Transform ICanvasElement.transform
 	{
-		return base.transform;
+		get { return base.transform; }
 	}
 }

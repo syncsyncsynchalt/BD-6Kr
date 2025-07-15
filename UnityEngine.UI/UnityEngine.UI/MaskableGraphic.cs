@@ -195,8 +195,8 @@ public abstract class MaskableGraphic : Graphic, IMaskable, IClippable, IMateria
 		SetMaterialDirty();
 	}
 
-	virtual RectTransform IClippable.get_rectTransform()
+	RectTransform IClippable.rectTransform
 	{
-		return base.rectTransform;
+		get { return base.rectTransform; }
 	}
 }

@@ -181,13 +181,13 @@ public class Toggle : Selectable, IEventSystemHandler, IPointerClickHandler, ISu
 		InternalToggle();
 	}
 
-	virtual bool ICanvasElement.IsDestroyed()
+	bool ICanvasElement.IsDestroyed()
 	{
 		return IsDestroyed();
 	}
 
-	virtual Transform ICanvasElement.get_transform()
+	Transform ICanvasElement.transform
 	{
-		return base.transform;
+		get { return base.transform; }
 	}
 }
