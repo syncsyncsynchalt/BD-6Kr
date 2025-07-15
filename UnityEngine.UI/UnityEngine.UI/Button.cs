@@ -4,72 +4,71 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[AddComponentMenu("UI/Button", 30)]
+public class Button : Selectable, IEventSystemHandler, IPointerClickHandler, ISubmitHandler
 {
-	[AddComponentMenu("UI/Button", 30)]
-	public class Button : Selectable, IEventSystemHandler, IPointerClickHandler, ISubmitHandler
+	[Serializable]
+	public class ButtonClickedEvent : UnityEvent
 	{
-		[Serializable]
-		public class ButtonClickedEvent : UnityEvent
+	}
+
+	[SerializeField]
+	[FormerlySerializedAs("onClick")]
+	private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
+
+	public ButtonClickedEvent onClick
+	{
+		get
 		{
+			return m_OnClick;
 		}
-
-		[SerializeField]
-		[FormerlySerializedAs("onClick")]
-		private ButtonClickedEvent m_OnClick = new ButtonClickedEvent();
-
-		public ButtonClickedEvent onClick
+		set
 		{
-			get
-			{
-				return m_OnClick;
-			}
-			set
-			{
-				m_OnClick = value;
-			}
+			m_OnClick = value;
 		}
+	}
 
-		protected Button()
+	protected Button()
+	{
+	}
+
+	private void Press()
+	{
+		if (IsActive() && IsInteractable())
 		{
+			m_OnClick.Invoke();
 		}
+	}
 
-		private void Press()
-		{
-			if (IsActive() && IsInteractable())
-			{
-				m_OnClick.Invoke();
-			}
-		}
-
-		public virtual void OnPointerClick(PointerEventData eventData)
-		{
-			if (eventData.button == PointerEventData.InputButton.Left)
-			{
-				Press();
-			}
-		}
-
-		public virtual void OnSubmit(BaseEventData eventData)
+	public virtual void OnPointerClick(PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Left)
 		{
 			Press();
-			if (IsActive() && IsInteractable())
-			{
-				DoStateTransition(SelectionState.Pressed, instant: false);
-				StartCoroutine(OnFinishSubmit());
-			}
 		}
+	}
 
-		private IEnumerator OnFinishSubmit()
+	public virtual void OnSubmit(BaseEventData eventData)
+	{
+		Press();
+		if (IsActive() && IsInteractable())
 		{
-			float fadeTime = base.colors.fadeDuration;
-			float elapsedTime = 0f;
-			while (elapsedTime < fadeTime)
-			{
-				elapsedTime += Time.unscaledDeltaTime;
-				yield return null;
-			}
-			DoStateTransition(base.currentSelectionState, instant: false);
+			DoStateTransition(SelectionState.Pressed, instant: false);
+			StartCoroutine(OnFinishSubmit());
 		}
+	}
+
+	private IEnumerator OnFinishSubmit()
+	{
+		float fadeTime = base.colors.fadeDuration;
+		float elapsedTime = 0f;
+		while (elapsedTime < fadeTime)
+		{
+			elapsedTime += Time.unscaledDeltaTime;
+			yield return null;
+		}
+		DoStateTransition(base.currentSelectionState, instant: false);
 	}
 }

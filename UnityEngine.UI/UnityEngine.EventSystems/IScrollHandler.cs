@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IScrollHandler : IEventSystemHandler
 {
-	public interface IScrollHandler : IEventSystemHandler
-	{
-		void OnScroll(PointerEventData eventData);
-	}
+	void OnScroll(PointerEventData eventData);
 }

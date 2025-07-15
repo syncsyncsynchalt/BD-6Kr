@@ -1,209 +1,208 @@
 using System;
 using UnityEngine.Serialization;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[Serializable]
+public class FontData : ISerializationCallbackReceiver
 {
-	[Serializable]
-	public class FontData : ISerializationCallbackReceiver
+	[FormerlySerializedAs("font")]
+	[SerializeField]
+	private Font m_Font;
+
+	[FormerlySerializedAs("fontSize")]
+	[SerializeField]
+	private int m_FontSize;
+
+	[FormerlySerializedAs("fontStyle")]
+	[SerializeField]
+	private FontStyle m_FontStyle;
+
+	[SerializeField]
+	private bool m_BestFit;
+
+	[SerializeField]
+	private int m_MinSize;
+
+	[SerializeField]
+	private int m_MaxSize;
+
+	[FormerlySerializedAs("alignment")]
+	[SerializeField]
+	private TextAnchor m_Alignment;
+
+	[SerializeField]
+	[FormerlySerializedAs("richText")]
+	private bool m_RichText;
+
+	[SerializeField]
+	private HorizontalWrapMode m_HorizontalOverflow;
+
+	[SerializeField]
+	private VerticalWrapMode m_VerticalOverflow;
+
+	[SerializeField]
+	private float m_LineSpacing;
+
+	public static FontData defaultFontData
 	{
-		[FormerlySerializedAs("font")]
-		[SerializeField]
-		private Font m_Font;
-
-		[FormerlySerializedAs("fontSize")]
-		[SerializeField]
-		private int m_FontSize;
-
-		[FormerlySerializedAs("fontStyle")]
-		[SerializeField]
-		private FontStyle m_FontStyle;
-
-		[SerializeField]
-		private bool m_BestFit;
-
-		[SerializeField]
-		private int m_MinSize;
-
-		[SerializeField]
-		private int m_MaxSize;
-
-		[FormerlySerializedAs("alignment")]
-		[SerializeField]
-		private TextAnchor m_Alignment;
-
-		[SerializeField]
-		[FormerlySerializedAs("richText")]
-		private bool m_RichText;
-
-		[SerializeField]
-		private HorizontalWrapMode m_HorizontalOverflow;
-
-		[SerializeField]
-		private VerticalWrapMode m_VerticalOverflow;
-
-		[SerializeField]
-		private float m_LineSpacing;
-
-		public static FontData defaultFontData
+		get
 		{
-			get
-			{
-				FontData fontData = new FontData();
-				fontData.m_FontSize = 14;
-				fontData.m_LineSpacing = 1f;
-				fontData.m_FontStyle = FontStyle.Normal;
-				fontData.m_BestFit = false;
-				fontData.m_MinSize = 10;
-				fontData.m_MaxSize = 40;
-				fontData.m_Alignment = TextAnchor.UpperLeft;
-				fontData.m_HorizontalOverflow = HorizontalWrapMode.Wrap;
-				fontData.m_VerticalOverflow = VerticalWrapMode.Truncate;
-				fontData.m_RichText = true;
-				return fontData;
-			}
+			FontData fontData = new FontData();
+			fontData.m_FontSize = 14;
+			fontData.m_LineSpacing = 1f;
+			fontData.m_FontStyle = FontStyle.Normal;
+			fontData.m_BestFit = false;
+			fontData.m_MinSize = 10;
+			fontData.m_MaxSize = 40;
+			fontData.m_Alignment = TextAnchor.UpperLeft;
+			fontData.m_HorizontalOverflow = HorizontalWrapMode.Wrap;
+			fontData.m_VerticalOverflow = VerticalWrapMode.Truncate;
+			fontData.m_RichText = true;
+			return fontData;
 		}
+	}
 
-		public Font font
+	public Font font
+	{
+		get
 		{
-			get
-			{
-				return m_Font;
-			}
-			set
-			{
-				m_Font = value;
-			}
+			return m_Font;
 		}
+		set
+		{
+			m_Font = value;
+		}
+	}
 
-		public int fontSize
+	public int fontSize
+	{
+		get
 		{
-			get
-			{
-				return m_FontSize;
-			}
-			set
-			{
-				m_FontSize = value;
-			}
+			return m_FontSize;
 		}
+		set
+		{
+			m_FontSize = value;
+		}
+	}
 
-		public FontStyle fontStyle
+	public FontStyle fontStyle
+	{
+		get
 		{
-			get
-			{
-				return m_FontStyle;
-			}
-			set
-			{
-				m_FontStyle = value;
-			}
+			return m_FontStyle;
 		}
+		set
+		{
+			m_FontStyle = value;
+		}
+	}
 
-		public bool bestFit
+	public bool bestFit
+	{
+		get
 		{
-			get
-			{
-				return m_BestFit;
-			}
-			set
-			{
-				m_BestFit = value;
-			}
+			return m_BestFit;
 		}
+		set
+		{
+			m_BestFit = value;
+		}
+	}
 
-		public int minSize
+	public int minSize
+	{
+		get
 		{
-			get
-			{
-				return m_MinSize;
-			}
-			set
-			{
-				m_MinSize = value;
-			}
+			return m_MinSize;
 		}
+		set
+		{
+			m_MinSize = value;
+		}
+	}
 
-		public int maxSize
+	public int maxSize
+	{
+		get
 		{
-			get
-			{
-				return m_MaxSize;
-			}
-			set
-			{
-				m_MaxSize = value;
-			}
+			return m_MaxSize;
 		}
+		set
+		{
+			m_MaxSize = value;
+		}
+	}
 
-		public TextAnchor alignment
+	public TextAnchor alignment
+	{
+		get
 		{
-			get
-			{
-				return m_Alignment;
-			}
-			set
-			{
-				m_Alignment = value;
-			}
+			return m_Alignment;
 		}
+		set
+		{
+			m_Alignment = value;
+		}
+	}
 
-		public bool richText
+	public bool richText
+	{
+		get
 		{
-			get
-			{
-				return m_RichText;
-			}
-			set
-			{
-				m_RichText = value;
-			}
+			return m_RichText;
 		}
+		set
+		{
+			m_RichText = value;
+		}
+	}
 
-		public HorizontalWrapMode horizontalOverflow
+	public HorizontalWrapMode horizontalOverflow
+	{
+		get
 		{
-			get
-			{
-				return m_HorizontalOverflow;
-			}
-			set
-			{
-				m_HorizontalOverflow = value;
-			}
+			return m_HorizontalOverflow;
 		}
+		set
+		{
+			m_HorizontalOverflow = value;
+		}
+	}
 
-		public VerticalWrapMode verticalOverflow
+	public VerticalWrapMode verticalOverflow
+	{
+		get
 		{
-			get
-			{
-				return m_VerticalOverflow;
-			}
-			set
-			{
-				m_VerticalOverflow = value;
-			}
+			return m_VerticalOverflow;
 		}
+		set
+		{
+			m_VerticalOverflow = value;
+		}
+	}
 
-		public float lineSpacing
+	public float lineSpacing
+	{
+		get
 		{
-			get
-			{
-				return m_LineSpacing;
-			}
-			set
-			{
-				m_LineSpacing = value;
-			}
+			return m_LineSpacing;
 		}
+		set
+		{
+			m_LineSpacing = value;
+		}
+	}
 
-		void ISerializationCallbackReceiver.OnBeforeSerialize()
-		{
-		}
+	void ISerializationCallbackReceiver.OnBeforeSerialize()
+	{
+	}
 
-		void ISerializationCallbackReceiver.OnAfterDeserialize()
-		{
-			m_FontSize = Mathf.Clamp(m_FontSize, 0, 300);
-			m_MinSize = Mathf.Clamp(m_MinSize, 0, 300);
-			m_MaxSize = Mathf.Clamp(m_MaxSize, 0, 300);
-		}
+	void ISerializationCallbackReceiver.OnAfterDeserialize()
+	{
+		m_FontSize = Mathf.Clamp(m_FontSize, 0, 300);
+		m_MinSize = Mathf.Clamp(m_MinSize, 0, 300);
+		m_MaxSize = Mathf.Clamp(m_MaxSize, 0, 300);
 	}
 }

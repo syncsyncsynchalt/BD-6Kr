@@ -1,240 +1,239 @@
 using System;
 using UnityEngine.UI.Collections;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public class CanvasUpdateRegistry
 {
-	public class CanvasUpdateRegistry
+	private static CanvasUpdateRegistry s_Instance;
+
+	private bool m_PerformingLayoutUpdate;
+
+	private bool m_PerformingGraphicUpdate;
+
+	private readonly IndexedSet<ICanvasElement> m_LayoutRebuildQueue = new IndexedSet<ICanvasElement>();
+
+	private readonly IndexedSet<ICanvasElement> m_GraphicRebuildQueue = new IndexedSet<ICanvasElement>();
+
+	private static readonly Comparison<ICanvasElement> s_SortLayoutFunction = SortLayoutList;
+
+	public static CanvasUpdateRegistry instance
 	{
-		private static CanvasUpdateRegistry s_Instance;
-
-		private bool m_PerformingLayoutUpdate;
-
-		private bool m_PerformingGraphicUpdate;
-
-		private readonly IndexedSet<ICanvasElement> m_LayoutRebuildQueue = new IndexedSet<ICanvasElement>();
-
-		private readonly IndexedSet<ICanvasElement> m_GraphicRebuildQueue = new IndexedSet<ICanvasElement>();
-
-		private static readonly Comparison<ICanvasElement> s_SortLayoutFunction = SortLayoutList;
-
-		public static CanvasUpdateRegistry instance
+		get
 		{
-			get
+			if (s_Instance == null)
 			{
-				if (s_Instance == null)
-				{
-					s_Instance = new CanvasUpdateRegistry();
-				}
-				return s_Instance;
+				s_Instance = new CanvasUpdateRegistry();
+			}
+			return s_Instance;
+		}
+	}
+
+	protected CanvasUpdateRegistry()
+	{
+		Canvas.willRenderCanvases += PerformUpdate;
+	}
+
+	private bool ObjectValidForUpdate(ICanvasElement element)
+	{
+		bool result = element != null;
+		if (element is Object)
+		{
+			result = element as Object != null;
+		}
+		return result;
+	}
+
+	private void CleanInvalidItems()
+	{
+		for (int num = m_LayoutRebuildQueue.Count - 1; num >= 0; num--)
+		{
+			ICanvasElement canvasElement = m_LayoutRebuildQueue[num];
+			if (canvasElement == null)
+			{
+				m_LayoutRebuildQueue.RemoveAt(num);
+			}
+			else if (canvasElement.IsDestroyed())
+			{
+				m_LayoutRebuildQueue.RemoveAt(num);
+				canvasElement.LayoutComplete();
 			}
 		}
-
-		protected CanvasUpdateRegistry()
+		for (int num2 = m_GraphicRebuildQueue.Count - 1; num2 >= 0; num2--)
 		{
-			Canvas.willRenderCanvases += PerformUpdate;
-		}
-
-		private bool ObjectValidForUpdate(ICanvasElement element)
-		{
-			bool result = element != null;
-			if (element is Object)
+			ICanvasElement canvasElement2 = m_GraphicRebuildQueue[num2];
+			if (canvasElement2 == null)
 			{
-				result = (element as Object != null);
+				m_GraphicRebuildQueue.RemoveAt(num2);
 			}
-			return result;
-		}
-
-		private void CleanInvalidItems()
-		{
-			for (int num = m_LayoutRebuildQueue.Count - 1; num >= 0; num--)
+			else if (canvasElement2.IsDestroyed())
 			{
-				ICanvasElement canvasElement = m_LayoutRebuildQueue[num];
-				if (canvasElement == null)
-				{
-					m_LayoutRebuildQueue.RemoveAt(num);
-				}
-				else if (canvasElement.IsDestroyed())
-				{
-					m_LayoutRebuildQueue.RemoveAt(num);
-					canvasElement.LayoutComplete();
-				}
-			}
-			for (int num2 = m_GraphicRebuildQueue.Count - 1; num2 >= 0; num2--)
-			{
-				ICanvasElement canvasElement2 = m_GraphicRebuildQueue[num2];
-				if (canvasElement2 == null)
-				{
-					m_GraphicRebuildQueue.RemoveAt(num2);
-				}
-				else if (canvasElement2.IsDestroyed())
-				{
-					m_GraphicRebuildQueue.RemoveAt(num2);
-					canvasElement2.GraphicUpdateComplete();
-				}
+				m_GraphicRebuildQueue.RemoveAt(num2);
+				canvasElement2.GraphicUpdateComplete();
 			}
 		}
+	}
 
-		private void PerformUpdate()
+	private void PerformUpdate()
+	{
+		CleanInvalidItems();
+		m_PerformingLayoutUpdate = true;
+		m_LayoutRebuildQueue.Sort(s_SortLayoutFunction);
+		for (int i = 0; i <= 2; i++)
 		{
-			CleanInvalidItems();
-			m_PerformingLayoutUpdate = true;
-			m_LayoutRebuildQueue.Sort(s_SortLayoutFunction);
-			for (int i = 0; i <= 2; i++)
+			for (int j = 0; j < m_LayoutRebuildQueue.Count; j++)
 			{
-				for (int j = 0; j < m_LayoutRebuildQueue.Count; j++)
+				ICanvasElement canvasElement = instance.m_LayoutRebuildQueue[j];
+				try
 				{
-					ICanvasElement canvasElement = instance.m_LayoutRebuildQueue[j];
-					try
+					if (ObjectValidForUpdate(canvasElement))
 					{
-						if (ObjectValidForUpdate(canvasElement))
-						{
-							canvasElement.Rebuild((CanvasUpdate)i);
-						}
-					}
-					catch (Exception exception)
-					{
-						Debug.LogException(exception, canvasElement.transform);
+						canvasElement.Rebuild((CanvasUpdate)i);
 					}
 				}
-			}
-			for (int k = 0; k < m_LayoutRebuildQueue.Count; k++)
-			{
-				m_LayoutRebuildQueue[k].LayoutComplete();
-			}
-			instance.m_LayoutRebuildQueue.Clear();
-			m_PerformingLayoutUpdate = false;
-			ClipperRegistry.instance.Cull();
-			m_PerformingGraphicUpdate = true;
-			for (int l = 3; l < 5; l++)
-			{
-				for (int m = 0; m < instance.m_GraphicRebuildQueue.Count; m++)
+				catch (Exception exception)
 				{
-					try
-					{
-						ICanvasElement canvasElement2 = instance.m_GraphicRebuildQueue[m];
-						if (ObjectValidForUpdate(canvasElement2))
-						{
-							canvasElement2.Rebuild((CanvasUpdate)l);
-						}
-					}
-					catch (Exception exception2)
-					{
-						Debug.LogException(exception2, instance.m_GraphicRebuildQueue[m].transform);
-					}
+					Debug.LogException(exception, canvasElement.transform);
 				}
 			}
-			for (int n = 0; n < m_GraphicRebuildQueue.Count; n++)
+		}
+		for (int k = 0; k < m_LayoutRebuildQueue.Count; k++)
+		{
+			m_LayoutRebuildQueue[k].LayoutComplete();
+		}
+		instance.m_LayoutRebuildQueue.Clear();
+		m_PerformingLayoutUpdate = false;
+		ClipperRegistry.instance.Cull();
+		m_PerformingGraphicUpdate = true;
+		for (int l = 3; l < 5; l++)
+		{
+			for (int m = 0; m < instance.m_GraphicRebuildQueue.Count; m++)
 			{
-				m_GraphicRebuildQueue[n].LayoutComplete();
+				try
+				{
+					ICanvasElement canvasElement2 = instance.m_GraphicRebuildQueue[m];
+					if (ObjectValidForUpdate(canvasElement2))
+					{
+						canvasElement2.Rebuild((CanvasUpdate)l);
+					}
+				}
+				catch (Exception exception2)
+				{
+					Debug.LogException(exception2, instance.m_GraphicRebuildQueue[m].transform);
+				}
 			}
-			instance.m_GraphicRebuildQueue.Clear();
-			m_PerformingGraphicUpdate = false;
 		}
-
-		private static int ParentCount(Transform child)
+		for (int n = 0; n < m_GraphicRebuildQueue.Count; n++)
 		{
-			if (child == null)
-			{
-				return 0;
-			}
-			Transform parent = child.parent;
-			int num = 0;
-			while (parent != null)
-			{
-				num++;
-				parent = parent.parent;
-			}
-			return num;
+			m_GraphicRebuildQueue[n].LayoutComplete();
 		}
+		instance.m_GraphicRebuildQueue.Clear();
+		m_PerformingGraphicUpdate = false;
+	}
 
-		private static int SortLayoutList(ICanvasElement x, ICanvasElement y)
+	private static int ParentCount(Transform child)
+	{
+		if (child == null)
 		{
-			Transform transform = x.transform;
-			Transform transform2 = y.transform;
-			return ParentCount(transform) - ParentCount(transform2);
+			return 0;
 		}
+		Transform parent = child.parent;
+		int num = 0;
+		while (parent != null)
+		{
+			num++;
+			parent = parent.parent;
+		}
+		return num;
+	}
 
-		public static void RegisterCanvasElementForLayoutRebuild(ICanvasElement element)
-		{
-			instance.InternalRegisterCanvasElementForLayoutRebuild(element);
-		}
+	private static int SortLayoutList(ICanvasElement x, ICanvasElement y)
+	{
+		Transform transform = x.transform;
+		Transform transform2 = y.transform;
+		return ParentCount(transform) - ParentCount(transform2);
+	}
 
-		public static bool TryRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
-		{
-			return instance.InternalRegisterCanvasElementForLayoutRebuild(element);
-		}
+	public static void RegisterCanvasElementForLayoutRebuild(ICanvasElement element)
+	{
+		instance.InternalRegisterCanvasElementForLayoutRebuild(element);
+	}
 
-		private bool InternalRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
-		{
-			if (m_LayoutRebuildQueue.Contains(element))
-			{
-				return false;
-			}
-			m_LayoutRebuildQueue.Add(element);
-			return true;
-		}
+	public static bool TryRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
+	{
+		return instance.InternalRegisterCanvasElementForLayoutRebuild(element);
+	}
 
-		public static void RegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	private bool InternalRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
+	{
+		if (m_LayoutRebuildQueue.Contains(element))
 		{
-			instance.InternalRegisterCanvasElementForGraphicRebuild(element);
+			return false;
 		}
+		m_LayoutRebuildQueue.Add(element);
+		return true;
+	}
 
-		public static bool TryRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
-		{
-			return instance.InternalRegisterCanvasElementForGraphicRebuild(element);
-		}
+	public static void RegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	{
+		instance.InternalRegisterCanvasElementForGraphicRebuild(element);
+	}
 
-		private bool InternalRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
-		{
-			if (m_PerformingGraphicUpdate)
-			{
-				Debug.LogError($"Trying to add {element} for graphic rebuild while we are already inside a graphic rebuild loop. This is not supported.");
-				return false;
-			}
-			if (m_GraphicRebuildQueue.Contains(element))
-			{
-				return false;
-			}
-			m_GraphicRebuildQueue.Add(element);
-			return true;
-		}
+	public static bool TryRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	{
+		return instance.InternalRegisterCanvasElementForGraphicRebuild(element);
+	}
 
-		public static void UnRegisterCanvasElementForRebuild(ICanvasElement element)
+	private bool InternalRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	{
+		if (m_PerformingGraphicUpdate)
 		{
-			instance.InternalUnRegisterCanvasElementForLayoutRebuild(element);
-			instance.InternalUnRegisterCanvasElementForGraphicRebuild(element);
+			Debug.LogError($"Trying to add {element} for graphic rebuild while we are already inside a graphic rebuild loop. This is not supported.");
+			return false;
 		}
+		if (m_GraphicRebuildQueue.Contains(element))
+		{
+			return false;
+		}
+		m_GraphicRebuildQueue.Add(element);
+		return true;
+	}
 
-		private void InternalUnRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
-		{
-			if (m_PerformingLayoutUpdate)
-			{
-				Debug.LogError($"Trying to remove {element} from rebuild list while we are already inside a rebuild loop. This is not supported.");
-				return;
-			}
-			element.LayoutComplete();
-			instance.m_LayoutRebuildQueue.Remove(element);
-		}
+	public static void UnRegisterCanvasElementForRebuild(ICanvasElement element)
+	{
+		instance.InternalUnRegisterCanvasElementForLayoutRebuild(element);
+		instance.InternalUnRegisterCanvasElementForGraphicRebuild(element);
+	}
 
-		private void InternalUnRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	private void InternalUnRegisterCanvasElementForLayoutRebuild(ICanvasElement element)
+	{
+		if (m_PerformingLayoutUpdate)
 		{
-			if (m_PerformingGraphicUpdate)
-			{
-				Debug.LogError($"Trying to remove {element} from rebuild list while we are already inside a rebuild loop. This is not supported.");
-				return;
-			}
-			element.GraphicUpdateComplete();
-			instance.m_GraphicRebuildQueue.Remove(element);
+			Debug.LogError($"Trying to remove {element} from rebuild list while we are already inside a rebuild loop. This is not supported.");
+			return;
 		}
+		element.LayoutComplete();
+		instance.m_LayoutRebuildQueue.Remove(element);
+	}
 
-		public static bool IsRebuildingLayout()
+	private void InternalUnRegisterCanvasElementForGraphicRebuild(ICanvasElement element)
+	{
+		if (m_PerformingGraphicUpdate)
 		{
-			return instance.m_PerformingLayoutUpdate;
+			Debug.LogError($"Trying to remove {element} from rebuild list while we are already inside a rebuild loop. This is not supported.");
+			return;
 		}
+		element.GraphicUpdateComplete();
+		instance.m_GraphicRebuildQueue.Remove(element);
+	}
 
-		public static bool IsRebuildingGraphics()
-		{
-			return instance.m_PerformingGraphicUpdate;
-		}
+	public static bool IsRebuildingLayout()
+	{
+		return instance.m_PerformingLayoutUpdate;
+	}
+
+	public static bool IsRebuildingGraphics()
+	{
+		return instance.m_PerformingGraphicUpdate;
 	}
 }

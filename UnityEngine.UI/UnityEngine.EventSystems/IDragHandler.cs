@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IDragHandler : IEventSystemHandler
 {
-	public interface IDragHandler : IEventSystemHandler
-	{
-		void OnDrag(PointerEventData eventData);
-	}
+	void OnDrag(PointerEventData eventData);
 }

@@ -1,7 +1,6 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface IMaskable
 {
-	public interface IMaskable
-	{
-		void RecalculateMasking();
-	}
+	void RecalculateMasking();
 }

@@ -1,11 +1,10 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public enum MoveDirection
 {
-	public enum MoveDirection
-	{
-		Left,
-		Up,
-		Right,
-		Down,
-		None
-	}
+	Left,
+	Up,
+	Right,
+	Down,
+	None
 }

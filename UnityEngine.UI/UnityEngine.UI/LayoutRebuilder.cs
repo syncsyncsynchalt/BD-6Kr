@@ -1,226 +1,225 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public class LayoutRebuilder : ICanvasElement
 {
-	public class LayoutRebuilder : ICanvasElement
+	private RectTransform m_ToRebuild;
+
+	private int m_CachedHashFromTransform;
+
+	private static ObjectPool<LayoutRebuilder> s_Rebuilders;
+
+	public Transform transform => m_ToRebuild;
+
+	static LayoutRebuilder()
 	{
-		private RectTransform m_ToRebuild;
-
-		private int m_CachedHashFromTransform;
-
-		private static ObjectPool<LayoutRebuilder> s_Rebuilders;
-
-		public Transform transform => m_ToRebuild;
-
-		static LayoutRebuilder()
+		s_Rebuilders = new ObjectPool<LayoutRebuilder>(null, delegate(LayoutRebuilder x)
 		{
-			s_Rebuilders = new ObjectPool<LayoutRebuilder>(null, delegate(LayoutRebuilder x)
+			x.Clear();
+		});
+		RectTransform.reapplyDrivenProperties += ReapplyDrivenProperties;
+	}
+
+	private void Initialize(RectTransform controller)
+	{
+		m_ToRebuild = controller;
+		m_CachedHashFromTransform = controller.GetHashCode();
+	}
+
+	private void Clear()
+	{
+		m_ToRebuild = null;
+		m_CachedHashFromTransform = 0;
+	}
+
+	private static void ReapplyDrivenProperties(RectTransform driven)
+	{
+		MarkLayoutForRebuild(driven);
+	}
+
+	public bool IsDestroyed()
+	{
+		return m_ToRebuild == null;
+	}
+
+	private static void StripDisabledBehavioursFromList(List<Component> components)
+	{
+		components.RemoveAll((Component e) => e is Behaviour && !((Behaviour)e).isActiveAndEnabled);
+	}
+
+	public static void ForceRebuildLayoutImmediate(RectTransform layoutRoot)
+	{
+		LayoutRebuilder layoutRebuilder = s_Rebuilders.Get();
+		layoutRebuilder.Initialize(layoutRoot);
+		layoutRebuilder.Rebuild(CanvasUpdate.Layout);
+		s_Rebuilders.Release(layoutRebuilder);
+	}
+
+	public void Rebuild(CanvasUpdate executing)
+	{
+		if (executing == CanvasUpdate.Layout)
+		{
+			PerformLayoutCalculation(m_ToRebuild, delegate(Component e)
 			{
-				x.Clear();
+				(e as ILayoutElement).CalculateLayoutInputHorizontal();
 			});
-			RectTransform.reapplyDrivenProperties += ReapplyDrivenProperties;
-		}
-
-		private void Initialize(RectTransform controller)
-		{
-			m_ToRebuild = controller;
-			m_CachedHashFromTransform = controller.GetHashCode();
-		}
-
-		private void Clear()
-		{
-			m_ToRebuild = null;
-			m_CachedHashFromTransform = 0;
-		}
-
-		private static void ReapplyDrivenProperties(RectTransform driven)
-		{
-			MarkLayoutForRebuild(driven);
-		}
-
-		public bool IsDestroyed()
-		{
-			return m_ToRebuild == null;
-		}
-
-		private static void StripDisabledBehavioursFromList(List<Component> components)
-		{
-			components.RemoveAll((Component e) => e is Behaviour && !((Behaviour)e).isActiveAndEnabled);
-		}
-
-		public static void ForceRebuildLayoutImmediate(RectTransform layoutRoot)
-		{
-			LayoutRebuilder layoutRebuilder = s_Rebuilders.Get();
-			layoutRebuilder.Initialize(layoutRoot);
-			layoutRebuilder.Rebuild(CanvasUpdate.Layout);
-			s_Rebuilders.Release(layoutRebuilder);
-		}
-
-		public void Rebuild(CanvasUpdate executing)
-		{
-			if (executing == CanvasUpdate.Layout)
+			PerformLayoutControl(m_ToRebuild, delegate(Component e)
 			{
-				PerformLayoutCalculation(m_ToRebuild, delegate(Component e)
-				{
-					(e as ILayoutElement).CalculateLayoutInputHorizontal();
-				});
-				PerformLayoutControl(m_ToRebuild, delegate(Component e)
-				{
-					(e as ILayoutController).SetLayoutHorizontal();
-				});
-				PerformLayoutCalculation(m_ToRebuild, delegate(Component e)
-				{
-					(e as ILayoutElement).CalculateLayoutInputVertical();
-				});
-				PerformLayoutControl(m_ToRebuild, delegate(Component e)
-				{
-					(e as ILayoutController).SetLayoutVertical();
-				});
-			}
+				(e as ILayoutController).SetLayoutHorizontal();
+			});
+			PerformLayoutCalculation(m_ToRebuild, delegate(Component e)
+			{
+				(e as ILayoutElement).CalculateLayoutInputVertical();
+			});
+			PerformLayoutControl(m_ToRebuild, delegate(Component e)
+			{
+				(e as ILayoutController).SetLayoutVertical();
+			});
 		}
+	}
 
-		private void PerformLayoutControl(RectTransform rect, UnityAction<Component> action)
+	private void PerformLayoutControl(RectTransform rect, UnityAction<Component> action)
+	{
+		if (rect == null)
 		{
-			if (rect == null)
+			return;
+		}
+		List<Component> list = ListPool<Component>.Get();
+		rect.GetComponents(typeof(ILayoutController), list);
+		StripDisabledBehavioursFromList(list);
+		if (list.Count > 0)
+		{
+			for (int i = 0; i < list.Count; i++)
 			{
-				return;
-			}
-			List<Component> list = ListPool<Component>.Get();
-			rect.GetComponents(typeof(ILayoutController), list);
-			StripDisabledBehavioursFromList(list);
-			if (list.Count > 0)
-			{
-				for (int i = 0; i < list.Count; i++)
+				if (list[i] is ILayoutSelfController)
 				{
-					if (list[i] is ILayoutSelfController)
-					{
-						action(list[i]);
-					}
-				}
-				for (int j = 0; j < list.Count; j++)
-				{
-					if (!(list[j] is ILayoutSelfController))
-					{
-						action(list[j]);
-					}
-				}
-				for (int k = 0; k < rect.childCount; k++)
-				{
-					PerformLayoutControl(rect.GetChild(k) as RectTransform, action);
+					action(list[i]);
 				}
 			}
-			ListPool<Component>.Release(list);
-		}
-
-		private void PerformLayoutCalculation(RectTransform rect, UnityAction<Component> action)
-		{
-			if (rect == null)
+			for (int j = 0; j < list.Count; j++)
 			{
-				return;
-			}
-			List<Component> list = ListPool<Component>.Get();
-			rect.GetComponents(typeof(ILayoutElement), list);
-			StripDisabledBehavioursFromList(list);
-			if (list.Count > 0)
-			{
-				for (int i = 0; i < rect.childCount; i++)
-				{
-					PerformLayoutCalculation(rect.GetChild(i) as RectTransform, action);
-				}
-				for (int j = 0; j < list.Count; j++)
+				if (!(list[j] is ILayoutSelfController))
 				{
 					action(list[j]);
 				}
 			}
-			ListPool<Component>.Release(list);
-		}
-
-		public static void MarkLayoutForRebuild(RectTransform rect)
-		{
-			if (rect == null)
+			for (int k = 0; k < rect.childCount; k++)
 			{
-				return;
-			}
-			RectTransform rectTransform = rect;
-			while (true)
-			{
-				RectTransform rectTransform2 = rectTransform.parent as RectTransform;
-				if (!ValidLayoutGroup(rectTransform2))
-				{
-					break;
-				}
-				rectTransform = rectTransform2;
-			}
-			if (!(rectTransform == rect) || ValidController(rectTransform))
-			{
-				MarkLayoutRootForRebuild(rectTransform);
+				PerformLayoutControl(rect.GetChild(k) as RectTransform, action);
 			}
 		}
+		ListPool<Component>.Release(list);
+	}
 
-		private static bool ValidLayoutGroup(RectTransform parent)
+	private void PerformLayoutCalculation(RectTransform rect, UnityAction<Component> action)
+	{
+		if (rect == null)
 		{
-			if (parent == null)
-			{
-				return false;
-			}
-			List<Component> list = ListPool<Component>.Get();
-			parent.GetComponents(typeof(ILayoutGroup), list);
-			StripDisabledBehavioursFromList(list);
-			bool result = list.Count > 0;
-			ListPool<Component>.Release(list);
-			return result;
+			return;
 		}
-
-		private static bool ValidController(RectTransform layoutRoot)
+		List<Component> list = ListPool<Component>.Get();
+		rect.GetComponents(typeof(ILayoutElement), list);
+		StripDisabledBehavioursFromList(list);
+		if (list.Count > 0)
 		{
-			if (layoutRoot == null)
+			for (int i = 0; i < rect.childCount; i++)
 			{
-				return false;
+				PerformLayoutCalculation(rect.GetChild(i) as RectTransform, action);
 			}
-			List<Component> list = ListPool<Component>.Get();
-			layoutRoot.GetComponents(typeof(ILayoutController), list);
-			StripDisabledBehavioursFromList(list);
-			bool result = list.Count > 0;
-			ListPool<Component>.Release(list);
-			return result;
-		}
-
-		private static void MarkLayoutRootForRebuild(RectTransform controller)
-		{
-			if (!(controller == null))
+			for (int j = 0; j < list.Count; j++)
 			{
-				LayoutRebuilder layoutRebuilder = s_Rebuilders.Get();
-				layoutRebuilder.Initialize(controller);
-				if (!CanvasUpdateRegistry.TryRegisterCanvasElementForLayoutRebuild(layoutRebuilder))
-				{
-					s_Rebuilders.Release(layoutRebuilder);
-				}
+				action(list[j]);
 			}
 		}
+		ListPool<Component>.Release(list);
+	}
 
-		public void LayoutComplete()
+	public static void MarkLayoutForRebuild(RectTransform rect)
+	{
+		if (rect == null)
 		{
-			s_Rebuilders.Release(this);
+			return;
 		}
+		RectTransform rectTransform = rect;
+		while (true)
+		{
+			RectTransform rectTransform2 = rectTransform.parent as RectTransform;
+			if (!ValidLayoutGroup(rectTransform2))
+			{
+				break;
+			}
+			rectTransform = rectTransform2;
+		}
+		if (!(rectTransform == rect) || ValidController(rectTransform))
+		{
+			MarkLayoutRootForRebuild(rectTransform);
+		}
+	}
 
-		public void GraphicUpdateComplete()
+	private static bool ValidLayoutGroup(RectTransform parent)
+	{
+		if (parent == null)
 		{
+			return false;
 		}
+		List<Component> list = ListPool<Component>.Get();
+		parent.GetComponents(typeof(ILayoutGroup), list);
+		StripDisabledBehavioursFromList(list);
+		bool result = list.Count > 0;
+		ListPool<Component>.Release(list);
+		return result;
+	}
 
-		public override int GetHashCode()
+	private static bool ValidController(RectTransform layoutRoot)
+	{
+		if (layoutRoot == null)
 		{
-			return m_CachedHashFromTransform;
+			return false;
 		}
+		List<Component> list = ListPool<Component>.Get();
+		layoutRoot.GetComponents(typeof(ILayoutController), list);
+		StripDisabledBehavioursFromList(list);
+		bool result = list.Count > 0;
+		ListPool<Component>.Release(list);
+		return result;
+	}
 
-		public override bool Equals(object obj)
+	private static void MarkLayoutRootForRebuild(RectTransform controller)
+	{
+		if (!(controller == null))
 		{
-			return obj.GetHashCode() == GetHashCode();
+			LayoutRebuilder layoutRebuilder = s_Rebuilders.Get();
+			layoutRebuilder.Initialize(controller);
+			if (!CanvasUpdateRegistry.TryRegisterCanvasElementForLayoutRebuild(layoutRebuilder))
+			{
+				s_Rebuilders.Release(layoutRebuilder);
+			}
 		}
+	}
 
-		public override string ToString()
-		{
-			return "(Layout Rebuilder for) " + m_ToRebuild;
-		}
+	public void LayoutComplete()
+	{
+		s_Rebuilders.Release(this);
+	}
+
+	public void GraphicUpdateComplete()
+	{
+	}
+
+	public override int GetHashCode()
+	{
+		return m_CachedHashFromTransform;
+	}
+
+	public override bool Equals(object obj)
+	{
+		return obj.GetHashCode() == GetHashCode();
+	}
+
+	public override string ToString()
+	{
+		return "(Layout Rebuilder for) " + m_ToRebuild;
 	}
 }

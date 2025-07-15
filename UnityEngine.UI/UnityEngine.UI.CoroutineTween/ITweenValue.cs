@@ -1,19 +1,12 @@
-namespace UnityEngine.UI.CoroutineTween
+namespace UnityEngine.UI.CoroutineTween;
+
+internal interface ITweenValue
 {
-	internal interface ITweenValue
-	{
-		bool ignoreTimeScale
-		{
-			get;
-		}
+	bool ignoreTimeScale { get; }
 
-		float duration
-		{
-			get;
-		}
+	float duration { get; }
 
-		void TweenValue(float floatPercentage);
+	void TweenValue(float floatPercentage);
 
-		bool ValidTarget();
-	}
+	bool ValidTarget();
 }

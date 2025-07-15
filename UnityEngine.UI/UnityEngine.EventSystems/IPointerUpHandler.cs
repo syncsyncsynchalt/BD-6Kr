@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IPointerUpHandler : IEventSystemHandler
 {
-	public interface IPointerUpHandler : IEventSystemHandler
-	{
-		void OnPointerUp(PointerEventData eventData);
-	}
+	void OnPointerUp(PointerEventData eventData);
 }

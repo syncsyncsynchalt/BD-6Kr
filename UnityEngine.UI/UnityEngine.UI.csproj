@@ -1,11 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>UnityEngine.UI</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net35</TargetFramework>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\UnityEngine\UnityEngine.csproj" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\PCSG00684\Media\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
-
 </Project>

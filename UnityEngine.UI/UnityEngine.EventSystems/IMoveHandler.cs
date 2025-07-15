@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IMoveHandler : IEventSystemHandler
 {
-	public interface IMoveHandler : IEventSystemHandler
-	{
-		void OnMove(AxisEventData eventData);
-	}
+	void OnMove(AxisEventData eventData);
 }

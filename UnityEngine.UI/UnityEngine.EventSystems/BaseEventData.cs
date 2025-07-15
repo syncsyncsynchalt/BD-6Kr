@@ -1,40 +1,39 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public class BaseEventData
 {
-	public class BaseEventData
+	private readonly EventSystem m_EventSystem;
+
+	private bool m_Used;
+
+	public bool used => m_Used;
+
+	public BaseInputModule currentInputModule => m_EventSystem.currentInputModule;
+
+	public GameObject selectedObject
 	{
-		private readonly EventSystem m_EventSystem;
-
-		private bool m_Used;
-
-		public bool used => m_Used;
-
-		public BaseInputModule currentInputModule => m_EventSystem.currentInputModule;
-
-		public GameObject selectedObject
+		get
 		{
-			get
-			{
-				return m_EventSystem.currentSelectedGameObject;
-			}
-			set
-			{
-				m_EventSystem.SetSelectedGameObject(value, this);
-			}
+			return m_EventSystem.currentSelectedGameObject;
 		}
-
-		public BaseEventData(EventSystem eventSystem)
+		set
 		{
-			m_EventSystem = eventSystem;
+			m_EventSystem.SetSelectedGameObject(value, this);
 		}
+	}
 
-		public void Reset()
-		{
-			m_Used = false;
-		}
+	public BaseEventData(EventSystem eventSystem)
+	{
+		m_EventSystem = eventSystem;
+	}
 
-		public void Use()
-		{
-			m_Used = true;
-		}
+	public void Reset()
+	{
+		m_Used = false;
+	}
+
+	public void Use()
+	{
+		m_Used = true;
 	}
 }

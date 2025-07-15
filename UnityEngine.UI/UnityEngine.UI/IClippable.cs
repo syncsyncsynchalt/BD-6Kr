@@ -1,16 +1,12 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface IClippable
 {
-	public interface IClippable
-	{
-		RectTransform rectTransform
-		{
-			get;
-		}
+	RectTransform rectTransform { get; }
 
-		void RecalculateClipping();
+	void RecalculateClipping();
 
-		void Cull(Rect clipRect, bool validRect);
+	void Cull(Rect clipRect, bool validRect);
 
-		void SetClipRect(Rect value, bool validRect);
-	}
+	void SetClipRect(Rect value, bool validRect);
 }

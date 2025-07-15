@@ -1,9 +1,8 @@
-namespace UnityEngine.UI
-{
-	public interface ILayoutController
-	{
-		void SetLayoutHorizontal();
+namespace UnityEngine.UI;
 
-		void SetLayoutVertical();
-	}
+public interface ILayoutController
+{
+	void SetLayoutHorizontal();
+
+	void SetLayoutVertical();
 }

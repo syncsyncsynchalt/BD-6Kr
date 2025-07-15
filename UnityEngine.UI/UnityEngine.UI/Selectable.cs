@@ -3,631 +3,618 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[AddComponentMenu("UI/Selectable", 70)]
+[DisallowMultipleComponent]
+[SelectionBase]
+[ExecuteInEditMode]
+public class Selectable : UIBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler, IMoveHandler
 {
-	[AddComponentMenu("UI/Selectable", 70)]
-	[DisallowMultipleComponent]
-	[SelectionBase]
-	[ExecuteInEditMode]
-	public class Selectable : UIBehaviour, IEventSystemHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler, IMoveHandler
+	public enum Transition
 	{
-		public enum Transition
+		None,
+		ColorTint,
+		SpriteSwap,
+		Animation
+	}
+
+	protected enum SelectionState
+	{
+		Normal,
+		Highlighted,
+		Pressed,
+		Disabled
+	}
+
+	private static List<Selectable> s_List = new List<Selectable>();
+
+	[SerializeField]
+	[FormerlySerializedAs("navigation")]
+	private Navigation m_Navigation = Navigation.defaultNavigation;
+
+	[FormerlySerializedAs("transition")]
+	[SerializeField]
+	private Transition m_Transition = Transition.ColorTint;
+
+	[FormerlySerializedAs("colors")]
+	[SerializeField]
+	private ColorBlock m_Colors = ColorBlock.defaultColorBlock;
+
+	[SerializeField]
+	[FormerlySerializedAs("spriteState")]
+	private SpriteState m_SpriteState;
+
+	[FormerlySerializedAs("animationTriggers")]
+	[SerializeField]
+	private AnimationTriggers m_AnimationTriggers = new AnimationTriggers();
+
+	[SerializeField]
+	[Tooltip("Can the Selectable be interacted with?")]
+	private bool m_Interactable = true;
+
+	[SerializeField]
+	[FormerlySerializedAs("m_HighlightGraphic")]
+	[FormerlySerializedAs("highlightGraphic")]
+	private Graphic m_TargetGraphic;
+
+	private bool m_GroupsAllowInteraction = true;
+
+	private SelectionState m_CurrentSelectionState;
+
+	private readonly List<CanvasGroup> m_CanvasGroupCache = new List<CanvasGroup>();
+
+	public static List<Selectable> allSelectables => s_List;
+
+	public Navigation navigation
+	{
+		get
 		{
-			None,
-			ColorTint,
-			SpriteSwap,
-			Animation
+			return m_Navigation;
 		}
-
-		protected enum SelectionState
+		set
 		{
-			Normal,
-			Highlighted,
-			Pressed,
-			Disabled
-		}
-
-		private static List<Selectable> s_List = new List<Selectable>();
-
-		[SerializeField]
-		[FormerlySerializedAs("navigation")]
-		private Navigation m_Navigation = Navigation.defaultNavigation;
-
-		[FormerlySerializedAs("transition")]
-		[SerializeField]
-		private Transition m_Transition = Transition.ColorTint;
-
-		[FormerlySerializedAs("colors")]
-		[SerializeField]
-		private ColorBlock m_Colors = ColorBlock.defaultColorBlock;
-
-		[SerializeField]
-		[FormerlySerializedAs("spriteState")]
-		private SpriteState m_SpriteState;
-
-		[FormerlySerializedAs("animationTriggers")]
-		[SerializeField]
-		private AnimationTriggers m_AnimationTriggers = new AnimationTriggers();
-
-		[SerializeField]
-		[Tooltip("Can the Selectable be interacted with?")]
-		private bool m_Interactable = true;
-
-		[SerializeField]
-		[FormerlySerializedAs("m_HighlightGraphic")]
-		[FormerlySerializedAs("highlightGraphic")]
-		private Graphic m_TargetGraphic;
-
-		private bool m_GroupsAllowInteraction = true;
-
-		private SelectionState m_CurrentSelectionState;
-
-		private readonly List<CanvasGroup> m_CanvasGroupCache = new List<CanvasGroup>();
-
-		public static List<Selectable> allSelectables => s_List;
-
-		public Navigation navigation
-		{
-			get
+			if (SetPropertyUtility.SetStruct(ref m_Navigation, value))
 			{
-				return m_Navigation;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_Navigation, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public Transition transition
-		{
-			get
-			{
-				return m_Transition;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_Transition, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public ColorBlock colors
-		{
-			get
-			{
-				return m_Colors;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_Colors, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public SpriteState spriteState
-		{
-			get
-			{
-				return m_SpriteState;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_SpriteState, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public AnimationTriggers animationTriggers
-		{
-			get
-			{
-				return m_AnimationTriggers;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetClass(ref m_AnimationTriggers, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public Graphic targetGraphic
-		{
-			get
-			{
-				return m_TargetGraphic;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetClass(ref m_TargetGraphic, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		public bool interactable
-		{
-			get
-			{
-				return m_Interactable;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_Interactable, value))
-				{
-					OnSetProperty();
-				}
-			}
-		}
-
-		private bool isPointerInside
-		{
-			get;
-			set;
-		}
-
-		private bool isPointerDown
-		{
-			get;
-			set;
-		}
-
-		private bool hasSelection
-		{
-			get;
-			set;
-		}
-
-		public Image image
-		{
-			get
-			{
-				return m_TargetGraphic as Image;
-			}
-			set
-			{
-				m_TargetGraphic = value;
-			}
-		}
-
-		public Animator animator => GetComponent<Animator>();
-
-		protected SelectionState currentSelectionState => m_CurrentSelectionState;
-
-		protected Selectable()
-		{
-		}
-
-		protected override void Awake()
-		{
-			if (m_TargetGraphic == null)
-			{
-				m_TargetGraphic = GetComponent<Graphic>();
-			}
-		}
-
-		protected override void OnCanvasGroupChanged()
-		{
-			bool flag = true;
-			Transform transform = base.transform;
-			while (transform != null)
-			{
-				transform.GetComponents(m_CanvasGroupCache);
-				bool flag2 = false;
-				for (int i = 0; i < m_CanvasGroupCache.Count; i++)
-				{
-					if (!m_CanvasGroupCache[i].interactable)
-					{
-						flag = false;
-						flag2 = true;
-					}
-					if (m_CanvasGroupCache[i].ignoreParentGroups)
-					{
-						flag2 = true;
-					}
-				}
-				if (flag2)
-				{
-					break;
-				}
-				transform = transform.parent;
-			}
-			if (flag != m_GroupsAllowInteraction)
-			{
-				m_GroupsAllowInteraction = flag;
 				OnSetProperty();
 			}
 		}
+	}
 
-		public virtual bool IsInteractable()
+	public Transition transition
+	{
+		get
 		{
-			return m_GroupsAllowInteraction && m_Interactable;
+			return m_Transition;
 		}
-
-		protected override void OnDidApplyAnimationProperties()
+		set
 		{
+			if (SetPropertyUtility.SetStruct(ref m_Transition, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	public ColorBlock colors
+	{
+		get
+		{
+			return m_Colors;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_Colors, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	public SpriteState spriteState
+	{
+		get
+		{
+			return m_SpriteState;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_SpriteState, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	public AnimationTriggers animationTriggers
+	{
+		get
+		{
+			return m_AnimationTriggers;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetClass(ref m_AnimationTriggers, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	public Graphic targetGraphic
+	{
+		get
+		{
+			return m_TargetGraphic;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetClass(ref m_TargetGraphic, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	public bool interactable
+	{
+		get
+		{
+			return m_Interactable;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_Interactable, value))
+			{
+				OnSetProperty();
+			}
+		}
+	}
+
+	private bool isPointerInside { get; set; }
+
+	private bool isPointerDown { get; set; }
+
+	private bool hasSelection { get; set; }
+
+	public Image image
+	{
+		get
+		{
+			return m_TargetGraphic as Image;
+		}
+		set
+		{
+			m_TargetGraphic = value;
+		}
+	}
+
+	public Animator animator => GetComponent<Animator>();
+
+	protected SelectionState currentSelectionState => m_CurrentSelectionState;
+
+	protected Selectable()
+	{
+	}
+
+	protected override void Awake()
+	{
+		if (m_TargetGraphic == null)
+		{
+			m_TargetGraphic = GetComponent<Graphic>();
+		}
+	}
+
+	protected override void OnCanvasGroupChanged()
+	{
+		bool flag = true;
+		Transform parent = base.transform;
+		while (parent != null)
+		{
+			parent.GetComponents(m_CanvasGroupCache);
+			bool flag2 = false;
+			for (int i = 0; i < m_CanvasGroupCache.Count; i++)
+			{
+				if (!m_CanvasGroupCache[i].interactable)
+				{
+					flag = false;
+					flag2 = true;
+				}
+				if (m_CanvasGroupCache[i].ignoreParentGroups)
+				{
+					flag2 = true;
+				}
+			}
+			if (flag2)
+			{
+				break;
+			}
+			parent = parent.parent;
+		}
+		if (flag != m_GroupsAllowInteraction)
+		{
+			m_GroupsAllowInteraction = flag;
 			OnSetProperty();
 		}
+	}
 
-		protected override void OnEnable()
+	public virtual bool IsInteractable()
+	{
+		return m_GroupsAllowInteraction && m_Interactable;
+	}
+
+	protected override void OnDidApplyAnimationProperties()
+	{
+		OnSetProperty();
+	}
+
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		s_List.Add(this);
+		SelectionState selectionState = SelectionState.Normal;
+		if (hasSelection)
 		{
-			base.OnEnable();
-			s_List.Add(this);
-			SelectionState currentSelectionState = SelectionState.Normal;
-			if (hasSelection)
-			{
-				currentSelectionState = SelectionState.Highlighted;
-			}
-			m_CurrentSelectionState = currentSelectionState;
-			InternalEvaluateAndTransitionToSelectionState(instant: true);
+			selectionState = SelectionState.Highlighted;
 		}
+		m_CurrentSelectionState = selectionState;
+		InternalEvaluateAndTransitionToSelectionState(instant: true);
+	}
 
-		private void OnSetProperty()
+	private void OnSetProperty()
+	{
+		InternalEvaluateAndTransitionToSelectionState(instant: false);
+	}
+
+	protected override void OnDisable()
+	{
+		s_List.Remove(this);
+		InstantClearState();
+		base.OnDisable();
+	}
+
+	protected virtual void InstantClearState()
+	{
+		string normalTrigger = m_AnimationTriggers.normalTrigger;
+		isPointerInside = false;
+		isPointerDown = false;
+		hasSelection = false;
+		switch (m_Transition)
 		{
-			InternalEvaluateAndTransitionToSelectionState(instant: false);
+		case Transition.ColorTint:
+			StartColorTween(Color.white, instant: true);
+			break;
+		case Transition.SpriteSwap:
+			DoSpriteSwap(null);
+			break;
+		case Transition.Animation:
+			TriggerAnimation(normalTrigger);
+			break;
 		}
+	}
 
-		protected override void OnDisable()
+	protected virtual void DoStateTransition(SelectionState state, bool instant)
+	{
+		Color color;
+		Sprite newSprite;
+		string triggername;
+		switch (state)
 		{
-			s_List.Remove(this);
-			InstantClearState();
-			base.OnDisable();
+		case SelectionState.Normal:
+			color = m_Colors.normalColor;
+			newSprite = null;
+			triggername = m_AnimationTriggers.normalTrigger;
+			break;
+		case SelectionState.Highlighted:
+			color = m_Colors.highlightedColor;
+			newSprite = m_SpriteState.highlightedSprite;
+			triggername = m_AnimationTriggers.highlightedTrigger;
+			break;
+		case SelectionState.Pressed:
+			color = m_Colors.pressedColor;
+			newSprite = m_SpriteState.pressedSprite;
+			triggername = m_AnimationTriggers.pressedTrigger;
+			break;
+		case SelectionState.Disabled:
+			color = m_Colors.disabledColor;
+			newSprite = m_SpriteState.disabledSprite;
+			triggername = m_AnimationTriggers.disabledTrigger;
+			break;
+		default:
+			color = Color.black;
+			newSprite = null;
+			triggername = string.Empty;
+			break;
 		}
-
-		protected virtual void InstantClearState()
+		if (base.gameObject.activeInHierarchy)
 		{
-			string normalTrigger = m_AnimationTriggers.normalTrigger;
-			isPointerInside = false;
-			isPointerDown = false;
-			hasSelection = false;
 			switch (m_Transition)
 			{
 			case Transition.ColorTint:
-				StartColorTween(Color.white, instant: true);
+				StartColorTween(color * m_Colors.colorMultiplier, instant);
 				break;
 			case Transition.SpriteSwap:
-				DoSpriteSwap(null);
+				DoSpriteSwap(newSprite);
 				break;
 			case Transition.Animation:
-				TriggerAnimation(normalTrigger);
+				TriggerAnimation(triggername);
 				break;
 			}
 		}
+	}
 
-		protected virtual void DoStateTransition(SelectionState state, bool instant)
+	public Selectable FindSelectable(Vector3 dir)
+	{
+		dir = dir.normalized;
+		Vector3 vector = Quaternion.Inverse(base.transform.rotation) * dir;
+		Vector3 vector2 = base.transform.TransformPoint(GetPointOnRectEdge(base.transform as RectTransform, vector));
+		float num = float.NegativeInfinity;
+		Selectable result = null;
+		for (int i = 0; i < s_List.Count; i++)
 		{
-			Color a;
-			Sprite newSprite;
-			string triggername;
-			switch (state)
+			Selectable selectable = s_List[i];
+			if (selectable == this || selectable == null || !selectable.IsInteractable() || selectable.navigation.mode == Navigation.Mode.None)
 			{
-			case SelectionState.Normal:
-				a = m_Colors.normalColor;
-				newSprite = null;
-				triggername = m_AnimationTriggers.normalTrigger;
-				break;
-			case SelectionState.Highlighted:
-				a = m_Colors.highlightedColor;
-				newSprite = m_SpriteState.highlightedSprite;
-				triggername = m_AnimationTriggers.highlightedTrigger;
-				break;
-			case SelectionState.Pressed:
-				a = m_Colors.pressedColor;
-				newSprite = m_SpriteState.pressedSprite;
-				triggername = m_AnimationTriggers.pressedTrigger;
-				break;
-			case SelectionState.Disabled:
-				a = m_Colors.disabledColor;
-				newSprite = m_SpriteState.disabledSprite;
-				triggername = m_AnimationTriggers.disabledTrigger;
-				break;
-			default:
-				a = Color.black;
-				newSprite = null;
-				triggername = string.Empty;
-				break;
+				continue;
 			}
-			if (base.gameObject.activeInHierarchy)
+			RectTransform rectTransform = selectable.transform as RectTransform;
+			Vector3 position = ((!(rectTransform != null)) ? Vector3.zero : ((Vector3)rectTransform.rect.center));
+			Vector3 rhs = selectable.transform.TransformPoint(position) - vector2;
+			float num2 = Vector3.Dot(dir, rhs);
+			if (!(num2 <= 0f))
 			{
-				switch (m_Transition)
+				float num3 = num2 / rhs.sqrMagnitude;
+				if (num3 > num)
 				{
-				case Transition.ColorTint:
-					StartColorTween(a * m_Colors.colorMultiplier, instant);
-					break;
-				case Transition.SpriteSwap:
-					DoSpriteSwap(newSprite);
-					break;
-				case Transition.Animation:
-					TriggerAnimation(triggername);
-					break;
+					num = num3;
+					result = selectable;
 				}
 			}
 		}
+		return result;
+	}
 
-		public Selectable FindSelectable(Vector3 dir)
+	private static Vector3 GetPointOnRectEdge(RectTransform rect, Vector2 dir)
+	{
+		if (rect == null)
 		{
-			dir = dir.normalized;
-			Vector3 v = Quaternion.Inverse(base.transform.rotation) * dir;
-			Vector3 b = base.transform.TransformPoint(GetPointOnRectEdge(base.transform as RectTransform, v));
-			float num = float.NegativeInfinity;
-			Selectable result = null;
-			for (int i = 0; i < s_List.Count; i++)
-			{
-				Selectable selectable = s_List[i];
-				if (selectable == this || selectable == null || !selectable.IsInteractable() || selectable.navigation.mode == Navigation.Mode.None)
-				{
-					continue;
-				}
-				RectTransform rectTransform = selectable.transform as RectTransform;
-				Vector3 position = (!(rectTransform != null)) ? Vector3.zero : ((Vector3)rectTransform.rect.center);
-				Vector3 rhs = selectable.transform.TransformPoint(position) - b;
-				float num2 = Vector3.Dot(dir, rhs);
-				if (!(num2 <= 0f))
-				{
-					float num3 = num2 / rhs.sqrMagnitude;
-					if (num3 > num)
-					{
-						num = num3;
-						result = selectable;
-					}
-				}
-			}
-			return result;
+			return Vector3.zero;
 		}
-
-		private static Vector3 GetPointOnRectEdge(RectTransform rect, Vector2 dir)
+		if (dir != Vector2.zero)
 		{
-			if (rect == null)
-			{
-				return Vector3.zero;
-			}
-			if (dir != Vector2.zero)
-			{
-				dir /= Mathf.Max(Mathf.Abs(dir.x), Mathf.Abs(dir.y));
-			}
-			dir = rect.rect.center + Vector2.Scale(rect.rect.size, dir * 0.5f);
-			return dir;
+			dir /= Mathf.Max(Mathf.Abs(dir.x), Mathf.Abs(dir.y));
 		}
+		dir = rect.rect.center + Vector2.Scale(rect.rect.size, dir * 0.5f);
+		return dir;
+	}
 
-		private void Navigate(AxisEventData eventData, Selectable sel)
+	private void Navigate(AxisEventData eventData, Selectable sel)
+	{
+		if (sel != null && sel.IsActive())
 		{
-			if (sel != null && sel.IsActive())
-			{
-				eventData.selectedObject = sel.gameObject;
-			}
+			eventData.selectedObject = sel.gameObject;
 		}
+	}
 
-		public virtual Selectable FindSelectableOnLeft()
+	public virtual Selectable FindSelectableOnLeft()
+	{
+		if (m_Navigation.mode == Navigation.Mode.Explicit)
 		{
-			if (m_Navigation.mode == Navigation.Mode.Explicit)
-			{
-				return m_Navigation.selectOnLeft;
-			}
-			if ((m_Navigation.mode & Navigation.Mode.Horizontal) != 0)
-			{
-				return FindSelectable(base.transform.rotation * Vector3.left);
-			}
-			return null;
+			return m_Navigation.selectOnLeft;
 		}
-
-		public virtual Selectable FindSelectableOnRight()
+		if ((m_Navigation.mode & Navigation.Mode.Horizontal) != Navigation.Mode.None)
 		{
-			if (m_Navigation.mode == Navigation.Mode.Explicit)
-			{
-				return m_Navigation.selectOnRight;
-			}
-			if ((m_Navigation.mode & Navigation.Mode.Horizontal) != 0)
-			{
-				return FindSelectable(base.transform.rotation * Vector3.right);
-			}
-			return null;
+			return FindSelectable(base.transform.rotation * Vector3.left);
 		}
+		return null;
+	}
 
-		public virtual Selectable FindSelectableOnUp()
+	public virtual Selectable FindSelectableOnRight()
+	{
+		if (m_Navigation.mode == Navigation.Mode.Explicit)
 		{
-			if (m_Navigation.mode == Navigation.Mode.Explicit)
-			{
-				return m_Navigation.selectOnUp;
-			}
-			if ((m_Navigation.mode & Navigation.Mode.Vertical) != 0)
-			{
-				return FindSelectable(base.transform.rotation * Vector3.up);
-			}
-			return null;
+			return m_Navigation.selectOnRight;
 		}
-
-		public virtual Selectable FindSelectableOnDown()
+		if ((m_Navigation.mode & Navigation.Mode.Horizontal) != Navigation.Mode.None)
 		{
-			if (m_Navigation.mode == Navigation.Mode.Explicit)
-			{
-				return m_Navigation.selectOnDown;
-			}
-			if ((m_Navigation.mode & Navigation.Mode.Vertical) != 0)
-			{
-				return FindSelectable(base.transform.rotation * Vector3.down);
-			}
-			return null;
+			return FindSelectable(base.transform.rotation * Vector3.right);
 		}
+		return null;
+	}
 
-		public virtual void OnMove(AxisEventData eventData)
+	public virtual Selectable FindSelectableOnUp()
+	{
+		if (m_Navigation.mode == Navigation.Mode.Explicit)
 		{
-			switch (eventData.moveDir)
-			{
-			case MoveDirection.Right:
-				Navigate(eventData, FindSelectableOnRight());
-				break;
-			case MoveDirection.Up:
-				Navigate(eventData, FindSelectableOnUp());
-				break;
-			case MoveDirection.Left:
-				Navigate(eventData, FindSelectableOnLeft());
-				break;
-			case MoveDirection.Down:
-				Navigate(eventData, FindSelectableOnDown());
-				break;
-			}
+			return m_Navigation.selectOnUp;
 		}
-
-		private void StartColorTween(Color targetColor, bool instant)
+		if ((m_Navigation.mode & Navigation.Mode.Vertical) != Navigation.Mode.None)
 		{
-			if (!(m_TargetGraphic == null))
-			{
-				m_TargetGraphic.CrossFadeColor(targetColor, (!instant) ? m_Colors.fadeDuration : 0f, ignoreTimeScale: true, useAlpha: true);
-			}
+			return FindSelectable(base.transform.rotation * Vector3.up);
 		}
+		return null;
+	}
 
-		private void DoSpriteSwap(Sprite newSprite)
+	public virtual Selectable FindSelectableOnDown()
+	{
+		if (m_Navigation.mode == Navigation.Mode.Explicit)
 		{
-			if (!(image == null))
-			{
-				image.overrideSprite = newSprite;
-			}
+			return m_Navigation.selectOnDown;
 		}
-
-		private void TriggerAnimation(string triggername)
+		if ((m_Navigation.mode & Navigation.Mode.Vertical) != Navigation.Mode.None)
 		{
-			if (!(animator == null) && animator.isActiveAndEnabled && !(animator.runtimeAnimatorController == null) && !string.IsNullOrEmpty(triggername))
-			{
-				animator.ResetTrigger(m_AnimationTriggers.normalTrigger);
-				animator.ResetTrigger(m_AnimationTriggers.pressedTrigger);
-				animator.ResetTrigger(m_AnimationTriggers.highlightedTrigger);
-				animator.ResetTrigger(m_AnimationTriggers.disabledTrigger);
-				animator.SetTrigger(triggername);
-			}
+			return FindSelectable(base.transform.rotation * Vector3.down);
 		}
+		return null;
+	}
 
-		protected bool IsHighlighted(BaseEventData eventData)
+	public virtual void OnMove(AxisEventData eventData)
+	{
+		switch (eventData.moveDir)
 		{
-			if (!IsActive())
-			{
-				return false;
-			}
-			if (IsPressed())
-			{
-				return false;
-			}
-			bool hasSelection = this.hasSelection;
-			if (eventData is PointerEventData)
-			{
-				PointerEventData pointerEventData = eventData as PointerEventData;
-				return hasSelection | ((isPointerDown && !isPointerInside && pointerEventData.pointerPress == base.gameObject) || (!isPointerDown && isPointerInside && pointerEventData.pointerPress == base.gameObject) || (!isPointerDown && isPointerInside && pointerEventData.pointerPress == null));
-			}
-			return hasSelection | isPointerInside;
+		case MoveDirection.Right:
+			Navigate(eventData, FindSelectableOnRight());
+			break;
+		case MoveDirection.Up:
+			Navigate(eventData, FindSelectableOnUp());
+			break;
+		case MoveDirection.Left:
+			Navigate(eventData, FindSelectableOnLeft());
+			break;
+		case MoveDirection.Down:
+			Navigate(eventData, FindSelectableOnDown());
+			break;
 		}
+	}
 
-		[Obsolete("Is Pressed no longer requires eventData", false)]
-		protected bool IsPressed(BaseEventData eventData)
+	private void StartColorTween(Color targetColor, bool instant)
+	{
+		if (!(m_TargetGraphic == null))
 		{
-			return IsPressed();
+			m_TargetGraphic.CrossFadeColor(targetColor, (!instant) ? m_Colors.fadeDuration : 0f, ignoreTimeScale: true, useAlpha: true);
 		}
+	}
 
-		protected bool IsPressed()
+	private void DoSpriteSwap(Sprite newSprite)
+	{
+		if (!(image == null))
 		{
-			if (!IsActive())
-			{
-				return false;
-			}
-			return isPointerInside && isPointerDown;
+			image.overrideSprite = newSprite;
 		}
+	}
 
-		protected void UpdateSelectionState(BaseEventData eventData)
+	private void TriggerAnimation(string triggername)
+	{
+		if (!(animator == null) && animator.isActiveAndEnabled && !(animator.runtimeAnimatorController == null) && !string.IsNullOrEmpty(triggername))
 		{
-			if (IsPressed())
-			{
-				m_CurrentSelectionState = SelectionState.Pressed;
-			}
-			else if (IsHighlighted(eventData))
-			{
-				m_CurrentSelectionState = SelectionState.Highlighted;
-			}
-			else
-			{
-				m_CurrentSelectionState = SelectionState.Normal;
-			}
+			animator.ResetTrigger(m_AnimationTriggers.normalTrigger);
+			animator.ResetTrigger(m_AnimationTriggers.pressedTrigger);
+			animator.ResetTrigger(m_AnimationTriggers.highlightedTrigger);
+			animator.ResetTrigger(m_AnimationTriggers.disabledTrigger);
+			animator.SetTrigger(triggername);
 		}
+	}
 
-		private void EvaluateAndTransitionToSelectionState(BaseEventData eventData)
+	protected bool IsHighlighted(BaseEventData eventData)
+	{
+		if (!IsActive())
 		{
-			if (IsActive())
-			{
-				UpdateSelectionState(eventData);
-				InternalEvaluateAndTransitionToSelectionState(instant: false);
-			}
+			return false;
 		}
-
-		private void InternalEvaluateAndTransitionToSelectionState(bool instant)
+		if (IsPressed())
 		{
-			SelectionState state = m_CurrentSelectionState;
-			if (IsActive() && !IsInteractable())
-			{
-				state = SelectionState.Disabled;
-			}
-			DoStateTransition(state, instant);
+			return false;
 		}
-
-		public virtual void OnPointerDown(PointerEventData eventData)
+		bool flag = hasSelection;
+		if (eventData is PointerEventData)
 		{
-			if (eventData.button == PointerEventData.InputButton.Left)
-			{
-				if (IsInteractable() && navigation.mode != 0)
-				{
-					EventSystem.current.SetSelectedGameObject(base.gameObject, eventData);
-				}
-				isPointerDown = true;
-				EvaluateAndTransitionToSelectionState(eventData);
-			}
+			PointerEventData pointerEventData = eventData as PointerEventData;
+			return flag | ((isPointerDown && !isPointerInside && pointerEventData.pointerPress == base.gameObject) || (!isPointerDown && isPointerInside && pointerEventData.pointerPress == base.gameObject) || (!isPointerDown && isPointerInside && pointerEventData.pointerPress == null));
 		}
+		return flag | isPointerInside;
+	}
 
-		public virtual void OnPointerUp(PointerEventData eventData)
+	[Obsolete("Is Pressed no longer requires eventData", false)]
+	protected bool IsPressed(BaseEventData eventData)
+	{
+		return IsPressed();
+	}
+
+	protected bool IsPressed()
+	{
+		if (!IsActive())
 		{
-			if (eventData.button == PointerEventData.InputButton.Left)
-			{
-				isPointerDown = false;
-				EvaluateAndTransitionToSelectionState(eventData);
-			}
+			return false;
 		}
+		return isPointerInside && isPointerDown;
+	}
 
-		public virtual void OnPointerEnter(PointerEventData eventData)
+	protected void UpdateSelectionState(BaseEventData eventData)
+	{
+		if (IsPressed())
 		{
-			isPointerInside = true;
+			m_CurrentSelectionState = SelectionState.Pressed;
+		}
+		else if (IsHighlighted(eventData))
+		{
+			m_CurrentSelectionState = SelectionState.Highlighted;
+		}
+		else
+		{
+			m_CurrentSelectionState = SelectionState.Normal;
+		}
+	}
+
+	private void EvaluateAndTransitionToSelectionState(BaseEventData eventData)
+	{
+		if (IsActive())
+		{
+			UpdateSelectionState(eventData);
+			InternalEvaluateAndTransitionToSelectionState(instant: false);
+		}
+	}
+
+	private void InternalEvaluateAndTransitionToSelectionState(bool instant)
+	{
+		SelectionState state = m_CurrentSelectionState;
+		if (IsActive() && !IsInteractable())
+		{
+			state = SelectionState.Disabled;
+		}
+		DoStateTransition(state, instant);
+	}
+
+	public virtual void OnPointerDown(PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Left)
+		{
+			if (IsInteractable() && navigation.mode != Navigation.Mode.None)
+			{
+				EventSystem.current.SetSelectedGameObject(base.gameObject, eventData);
+			}
+			isPointerDown = true;
 			EvaluateAndTransitionToSelectionState(eventData);
 		}
+	}
 
-		public virtual void OnPointerExit(PointerEventData eventData)
+	public virtual void OnPointerUp(PointerEventData eventData)
+	{
+		if (eventData.button == PointerEventData.InputButton.Left)
 		{
-			isPointerInside = false;
+			isPointerDown = false;
 			EvaluateAndTransitionToSelectionState(eventData);
 		}
+	}
 
-		public virtual void OnSelect(BaseEventData eventData)
-		{
-			hasSelection = true;
-			EvaluateAndTransitionToSelectionState(eventData);
-		}
+	public virtual void OnPointerEnter(PointerEventData eventData)
+	{
+		isPointerInside = true;
+		EvaluateAndTransitionToSelectionState(eventData);
+	}
 
-		public virtual void OnDeselect(BaseEventData eventData)
-		{
-			hasSelection = false;
-			EvaluateAndTransitionToSelectionState(eventData);
-		}
+	public virtual void OnPointerExit(PointerEventData eventData)
+	{
+		isPointerInside = false;
+		EvaluateAndTransitionToSelectionState(eventData);
+	}
 
-		public virtual void Select()
+	public virtual void OnSelect(BaseEventData eventData)
+	{
+		hasSelection = true;
+		EvaluateAndTransitionToSelectionState(eventData);
+	}
+
+	public virtual void OnDeselect(BaseEventData eventData)
+	{
+		hasSelection = false;
+		EvaluateAndTransitionToSelectionState(eventData);
+	}
+
+	public virtual void Select()
+	{
+		if (!EventSystem.current.alreadySelecting)
 		{
-			if (!EventSystem.current.alreadySelecting)
-			{
-				EventSystem.current.SetSelectedGameObject(base.gameObject);
-			}
+			EventSystem.current.SetSelectedGameObject(base.gameObject);
 		}
 	}
 }

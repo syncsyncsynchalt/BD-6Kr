@@ -1,7 +1,6 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface IMaterialModifier
 {
-	public interface IMaterialModifier
-	{
-		Material GetModifiedMaterial(Material baseMaterial);
-	}
+	Material GetModifiedMaterial(Material baseMaterial);
 }

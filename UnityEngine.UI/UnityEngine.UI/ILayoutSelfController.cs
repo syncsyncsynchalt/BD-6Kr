@@ -1,6 +1,5 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface ILayoutSelfController : ILayoutController
 {
-	public interface ILayoutSelfController : ILayoutController
-	{
-	}
 }

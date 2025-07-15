@@ -1,18 +1,14 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface ICanvasElement
 {
-	public interface ICanvasElement
-	{
-		Transform transform
-		{
-			get;
-		}
+	Transform transform { get; }
 
-		void Rebuild(CanvasUpdate executing);
+	void Rebuild(CanvasUpdate executing);
 
-		void LayoutComplete();
+	void LayoutComplete();
 
-		void GraphicUpdateComplete();
+	void GraphicUpdateComplete();
 
-		bool IsDestroyed();
-	}
+	bool IsDestroyed();
 }

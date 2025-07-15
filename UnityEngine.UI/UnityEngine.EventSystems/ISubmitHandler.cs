@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface ISubmitHandler : IEventSystemHandler
 {
-	public interface ISubmitHandler : IEventSystemHandler
-	{
-		void OnSubmit(BaseEventData eventData);
-	}
+	void OnSubmit(BaseEventData eventData);
 }

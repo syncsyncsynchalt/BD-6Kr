@@ -1,11 +1,10 @@
 using System;
 
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+[Flags]
+public enum EventHandle
 {
-	[Flags]
-	public enum EventHandle
-	{
-		Unused = 0x0,
-		Used = 0x1
-	}
+	Unused = 0,
+	Used = 1
 }

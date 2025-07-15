@@ -1,10 +1,9 @@
 using System;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[Obsolete("Not supported anymore")]
+internal interface IGraphicEnabledDisabled
 {
-	[Obsolete("Not supported anymore")]
-	internal interface IGraphicEnabledDisabled
-	{
-		void OnSiblingGraphicEnabledDisabled();
-	}
+	void OnSiblingGraphicEnabledDisabled();
 }

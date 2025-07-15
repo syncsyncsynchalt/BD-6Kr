@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface ISelectHandler : IEventSystemHandler
 {
-	public interface ISelectHandler : IEventSystemHandler
-	{
-		void OnSelect(BaseEventData eventData);
-	}
+	void OnSelect(BaseEventData eventData);
 }

@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IPointerClickHandler : IEventSystemHandler
 {
-	public interface IPointerClickHandler : IEventSystemHandler
-	{
-		void OnPointerClick(PointerEventData eventData);
-	}
+	void OnPointerClick(PointerEventData eventData);
 }

@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IPointerExitHandler : IEventSystemHandler
 {
-	public interface IPointerExitHandler : IEventSystemHandler
-	{
-		void OnPointerExit(PointerEventData eventData);
-	}
+	void OnPointerExit(PointerEventData eventData);
 }

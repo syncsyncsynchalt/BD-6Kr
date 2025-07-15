@@ -1,7 +1,6 @@
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+public interface IClipper
 {
-	public interface IClipper
-	{
-		void PerformClipping();
-	}
+	void PerformClipping();
 }

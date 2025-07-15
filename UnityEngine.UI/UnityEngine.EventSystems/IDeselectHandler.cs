@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IDeselectHandler : IEventSystemHandler
 {
-	public interface IDeselectHandler : IEventSystemHandler
-	{
-		void OnDeselect(BaseEventData eventData);
-	}
+	void OnDeselect(BaseEventData eventData);
 }

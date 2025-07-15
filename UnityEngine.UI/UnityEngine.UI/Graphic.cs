@@ -5,581 +5,577 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI.CoroutineTween;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[ExecuteInEditMode]
+[DisallowMultipleComponent]
+[RequireComponent(typeof(CanvasRenderer))]
+[RequireComponent(typeof(RectTransform))]
+public abstract class Graphic : UIBehaviour, ICanvasElement
 {
-	[ExecuteInEditMode]
-	[DisallowMultipleComponent]
-	[RequireComponent(typeof(CanvasRenderer))]
-	[RequireComponent(typeof(RectTransform))]
-	public abstract class Graphic : UIBehaviour, ICanvasElement
+	protected static Material s_DefaultUI = null;
+
+	protected static Texture2D s_WhiteTexture = null;
+
+	[FormerlySerializedAs("m_Mat")]
+	[SerializeField]
+	protected Material m_Material;
+
+	[SerializeField]
+	private Color m_Color = Color.white;
+
+	[SerializeField]
+	private bool m_RaycastTarget = true;
+
+	[NonSerialized]
+	private RectTransform m_RectTransform;
+
+	[NonSerialized]
+	private CanvasRenderer m_CanvasRender;
+
+	[NonSerialized]
+	private Canvas m_Canvas;
+
+	[NonSerialized]
+	private bool m_VertsDirty;
+
+	[NonSerialized]
+	private bool m_MaterialDirty;
+
+	[NonSerialized]
+	protected UnityAction m_OnDirtyLayoutCallback;
+
+	[NonSerialized]
+	protected UnityAction m_OnDirtyVertsCallback;
+
+	[NonSerialized]
+	protected UnityAction m_OnDirtyMaterialCallback;
+
+	[NonSerialized]
+	protected static Mesh s_Mesh;
+
+	[NonSerialized]
+	private static readonly VertexHelper s_VertexHelper = new VertexHelper();
+
+	[NonSerialized]
+	private readonly TweenRunner<ColorTween> m_ColorTweenRunner;
+
+	public static Material defaultGraphicMaterial
 	{
-		protected static Material s_DefaultUI = null;
-
-		protected static Texture2D s_WhiteTexture = null;
-
-		[FormerlySerializedAs("m_Mat")]
-		[SerializeField]
-		protected Material m_Material;
-
-		[SerializeField]
-		private Color m_Color = Color.white;
-
-		[SerializeField]
-		private bool m_RaycastTarget = true;
-
-		[NonSerialized]
-		private RectTransform m_RectTransform;
-
-		[NonSerialized]
-		private CanvasRenderer m_CanvasRender;
-
-		[NonSerialized]
-		private Canvas m_Canvas;
-
-		[NonSerialized]
-		private bool m_VertsDirty;
-
-		[NonSerialized]
-		private bool m_MaterialDirty;
-
-		[NonSerialized]
-		protected UnityAction m_OnDirtyLayoutCallback;
-
-		[NonSerialized]
-		protected UnityAction m_OnDirtyVertsCallback;
-
-		[NonSerialized]
-		protected UnityAction m_OnDirtyMaterialCallback;
-
-		[NonSerialized]
-		protected static Mesh s_Mesh;
-
-		[NonSerialized]
-		private static readonly VertexHelper s_VertexHelper = new VertexHelper();
-
-		[NonSerialized]
-		private readonly TweenRunner<ColorTween> m_ColorTweenRunner;
-
-		public static Material defaultGraphicMaterial
+		get
 		{
-			get
+			if (s_DefaultUI == null)
 			{
-				if (s_DefaultUI == null)
-				{
-					s_DefaultUI = Canvas.GetDefaultCanvasMaterial();
-				}
-				return s_DefaultUI;
+				s_DefaultUI = Canvas.GetDefaultCanvasMaterial();
 			}
+			return s_DefaultUI;
 		}
+	}
 
-		public Color color
+	public Color color
+	{
+		get
 		{
-			get
-			{
-				return m_Color;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetColor(ref m_Color, value))
-				{
-					SetVerticesDirty();
-				}
-			}
+			return m_Color;
 		}
-
-		public bool raycastTarget
+		set
 		{
-			get
+			if (SetPropertyUtility.SetColor(ref m_Color, value))
 			{
-				return m_RaycastTarget;
-			}
-			set
-			{
-				m_RaycastTarget = value;
-			}
-		}
-
-		protected bool useLegacyMeshGeneration
-		{
-			get;
-			set;
-		}
-
-		public int depth => canvasRenderer.absoluteDepth;
-
-		public RectTransform rectTransform => m_RectTransform ?? (m_RectTransform = GetComponent<RectTransform>());
-
-		public Canvas canvas
-		{
-			get
-			{
-				if (m_Canvas == null)
-				{
-					CacheCanvas();
-				}
-				return m_Canvas;
-			}
-		}
-
-		public CanvasRenderer canvasRenderer
-		{
-			get
-			{
-				if (m_CanvasRender == null)
-				{
-					m_CanvasRender = GetComponent<CanvasRenderer>();
-				}
-				return m_CanvasRender;
-			}
-		}
-
-		public virtual Material defaultMaterial => defaultGraphicMaterial;
-
-		public virtual Material material
-		{
-			get
-			{
-				return (!(m_Material != null)) ? defaultMaterial : m_Material;
-			}
-			set
-			{
-				if (!(m_Material == value))
-				{
-					m_Material = value;
-					SetMaterialDirty();
-				}
-			}
-		}
-
-		public virtual Material materialForRendering
-		{
-			get
-			{
-				List<Component> list = ListPool<Component>.Get();
-				GetComponents(typeof(IMaterialModifier), list);
-				Material material = this.material;
-				for (int i = 0; i < list.Count; i++)
-				{
-					material = (list[i] as IMaterialModifier).GetModifiedMaterial(material);
-				}
-				ListPool<Component>.Release(list);
-				return material;
-			}
-		}
-
-		public virtual Texture mainTexture => s_WhiteTexture;
-
-		protected static Mesh workerMesh
-		{
-			get
-			{
-				if (s_Mesh == null)
-				{
-					s_Mesh = new Mesh();
-					s_Mesh.name = "Shared UI Mesh";
-					s_Mesh.hideFlags = HideFlags.HideAndDontSave;
-				}
-				return s_Mesh;
-			}
-		}
-
-		protected Graphic()
-		{
-			if (m_ColorTweenRunner == null)
-			{
-				m_ColorTweenRunner = new TweenRunner<ColorTween>();
-			}
-			m_ColorTweenRunner.Init(this);
-			useLegacyMeshGeneration = true;
-		}
-
-		public virtual void SetAllDirty()
-		{
-			SetLayoutDirty();
-			SetVerticesDirty();
-			SetMaterialDirty();
-		}
-
-		public virtual void SetLayoutDirty()
-		{
-			if (IsActive())
-			{
-				LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
-				if (m_OnDirtyLayoutCallback != null)
-				{
-					m_OnDirtyLayoutCallback();
-				}
-			}
-		}
-
-		public virtual void SetVerticesDirty()
-		{
-			if (IsActive())
-			{
-				m_VertsDirty = true;
-				CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
-				if (m_OnDirtyVertsCallback != null)
-				{
-					m_OnDirtyVertsCallback();
-				}
-			}
-		}
-
-		public virtual void SetMaterialDirty()
-		{
-			if (IsActive())
-			{
-				m_MaterialDirty = true;
-				CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
-				if (m_OnDirtyMaterialCallback != null)
-				{
-					m_OnDirtyMaterialCallback();
-				}
-			}
-		}
-
-		protected override void OnRectTransformDimensionsChange()
-		{
-			if (base.gameObject.activeInHierarchy)
-			{
-				if (CanvasUpdateRegistry.IsRebuildingLayout())
-				{
-					SetVerticesDirty();
-					return;
-				}
 				SetVerticesDirty();
-				SetLayoutDirty();
 			}
 		}
+	}
 
-		protected override void OnBeforeTransformParentChanged()
+	public bool raycastTarget
+	{
+		get
 		{
-			GraphicRegistry.UnregisterGraphicForCanvas(canvas, this);
-			LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+			return m_RaycastTarget;
 		}
-
-		protected override void OnTransformParentChanged()
+		set
 		{
-			base.OnTransformParentChanged();
-			if (IsActive())
+			m_RaycastTarget = value;
+		}
+	}
+
+	protected bool useLegacyMeshGeneration { get; set; }
+
+	public int depth => canvasRenderer.absoluteDepth;
+
+	public RectTransform rectTransform => m_RectTransform ?? (m_RectTransform = GetComponent<RectTransform>());
+
+	public Canvas canvas
+	{
+		get
+		{
+			if (m_Canvas == null)
 			{
 				CacheCanvas();
-				GraphicRegistry.RegisterGraphicForCanvas(canvas, this);
-				SetAllDirty();
 			}
+			return m_Canvas;
 		}
+	}
 
-		private void CacheCanvas()
+	public CanvasRenderer canvasRenderer
+	{
+		get
 		{
-			List<Canvas> list = ListPool<Canvas>.Get();
-			base.gameObject.GetComponentsInParent(includeInactive: false, list);
-			if (list.Count > 0)
+			if (m_CanvasRender == null)
 			{
-				m_Canvas = list[0];
+				m_CanvasRender = GetComponent<CanvasRenderer>();
 			}
-			ListPool<Canvas>.Release(list);
+			return m_CanvasRender;
 		}
+	}
 
-		protected override void OnEnable()
+	public virtual Material defaultMaterial => defaultGraphicMaterial;
+
+	public virtual Material material
+	{
+		get
 		{
-			base.OnEnable();
+			return (!(m_Material != null)) ? defaultMaterial : m_Material;
+		}
+		set
+		{
+			if (!(m_Material == value))
+			{
+				m_Material = value;
+				SetMaterialDirty();
+			}
+		}
+	}
+
+	public virtual Material materialForRendering
+	{
+		get
+		{
+			List<Component> list = ListPool<Component>.Get();
+			GetComponents(typeof(IMaterialModifier), list);
+			Material modifiedMaterial = material;
+			for (int i = 0; i < list.Count; i++)
+			{
+				modifiedMaterial = (list[i] as IMaterialModifier).GetModifiedMaterial(modifiedMaterial);
+			}
+			ListPool<Component>.Release(list);
+			return modifiedMaterial;
+		}
+	}
+
+	public virtual Texture mainTexture => s_WhiteTexture;
+
+	protected static Mesh workerMesh
+	{
+		get
+		{
+			if (s_Mesh == null)
+			{
+				s_Mesh = new Mesh();
+				s_Mesh.name = "Shared UI Mesh";
+				s_Mesh.hideFlags = HideFlags.HideAndDontSave;
+			}
+			return s_Mesh;
+		}
+	}
+
+	protected Graphic()
+	{
+		if (m_ColorTweenRunner == null)
+		{
+			m_ColorTweenRunner = new TweenRunner<ColorTween>();
+		}
+		m_ColorTweenRunner.Init(this);
+		useLegacyMeshGeneration = true;
+	}
+
+	public virtual void SetAllDirty()
+	{
+		SetLayoutDirty();
+		SetVerticesDirty();
+		SetMaterialDirty();
+	}
+
+	public virtual void SetLayoutDirty()
+	{
+		if (IsActive())
+		{
+			LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+			if (m_OnDirtyLayoutCallback != null)
+			{
+				m_OnDirtyLayoutCallback();
+			}
+		}
+	}
+
+	public virtual void SetVerticesDirty()
+	{
+		if (IsActive())
+		{
+			m_VertsDirty = true;
+			CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
+			if (m_OnDirtyVertsCallback != null)
+			{
+				m_OnDirtyVertsCallback();
+			}
+		}
+	}
+
+	public virtual void SetMaterialDirty()
+	{
+		if (IsActive())
+		{
+			m_MaterialDirty = true;
+			CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this);
+			if (m_OnDirtyMaterialCallback != null)
+			{
+				m_OnDirtyMaterialCallback();
+			}
+		}
+	}
+
+	protected override void OnRectTransformDimensionsChange()
+	{
+		if (base.gameObject.activeInHierarchy)
+		{
+			if (CanvasUpdateRegistry.IsRebuildingLayout())
+			{
+				SetVerticesDirty();
+				return;
+			}
+			SetVerticesDirty();
+			SetLayoutDirty();
+		}
+	}
+
+	protected override void OnBeforeTransformParentChanged()
+	{
+		GraphicRegistry.UnregisterGraphicForCanvas(canvas, this);
+		LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+	}
+
+	protected override void OnTransformParentChanged()
+	{
+		base.OnTransformParentChanged();
+		if (IsActive())
+		{
 			CacheCanvas();
 			GraphicRegistry.RegisterGraphicForCanvas(canvas, this);
-			if (s_WhiteTexture == null)
-			{
-				s_WhiteTexture = Texture2D.whiteTexture;
-			}
 			SetAllDirty();
 		}
+	}
 
-		protected override void OnDisable()
+	private void CacheCanvas()
+	{
+		List<Canvas> list = ListPool<Canvas>.Get();
+		base.gameObject.GetComponentsInParent(includeInactive: false, list);
+		if (list.Count > 0)
+		{
+			m_Canvas = list[0];
+		}
+		ListPool<Canvas>.Release(list);
+	}
+
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		CacheCanvas();
+		GraphicRegistry.RegisterGraphicForCanvas(canvas, this);
+		if (s_WhiteTexture == null)
+		{
+			s_WhiteTexture = Texture2D.whiteTexture;
+		}
+		SetAllDirty();
+	}
+
+	protected override void OnDisable()
+	{
+		GraphicRegistry.UnregisterGraphicForCanvas(canvas, this);
+		CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
+		if (canvasRenderer != null)
+		{
+			canvasRenderer.Clear();
+		}
+		LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
+		base.OnDisable();
+	}
+
+	protected override void OnCanvasHierarchyChanged()
+	{
+		Canvas canvas = m_Canvas;
+		CacheCanvas();
+		if (canvas != m_Canvas)
 		{
 			GraphicRegistry.UnregisterGraphicForCanvas(canvas, this);
-			CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
-			if (canvasRenderer != null)
-			{
-				canvasRenderer.Clear();
-			}
-			LayoutRebuilder.MarkLayoutForRebuild(rectTransform);
-			base.OnDisable();
+			GraphicRegistry.RegisterGraphicForCanvas(this.canvas, this);
 		}
+	}
 
-		protected override void OnCanvasHierarchyChanged()
+	public virtual void Rebuild(CanvasUpdate update)
+	{
+		if (canvasRenderer.cull)
 		{
-			Canvas canvas = m_Canvas;
-			CacheCanvas();
-			if (canvas != m_Canvas)
-			{
-				GraphicRegistry.UnregisterGraphicForCanvas(canvas, this);
-				GraphicRegistry.RegisterGraphicForCanvas(this.canvas, this);
-			}
+			return;
 		}
-
-		public virtual void Rebuild(CanvasUpdate update)
+		if (update == CanvasUpdate.PreRender)
 		{
-			if (!canvasRenderer.cull && update == CanvasUpdate.PreRender)
+			if (m_VertsDirty)
 			{
-				if (m_VertsDirty)
-				{
-					UpdateGeometry();
-					m_VertsDirty = false;
-				}
-				if (m_MaterialDirty)
-				{
-					UpdateMaterial();
-					m_MaterialDirty = false;
-				}
+				UpdateGeometry();
+				m_VertsDirty = false;
+			}
+			if (m_MaterialDirty)
+			{
+				UpdateMaterial();
+				m_MaterialDirty = false;
 			}
 		}
+	}
 
-		public virtual void LayoutComplete()
+	public virtual void LayoutComplete()
+	{
+	}
+
+	public virtual void GraphicUpdateComplete()
+	{
+	}
+
+	protected virtual void UpdateMaterial()
+	{
+		if (IsActive())
 		{
+			canvasRenderer.materialCount = 1;
+			canvasRenderer.SetMaterial(materialForRendering, 0);
+			canvasRenderer.SetTexture(mainTexture);
 		}
+	}
 
-		public virtual void GraphicUpdateComplete()
+	protected virtual void UpdateGeometry()
+	{
+		if (useLegacyMeshGeneration)
 		{
+			DoLegacyMeshGeneration();
 		}
-
-		protected virtual void UpdateMaterial()
+		else
 		{
-			if (IsActive())
-			{
-				canvasRenderer.materialCount = 1;
-				canvasRenderer.SetMaterial(materialForRendering, 0);
-				canvasRenderer.SetTexture(mainTexture);
-			}
+			DoMeshGeneration();
 		}
+	}
 
-		protected virtual void UpdateGeometry()
-		{
-			if (useLegacyMeshGeneration)
-			{
-				DoLegacyMeshGeneration();
-			}
-			else
-			{
-				DoMeshGeneration();
-			}
-		}
-
-		private void DoMeshGeneration()
-		{
-			if (rectTransform != null && rectTransform.rect.width >= 0f && rectTransform.rect.height >= 0f)
-			{
-				OnPopulateMesh(s_VertexHelper);
-			}
-			else
-			{
-				s_VertexHelper.Clear();
-			}
-			List<Component> list = ListPool<Component>.Get();
-			GetComponents(typeof(IMeshModifier), list);
-			for (int i = 0; i < list.Count; i++)
-			{
-				((IMeshModifier)list[i]).ModifyMesh(s_VertexHelper);
-			}
-			ListPool<Component>.Release(list);
-			s_VertexHelper.FillMesh(workerMesh);
-			canvasRenderer.SetMesh(workerMesh);
-		}
-
-		private void DoLegacyMeshGeneration()
-		{
-			if (rectTransform != null && rectTransform.rect.width >= 0f && rectTransform.rect.height >= 0f)
-			{
-				OnPopulateMesh(workerMesh);
-			}
-			else
-			{
-				workerMesh.Clear();
-			}
-			List<Component> list = ListPool<Component>.Get();
-			GetComponents(typeof(IMeshModifier), list);
-			for (int i = 0; i < list.Count; i++)
-			{
-				((IMeshModifier)list[i]).ModifyMesh(workerMesh);
-			}
-			ListPool<Component>.Release(list);
-			canvasRenderer.SetMesh(workerMesh);
-		}
-
-		[Obsolete("Use OnPopulateMesh instead.", true)]
-		protected virtual void OnFillVBO(List<UIVertex> vbo)
-		{
-		}
-
-		[Obsolete("Use OnPopulateMesh(VertexHelper vh) instead.", false)]
-		protected virtual void OnPopulateMesh(Mesh m)
+	private void DoMeshGeneration()
+	{
+		if (rectTransform != null && rectTransform.rect.width >= 0f && rectTransform.rect.height >= 0f)
 		{
 			OnPopulateMesh(s_VertexHelper);
-			s_VertexHelper.FillMesh(m);
 		}
-
-		protected virtual void OnPopulateMesh(VertexHelper vh)
+		else
 		{
-			Rect pixelAdjustedRect = GetPixelAdjustedRect();
-			Vector4 vector = new Vector4(pixelAdjustedRect.x, pixelAdjustedRect.y, pixelAdjustedRect.x + pixelAdjustedRect.width, pixelAdjustedRect.y + pixelAdjustedRect.height);
-			Color32 color = this.color;
-			vh.Clear();
-			vh.AddVert(new Vector3(vector.x, vector.y), color, new Vector2(0f, 0f));
-			vh.AddVert(new Vector3(vector.x, vector.w), color, new Vector2(0f, 1f));
-			vh.AddVert(new Vector3(vector.z, vector.w), color, new Vector2(1f, 1f));
-			vh.AddVert(new Vector3(vector.z, vector.y), color, new Vector2(1f, 0f));
-			vh.AddTriangle(0, 1, 2);
-			vh.AddTriangle(2, 3, 0);
+			s_VertexHelper.Clear();
 		}
-
-		protected override void OnDidApplyAnimationProperties()
+		List<Component> list = ListPool<Component>.Get();
+		GetComponents(typeof(IMeshModifier), list);
+		for (int i = 0; i < list.Count; i++)
 		{
-			SetAllDirty();
+			((IMeshModifier)list[i]).ModifyMesh(s_VertexHelper);
 		}
+		ListPool<Component>.Release(list);
+		s_VertexHelper.FillMesh(workerMesh);
+		canvasRenderer.SetMesh(workerMesh);
+	}
 
-		public virtual void SetNativeSize()
+	private void DoLegacyMeshGeneration()
+	{
+		if (rectTransform != null && rectTransform.rect.width >= 0f && rectTransform.rect.height >= 0f)
 		{
+			OnPopulateMesh(workerMesh);
 		}
-
-		public virtual bool Raycast(Vector2 sp, Camera eventCamera)
+		else
 		{
-			if (!base.isActiveAndEnabled)
+			workerMesh.Clear();
+		}
+		List<Component> list = ListPool<Component>.Get();
+		GetComponents(typeof(IMeshModifier), list);
+		for (int i = 0; i < list.Count; i++)
+		{
+			((IMeshModifier)list[i]).ModifyMesh(workerMesh);
+		}
+		ListPool<Component>.Release(list);
+		canvasRenderer.SetMesh(workerMesh);
+	}
+
+	[Obsolete("Use OnPopulateMesh instead.", true)]
+	protected virtual void OnFillVBO(List<UIVertex> vbo)
+	{
+	}
+
+	[Obsolete("Use OnPopulateMesh(VertexHelper vh) instead.", false)]
+	protected virtual void OnPopulateMesh(Mesh m)
+	{
+		OnPopulateMesh(s_VertexHelper);
+		s_VertexHelper.FillMesh(m);
+	}
+
+	protected virtual void OnPopulateMesh(VertexHelper vh)
+	{
+		Rect pixelAdjustedRect = GetPixelAdjustedRect();
+		Vector4 vector = new Vector4(pixelAdjustedRect.x, pixelAdjustedRect.y, pixelAdjustedRect.x + pixelAdjustedRect.width, pixelAdjustedRect.y + pixelAdjustedRect.height);
+		Color32 color = this.color;
+		vh.Clear();
+		vh.AddVert(new Vector3(vector.x, vector.y), color, new Vector2(0f, 0f));
+		vh.AddVert(new Vector3(vector.x, vector.w), color, new Vector2(0f, 1f));
+		vh.AddVert(new Vector3(vector.z, vector.w), color, new Vector2(1f, 1f));
+		vh.AddVert(new Vector3(vector.z, vector.y), color, new Vector2(1f, 0f));
+		vh.AddTriangle(0, 1, 2);
+		vh.AddTriangle(2, 3, 0);
+	}
+
+	protected override void OnDidApplyAnimationProperties()
+	{
+		SetAllDirty();
+	}
+
+	public virtual void SetNativeSize()
+	{
+	}
+
+	public virtual bool Raycast(Vector2 sp, Camera eventCamera)
+	{
+		if (!base.isActiveAndEnabled)
+		{
+			return false;
+		}
+		Transform parent = base.transform;
+		List<Component> list = ListPool<Component>.Get();
+		bool flag = false;
+		while (parent != null)
+		{
+			parent.GetComponents(list);
+			for (int i = 0; i < list.Count; i++)
 			{
-				return false;
-			}
-			Transform transform = base.transform;
-			List<Component> list = ListPool<Component>.Get();
-			bool flag = false;
-			while (transform != null)
-			{
-				transform.GetComponents(list);
-				for (int i = 0; i < list.Count; i++)
+				if (!(list[i] is ICanvasRaycastFilter canvasRaycastFilter))
 				{
-					ICanvasRaycastFilter canvasRaycastFilter = list[i] as ICanvasRaycastFilter;
-					if (canvasRaycastFilter == null)
+					continue;
+				}
+				bool flag2 = true;
+				CanvasGroup canvasGroup = list[i] as CanvasGroup;
+				if (canvasGroup != null)
+				{
+					if (!flag && canvasGroup.ignoreParentGroups)
 					{
-						continue;
+						flag = true;
+						flag2 = canvasRaycastFilter.IsRaycastLocationValid(sp, eventCamera);
 					}
-					bool flag2 = true;
-					CanvasGroup canvasGroup = list[i] as CanvasGroup;
-					if (canvasGroup != null)
-					{
-						if (!flag && canvasGroup.ignoreParentGroups)
-						{
-							flag = true;
-							flag2 = canvasRaycastFilter.IsRaycastLocationValid(sp, eventCamera);
-						}
-						else if (!flag)
-						{
-							flag2 = canvasRaycastFilter.IsRaycastLocationValid(sp, eventCamera);
-						}
-					}
-					else
+					else if (!flag)
 					{
 						flag2 = canvasRaycastFilter.IsRaycastLocationValid(sp, eventCamera);
 					}
-					if (!flag2)
-					{
-						ListPool<Component>.Release(list);
-						return false;
-					}
 				}
-				transform = transform.parent;
+				else
+				{
+					flag2 = canvasRaycastFilter.IsRaycastLocationValid(sp, eventCamera);
+				}
+				if (!flag2)
+				{
+					ListPool<Component>.Release(list);
+					return false;
+				}
 			}
-			ListPool<Component>.Release(list);
-			return true;
+			parent = parent.parent;
 		}
+		ListPool<Component>.Release(list);
+		return true;
+	}
 
-		public Vector2 PixelAdjustPoint(Vector2 point)
+	public Vector2 PixelAdjustPoint(Vector2 point)
+	{
+		if (!canvas || !canvas.pixelPerfect)
 		{
-			if (!canvas || !canvas.pixelPerfect)
+			return point;
+		}
+		return RectTransformUtility.PixelAdjustPoint(point, base.transform, canvas);
+	}
+
+	public Rect GetPixelAdjustedRect()
+	{
+		if (!canvas || !canvas.pixelPerfect)
+		{
+			return rectTransform.rect;
+		}
+		return RectTransformUtility.PixelAdjustRect(rectTransform, canvas);
+	}
+
+	public void CrossFadeColor(Color targetColor, float duration, bool ignoreTimeScale, bool useAlpha)
+	{
+		CrossFadeColor(targetColor, duration, ignoreTimeScale, useAlpha, useRGB: true);
+	}
+
+	private void CrossFadeColor(Color targetColor, float duration, bool ignoreTimeScale, bool useAlpha, bool useRGB)
+	{
+		if (!(canvasRenderer == null) && (useRGB || useAlpha) && !canvasRenderer.GetColor().Equals(targetColor))
+		{
+			ColorTween.ColorTweenMode tweenMode = ((!useRGB || !useAlpha) ? (useRGB ? ColorTween.ColorTweenMode.RGB : ColorTween.ColorTweenMode.Alpha) : ColorTween.ColorTweenMode.All);
+			ColorTween info = new ColorTween
 			{
-				return point;
-			}
-			return RectTransformUtility.PixelAdjustPoint(point, base.transform, canvas);
+				duration = duration,
+				startColor = canvasRenderer.GetColor(),
+				targetColor = targetColor
+			};
+			info.AddOnChangedCallback(canvasRenderer.SetColor);
+			info.ignoreTimeScale = ignoreTimeScale;
+			info.tweenMode = tweenMode;
+			m_ColorTweenRunner.StartTween(info);
 		}
+	}
 
-		public Rect GetPixelAdjustedRect()
-		{
-			if (!canvas || !canvas.pixelPerfect)
-			{
-				return rectTransform.rect;
-			}
-			return RectTransformUtility.PixelAdjustRect(rectTransform, canvas);
-		}
+	private static Color CreateColorFromAlpha(float alpha)
+	{
+		Color black = Color.black;
+		black.a = alpha;
+		return black;
+	}
 
-		public void CrossFadeColor(Color targetColor, float duration, bool ignoreTimeScale, bool useAlpha)
-		{
-			CrossFadeColor(targetColor, duration, ignoreTimeScale, useAlpha, useRGB: true);
-		}
+	public void CrossFadeAlpha(float alpha, float duration, bool ignoreTimeScale)
+	{
+		CrossFadeColor(CreateColorFromAlpha(alpha), duration, ignoreTimeScale, useAlpha: true, useRGB: false);
+	}
 
-		private void CrossFadeColor(Color targetColor, float duration, bool ignoreTimeScale, bool useAlpha, bool useRGB)
-		{
-			if (!(canvasRenderer == null) && (useRGB || useAlpha) && !canvasRenderer.GetColor().Equals(targetColor))
-			{
-				ColorTween.ColorTweenMode tweenMode = (!useRGB || !useAlpha) ? (useRGB ? ColorTween.ColorTweenMode.RGB : ColorTween.ColorTweenMode.Alpha) : ColorTween.ColorTweenMode.All;
-				ColorTween colorTween = default(ColorTween);
-				colorTween.duration = duration;
-				colorTween.startColor = canvasRenderer.GetColor();
-				colorTween.targetColor = targetColor;
-				ColorTween info = colorTween;
-				info.AddOnChangedCallback(canvasRenderer.SetColor);
-				info.ignoreTimeScale = ignoreTimeScale;
-				info.tweenMode = tweenMode;
-				m_ColorTweenRunner.StartTween(info);
-			}
-		}
+	public void RegisterDirtyLayoutCallback(UnityAction action)
+	{
+		m_OnDirtyLayoutCallback = (UnityAction)Delegate.Combine(m_OnDirtyLayoutCallback, action);
+	}
 
-		private static Color CreateColorFromAlpha(float alpha)
-		{
-			Color black = Color.black;
-			black.a = alpha;
-			return black;
-		}
+	public void UnregisterDirtyLayoutCallback(UnityAction action)
+	{
+		m_OnDirtyLayoutCallback = (UnityAction)Delegate.Remove(m_OnDirtyLayoutCallback, action);
+	}
 
-		public void CrossFadeAlpha(float alpha, float duration, bool ignoreTimeScale)
-		{
-			CrossFadeColor(CreateColorFromAlpha(alpha), duration, ignoreTimeScale, useAlpha: true, useRGB: false);
-		}
+	public void RegisterDirtyVerticesCallback(UnityAction action)
+	{
+		m_OnDirtyVertsCallback = (UnityAction)Delegate.Combine(m_OnDirtyVertsCallback, action);
+	}
 
-		public void RegisterDirtyLayoutCallback(UnityAction action)
-		{
-			m_OnDirtyLayoutCallback = (UnityAction)Delegate.Combine(m_OnDirtyLayoutCallback, action);
-		}
+	public void UnregisterDirtyVerticesCallback(UnityAction action)
+	{
+		m_OnDirtyVertsCallback = (UnityAction)Delegate.Remove(m_OnDirtyVertsCallback, action);
+	}
 
-		public void UnregisterDirtyLayoutCallback(UnityAction action)
-		{
-			m_OnDirtyLayoutCallback = (UnityAction)Delegate.Remove(m_OnDirtyLayoutCallback, action);
-		}
+	public void RegisterDirtyMaterialCallback(UnityAction action)
+	{
+		m_OnDirtyMaterialCallback = (UnityAction)Delegate.Combine(m_OnDirtyMaterialCallback, action);
+	}
 
-		public void RegisterDirtyVerticesCallback(UnityAction action)
-		{
-			m_OnDirtyVertsCallback = (UnityAction)Delegate.Combine(m_OnDirtyVertsCallback, action);
-		}
+	public void UnregisterDirtyMaterialCallback(UnityAction action)
+	{
+		m_OnDirtyMaterialCallback = (UnityAction)Delegate.Remove(m_OnDirtyMaterialCallback, action);
+	}
 
-		public void UnregisterDirtyVerticesCallback(UnityAction action)
-		{
-			m_OnDirtyVertsCallback = (UnityAction)Delegate.Remove(m_OnDirtyVertsCallback, action);
-		}
+	virtual bool ICanvasElement.IsDestroyed()
+	{
+		return IsDestroyed();
+	}
 
-		public void RegisterDirtyMaterialCallback(UnityAction action)
-		{
-			m_OnDirtyMaterialCallback = (UnityAction)Delegate.Combine(m_OnDirtyMaterialCallback, action);
-		}
-
-		public void UnregisterDirtyMaterialCallback(UnityAction action)
-		{
-			m_OnDirtyMaterialCallback = (UnityAction)Delegate.Remove(m_OnDirtyMaterialCallback, action);
-		}
-
-		bool ICanvasElement.IsDestroyed()
-		{
-			return IsDestroyed();
-		}
-
-		Transform ICanvasElement.transform
-        {
-            get
-            {
-                return base.transform;
-            }
-        }
+	virtual Transform ICanvasElement.get_transform()
+	{
+		return base.transform;
 	}
 }

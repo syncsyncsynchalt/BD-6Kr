@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IPointerDownHandler : IEventSystemHandler
 {
-	public interface IPointerDownHandler : IEventSystemHandler
-	{
-		void OnPointerDown(PointerEventData eventData);
-	}
+	void OnPointerDown(PointerEventData eventData);
 }

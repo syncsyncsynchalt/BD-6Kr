@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IEndDragHandler : IEventSystemHandler
 {
-	public interface IEndDragHandler : IEventSystemHandler
-	{
-		void OnEndDrag(PointerEventData eventData);
-	}
+	void OnEndDrag(PointerEventData eventData);
 }

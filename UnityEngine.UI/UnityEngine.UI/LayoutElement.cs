@@ -1,185 +1,184 @@
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[RequireComponent(typeof(RectTransform))]
+[ExecuteInEditMode]
+[AddComponentMenu("Layout/Layout Element", 140)]
+public class LayoutElement : UIBehaviour, ILayoutElement, ILayoutIgnorer
 {
-	[RequireComponent(typeof(RectTransform))]
-	[ExecuteInEditMode]
-	[AddComponentMenu("Layout/Layout Element", 140)]
-	public class LayoutElement : UIBehaviour, ILayoutElement, ILayoutIgnorer
+	[SerializeField]
+	private bool m_IgnoreLayout;
+
+	[SerializeField]
+	private float m_MinWidth = -1f;
+
+	[SerializeField]
+	private float m_MinHeight = -1f;
+
+	[SerializeField]
+	private float m_PreferredWidth = -1f;
+
+	[SerializeField]
+	private float m_PreferredHeight = -1f;
+
+	[SerializeField]
+	private float m_FlexibleWidth = -1f;
+
+	[SerializeField]
+	private float m_FlexibleHeight = -1f;
+
+	public virtual bool ignoreLayout
 	{
-		[SerializeField]
-		private bool m_IgnoreLayout;
-
-		[SerializeField]
-		private float m_MinWidth = -1f;
-
-		[SerializeField]
-		private float m_MinHeight = -1f;
-
-		[SerializeField]
-		private float m_PreferredWidth = -1f;
-
-		[SerializeField]
-		private float m_PreferredHeight = -1f;
-
-		[SerializeField]
-		private float m_FlexibleWidth = -1f;
-
-		[SerializeField]
-		private float m_FlexibleHeight = -1f;
-
-		public virtual bool ignoreLayout
+		get
 		{
-			get
+			return m_IgnoreLayout;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_IgnoreLayout, value))
 			{
-				return m_IgnoreLayout;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_IgnoreLayout, value))
-				{
-					SetDirty();
-				}
+				SetDirty();
 			}
 		}
+	}
 
-		public virtual float minWidth
+	public virtual float minWidth
+	{
+		get
 		{
-			get
-			{
-				return m_MinWidth;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_MinWidth, value))
-				{
-					SetDirty();
-				}
-			}
+			return m_MinWidth;
 		}
-
-		public virtual float minHeight
+		set
 		{
-			get
+			if (SetPropertyUtility.SetStruct(ref m_MinWidth, value))
 			{
-				return m_MinHeight;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_MinHeight, value))
-				{
-					SetDirty();
-				}
+				SetDirty();
 			}
 		}
+	}
 
-		public virtual float preferredWidth
+	public virtual float minHeight
+	{
+		get
 		{
-			get
-			{
-				return m_PreferredWidth;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_PreferredWidth, value))
-				{
-					SetDirty();
-				}
-			}
+			return m_MinHeight;
 		}
-
-		public virtual float preferredHeight
+		set
 		{
-			get
+			if (SetPropertyUtility.SetStruct(ref m_MinHeight, value))
 			{
-				return m_PreferredHeight;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_PreferredHeight, value))
-				{
-					SetDirty();
-				}
+				SetDirty();
 			}
 		}
+	}
 
-		public virtual float flexibleWidth
+	public virtual float preferredWidth
+	{
+		get
 		{
-			get
-			{
-				return m_FlexibleWidth;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_FlexibleWidth, value))
-				{
-					SetDirty();
-				}
-			}
+			return m_PreferredWidth;
 		}
-
-		public virtual float flexibleHeight
+		set
 		{
-			get
+			if (SetPropertyUtility.SetStruct(ref m_PreferredWidth, value))
 			{
-				return m_FlexibleHeight;
-			}
-			set
-			{
-				if (SetPropertyUtility.SetStruct(ref m_FlexibleHeight, value))
-				{
-					SetDirty();
-				}
+				SetDirty();
 			}
 		}
+	}
 
-		public virtual int layoutPriority => 1;
-
-		protected LayoutElement()
+	public virtual float preferredHeight
+	{
+		get
 		{
+			return m_PreferredHeight;
 		}
-
-		public virtual void CalculateLayoutInputHorizontal()
+		set
 		{
-		}
-
-		public virtual void CalculateLayoutInputVertical()
-		{
-		}
-
-		protected override void OnEnable()
-		{
-			base.OnEnable();
-			SetDirty();
-		}
-
-		protected override void OnTransformParentChanged()
-		{
-			SetDirty();
-		}
-
-		protected override void OnDisable()
-		{
-			SetDirty();
-			base.OnDisable();
-		}
-
-		protected override void OnDidApplyAnimationProperties()
-		{
-			SetDirty();
-		}
-
-		protected override void OnBeforeTransformParentChanged()
-		{
-			SetDirty();
-		}
-
-		protected void SetDirty()
-		{
-			if (IsActive())
+			if (SetPropertyUtility.SetStruct(ref m_PreferredHeight, value))
 			{
-				LayoutRebuilder.MarkLayoutForRebuild(base.transform as RectTransform);
+				SetDirty();
 			}
+		}
+	}
+
+	public virtual float flexibleWidth
+	{
+		get
+		{
+			return m_FlexibleWidth;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_FlexibleWidth, value))
+			{
+				SetDirty();
+			}
+		}
+	}
+
+	public virtual float flexibleHeight
+	{
+		get
+		{
+			return m_FlexibleHeight;
+		}
+		set
+		{
+			if (SetPropertyUtility.SetStruct(ref m_FlexibleHeight, value))
+			{
+				SetDirty();
+			}
+		}
+	}
+
+	public virtual int layoutPriority => 1;
+
+	protected LayoutElement()
+	{
+	}
+
+	public virtual void CalculateLayoutInputHorizontal()
+	{
+	}
+
+	public virtual void CalculateLayoutInputVertical()
+	{
+	}
+
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		SetDirty();
+	}
+
+	protected override void OnTransformParentChanged()
+	{
+		SetDirty();
+	}
+
+	protected override void OnDisable()
+	{
+		SetDirty();
+		base.OnDisable();
+	}
+
+	protected override void OnDidApplyAnimationProperties()
+	{
+		SetDirty();
+	}
+
+	protected override void OnBeforeTransformParentChanged()
+	{
+		SetDirty();
+	}
+
+	protected void SetDirty()
+	{
+		if (IsActive())
+		{
+			LayoutRebuilder.MarkLayoutForRebuild(base.transform as RectTransform);
 		}
 	}
 }

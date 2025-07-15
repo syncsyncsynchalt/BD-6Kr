@@ -1,7 +1,6 @@
-namespace UnityEngine.EventSystems
+namespace UnityEngine.EventSystems;
+
+public interface IDropHandler : IEventSystemHandler
 {
-	public interface IDropHandler : IEventSystemHandler
-	{
-		void OnDrop(PointerEventData eventData);
-	}
+	void OnDrop(PointerEventData eventData);
 }

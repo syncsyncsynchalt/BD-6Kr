@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI
+namespace UnityEngine.UI;
+
+[Obsolete("Use BaseMeshEffect instead", true)]
+public abstract class BaseVertexEffect
 {
-	[Obsolete("Use BaseMeshEffect instead", true)]
-	public abstract class BaseVertexEffect
-	{
-		[Obsolete("Use BaseMeshEffect.ModifyMeshes instead", true)]
-		public abstract void ModifyVertices(List<UIVertex> vertices);
-	}
+	[Obsolete("Use BaseMeshEffect.ModifyMeshes instead", true)]
+	public abstract void ModifyVertices(List<UIVertex> vertices);
 }
