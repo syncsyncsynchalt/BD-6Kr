@@ -99,7 +99,7 @@ namespace Runner
             Console.WriteLine("  提督情報の初期化を開始...");
             Console.WriteLine($"  難易度: {DifficultKind.OTU}");
             Console.WriteLine($"  提督名: 新米提督");
-            Console.WriteLine($"  初期艦娘: {FleetPrinter.ShipName(9)} (ID: 9)");
+            Console.WriteLine($"  初期艦娘: {BattlePrinter.GetShipName(9)} (ID: 9)");
             bool success = App.CreateSaveDataNInitialize(
                 "新米提督",
                 9,
@@ -194,26 +194,19 @@ namespace Runner
                 Console.WriteLine("\n出撃準備とマップ選択");
                 Console.WriteLine($"  エリア{mapArea}のマップ{mapArea}-{mapNo}を選択");
                 Console.WriteLine($"\n戦闘実行: {sorties[i]}");
-                var battleResult = _battleHelper.ExecuteBattle(mapArea, mapNo, BattleFormationKinds1.TanJuu, true);
-                if (battleResult.Success)
+
+                // 戦闘進行の表示と制御
+                ExecuteBattleWithDisplay(mapArea, mapNo, sorties[i]);
+
+                if (i == 0)
                 {
-                    BattlePrinter.PrintBattleResult(battleResult.BattleResultModel);
-                    Console.WriteLine($"  {sorties[i]}戦闘完了！");
-                    if (i == 0)
+                    var deck1 = local.managers.ManagerBase.PublicUserInfo.GetDeck(1); // 第1艦隊
+                    var flagship1 = deck1?.GetFlagShip();
+                    if (flagship1 != null && flagship1.IsTaiha())
                     {
-                        var deck1 = local.managers.ManagerBase.PublicUserInfo.GetDeck(1); // 第1艦隊
-                        var flagship1 = deck1?.GetFlagShip();
-                        if (flagship1 != null && flagship1.IsTaiha())
-                        {
-                            Console.WriteLine("\n旗艦が大破したため、艦隊は帰投します。5-2戦闘はスキップされました。");
-                            break;
-                        }
+                        Console.WriteLine("\n旗艦が大破したため、艦隊は帰投します。5-2戦闘はスキップされました。");
+                        break;
                     }
-                }
-                else
-                {
-                    Console.WriteLine($"  {sorties[i]}戦闘に失敗しました: {battleResult.ErrorMessage}");
-                    break;
                 }
             }
         }
@@ -250,7 +243,7 @@ namespace Runner
             Console.WriteLine("  追加の艦娘を配備中...");
             _debugMod.Add_Ship(shipIds);
             Console.WriteLine($"  追加艦娘: {shipIds.Count}隻");
-            shipIds.ForEach(shipId => Console.WriteLine($"    - {FleetPrinter.ShipName(shipId)} (ID: {shipId})"));
+            shipIds.ForEach(shipId => Console.WriteLine($"    - {BattlePrinter.GetShipName(shipId)} (ID: {shipId})"));
         }
 
         /// <summary>
@@ -275,5 +268,33 @@ namespace Runner
         /// </summary>
         /// <returns>デフォルトの追加艦娘IDリスト</returns>
         private List<int> GetDefaultAdditionalShips() => new List<int> { 24, 175, 117, 75, 321 };
+
+        /// <summary>
+        /// 戦闘実行と進行表示を統合したメソッド
+        /// </summary>
+        /// <param name="mapArea">エリアID</param>
+        /// <param name="mapNo">マップ番号</param>
+        /// <param name="sortieId">出撃ID</param>
+        private void ExecuteBattleWithDisplay(int mapArea, int mapNo, string sortieId)
+        {
+            // 戦闘実行開始の表示
+            BattlePrinter.PrintBattleExecutionStart();
+            Console.WriteLine($"戦闘開始: {sortieId} (エリア{mapArea}-{mapNo})");
+
+            // 戦闘実行
+            var battleResult = _battleHelper.ExecuteBattle(mapArea, mapNo, BattleFormationKinds1.TanJuu, true, true);
+
+            if (battleResult.Success)
+            {
+                // 戦闘成功時の表示
+                BattlePrinter.PrintDetailedBattleResult(battleResult.BattleResultModel);
+                Console.WriteLine($"  {sortieId}戦闘完了！");
+            }
+            else
+            {
+                // 戦闘失敗時の表示
+                Console.WriteLine($"  {sortieId}戦闘に失敗しました: {battleResult.ErrorMessage}");
+            }
+        }
     }
 }
