@@ -12,7 +12,7 @@ namespace local.managers
 {
 	public abstract class SortieBattleManagerBase : BattleManager
 	{
-		protected Api_req_SortieBattle _reqBattle;
+		public Api_req_SortieBattle _reqBattle;
 
 		private BattleResultModel _cache_result;
 
